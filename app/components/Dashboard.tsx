@@ -3,18 +3,26 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 
+const DailyBrief = dynamic(() => import('./tabs/DailyBrief'), { ssr: false })
 const MacroRegime = dynamic(() => import('./tabs/MacroRegime'), { ssr: false })
 const BTCCycle = dynamic(() => import('./tabs/BTCCycle'), { ssr: false })
+const CryptoDerivs = dynamic(() => import('./tabs/CryptoDerivs'), { ssr: false })
 const PerpShorts = dynamic(() => import('./tabs/PerpShorts'), { ssr: false })
+const AltcoinSqueeze = dynamic(() => import('./tabs/AltcoinSqueeze'), { ssr: false })
+const AIStocks = dynamic(() => import('./tabs/AIStocks'), { ssr: false })
 const OptionsFlow = dynamic(() => import('./tabs/OptionsFlow'), { ssr: false })
 const TradeTracker = dynamic(() => import('./tabs/TradeTracker'), { ssr: false })
 
 const TABS = [
-  { id: 0, label: '🌍 Macro Regime', short: 'Macro' },
-  { id: 1, label: '₿ BTC Cycle', short: 'Cycle' },
-  { id: 2, label: '📉 Short Signals', short: 'Shorts' },
-  { id: 3, label: '📊 Options Flow', short: 'Options' },
-  { id: 4, label: '💰 Trade Tracker', short: 'Tracker' },
+  { id: 0, label: '📋 Daily Brief', short: 'Brief' },
+  { id: 1, label: '🌍 Macro Regime', short: 'Macro' },
+  { id: 2, label: '₿ BTC Cycle', short: 'Cycle' },
+  { id: 3, label: '⚡ Perps & Futures', short: 'Perps' },
+  { id: 4, label: '📉 Short Signals', short: 'Shorts' },
+  { id: 5, label: '🪙 Altcoin Squeeze', short: 'Alts' },
+  { id: 6, label: '🤖 AI Stocks', short: 'AI' },
+  { id: 7, label: '📊 Options Flow', short: 'Options' },
+  { id: 8, label: '💰 Trade Tracker', short: 'Tracker' },
 ]
 
 export default function Dashboard() {
@@ -74,7 +82,7 @@ export default function Dashboard() {
           {/* Logo */}
           <div className="flex items-center gap-2 mr-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-sm font-black">⚡</div>
-            <span className="font-black text-sm text-slate-100 hidden sm:block">CYCLE EDGE</span>
+            <span className="font-black text-sm text-slate-100 hidden sm:block">EDGE TERMINAL</span>
           </div>
 
           {/* BTC Price */}
@@ -135,17 +143,21 @@ export default function Dashboard() {
 
       {/* Tab Content */}
       <main className="flex-1 overflow-auto p-4 lg:p-6">
-        {activeTab === 0 && <MacroRegime />}
-        {activeTab === 1 && <BTCCycle onBottomScore={setBottomScore} />}
-        {activeTab === 2 && <PerpShorts regimeScore={regimeScore} bottomScore={bottomScore} />}
-        {activeTab === 3 && <OptionsFlow />}
-        {activeTab === 4 && <TradeTracker />}
+        {activeTab === 0 && <DailyBrief />}
+        {activeTab === 1 && <MacroRegime />}
+        {activeTab === 2 && <BTCCycle onBottomScore={setBottomScore} />}
+        {activeTab === 3 && <CryptoDerivs />}
+        {activeTab === 4 && <PerpShorts regimeScore={regimeScore} bottomScore={bottomScore} />}
+        {activeTab === 5 && <AltcoinSqueeze />}
+        {activeTab === 6 && <AIStocks />}
+        {activeTab === 7 && <OptionsFlow />}
+        {activeTab === 8 && <TradeTracker />}
       </main>
 
       {/* Footer */}
       <footer className="border-t border-slate-800 px-4 py-2 text-xs text-slate-600 flex justify-between flex-wrap gap-2">
         <span>⚠️ Educational tool only — not financial advice. Always use stop-losses and risk 2% max per trade.</span>
-        <span>$4K → $50K Challenge · Strategy validated 2018-2026 · 87.3% probability</span>
+        <span>BTC · Altcoins · AI Bottleneck Stocks · Perps + Options · Live</span>
       </footer>
     </div>
   )

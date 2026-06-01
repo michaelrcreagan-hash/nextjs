@@ -76,8 +76,68 @@ export function calculateADX(highs: number[], lows: number[], closes: number[], 
   return adx
 }
 
+// Directional Movement Index — returns smoothed +DI, -DI and ADX series
+export function calculateDMI(highs: number[], lows: number[], closes: number[], period = 14) {
+  const n = closes.length
+  const plusDI: number[] = new Array(n).fill(NaN)
+  const minusDI: number[] = new Array(n).fill(NaN)
+  const adx: number[] = new Array(n).fill(NaN)
+  if (n < period + 2) return { plusDI, minusDI, adx }
+
+  const tr: number[] = [], pdm: number[] = [], mdm: number[] = []
+  for (let i = 1; i < n; i++) {
+    const up = highs[i] - highs[i - 1], dn = lows[i - 1] - lows[i]
+    pdm.push(up > dn && up > 0 ? up : 0)
+    mdm.push(dn > up && dn > 0 ? dn : 0)
+    tr.push(Math.max(highs[i] - lows[i], Math.abs(highs[i] - closes[i - 1]), Math.abs(lows[i] - closes[i - 1])))
+  }
+  let sTR = tr.slice(0, period).reduce((a, b) => a + b, 0)
+  let sPDM = pdm.slice(0, period).reduce((a, b) => a + b, 0)
+  let sMDM = mdm.slice(0, period).reduce((a, b) => a + b, 0)
+  let prevADX = NaN
+  for (let i = period; i < tr.length; i++) {
+    sTR = sTR - sTR / period + tr[i]
+    sPDM = sPDM - sPDM / period + pdm[i]
+    sMDM = sMDM - sMDM / period + mdm[i]
+    const pDI = sTR === 0 ? 0 : (sPDM / sTR) * 100
+    const mDI = sTR === 0 ? 0 : (sMDM / sTR) * 100
+    const dx = (pDI + mDI) === 0 ? 0 : (Math.abs(pDI - mDI) / (pDI + mDI)) * 100
+    prevADX = isNaN(prevADX) ? dx : (prevADX * (period - 1) + dx) / period
+    plusDI[i + 1] = pDI
+    minusDI[i + 1] = mDI
+    adx[i + 1] = prevADX
+  }
+  return { plusDI, minusDI, adx }
+}
+
+// Average True Range
+export function calculateATR(highs: number[], lows: number[], closes: number[], period = 14): number[] {
+  const n = closes.length
+  const out: number[] = new Array(n).fill(NaN)
+  if (n < period + 1) return out
+  const tr: number[] = [0]
+  for (let i = 1; i < n; i++) {
+    tr.push(Math.max(highs[i] - lows[i], Math.abs(highs[i] - closes[i - 1]), Math.abs(lows[i] - closes[i - 1])))
+  }
+  let atr = tr.slice(1, period + 1).reduce((a, b) => a + b, 0) / period
+  out[period] = atr
+  for (let i = period + 1; i < n; i++) {
+    atr = (atr * (period - 1) + tr[i]) / period
+    out[i] = atr
+  }
+  return out
+}
+
+// Relative Volume — latest volume vs trailing average (excludes current bar)
+export function calculateRVOL(volumes: number[], period = 20): number {
+  if (volumes.length < period + 1) return 1
+  const avg = volumes.slice(-period - 1, -1).reduce((a, b) => a + b, 0) / period
+  return avg === 0 ? 1 : last(volumes) / avg
+}
+
 export function last<T>(arr: T[]): T { return arr[arr.length - 1] }
 export function lastN<T>(arr: T[], n: number): T[] { return arr.slice(-n) }
+export function lastValid(arr: number[]): number { for (let i = arr.length - 1; i >= 0; i--) if (!isNaN(arr[i])) return arr[i]; return NaN }
 
 export interface Kline {
   time: number

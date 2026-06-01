@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cycle Edge Dashboard — BTC $4K→$50K",
-  description: "Live BTC trading dashboard: Macro Regime Monitor, BTC Cycle Bottom Detector, Perp Short Signals, Options Flow, and Trade Tracker.",
+  title: "Edge Terminal — BTC · Altcoins · AI Bottleneck Stocks",
+  description: "Live trading dashboard: daily bias + risk-on/off regime, BTC cycle, crypto perps/funding & altcoin short-squeeze scoring, and the AI bottleneck 5-layer stock framework with technical setups & options plays.",
 };
 
 export default function RootLayout({
