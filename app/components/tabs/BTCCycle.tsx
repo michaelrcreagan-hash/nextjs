@@ -14,11 +14,21 @@ interface BottomSignal {
   note: string
 }
 
+interface OnchainData {
+  mvrv: number | null
+  realizedPrice: number | null
+  fearGreed: { value: number; label: string } | null
+  price: number
+  hasGlassnode: boolean
+  realizedSource: string | null
+  mvrvSource: string | null
+}
+
 interface Props {
   onBottomScore?: (score: number) => void
 }
 
-function computeBottomScore(klines: Kline[]): { score: number; signals: BottomSignal[] } {
+function computeBottomScore(klines: Kline[], onchain: OnchainData): { score: number; signals: BottomSignal[] } {
   if (klines.length < 30) return { score: 0, signals: [] }
 
   const closes = klines.map(k => k.close)
@@ -34,7 +44,24 @@ function computeBottomScore(klines: Kline[]): { score: number; signals: BottomSi
   const avgVol = volumes.slice(-20).reduce((a, b) => a + b, 0) / 20
   const currentVol = volumes[volumes.length - 1]
 
-  // 12 bottom signals
+  // Signal 5 & 9: use real on-chain data when available
+  const mvrv = onchain.mvrv ?? (latest / (currentSMA200 * 1.1))
+  const mvrvLabel = onchain.mvrvSource
+    ? `${mvrv.toFixed(2)} (${onchain.mvrvSource})`
+    : `~${mvrv.toFixed(2)} (proxy)`
+
+  const realizedPx = onchain.realizedPrice ?? 50000
+  const realizedLabel = onchain.realizedSource === 'glassnode'
+    ? `$${realizedPx.toLocaleString()} (Glassnode)`
+    : onchain.realizedSource === 'estimated'
+    ? `~$${realizedPx.toLocaleString()} (est.)`
+    : `~$45-50K (est.)`
+
+  const fearVal = onchain.fearGreed?.value ?? 50
+  const fearLabel = onchain.fearGreed
+    ? `${fearVal} — ${onchain.fearGreed.label}`
+    : 'N/A'
+
   const signals: BottomSignal[] = [
     {
       name: 'Weekly RSI < 30',
@@ -65,9 +92,9 @@ function computeBottomScore(klines: Kline[]): { score: number; signals: BottomSi
       note: 'Capitulation/panic selling volume',
     },
     {
-      name: 'MVRV Proxy < 1.0',
-      value: `Est. ${(latest / (currentSMA200 * 1.1)).toFixed(2)}`,
-      met: latest < currentSMA200 * 1.1,
+      name: 'MVRV < 1.0',
+      value: mvrvLabel,
+      met: mvrv < 1.0,
       weight: 1,
       note: 'Market below realized price — accumulation zone',
     },
@@ -94,17 +121,17 @@ function computeBottomScore(klines: Kline[]): { score: number; signals: BottomSi
     },
     {
       name: 'Below Realized Price',
-      value: `~$45-50K est.`,
-      met: latest < 50000,
+      value: realizedLabel,
+      met: latest < realizedPx,
       weight: 1,
       note: 'Average cost basis of all BTC holders',
     },
     {
-      name: 'CryptoQuant Model Window',
-      value: `Aug-Oct 2026 est.`,
-      met: false, // date-based — update manually
+      name: 'Fear & Greed ≤ 20 (Extreme Fear)',
+      value: fearLabel,
+      met: fearVal <= 20,
       weight: 1,
-      note: 'Historical cycle bottom timing model',
+      note: 'Retail capitulation sentiment — historical buy signal',
     },
     {
       name: 'LTH Accumulation Signal',
@@ -133,31 +160,61 @@ function bottomLabel(score: number) {
   return { label: 'MAXIMUM SIGNAL — Full Accumulation', color: '#10b981', pct: Math.round((score / 12) * 100) }
 }
 
+const ONCHAIN_DEFAULT: OnchainData = {
+  mvrv: null, realizedPrice: null, fearGreed: null, price: 0,
+  hasGlassnode: false, realizedSource: null, mvrvSource: null,
+}
+
 export default function BTCCycle({ onBottomScore }: Props) {
   const [klines, setKlines] = useState<Kline[]>([])
   const [loading, setLoading] = useState(true)
   const [lastUpdate, setLastUpdate] = useState('')
   const [bottomResult, setBottomResult] = useState<{ score: number; signals: BottomSignal[] }>({ score: 0, signals: [] })
+  const [onchain, setOnchain] = useState<OnchainData>(ONCHAIN_DEFAULT)
 
-  const fetchData = useCallback(async () => {
+  const fetchOnchain = useCallback(async () => {
+    try {
+      const res = await fetch('/api/onchain')
+      const data: OnchainData = await res.json()
+      setOnchain(data)
+      return data
+    } catch { return ONCHAIN_DEFAULT }
+  }, [])
+
+  const fetchKlines = useCallback(async (oc: OnchainData) => {
     try {
       const res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1w&limit=300')
       const raw = await res.json()
       const parsed = parseBinanceKlines(raw)
       setKlines(parsed)
-      const result = computeBottomScore(parsed)
+      const result = computeBottomScore(parsed, oc)
       setBottomResult(result)
       onBottomScore?.(result.score)
       setLastUpdate(new Date().toLocaleTimeString())
-    } catch { /* keep existing */ }
+    } catch { /* keep */ }
     finally { setLoading(false) }
   }, [onBottomScore])
 
+  const refresh = useCallback(async () => {
+    const oc = await fetchOnchain()
+    await fetchKlines(oc)
+  }, [fetchOnchain, fetchKlines])
+
   useEffect(() => {
-    fetchData()
-    const id = setInterval(fetchData, 300_000) // 5 min
+    refresh()
+    const id = setInterval(refresh, 300_000)
     return () => clearInterval(id)
-  }, [fetchData])
+  }, [refresh])
+
+  // Recalculate signals when onchain data updates
+  useEffect(() => {
+    if (klines.length > 0) {
+      const result = computeBottomScore(klines, onchain)
+      setBottomResult(result)
+      onBottomScore?.(result.score)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onchain])
 
   if (loading) return (
     <div className="flex items-center justify-center h-64 text-slate-400">
@@ -179,6 +236,32 @@ export default function BTCCycle({ onBottomScore }: Props) {
 
   return (
     <div className="space-y-6">
+      {/* Fear & Greed + On-chain source badges */}
+      {(onchain.fearGreed || onchain.mvrvSource) && (
+        <div className="flex flex-wrap gap-3 text-xs">
+          {onchain.fearGreed && (
+            <div className={`px-3 py-1.5 rounded-lg border font-semibold ${onchain.fearGreed.value <= 25 ? 'border-red-500/50 bg-red-500/10 text-red-300' : onchain.fearGreed.value >= 75 ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-300' : 'border-yellow-500/50 bg-yellow-500/10 text-yellow-300'}`}>
+              Fear &amp; Greed: {onchain.fearGreed.value} — {onchain.fearGreed.label}
+            </div>
+          )}
+          {onchain.realizedPrice && (
+            <div className="px-3 py-1.5 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-300">
+              Realized Price: ${onchain.realizedPrice.toLocaleString()} ({onchain.realizedSource})
+            </div>
+          )}
+          {onchain.mvrv && (
+            <div className="px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-300">
+              MVRV: {onchain.mvrv.toFixed(2)} ({onchain.mvrvSource})
+            </div>
+          )}
+          {!onchain.hasGlassnode && (
+            <div className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-500">
+              Set GLASSNODE_API_KEY for real MVRV data
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Score header */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-1 bg-slate-800/60 border rounded-xl p-5" style={{ borderColor: lbl.color }}>
@@ -202,7 +285,7 @@ export default function BTCCycle({ onBottomScore }: Props) {
               <span className="text-base mt-0.5">{s.met ? '✅' : '❌'}</span>
               <div className="min-w-0">
                 <div className={`font-semibold truncate ${s.met ? 'text-emerald-300' : 'text-slate-400'}`}>{s.name}</div>
-                <div className={`font-mono ${s.met ? 'text-emerald-200' : 'text-slate-500'}`}>{s.value}</div>
+                <div className={`font-mono text-[10px] ${s.met ? 'text-emerald-200' : 'text-slate-500'}`}>{s.value}</div>
               </div>
             </div>
           ))}

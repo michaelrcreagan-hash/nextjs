@@ -7,7 +7,7 @@ const FALLBACK = {
   spy: { current: 520, changePercent: -0.8, change: -4.2, sma200: 502 },
   spyVsSMA: 3.6,
   regimeScore: 44,
-  netLiquidity: -2.3,
+  netLiquidity: { current: null, change4w: null, isReal: false },
   timestamp: Date.now(),
 }
 
@@ -18,36 +18,27 @@ function calcRegimeScore(
   spyVsSMA: number
 ): number {
   let score = 50
-
-  // VIX (fear gauge)
   if (vix < 15) score += 15
   else if (vix < 18) score += 10
   else if (vix < 22) score += 5
   else if (vix < 28) score -= 5
   else if (vix < 35) score -= 12
   else score -= 20
-
-  // DXY % change (rising dollar = risk-off for crypto)
   if (dxyChangePct < -1) score += 10
   else if (dxyChangePct < -0.3) score += 5
   else if (dxyChangePct < 0.3) score += 0
   else if (dxyChangePct < 1) score -= 5
   else score -= 10
-
-  // 10Y yield % change
   if (tnxChangePct < -3) score += 8
   else if (tnxChangePct < -1) score += 3
   else if (tnxChangePct < 1) score += 0
   else if (tnxChangePct < 3) score -= 5
   else score -= 10
-
-  // SPY vs 200-day SMA
   if (spyVsSMA > 5) score += 10
   else if (spyVsSMA > 1) score += 5
   else if (spyVsSMA > -2) score -= 5
   else if (spyVsSMA > -5) score -= 10
   else score -= 15
-
   return Math.max(0, Math.min(100, score))
 }
 
@@ -64,24 +55,64 @@ async function yhFetch(url: string) {
   return res.json()
 }
 
+// FRED: Federal Reserve Economic Data — for Net Fed Liquidity
+// Net Liquidity = WALCL (Fed BS) - WTREGEN (TGA) - RRPONTSYD (RRP)
+async function fetchFredSeries(seriesId: string, apiKey: string, limit: number): Promise<number[]> {
+  const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${apiKey}&file_type=json&limit=${limit}&sort_order=desc`
+  const res = await fetch(url, {
+    headers: { 'Accept': 'application/json' },
+    next: { revalidate: 3600 },
+  })
+  if (!res.ok) return []
+  const data = await res.json()
+  return (data.observations ?? [])
+    .filter((o: { value: string }) => o.value !== '.')
+    .map((o: { value: string }) => parseFloat(o.value))
+}
+
+async function computeNetLiquidity(): Promise<{ current: number | null; change4w: number | null; isReal: boolean }> {
+  const key = process.env.FRED_API_KEY
+  if (!key) return { current: null, change4w: null, isReal: false }
+
+  try {
+    // WALCL & WTREGEN: weekly, millions USD. RRPONTSYD: daily, billions USD
+    const [walcl, wtregen, rrp] = await Promise.all([
+      fetchFredSeries('WALCL', key, 8),
+      fetchFredSeries('WTREGEN', key, 8),
+      fetchFredSeries('RRPONTSYD', key, 32),
+    ])
+
+    if (!walcl.length || !wtregen.length || !rrp.length) return { current: null, change4w: null, isReal: false }
+
+    // current net liquidity (millions USD)
+    const net0 = walcl[0] - wtregen[0] - rrp[0] * 1000
+    // 4-week-ago net liquidity
+    const net4w =
+      (walcl[Math.min(4, walcl.length - 1)] ?? walcl[0]) -
+      (wtregen[Math.min(4, wtregen.length - 1)] ?? wtregen[0]) -
+      (rrp[Math.min(28, rrp.length - 1)] ?? rrp[0]) * 1000
+
+    const change4w = net4w !== 0 ? Math.round(((net0 - net4w) / Math.abs(net4w)) * 10000) / 100 : 0
+
+    return { current: Math.round(net0), change4w, isReal: true }
+  } catch {
+    return { current: null, change4w: null, isReal: false }
+  }
+}
+
 export async function GET() {
   try {
-    const [quotesResult, spyHistResult] = await Promise.allSettled([
-      yhFetch(
-        'https://query1.finance.yahoo.com/v7/finance/quote?symbols=%5EVIX,DX-Y.NYB,%5ETNX,SPY'
-      ),
-      yhFetch(
-        'https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range=1y'
-      ),
+    const [quotesResult, spyHistResult, netLiqResult] = await Promise.allSettled([
+      yhFetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=%5EVIX,DX-Y.NYB,%5ETNX,SPY'),
+      yhFetch('https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range=1y'),
+      computeNetLiquidity(),
     ])
 
     if (quotesResult.status === 'rejected') {
       return NextResponse.json({ ...FALLBACK, timestamp: Date.now() })
     }
 
-    const quotes: Record<string, unknown>[] =
-      quotesResult.value?.quoteResponse?.result ?? []
-
+    const quotes: Record<string, unknown>[] = quotesResult.value?.quoteResponse?.result ?? []
     const find = (sym: string) => quotes.find((q) => q['symbol'] === sym) as Record<string, number> | undefined
     const vixQ = find('^VIX')
     const dxyQ = find('DX-Y.NYB')
@@ -94,8 +125,7 @@ export async function GET() {
 
     let spy200sma: number | null = null
     if (spyHistResult.status === 'fulfilled') {
-      const closes: number[] =
-        spyHistResult.value?.chart?.result?.[0]?.indicators?.quote?.[0]?.close ?? []
+      const closes: number[] = spyHistResult.value?.chart?.result?.[0]?.indicators?.quote?.[0]?.close ?? []
       const valid = closes.filter(Boolean)
       if (valid.length >= 50) {
         const last200 = valid.slice(-200)
@@ -106,8 +136,11 @@ export async function GET() {
     const spyCur = spyQ?.regularMarketPrice ?? FALLBACK.spy.current
     const sma200 = spy200sma ?? FALLBACK.spy.sma200
     const spyVsSMA = ((spyCur - sma200) / sma200) * 100
-
     const regimeScore = calcRegimeScore(vixCur, dxyChg, tnxChg, spyVsSMA)
+
+    const netLiquidity = netLiqResult.status === 'fulfilled'
+      ? netLiqResult.value
+      : FALLBACK.netLiquidity
 
     return NextResponse.json({
       vix: {
@@ -133,7 +166,7 @@ export async function GET() {
       },
       spyVsSMA,
       regimeScore,
-      netLiquidity: FALLBACK.netLiquidity,
+      netLiquidity,
       timestamp: Date.now(),
     })
   } catch {
