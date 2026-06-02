@@ -5,9 +5,10 @@ import { useEffect, useState, useCallback } from 'react'
 interface Coin {
   symbol: string; raw: string; price: number; change24h: number
   funding: number; fundingApr: number; oiUsd: number; volUsd: number; nextFunding: number
+  oiChange24h?: number; longShortRatio?: number; longLiqUsd?: number; shortLiqUsd?: number
 }
 interface Agg { totalOi: number; avgFunding: number; negFundingCount: number; mostNegative: string[] }
-interface Data { coins: Coin[]; aggregate: Agg | null; timestamp: number; error?: string }
+interface Data { coins: Coin[]; aggregate: Agg | null; source?: string; timestamp: number; error?: string }
 
 const usd = (n: number) => n >= 1e9 ? `$${(n / 1e9).toFixed(2)}B` : n >= 1e6 ? `$${(n / 1e6).toFixed(0)}M` : `$${n.toFixed(0)}`
 const px = (n: number) => n >= 1 ? `$${n.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : `$${n.toPrecision(3)}`
@@ -34,10 +35,17 @@ export default function CryptoDerivs() {
   )
 
   const a = data.aggregate
+  const cg = data.source === 'coinglass'
+  const hasLiq = data.coins.some(c => (c.longLiqUsd ?? 0) > 0 || (c.shortLiqUsd ?? 0) > 0)
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <div className="text-sm text-slate-400">⚡ Perps & Futures · funding + open interest (Coinglass-style)</div>
+        <div className="text-sm text-slate-400 flex items-center gap-2">
+          ⚡ Perps &amp; Futures · funding + open interest
+          <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${cg ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+            {cg ? 'COINGLASS (aggregated)' : 'BINANCE'}
+          </span>
+        </div>
         <a href="https://www.coinglass.com/LiquidationData" target="_blank" rel="noreferrer" className="text-xs text-blue-400 hover:underline">↗ CoinGlass liquidation heatmap</a>
       </div>
 
@@ -72,6 +80,8 @@ export default function CryptoDerivs() {
                 <th className="p-2 text-right">Funding /8h</th>
                 <th className="p-2 text-right hidden sm:table-cell">Funding APR</th>
                 <th className="p-2 text-right">Open Interest</th>
+                {cg && <th className="p-2 text-right hidden lg:table-cell">OI Δ24h</th>}
+                {hasLiq && <th className="p-2 text-right hidden md:table-cell">Liq 24h L/S</th>}
                 <th className="p-2 text-right hidden md:table-cell">24h Vol</th>
               </tr>
             </thead>
@@ -84,6 +94,8 @@ export default function CryptoDerivs() {
                   <td className={`p-2 text-right font-mono ${c.funding < 0 ? 'text-emerald-400' : c.funding > 0.0004 ? 'text-red-400' : 'text-slate-300'}`}>{(c.funding * 100).toFixed(4)}%</td>
                   <td className={`p-2 text-right font-mono hidden sm:table-cell ${c.fundingApr < 0 ? 'text-emerald-400' : 'text-slate-400'}`}>{c.fundingApr.toFixed(1)}%</td>
                   <td className="p-2 text-right font-mono text-slate-200">{usd(c.oiUsd)}</td>
+                  {cg && <td className={`p-2 text-right font-mono hidden lg:table-cell ${(c.oiChange24h ?? 0) >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>{(c.oiChange24h ?? 0) >= 0 ? '+' : ''}{(c.oiChange24h ?? 0).toFixed(1)}%</td>}
+                  {hasLiq && <td className="p-2 text-right font-mono hidden md:table-cell"><span className="text-emerald-400">{usd(c.longLiqUsd ?? 0)}</span><span className="text-slate-600"> / </span><span className="text-red-400">{usd(c.shortLiqUsd ?? 0)}</span></td>}
                   <td className="p-2 text-right font-mono hidden md:table-cell text-slate-400">{usd(c.volUsd)}</td>
                 </tr>
               ))}
@@ -93,8 +105,9 @@ export default function CryptoDerivs() {
       </div>
 
       <div className="text-[11px] text-slate-600 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
-        Funding &amp; OI are live from Binance USDⓈ-M futures. For liquidation clusters / heatmaps (CoinGlass requires an API key),
-        use the CoinGlass link above and feed cluster levels into the Altcoin Squeeze T1 targets.
+        {cg
+          ? 'Aggregated cross-exchange funding, OI and 24h liquidations are live from CoinGlass (COINGLASS_API_KEY set). Feed liquidation clusters into the Altcoin Squeeze T1 targets; the heatmap link adds the visual.'
+          : 'Funding & OI are live from Binance USDⓈ-M futures (fallback). Set COINGLASS_API_KEY in your env to upgrade to aggregated cross-exchange data + 24h long/short liquidations.'}
       </div>
     </div>
   )

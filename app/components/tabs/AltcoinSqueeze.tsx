@@ -8,7 +8,7 @@ interface Coin {
   marketCap: number; volume: number; funding: number | null; narrative: string
   conds: Cond[]; score: number; redFlags: string[]; athChange: number
 }
-interface Data { coins: Coin[]; btcChange: number; timestamp: number; error?: string }
+interface Data { coins: Coin[]; btcChange: number; source?: string; timestamp: number; error?: string }
 
 function band(score: number) {
   if (score >= 10.5) return { label: 'MAX CONVICTION', color: '#10b981', action: 'Pilot-load 60% today' }
@@ -141,9 +141,11 @@ export default function AltcoinSqueeze() {
       </div>
 
       <div className="text-[11px] text-slate-600 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
-        <b>Method:</b> Live funding (Binance perps) drives C1; CoinGecko 24h/7d, vol/mcap and ATH distance drive the technical, float,
-        liquidity and red-flag conditions. C2 (OI+CVD), C6 (catalyst) and C7 (liq cluster) use proxies where a CoinGlass key is not
-        connected — pair with the Crypto Derivatives tab + CoinGlass liquidation heatmap before sizing.
+        <b>Method:</b> CoinGecko drives price/mcap/vol/ATH.{' '}
+        {data.source === 'coinglass'
+          ? 'CoinGlass (key set) drives C1 funding, C2 real OI divergence and C7 24h short-liquidation magnitude — aggregated cross-exchange.'
+          : 'Binance perps drive C1 funding (fallback); C2 and C7 use vol/price proxies. Set COINGLASS_API_KEY to upgrade C2 to real OI divergence and C7 to live short-liquidation magnitude.'}
+        {' '}C6 catalysts come from the static calendar; C10 unlock needs a manual TokenUnlocks check before sizing.
       </div>
     </div>
   )

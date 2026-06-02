@@ -1,6 +1,39 @@
 import { NextResponse } from 'next/server'
+import { hasCoinglass, cgGet, pick } from '@/app/lib/providers'
 
 export const revalidate = 0
+
+interface DerivInfo { funding: number; shortLiqUsd: number; longLiqUsd: number; oiChange: number }
+
+// Per-symbol derivatives map: CoinGlass (funding + liquidations) when keyed, else Binance funding.
+async function getDerivMap(): Promise<{ map: Map<string, DerivInfo>; source: string }> {
+  const map = new Map<string, DerivInfo>()
+  if (hasCoinglass()) {
+    try {
+      const rows = await cgGet<Record<string, unknown>[]>('/api/futures/coins-markets', { per_page: 100 }, 30)
+      for (const r of rows ?? []) {
+        const sym = String(r.symbol ?? '').toUpperCase()
+        if (!sym) continue
+        map.set(sym, {
+          funding: pick(r, ['avg_funding_rate_by_oi', 'funding_rate', 'avgFundingRate']) / 100,
+          shortLiqUsd: pick(r, ['short_liquidation_usd_24h', 'shortLiquidationUsd24h']),
+          longLiqUsd: pick(r, ['long_liquidation_usd_24h', 'longLiquidationUsd24h']),
+          oiChange: pick(r, ['open_interest_change_percent_24h', 'oi_change_percent_24h']),
+        })
+      }
+      if (map.size) return { map, source: 'coinglass' }
+    } catch { /* fall through to Binance */ }
+  }
+  try {
+    const prem = await fetch('https://fapi.binance.com/fapi/v1/premiumIndex', { next: { revalidate: 60 } }).then(r => r.json()) as Record<string, string>[]
+    for (const p of prem) {
+      if (p.symbol?.endsWith('USDT')) {
+        map.set(p.symbol.replace('USDT', '').toUpperCase(), { funding: parseFloat(p.lastFundingRate), shortLiqUsd: 0, longLiqUsd: 0, oiChange: 0 })
+      }
+    }
+  } catch { /* none */ }
+  return { map, source: map.size ? 'binance' : 'none' }
+}
 
 // Static reference sets used by the V3 squeeze model
 const KOREAN = new Set(['XRP', 'TRX', 'SOL', 'DOGE', 'ADA', 'SAND', 'STX', 'INJ', 'SEI', 'TIA', 'NEAR', 'APT', 'HBAR', 'ALGO'])
@@ -33,16 +66,11 @@ async function getJSON(url: string, init?: RequestInit) {
 
 export async function GET() {
   try {
-    const [markets, premium] = await Promise.all([
+    const [markets, deriv] = await Promise.all([
       getJSON('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=120&page=1&price_change_percentage=24h,7d') as Promise<Gecko[]>,
-      getJSON('https://fapi.binance.com/fapi/v1/premiumIndex').catch(() => []) as Promise<Record<string, string>[]>,
+      getDerivMap(),
     ])
-
-    const funding = new Map<string, number>()
-    for (const p of premium) {
-      const sym = p.symbol?.replace('USDT', '')
-      if (p.symbol?.endsWith('USDT')) funding.set(sym, parseFloat(p.lastFundingRate))
-    }
+    const derivMap = deriv.map
 
     const btc = markets.find(m => m.symbol.toUpperCase() === 'BTC')
     const btcChange = btc?.price_change_percentage_24h ?? 0
@@ -51,7 +79,8 @@ export async function GET() {
       .filter(m => !['BTC', 'USDT', 'USDC', 'DAI', 'WBTC', 'STETH', 'WETH', 'WSTETH'].includes(m.symbol.toUpperCase()))
       .map(m => {
         const sym = m.symbol.toUpperCase()
-        const f = funding.get(sym) ?? null
+        const d = derivMap.get(sym)
+        const f = d ? d.funding : null
         const ch7 = m.price_change_percentage_7d_in_currency ?? 0
         const ch24 = m.price_change_percentage_24h ?? 0
         const volMc = m.market_cap ? m.total_volume / m.market_cap : 0
@@ -67,9 +96,15 @@ export async function GET() {
         }
         conds.push({ id: 'C1', label: 'Negative funding', max: 3.5, score: c1, detail: c1d })
 
-        // C2 — OI divergence / oversold proxy (max 2.0)
-        const c2 = ch7 < -10 ? 2.0 : ch7 < -3 ? 1.3 : ch7 < 3 ? 0.6 : 0
-        conds.push({ id: 'C2', label: 'OI / oversold', max: 2.0, score: c2, detail: `7d ${ch7.toFixed(1)}%` })
+        // C2 — OI divergence / oversold (max 2.0). Real OI Δ from CoinGlass when available:
+        // OI rising while price falling = trapped shorts (divergence) → max score.
+        let c2 = ch7 < -10 ? 2.0 : ch7 < -3 ? 1.3 : ch7 < 3 ? 0.6 : 0
+        let c2d = `7d ${ch7.toFixed(1)}%`
+        if (d && d.oiChange) {
+          c2 = d.oiChange > 5 && ch24 < 0 ? 2.0 : d.oiChange > 0 ? 1.2 : 0.4
+          c2d = `OI ${d.oiChange >= 0 ? '+' : ''}${d.oiChange.toFixed(1)}% · price ${ch24.toFixed(1)}%`
+        }
+        conds.push({ id: 'C2', label: 'OI divergence', max: 2.0, score: c2, detail: c2d })
 
         // C3 — float compression (max 1.0)
         const c3 = volMc < 0.05 ? 1.0 : volMc < 0.1 ? 0.5 : 0
@@ -88,9 +123,16 @@ export async function GET() {
         const c6 = cat?.score ?? 0
         conds.push({ id: 'C6', label: 'Catalyst ≤7d', max: 1.5, score: c6, detail: cat?.note ?? '—' })
 
-        // C7 — liquidation cluster proxy (max 1.5)
-        const c7 = volMc > 0.15 ? 1.5 : volMc > 0.1 ? 1.0 : 0.5
-        conds.push({ id: 'C7', label: 'Liq cluster', max: 1.5, score: c7, detail: `liquidity ${(volMc * 100).toFixed(0)}%` })
+        // C7 — liquidation cluster (max 1.5). Real short-liquidation magnitude from CoinGlass:
+        // shorts liquidating above price is the squeeze fuel → scale by short-liq / mcap.
+        let c7 = volMc > 0.15 ? 1.5 : volMc > 0.1 ? 1.0 : 0.5
+        let c7d = `liquidity ${(volMc * 100).toFixed(0)}%`
+        if (d && (d.shortLiqUsd > 0 || d.longLiqUsd > 0)) {
+          const ratio = m.market_cap ? d.shortLiqUsd / m.market_cap : 0
+          c7 = ratio > 0.003 ? 1.5 : ratio > 0.001 ? 1.0 : d.shortLiqUsd > d.longLiqUsd ? 0.7 : 0.3
+          c7d = `short-liq $${(d.shortLiqUsd / 1e6).toFixed(1)}M (24h)`
+        }
+        conds.push({ id: 'C7', label: 'Liq cluster', max: 1.5, score: c7, detail: c7d })
 
         // C8 — narrative sector (max 1.25)
         const narr = NARRATIVE[sym] ?? 'Other'
@@ -131,7 +173,7 @@ export async function GET() {
       })
       .sort((a, b) => b.score - a.score)
 
-    return NextResponse.json({ coins: scored.slice(0, 40), btcChange, timestamp: Date.now() })
+    return NextResponse.json({ coins: scored.slice(0, 40), btcChange, source: deriv.source, timestamp: Date.now() })
   } catch (e) {
     return NextResponse.json({ coins: [], btcChange: 0, error: String(e), timestamp: Date.now() })
   }

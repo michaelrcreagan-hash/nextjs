@@ -11,14 +11,18 @@ interface Row {
   rsi?: number; adx?: number; plusDI?: number; minusDI?: number; rvol?: number; atr?: number
   m30?: number; m60?: number; m90?: number
   fundamental?: number; technical?: number; techNotes?: string[]; rank?: number
-  fin?: { guidanceQuality: number; epsRevision: number; beatAndRaise: number }
+  fin?: { guidanceQuality: number; epsRevision: number; beatAndRaise: number }; finSource?: string
   plan?: Plan; options?: Opt; daysToEarnings?: number | null; catalystSoon?: boolean
 }
 interface PhaseScore {
   id: BottleneckPhase; label: string; short: string; emoji: string; order: number
-  thesis: string; keywords: string[]; momentum: number; members: number
+  thesis: string; keywords: string[]; momentum: number; members: number; transcriptMentions?: number
 }
-interface Data { rows: Row[]; okCount: number; phaseScores: PhaseScore[]; activePhase: BottleneckPhase; timestamp: number }
+interface Data {
+  rows: Row[]; okCount: number; phaseScores: PhaseScore[]; activePhase: BottleneckPhase
+  momentumPhase?: BottleneckPhase; transcriptPhase?: BottleneckPhase | null
+  dataSource?: string; transcriptSource?: string; timestamp: number
+}
 
 const fmt = (n: number, d = 2) => n.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d })
 
@@ -58,8 +62,17 @@ export default function AIStocks() {
       {/* Layer 2 — Bottleneck Rotation */}
       <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-4">
         <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-          <div className="text-sm font-semibold text-slate-200">⚙️ Layer 2 — Hyperscaler CapEx Bottleneck Rotation</div>
-          <div className="text-xs text-slate-500">Active constraint inferred from basket momentum · {updated}</div>
+          <div className="text-sm font-semibold text-slate-200 flex items-center gap-2">
+            ⚙️ Layer 2 — Hyperscaler CapEx Bottleneck Rotation
+            <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${data.dataSource === 'fmp' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+              {data.dataSource === 'fmp' ? 'FMP' : 'YAHOO'}
+            </span>
+          </div>
+          <div className="text-xs text-slate-500">
+            {data.transcriptSource === 'fmp'
+              ? 'Active constraint from MSFT/GOOGL/AMZN/META/ORCL transcripts'
+              : 'Active constraint inferred from basket momentum'} · {updated}
+          </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
           {data.phaseScores.sort((a, b) => a.order - b.order).map(p => {
@@ -74,8 +87,10 @@ export default function AIStocks() {
                 <div className={`text-sm font-mono font-bold mt-1 ${p.momentum >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                   {p.momentum >= 0 ? '+' : ''}{p.momentum.toFixed(1)}%
                 </div>
-                <div className="text-[10px] text-slate-500">{p.members} names · 1M</div>
-                {isActive && <div className="text-[10px] text-blue-400 font-bold mt-1">● LIVE LEADER</div>}
+                <div className="text-[10px] text-slate-500">
+                  {p.members} names · 1M{(p.transcriptMentions ?? 0) > 0 ? ` · 💬${p.transcriptMentions}` : ''}
+                </div>
+                {isActive && <div className="text-[10px] text-blue-400 font-bold mt-1">● ACTIVE CONSTRAINT</div>}
               </button>
             )
           })}
@@ -222,10 +237,11 @@ export default function AIStocks() {
       </div>
 
       <div className="text-[11px] text-slate-600 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
-        <b>Data notes:</b> Prices, ADX/DMI/RSI/RVOL/ATR and 30/60/90-day momentum are computed live from daily candles.
-        EPS-revision momentum, guidance quality and beat-and-raise are proxied from price/EPS trend where a paid estimates feed
-        (SPG as-of-date) is not connected — wire those endpoints into <code>/api/stocks</code> to upgrade Layer 3 to exact revisions.
-        Bottleneck phase is inferred from live basket momentum; pair with the transcript keyword tells above.
+        <b>Data notes:</b> Prices, ADX/DMI/RSI/RVOL/ATR and 30/60/90-day momentum are computed live from daily candles
+        ({data.dataSource === 'fmp' ? 'FMP' : 'Yahoo'}).{' '}
+        {data.dataSource === 'fmp'
+          ? 'Guidance quality (FMP analyst estimates), beat-and-raise (FMP earnings surprises) and earnings catalysts are live; bottleneck phase is read from real hyperscaler transcripts. EPS-revision momentum still uses a price-trend proxy — connect FMP estimate-history / SPG as-of-date for exact 30/60/90d deltas.'
+          : 'EPS-revision, guidance and beat-and-raise are price/EPS-trend proxies. Set FMP_API_KEY to upgrade Layer 3 to real analyst estimates + earnings surprises and Layer 2 to transcript-driven phase detection.'}
       </div>
     </div>
   )
