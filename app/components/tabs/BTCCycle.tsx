@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
-import { calculateRSI, calculateSMA, parseBinanceKlines, type Kline } from '@/app/lib/indicators'
+import { calculateRSI, calculateSMA, type Kline } from '@/app/lib/indicators'
 
 const TradingChart = dynamic(() => import('@/app/components/charts/TradingChart'), { ssr: false })
 
@@ -141,9 +141,10 @@ export default function BTCCycle({ onBottomScore }: Props) {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1w&limit=300')
-      const raw = await res.json()
-      const parsed = parseBinanceKlines(raw)
+      const res = await fetch('/api/klines?symbol=BTCUSDT&interval=1w&limit=300')
+      const json = await res.json()
+      const parsed: Kline[] = json.klines ?? []
+      if (parsed.length === 0) return
       setKlines(parsed)
       const result = computeBottomScore(parsed)
       setBottomResult(result)

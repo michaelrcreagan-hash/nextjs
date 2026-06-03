@@ -34,14 +34,41 @@ export default function Dashboard() {
   const [connected, setConnected] = useState(false)
   const wsRef = useRef<WebSocket | null>(null)
   const prevPriceRef = useRef(0)
+  const binanceBlockedRef = useRef(false)
 
-  // Live BTC price via WebSocket
+  // Live BTC price via WebSocket — Binance when reachable, auto-fallback to Coinbase
+  // (US-accessible) when Binance is geo-blocked or unreachable.
   const connectWS = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return
+
+    const openCoinbase = () => {
+      const ws = new WebSocket('wss://ws-feed.exchange.coinbase.com')
+      wsRef.current = ws
+      ws.onopen = () => { setConnected(true); ws.send(JSON.stringify({ type: 'subscribe', product_ids: ['BTC-USD'], channels: ['ticker'] })) }
+      ws.onerror = () => { try { ws.close() } catch { /* noop */ } }
+      ws.onclose = () => { setConnected(false); setTimeout(connectWS, 3000) }
+      ws.onmessage = (e) => {
+        const d = JSON.parse(e.data)
+        if (d.type === 'ticker' && d.price) {
+          const price = parseFloat(d.price)
+          const open = parseFloat(d.open_24h)
+          setBtcPrice(price)
+          if (open) setBtcChange(((price - open) / open) * 100)
+          prevPriceRef.current = price
+        }
+      }
+    }
+
+    if (binanceBlockedRef.current) { openCoinbase(); return }
+
     const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@miniTicker')
-    ws.onopen = () => setConnected(true)
-    ws.onclose = () => { setConnected(false); setTimeout(connectWS, 3000) }
-    ws.onerror = () => ws.close()
+    wsRef.current = ws
+    let opened = false, fellBack = false
+    const goCoinbase = () => { if (fellBack) return; fellBack = true; binanceBlockedRef.current = true; try { ws.close() } catch { /* noop */ }; openCoinbase() }
+    const fallback = setTimeout(() => { if (!opened) goCoinbase() }, 4000)
+    ws.onopen = () => { opened = true; clearTimeout(fallback); setConnected(true) }
+    ws.onerror = () => { try { ws.close() } catch { /* noop */ } }
+    ws.onclose = () => { clearTimeout(fallback); setConnected(false); if (!opened) goCoinbase(); else setTimeout(connectWS, 3000) }
     ws.onmessage = (e) => {
       const d = JSON.parse(e.data)
       const price = parseFloat(d.c)
@@ -50,7 +77,6 @@ export default function Dashboard() {
       setBtcChange(((price - open) / open) * 100)
       prevPriceRef.current = price
     }
-    wsRef.current = ws
   }, [])
 
   useEffect(() => {

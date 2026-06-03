@@ -1,22 +1,36 @@
 import { NextResponse } from 'next/server'
-import { calculateEMA, calculateRSI, calculateDMI, parseBinanceKlines, last, lastValid } from '@/app/lib/indicators'
+import { calculateEMA, calculateRSI, calculateDMI, last, lastValid } from '@/app/lib/indicators'
+import { getKlines } from '@/app/lib/klines'
+import { hasCoinapi, coinapiBinancePerpMetric } from '@/app/lib/providers'
 
 export const revalidate = 0
 
+// BTC perp funding: Binance when reachable, else CoinAPI; null if neither.
+async function btcFunding(): Promise<number | null> {
+  try {
+    const prem = await fetch('https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT', { next: { revalidate: 30 } }).then(r => r.ok ? r.json() : null)
+    if (prem?.lastFundingRate != null) return parseFloat(prem.lastFundingRate)
+  } catch { /* next */ }
+  if (hasCoinapi()) {
+    try { const m = await coinapiBinancePerpMetric('DERIVATIVES_FUNDING_RATE_CURRENT'); const f = m.get('BTC'); if (f != null) return f } catch { /* next */ }
+  }
+  return null
+}
+
 async function klines(symbol: string, interval: string, limit: number) {
-  const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`, { next: { revalidate: 30 } })
-  if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  return parseBinanceKlines(await res.json())
+  const { klines: k } = await getKlines(symbol, interval, limit)
+  if (!k.length) throw new Error('no klines')
+  return k
 }
 
 // Daily Bias Framework: HTF trend (1D) + intraday momentum (4H) + perp funding.
 // Produces a -100..+100 bias score with a directional label.
 export async function GET() {
   try {
-    const [d1, h4, prem] = await Promise.all([
+    const [d1, h4, fundingVal] = await Promise.all([
       klines('BTCUSDT', '1d', 260),
       klines('BTCUSDT', '4h', 200),
-      fetch('https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT', { next: { revalidate: 30 } }).then(r => r.json()).catch(() => null),
+      btcFunding(),
     ])
 
     const dCloses = d1.map(k => k.close)
@@ -33,7 +47,7 @@ export async function GET() {
     const ema21h = lastValid(calculateEMA(hCloses, 21))
     const rsiH = lastValid(calculateRSI(hCloses, 14))
 
-    const funding = prem ? parseFloat(prem.lastFundingRate) : 0
+    const funding = fundingVal ?? 0
 
     const factors: { label: string; bull: boolean | null; detail: string; weight: number }[] = [
       { label: 'Price vs 1D EMA20', bull: price > ema20, detail: `${price > ema20 ? 'above' : 'below'} ${ema20.toFixed(0)}`, weight: 15 },
@@ -44,7 +58,7 @@ export async function GET() {
       { label: '1D RSI regime', bull: rsiD >= 50, detail: `RSI ${rsiD.toFixed(0)}`, weight: 8 },
       { label: '4H EMA9 > EMA21', bull: ema9h > ema21h, detail: ema9h > ema21h ? 'intraday up' : 'intraday down', weight: 10 },
       { label: '4H RSI', bull: rsiH >= 50, detail: `RSI ${rsiH.toFixed(0)}`, weight: 5 },
-      { label: 'Perp funding', bull: funding < 0.0001 ? true : funding > 0.0004 ? false : null, detail: `${(funding * 100).toFixed(3)}% /8h`, weight: 5 },
+      { label: 'Perp funding', bull: fundingVal == null ? null : funding < 0.0001 ? true : funding > 0.0004 ? false : null, detail: fundingVal == null ? 'n/a' : `${(funding * 100).toFixed(3)}% /8h`, weight: 5 },
     ]
 
     let score = 0, totalW = 0

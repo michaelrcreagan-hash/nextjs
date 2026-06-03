@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { calculateRSI, calculateEMA, calculateSMA, calculateADX, calculateStochRSI, parseBinanceKlines, last, type Kline } from '@/app/lib/indicators'
+import { calculateRSI, calculateEMA, calculateSMA, calculateADX, calculateStochRSI, last, type Kline } from '@/app/lib/indicators'
 
 interface Props {
   regimeScore: number
@@ -118,9 +118,10 @@ export default function PerpShorts({ regimeScore, bottomScore }: Props) {
 
   const fetchData = useCallback(async () => {
     try {
-      const res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=4h&limit=300')
-      const raw = await res.json()
-      const parsed = parseBinanceKlines(raw)
+      const res = await fetch('/api/klines?symbol=BTCUSDT&interval=4h&limit=300')
+      const json = await res.json()
+      const parsed: Kline[] = json.klines ?? []
+      if (parsed.length === 0) return
       setKlines(parsed)
       const latestPrice = parsed[parsed.length - 1]?.close ?? 0
       setEntryPrice(prev => prev === 0 ? latestPrice : prev)
