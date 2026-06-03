@@ -114,14 +114,17 @@ async function classifyTranscripts(): Promise<{ phase: BottleneckPhase | null; c
   const counts: Record<string, number> = Object.fromEntries(PHASES.map(p => [p.id, 0]))
   let any = false
   const year = new Date().getFullYear()
+  const pickLatest = (a: { date?: string; content?: string }[]) =>
+    (Array.isArray(a) && a.length ? [...a].sort((x, y2) => String(y2.date).localeCompare(String(x.date)))[0]?.content ?? '' : '')
   await Promise.all(HYPERSCALERS.map(async (sym) => {
     let text = ''
     try {
-      const j = await fmpGet<{ content?: string }[]>(`/api/v3/batch_earning_call_transcript/${sym}`, { year }, 86400)
-      text = (j?.[0]?.content ?? '').slice(0, 60000)
+      // Batch earnings-call transcripts for a year live on FMP v4
+      const arr = await fmpGet<{ date?: string; content?: string }[]>(`/api/v4/batch_earning_call_transcript/${sym}`, { year }, 86400)
+      text = pickLatest(arr).slice(0, 60000)
       if (!text) {
-        const j2 = await fmpGet<{ content?: string }[]>(`/api/v3/earning_call_transcript/${sym}`, { year, quarter: 4 }, 86400)
-        text = (j2?.[0]?.content ?? '').slice(0, 60000)
+        const arrPrev = await fmpGet<{ date?: string; content?: string }[]>(`/api/v4/batch_earning_call_transcript/${sym}`, { year: year - 1 }, 86400)
+        text = pickLatest(arrPrev).slice(0, 60000)
       }
     } catch { /* skip company */ }
     if (!text) return

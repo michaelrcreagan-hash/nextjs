@@ -142,9 +142,9 @@ export default function AltcoinSqueeze() {
 
       <div className="text-[11px] text-slate-600 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
         <b>Method:</b> CoinGecko drives price/mcap/vol/ATH.{' '}
-        {data.source === 'coinglass'
-          ? 'CoinGlass (key set) drives C1 funding, C2 real OI divergence and C7 24h short-liquidation magnitude — aggregated cross-exchange.'
-          : 'Binance perps drive C1 funding (fallback); C2 and C7 use vol/price proxies. Set COINGLASS_API_KEY to upgrade C2 to real OI divergence and C7 to live short-liquidation magnitude.'}
+        {data.source === 'coinapi'
+          ? 'CoinAPI (key set) drives C1 funding from cross-exchange derivatives metrics — US-accessible. C2/C7 use vol/price proxies (CoinAPI current metrics don’t expose 24h liquidation magnitude).'
+          : 'Binance perps drive C1 funding (fallback — may be geo-restricted); C2/C7 use vol/price proxies. Set COINAPI_KEY to source funding from CoinAPI instead.'}
         {' '}C6 catalysts come from the static calendar; C10 unlock needs a manual TokenUnlocks check before sizing.
       </div>
     </div>

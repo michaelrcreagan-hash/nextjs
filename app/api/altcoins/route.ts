@@ -1,27 +1,20 @@
 import { NextResponse } from 'next/server'
-import { hasCoinglass, cgGet, pick } from '@/app/lib/providers'
+import { hasCoinapi, coinapiBinancePerpMetric } from '@/app/lib/providers'
 
 export const revalidate = 0
 
 interface DerivInfo { funding: number; shortLiqUsd: number; longLiqUsd: number; oiChange: number }
 
-// Per-symbol derivatives map: CoinGlass (funding + liquidations) when keyed, else Binance funding.
+// Per-symbol derivatives map: CoinAPI funding (cross-exchange, US-accessible) when keyed,
+// else Binance funding. Liquidation / OI-change fields aren't exposed by CoinAPI's current
+// metrics, so C2/C7 fall back to their volume/price proxies.
 async function getDerivMap(): Promise<{ map: Map<string, DerivInfo>; source: string }> {
   const map = new Map<string, DerivInfo>()
-  if (hasCoinglass()) {
+  if (hasCoinapi()) {
     try {
-      const rows = await cgGet<Record<string, unknown>[]>('/api/futures/coins-markets', { per_page: 100 }, 30)
-      for (const r of rows ?? []) {
-        const sym = String(r.symbol ?? '').toUpperCase()
-        if (!sym) continue
-        map.set(sym, {
-          funding: pick(r, ['avg_funding_rate_by_oi', 'funding_rate', 'avgFundingRate']) / 100,
-          shortLiqUsd: pick(r, ['short_liquidation_usd_24h', 'shortLiquidationUsd24h']),
-          longLiqUsd: pick(r, ['long_liquidation_usd_24h', 'longLiquidationUsd24h']),
-          oiChange: pick(r, ['open_interest_change_percent_24h', 'oi_change_percent_24h']),
-        })
-      }
-      if (map.size) return { map, source: 'coinglass' }
+      const funding = await coinapiBinancePerpMetric('DERIVATIVES_FUNDING_RATE_CURRENT')
+      for (const [sym, f] of funding) map.set(sym, { funding: f, shortLiqUsd: 0, longLiqUsd: 0, oiChange: 0 })
+      if (map.size) return { map, source: 'coinapi' }
     } catch { /* fall through to Binance */ }
   }
   try {
@@ -96,8 +89,8 @@ export async function GET() {
         }
         conds.push({ id: 'C1', label: 'Negative funding', max: 3.5, score: c1, detail: c1d })
 
-        // C2 — OI divergence / oversold (max 2.0). Real OI Δ from CoinGlass when available:
-        // OI rising while price falling = trapped shorts (divergence) → max score.
+        // C2 — OI divergence / oversold (max 2.0). Uses real OI Δ if a provider supplies it
+        // (CoinAPI current metrics don't), else a 7d-trend proxy. OI↑ while price↓ = trapped shorts.
         let c2 = ch7 < -10 ? 2.0 : ch7 < -3 ? 1.3 : ch7 < 3 ? 0.6 : 0
         let c2d = `7d ${ch7.toFixed(1)}%`
         if (d && d.oiChange) {
@@ -123,8 +116,8 @@ export async function GET() {
         const c6 = cat?.score ?? 0
         conds.push({ id: 'C6', label: 'Catalyst ≤7d', max: 1.5, score: c6, detail: cat?.note ?? '—' })
 
-        // C7 — liquidation cluster (max 1.5). Real short-liquidation magnitude from CoinGlass:
-        // shorts liquidating above price is the squeeze fuel → scale by short-liq / mcap.
+        // C7 — liquidation cluster (max 1.5). Uses real short-liquidation magnitude if a provider
+        // supplies it (CoinAPI current metrics don't), else a liquidity proxy. Short-liq = squeeze fuel.
         let c7 = volMc > 0.15 ? 1.5 : volMc > 0.1 ? 1.0 : 0.5
         let c7d = `liquidity ${(volMc * 100).toFixed(0)}%`
         if (d && (d.shortLiqUsd > 0 || d.longLiqUsd > 0)) {

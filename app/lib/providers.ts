@@ -6,13 +6,15 @@
 // ============================================================================
 
 export const FMP_KEY = process.env.FMP_API_KEY ?? ''
-export const COINGLASS_KEY = process.env.COINGLASS_API_KEY ?? ''
+// CoinAPI key — accept a few common env-var spellings so it "just works"
+export const COINAPI_KEY =
+  process.env.COINAPI_KEY ?? process.env.COINAPI_API_KEY ?? process.env.COIN_API_KEY ?? ''
 
 export const hasFmp = () => FMP_KEY.length > 0
-export const hasCoinglass = () => COINGLASS_KEY.length > 0
+export const hasCoinapi = () => COINAPI_KEY.length > 0
 
 const FMP_BASE = 'https://financialmodelingprep.com'
-const CG_BASE = 'https://open-api-v4.coinglass.com'
+const COINAPI_BASE = 'https://rest.coinapi.io'
 
 // --- Financial Modeling Prep (stocks: quotes, candles, estimates, transcripts)
 export async function fmpGet<T = unknown>(
@@ -31,28 +33,47 @@ export async function fmpGet<T = unknown>(
   return res.json() as Promise<T>
 }
 
-// --- CoinGlass v4 (crypto derivatives: funding, OI, liquidations, L/S ratio)
-// v4 wraps payloads as { code, msg, data }. Returns the unwrapped `data`.
-export async function cgGet<T = unknown>(
+// --- CoinAPI.io (crypto market data + derivatives metrics: funding, open interest)
+export async function coinapiGet<T = unknown>(
   path: string,
   params: Record<string, string | number> = {},
-  revalidate = 30,
+  revalidate = 120,
 ): Promise<T> {
-  const url = new URL(`${CG_BASE}${path}`)
+  const url = new URL(`${COINAPI_BASE}${path}`)
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v))
   const res = await fetch(url.toString(), {
-    headers: { 'CG-API-KEY': COINGLASS_KEY, Accept: 'application/json' },
+    headers: { 'X-CoinAPI-Key': COINAPI_KEY, Accept: 'application/json' },
     next: { revalidate },
   })
-  if (!res.ok) throw new Error(`CoinGlass ${res.status} ${path}`)
-  const json = (await res.json()) as { code?: string | number; msg?: string; data?: T }
-  if (json.code != null && String(json.code) !== '0' && String(json.code) !== '200') {
-    throw new Error(`CoinGlass error ${json.code}: ${json.msg ?? 'unknown'}`)
-  }
-  return (json.data ?? (json as unknown as T))
+  if (!res.ok) throw new Error(`CoinAPI ${res.status} ${path}`)
+  return res.json() as Promise<T>
 }
 
-// read the first defined numeric field from a record (defensive against v4 field renames)
+interface CoinapiMetric { symbol_id?: string; value_decimal?: number; value?: number }
+
+// Bulk-fetch a derivatives metric for all Binance USDⓈ-M perps in one call,
+// returning a map keyed by base asset (BTC, ETH, …). symbol_id = BINANCEFTS_PERP_{ASSET}_USDT
+export async function coinapiBinancePerpMetric(
+  metricId: 'DERIVATIVES_FUNDING_RATE_CURRENT' | 'DERIVATIVES_OPEN_INTEREST',
+  revalidate = 120,
+): Promise<Map<string, number>> {
+  const rows = await coinapiGet<CoinapiMetric[]>(
+    '/v1/metrics/symbol/current',
+    { metric_id: metricId, exchange_id: 'BINANCEFTS' },
+    revalidate,
+  )
+  const map = new Map<string, number>()
+  for (const r of rows ?? []) {
+    const sid = r.symbol_id ?? ''
+    const m = sid.match(/^BINANCEFTS_PERP_([A-Z0-9]+)_USDT$/)
+    if (!m) continue
+    const val = r.value_decimal ?? r.value
+    if (val != null) map.set(m[1].toUpperCase(), Number(val))
+  }
+  return map
+}
+
+// read the first defined numeric field from a record (defensive against field renames)
 export function pick(obj: Record<string, unknown>, keys: string[], fallback = 0): number {
   for (const k of keys) {
     const v = obj?.[k]

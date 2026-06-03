@@ -39,9 +39,12 @@ All keys are **optional**. Without them the app uses keyless public sources (Yah
 | Env var | Unlocks | Fallback when absent |
 |---------|---------|----------------------|
 | `FMP_API_KEY` | AI Stocks: real quotes/candles, Layer 3 analyst estimates + earnings surprises, earnings catalysts, Layer 2 transcript-driven phase detection | Yahoo Finance + price-trend proxies |
-| `COINGLASS_API_KEY` | Perps & Altcoin Squeeze: aggregated cross-exchange funding, OI change, 24h long/short liquidations (real C2/C7) | Binance Futures funding + OI |
+| `COINAPI_KEY` | Perps & Altcoin Squeeze: US-accessible cross-exchange funding + open interest (CoinAPI derivatives metrics), priced via CoinGecko | Binance Futures funding + OI (may be geo-restricted) |
 
-See `.env.example` for the exact endpoints each key powers. The only sub-score still proxied with a key set is the exact 30/60/90-day EPS-revision delta, which requires an estimate-history / SPG (S&P Global Visible Alpha) as-of-date feed — wire it in `app/api/stocks/route.ts → fmpFundamentals()`.
+See `.env.example` for the exact endpoints each key powers. Notes:
+- **CoinAPI free tier is ~100 requests/day**, so the crypto routes cache aggressively (120s). Funding/OI come from CoinAPI metrics (`DERIVATIVES_FUNDING_RATE_CURRENT` / `DERIVATIVES_OPEN_INTEREST`); liquidation magnitude isn't in CoinAPI's current metrics, so Altcoin Squeeze C2/C7 stay volume/price proxies.
+- The exact 30/60/90-day EPS-revision delta still uses a price-trend proxy even with FMP — true as-of-date revisions need an estimate-history / SPG (S&P Global Visible Alpha) feed; wire it in `app/api/stocks/route.ts → fmpFundamentals()`.
+- Some FMP endpoints (analyst estimates, earnings surprises, transcripts) require a paid FMP plan; on the free plan those calls 403 and the app falls back to proxies automatically.
 
 ## Frameworks located from source material
 
