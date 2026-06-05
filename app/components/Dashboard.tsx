@@ -10,6 +10,7 @@ const CryptoDerivs = dynamic(() => import('./tabs/CryptoDerivs'), { ssr: false }
 const PerpShorts = dynamic(() => import('./tabs/PerpShorts'), { ssr: false })
 const AltcoinSqueeze = dynamic(() => import('./tabs/AltcoinSqueeze'), { ssr: false })
 const AIStocks = dynamic(() => import('./tabs/AIStocks'), { ssr: false })
+const Turbulence = dynamic(() => import('./tabs/Turbulence'), { ssr: false })
 const OptionsFlow = dynamic(() => import('./tabs/OptionsFlow'), { ssr: false })
 const TradeTracker = dynamic(() => import('./tabs/TradeTracker'), { ssr: false })
 
@@ -21,8 +22,9 @@ const TABS = [
   { id: 4, label: '📉 Short Signals', short: 'Shorts' },
   { id: 5, label: '🪙 Altcoin Squeeze', short: 'Alts' },
   { id: 6, label: '🤖 AI Stocks', short: 'AI' },
-  { id: 7, label: '📊 Options Flow', short: 'Options' },
-  { id: 8, label: '💰 Trade Tracker', short: 'Tracker' },
+  { id: 7, label: '🌀 Turbulence', short: 'Turb' },
+  { id: 8, label: '📊 Options Flow', short: 'Options' },
+  { id: 9, label: '💰 Trade Tracker', short: 'Tracker' },
 ]
 
 export default function Dashboard() {
@@ -176,8 +178,9 @@ export default function Dashboard() {
         {activeTab === 4 && <PerpShorts regimeScore={regimeScore} bottomScore={bottomScore} />}
         {activeTab === 5 && <AltcoinSqueeze />}
         {activeTab === 6 && <AIStocks />}
-        {activeTab === 7 && <OptionsFlow />}
-        {activeTab === 8 && <TradeTracker />}
+        {activeTab === 7 && <Turbulence />}
+        {activeTab === 8 && <OptionsFlow />}
+        {activeTab === 9 && <TradeTracker />}
       </main>
 
       {/* Footer */}

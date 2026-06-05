@@ -13,6 +13,7 @@ Live multi-asset trading dashboard — **BTC · Altcoins · AI bottleneck stocks
 | 📉 **Short Signals** | 9-condition BTC perp-short checklist + position calculator |
 | 🪙 **Altcoin Squeeze** | APEX-Squeeze V3 12-condition short-squeeze score (max 12.5) |
 | 🤖 **AI Stocks** | 5-layer AI bottleneck framework (watchlist → rotation → fundamentals → technical setup + options) |
+| 🌀 **Turbulence** | Realized-vol turbulence forecast: optimal-lag OLS of macro/market predictors → per-asset regime signal (SMH/QQQ/MU/VRT/GLD/TLT) |
 | 📊 **Options Flow** | IBIT / MSTR / VIX chains, P/C, max-pain, IV skew, GEX proxy |
 | 💰 **Trade Tracker** | localStorage P&L log, equity curve, goal progress |
 
@@ -40,6 +41,7 @@ All keys are **optional**. Without them the app uses keyless public sources (Yah
 |---------|---------|----------------------|
 | `FMP_API_KEY` | AI Stocks: real quotes/candles, Layer 3 analyst estimates + earnings surprises, earnings catalysts, Layer 2 transcript-driven phase detection | Yahoo Finance + price-trend proxies |
 | `COINAPI_KEY` | Perps & Altcoin Squeeze: US-accessible cross-exchange funding + open interest (CoinAPI derivatives metrics), priced via CoinGecko | Binance Futures funding + OI (may be geo-restricted) |
+| `FRED_API_KEY` | Turbulence model: adds macro predictors — net Liquidity proxy (WALCL−WTREGEN−RRPONTSYD), CPI, PCE | Market-only predictors (BTC/VIX/10Y/DXY/Oil + VIX z-score) |
 
 See `.env.example` for the exact endpoints each key powers. Notes:
 - **CoinAPI free tier is ~100 requests/day**, so the crypto routes cache aggressively (120s). Funding/OI come from CoinAPI metrics (`DERIVATIVES_FUNDING_RATE_CURRENT` / `DERIVATIVES_OPEN_INTEREST`); liquidation magnitude isn't in CoinAPI's current metrics, so Altcoin Squeeze C2/C7 stay volume/price proxies.

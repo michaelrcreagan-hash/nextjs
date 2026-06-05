@@ -9,9 +9,12 @@ export const FMP_KEY = process.env.FMP_API_KEY ?? ''
 // CoinAPI key — accept a few common env-var spellings so it "just works"
 export const COINAPI_KEY =
   process.env.COINAPI_KEY ?? process.env.COINAPI_API_KEY ?? process.env.COIN_API_KEY ?? ''
+// FRED (St. Louis Fed) — optional macro predictors for the Turbulence model
+export const FRED_KEY = process.env.FRED_API_KEY ?? process.env.FRED_KEY ?? ''
 
 export const hasFmp = () => FMP_KEY.length > 0
 export const hasCoinapi = () => COINAPI_KEY.length > 0
+export const hasFred = () => FRED_KEY.length > 0
 
 const FMP_BASE = 'https://financialmodelingprep.com'
 const COINAPI_BASE = 'https://rest.coinapi.io'
@@ -71,6 +74,22 @@ export async function coinapiBinancePerpMetric(
     if (val != null) map.set(m[1].toUpperCase(), Number(val))
   }
   return map
+}
+
+// --- FRED (St. Louis Fed) macro series, e.g. WALCL / WTREGEN / RRPONTSYD / CPIAUCSL / PCE
+export async function fredSeries(seriesId: string, observationStart: string, revalidate = 3600): Promise<{ date: string; value: number }[]> {
+  const url = new URL('https://api.stlouisfed.org/fred/series/observations')
+  url.searchParams.set('series_id', seriesId)
+  url.searchParams.set('api_key', FRED_KEY)
+  url.searchParams.set('file_type', 'json')
+  url.searchParams.set('observation_start', observationStart)
+  const res = await fetch(url.toString(), { headers: { Accept: 'application/json' }, next: { revalidate } })
+  if (!res.ok) throw new Error(`FRED ${res.status} ${seriesId}`)
+  const j = await res.json() as { observations?: { date: string; value: string }[] }
+  return (j.observations ?? [])
+    .filter(o => o.value !== '.' && o.value != null)
+    .map(o => ({ date: o.date, value: Number(o.value) }))
+    .filter(o => !Number.isNaN(o.value))
 }
 
 // read the first defined numeric field from a record (defensive against field renames)
