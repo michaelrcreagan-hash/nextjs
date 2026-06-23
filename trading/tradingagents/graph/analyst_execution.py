@@ -50,6 +50,27 @@ ANALYST_NODE_SPECS: dict[str, AnalystNodeSpec] = {
         tool_node="tools_fundamentals",
         report_key="fundamentals_report",
     ),
+    "etf": AnalystNodeSpec(
+        key="etf",
+        agent_node="ETF Analyst",
+        clear_node="Msg Clear ETF",
+        tool_node="tools_etf",
+        report_key="etf_report",
+    ),
+    "options": AnalystNodeSpec(
+        key="options",
+        agent_node="Options Analyst",
+        clear_node="Msg Clear Options",
+        tool_node="tools_options",
+        report_key="options_report",
+    ),
+    "crypto_equities": AnalystNodeSpec(
+        key="crypto_equities",
+        agent_node="Crypto Equities Analyst",
+        clear_node="Msg Clear Crypto Equities",
+        tool_node="tools_crypto_equities",
+        report_key="crypto_equities_report",
+    ),
 }
 
 

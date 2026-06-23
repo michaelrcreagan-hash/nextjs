@@ -1,6 +1,9 @@
+from .analysts.crypto_equities_analyst import create_crypto_equities_analyst
+from .analysts.etf_analyst import create_etf_analyst
 from .analysts.fundamentals_analyst import create_fundamentals_analyst
 from .analysts.market_analyst import create_market_analyst
 from .analysts.news_analyst import create_news_analyst
+from .analysts.options_analyst import create_options_analyst
 from .analysts.sentiment_analyst import (
     create_sentiment_analyst,
     create_social_media_analyst,  # deprecated alias kept for back-compat
@@ -24,10 +27,13 @@ __all__ = [
     "create_bear_researcher",
     "create_bull_researcher",
     "create_research_manager",
+    "create_crypto_equities_analyst",
+    "create_etf_analyst",
     "create_fundamentals_analyst",
     "create_market_analyst",
     "create_neutral_debator",
     "create_news_analyst",
+    "create_options_analyst",
     "create_aggressive_debator",
     "create_portfolio_manager",
     "create_conservative_debator",

@@ -198,6 +198,30 @@ class TradingAgentsGraph:
                     get_income_statement,
                 ]
             ),
+            "etf": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                    get_news,
+                ]
+            ),
+            "options": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                ]
+            ),
+            "crypto_equities": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                    get_fundamentals,
+                    get_news,
+                ]
+            ),
         }
 
     def _resolve_benchmark(self, ticker: str) -> str:

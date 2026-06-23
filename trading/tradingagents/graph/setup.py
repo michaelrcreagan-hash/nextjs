@@ -10,11 +10,14 @@ from tradingagents.agents import (
     create_bear_researcher,
     create_bull_researcher,
     create_conservative_debator,
+    create_crypto_equities_analyst,
+    create_etf_analyst,
     create_fundamentals_analyst,
     create_market_analyst,
     create_msg_delete,
     create_neutral_debator,
     create_news_analyst,
+    create_options_analyst,
     create_portfolio_manager,
     create_research_manager,
     create_sentiment_analyst,
@@ -50,9 +53,12 @@ class GraphSetup:
         Args:
             selected_analysts (list): List of analyst types to include. Options are:
                 - "market": Market analyst
-                - "social": Social media analyst
+                - "social": Social media / sentiment analyst
                 - "news": News analyst
                 - "fundamentals": Fundamentals analyst
+                - "etf": ETF analyst (NAV, flows, tracking, sector exposure)
+                - "options": Options analyst (IV, defined-risk structures, LEAPS)
+                - "crypto_equities": Crypto equities analyst (COIN, MSTR, MARA, RIOT, etc.)
         """
         plan = build_analyst_execution_plan(selected_analysts)
 
@@ -61,6 +67,9 @@ class GraphSetup:
             "social": lambda: create_sentiment_analyst(self.quick_thinking_llm),
             "news": lambda: create_news_analyst(self.quick_thinking_llm),
             "fundamentals": lambda: create_fundamentals_analyst(self.quick_thinking_llm),
+            "etf": lambda: create_etf_analyst(self.quick_thinking_llm),
+            "options": lambda: create_options_analyst(self.quick_thinking_llm),
+            "crypto_equities": lambda: create_crypto_equities_analyst(self.quick_thinking_llm),
         }
 
         # Create researcher and manager nodes
