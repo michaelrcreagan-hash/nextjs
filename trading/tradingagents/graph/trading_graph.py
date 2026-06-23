@@ -222,6 +222,30 @@ class TradingAgentsGraph:
                     get_news,
                 ]
             ),
+            "crypto_trader": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                    get_news,
+                ]
+            ),
+            "crypto_investor": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                    get_fundamentals,
+                    get_news,
+                ]
+            ),
+            "crypto_algo_trader": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                ]
+            ),
         }
 
     def _resolve_benchmark(self, ticker: str) -> str:

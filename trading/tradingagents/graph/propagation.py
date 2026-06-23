@@ -69,6 +69,9 @@ class Propagator:
             "etf_report": "",
             "options_report": "",
             "crypto_equities_report": "",
+            "crypto_trader_report": "",
+            "crypto_investor_report": "",
+            "crypto_algo_trader_report": "",
         }
 
     def get_graph_args(self, callbacks: list | None = None) -> dict[str, Any]:

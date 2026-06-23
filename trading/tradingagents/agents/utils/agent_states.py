@@ -62,6 +62,9 @@ class AgentState(MessagesState):
     etf_report: Annotated[str, "Report from the ETF Analyst"]
     options_report: Annotated[str, "Report from the Options Analyst"]
     crypto_equities_report: Annotated[str, "Report from the Crypto Equities Analyst"]
+    crypto_trader_report: Annotated[str, "Report from the Crypto Trader"]
+    crypto_investor_report: Annotated[str, "Report from the Crypto Investor"]
+    crypto_algo_trader_report: Annotated[str, "Report from the Crypto Algo Trader"]
 
     # researcher team discussion step
     investment_debate_state: Annotated[

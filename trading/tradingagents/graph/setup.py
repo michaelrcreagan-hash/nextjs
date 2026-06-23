@@ -10,7 +10,10 @@ from tradingagents.agents import (
     create_bear_researcher,
     create_bull_researcher,
     create_conservative_debator,
+    create_crypto_algo_trader,
     create_crypto_equities_analyst,
+    create_crypto_investor,
+    create_crypto_trader,
     create_etf_analyst,
     create_fundamentals_analyst,
     create_market_analyst,
@@ -70,6 +73,9 @@ class GraphSetup:
             "etf": lambda: create_etf_analyst(self.quick_thinking_llm),
             "options": lambda: create_options_analyst(self.quick_thinking_llm),
             "crypto_equities": lambda: create_crypto_equities_analyst(self.quick_thinking_llm),
+            "crypto_trader": lambda: create_crypto_trader(self.quick_thinking_llm),
+            "crypto_investor": lambda: create_crypto_investor(self.quick_thinking_llm),
+            "crypto_algo_trader": lambda: create_crypto_algo_trader(self.quick_thinking_llm),
         }
 
         # Create researcher and manager nodes

@@ -71,6 +71,27 @@ ANALYST_NODE_SPECS: dict[str, AnalystNodeSpec] = {
         tool_node="tools_crypto_equities",
         report_key="crypto_equities_report",
     ),
+    "crypto_trader": AnalystNodeSpec(
+        key="crypto_trader",
+        agent_node="Crypto Trader",
+        clear_node="Msg Clear Crypto Trader",
+        tool_node="tools_crypto_trader",
+        report_key="crypto_trader_report",
+    ),
+    "crypto_investor": AnalystNodeSpec(
+        key="crypto_investor",
+        agent_node="Crypto Investor",
+        clear_node="Msg Clear Crypto Investor",
+        tool_node="tools_crypto_investor",
+        report_key="crypto_investor_report",
+    ),
+    "crypto_algo_trader": AnalystNodeSpec(
+        key="crypto_algo_trader",
+        agent_node="Crypto Algo Trader",
+        clear_node="Msg Clear Crypto Algo Trader",
+        tool_node="tools_crypto_algo_trader",
+        report_key="crypto_algo_trader_report",
+    ),
 }
 
 
