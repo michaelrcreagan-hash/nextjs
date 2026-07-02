@@ -92,6 +92,13 @@ ANALYST_NODE_SPECS: dict[str, AnalystNodeSpec] = {
         tool_node="tools_crypto_algo_trader",
         report_key="crypto_algo_trader_report",
     ),
+    "ai_bottleneck": AnalystNodeSpec(
+        key="ai_bottleneck",
+        agent_node="AI Bottleneck Analyst",
+        clear_node="Msg Clear AI Bottleneck",
+        tool_node="tools_ai_bottleneck",
+        report_key="ai_bottleneck_report",
+    ),
 }
 
 

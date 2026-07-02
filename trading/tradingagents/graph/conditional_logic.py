@@ -97,6 +97,14 @@ class ConditionalLogic:
             return "tools_crypto_algo_trader"
         return "Msg Clear Crypto Algo Trader"
 
+    def should_continue_ai_bottleneck(self, state: AgentState):
+        """Determine if AI bottleneck analysis should continue."""
+        messages = state["messages"]
+        last_message = messages[-1]
+        if last_message.tool_calls:
+            return "tools_ai_bottleneck"
+        return "Msg Clear AI Bottleneck"
+
     def should_continue_debate(self, state: AgentState) -> str:
         """Determine if debate should continue."""
 

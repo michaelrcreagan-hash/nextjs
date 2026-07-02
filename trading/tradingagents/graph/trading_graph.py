@@ -246,6 +246,15 @@ class TradingAgentsGraph:
                     get_verified_market_snapshot,
                 ]
             ),
+            "ai_bottleneck": ToolNode(
+                [
+                    get_stock_data,
+                    get_indicators,
+                    get_verified_market_snapshot,
+                    get_fundamentals,
+                    get_news,
+                ]
+            ),
         }
 
     def _resolve_benchmark(self, ticker: str) -> str:

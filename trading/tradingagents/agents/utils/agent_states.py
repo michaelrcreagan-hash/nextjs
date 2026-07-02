@@ -65,6 +65,7 @@ class AgentState(MessagesState):
     crypto_trader_report: Annotated[str, "Report from the Crypto Trader"]
     crypto_investor_report: Annotated[str, "Report from the Crypto Investor"]
     crypto_algo_trader_report: Annotated[str, "Report from the Crypto Algo Trader"]
+    ai_bottleneck_report: Annotated[str, "Report from the AI Bottleneck Analyst"]
 
     # researcher team discussion step
     investment_debate_state: Annotated[

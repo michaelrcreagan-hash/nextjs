@@ -1,3 +1,4 @@
+from .analysts.ai_bottleneck_analyst import create_ai_bottleneck_analyst
 from .analysts.crypto_algo_trader import create_crypto_algo_trader
 from .analysts.crypto_equities_analyst import create_crypto_equities_analyst
 from .analysts.crypto_investor import create_crypto_investor
@@ -30,6 +31,7 @@ __all__ = [
     "create_bear_researcher",
     "create_bull_researcher",
     "create_research_manager",
+    "create_ai_bottleneck_analyst",
     "create_crypto_algo_trader",
     "create_crypto_equities_analyst",
     "create_crypto_investor",

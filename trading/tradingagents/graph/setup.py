@@ -7,6 +7,7 @@ from langgraph.prebuilt import ToolNode
 
 from tradingagents.agents import (
     create_aggressive_debator,
+    create_ai_bottleneck_analyst,
     create_bear_researcher,
     create_bull_researcher,
     create_conservative_debator,
@@ -76,6 +77,7 @@ class GraphSetup:
             "crypto_trader": lambda: create_crypto_trader(self.quick_thinking_llm),
             "crypto_investor": lambda: create_crypto_investor(self.quick_thinking_llm),
             "crypto_algo_trader": lambda: create_crypto_algo_trader(self.quick_thinking_llm),
+            "ai_bottleneck": lambda: create_ai_bottleneck_analyst(self.quick_thinking_llm),
         }
 
         # Create researcher and manager nodes
