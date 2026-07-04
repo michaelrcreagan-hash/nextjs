@@ -30,13 +30,16 @@ class RegimeParams:
     risk_on_min: int = 5
     mixed_min: int = 2
     caution_min: int = 0
-    # gross-exposure multiplier per state
+    # Gross-exposure multiplier per state. Soft gate (walk-forward
+    # validated): scale exposure down in stress instead of locking out —
+    # the hard 0.7/0.4/0.0 ladder cost ~10 CAGR points across 2023-2026
+    # while the daily stops already handled the 2022 bear.
     multipliers: dict = field(
         default_factory=lambda: {
             "RISK_ON": 1.0,
-            "MIXED": 0.7,
-            "CAUTION": 0.4,
-            "RISK_OFF": 0.0,
+            "MIXED": 0.85,
+            "CAUTION": 0.6,
+            "RISK_OFF": 0.3,
         }
     )
 

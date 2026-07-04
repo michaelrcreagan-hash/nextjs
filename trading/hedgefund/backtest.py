@@ -22,13 +22,16 @@ from .universe import CATEGORY_OF
 class StrategyParams:
     signal: SignalParams = field(default_factory=SignalParams)
     regime: RegimeParams = field(default_factory=RegimeParams)
+    # Defaults are the walk-forward validated config (see REPORT.md):
+    # trained 2019-2022, validated 2023+, confirmed full-period.
     use_regime: bool = True
-    tier_cutoff: float = 55.0        # min score to be a candidate (Silver)
-    top_n: int = 8
+    respect_no_new_longs: bool = False  # lockout missed V-recoveries; soft gate scales instead
+    tier_cutoff: float = 60.0        # min score to be a candidate
+    top_n: int = 12
     max_name_weight: float = 0.12
     max_category_weight: float = 0.25
-    trailing_stop: float = 0.25      # from highest close since entry
-    atr_stop_mult: float = 2.5       # initial stop, ATR-proxy units
+    trailing_stop: float = 0.30      # from highest close since entry
+    atr_stop_mult: float = 3.0       # initial stop, ATR-proxy units
     hard_exit_below_200sma: bool = True
     rebalance_weekday: int = 4       # Friday decisions, Monday-close fills
     cost_bps: float = 10.0           # per side
@@ -167,7 +170,11 @@ def run_backtest(
         # ---- 3. weekly decision: build targets for next session ----
         if day.weekday() == p.rebalance_weekday and i + 1 < len(dates):
             mult = regime.loc[day, "multiplier"] if p.use_regime else 1.0
-            no_new = bool(regime.loc[day, "no_new_longs"]) and p.use_regime
+            no_new = (
+                bool(regime.loc[day, "no_new_longs"])
+                and p.use_regime
+                and p.respect_no_new_longs
+            )
             score_row = sigs.score.loc[day]
             gate_row = sigs.trend_gate.loc[day]
             candidates = score_row[(score_row >= p.tier_cutoff) & gate_row]

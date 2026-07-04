@@ -31,7 +31,7 @@ class SignalParams:
     rs_short: int = 63           # ~3 months
     rs_long: int = 126           # ~6 months
     rsi_lo: float = 45.0         # entry sweet spot band
-    rsi_hi: float = 70.0
+    rsi_hi: float = 80.0         # walk-forward validated: 70 forfeits strong-momentum entries
     hi52_near: float = 0.95      # within 5% of 52w high
     hi52_ok: float = 0.85        # within 15%
     rvol_lo: float = 1.2         # volume confirmation band
