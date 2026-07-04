@@ -91,6 +91,18 @@ def cmd_screen(_args):
         print(f"\nAsymmetric setups: {', '.join(result['asymmetric_setups'])}")
 
 
+def cmd_daily(args):
+    from .daily import run_daily
+
+    run_daily(force_rebalance=args.force_rebalance, deep_dive=args.deep_dive)
+
+
+def cmd_portfolio(_args):
+    from .daily import portfolio_summary
+
+    portfolio_summary()
+
+
 def main():
     ap = argparse.ArgumentParser(prog="hedgefund")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -111,12 +123,20 @@ def main():
 
     sub.add_parser("screen")
 
+    dl = sub.add_parser("daily")
+    dl.add_argument("--force-rebalance", action="store_true")
+    dl.add_argument("--deep-dive", action="store_true")
+
+    sub.add_parser("portfolio")
+
     args = ap.parse_args()
     {
         "status": cmd_status,
         "backtest": cmd_backtest,
         "optimize": cmd_optimize,
         "screen": cmd_screen,
+        "daily": cmd_daily,
+        "portfolio": cmd_portfolio,
     }[args.cmd](args)
 
 

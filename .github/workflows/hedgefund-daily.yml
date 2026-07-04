@@ -1,0 +1,47 @@
+name: Hedge fund daily run
+
+on:
+  schedule:
+    # 21:30 UTC = after US market close, Mon-Fri
+    - cron: "30 21 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      force_rebalance:
+        description: "Force a rebalance regardless of weekday"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install pandas numpy yfinance
+
+      - name: Refresh price data
+        working-directory: trading
+        run: python -m hedgefund.fetch_data
+
+      - name: Run daily job (screen + paper ledger + morning report)
+        working-directory: trading
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.force_rebalance }}" = "true" ]; then FLAGS="--force-rebalance"; fi
+          python -m hedgefund.run daily $FLAGS
+
+      - name: Commit ledger + report
+        run: |
+          git config user.name "hedgefund-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -f trading/hedgefund/state trading/hedgefund/reports
+          git diff --cached --quiet || git commit -m "Daily run: ledger + morning report [skip ci]"
+          git push
