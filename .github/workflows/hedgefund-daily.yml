@@ -10,6 +10,10 @@ on:
         description: "Force a rebalance regardless of weekday"
         type: boolean
         default: false
+      deep_dive:
+        description: "Run LLM deep dives on top names (needs ANTHROPIC_API_KEY secret)"
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -25,7 +29,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install deps
-        run: pip install pandas numpy yfinance
+        run: pip install ./trading
 
       - name: Refresh price data
         working-directory: trading
@@ -33,9 +37,15 @@ jobs:
 
       - name: Run daily job (screen + paper ledger + morning report)
         working-directory: trading
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRADINGAGENTS_LLM_PROVIDER: anthropic
+          TRADINGAGENTS_DEEP_THINK_LLM: claude-sonnet-4-6
+          TRADINGAGENTS_QUICK_THINK_LLM: claude-haiku-4-5
         run: |
           FLAGS=""
           if [ "${{ inputs.force_rebalance }}" = "true" ]; then FLAGS="--force-rebalance"; fi
+          if [ "${{ inputs.deep_dive }}" != "false" ] && [ -n "$ANTHROPIC_API_KEY" ]; then FLAGS="$FLAGS --deep-dive"; fi
           python -m hedgefund.run daily $FLAGS
 
       - name: Commit ledger + report
