@@ -32,6 +32,11 @@ class StrategyParams:
     max_category_weight: float = 0.25
     trailing_stop: float = 0.30      # from highest close since entry
     atr_stop_mult: float = 3.0       # initial stop, ATR-proxy units
+    # Entry-quality refinements (win-rate lever from the strategy docs):
+    pullback_entry: bool = False     # fresh entries only near support
+    pullback_rsi_hi: float = 65.0    # RSI ceiling for a "pullback zone" entry
+    pullback_ema_dist: float = 0.03  # or price within this frac of EMA21
+    scale_in: bool = False           # quarter-size start, full on follow-through
     hard_exit_below_200sma: bool = True
     rebalance_weekday: int = 4       # Friday decisions, Monday-close fills
     cost_bps: float = 10.0           # per side
@@ -61,6 +66,8 @@ def run_backtest(
     regime = compute_regime(panel, universe, p.regime)
     atr = panel.atr(20)[cols]
     ma200 = close.rolling(200).mean()
+    rsi14 = sigs.components["rsi"]
+    ema21 = close.ewm(span=21, adjust=False).mean()
 
     dates = close.index
     if start:
@@ -190,6 +197,25 @@ def run_backtest(
                     w = max(0.0, min(base_w, room)) * mult
                     if no_new and t not in shares:
                         continue  # kill switch: keep holds, no fresh entries
+                    if p.pullback_entry and t not in shares:
+                        # Fresh entries only from a pullback zone: RSI below
+                        # the ceiling, or price hugging EMA21. Extended names
+                        # stay on the watchlist for the next pullback.
+                        r_now = rsi14.loc[day, t]
+                        near_ema = (
+                            abs(close.loc[day, t] / ema21.loc[day, t] - 1)
+                            <= p.pullback_ema_dist
+                        )
+                        if not (r_now <= p.pullback_rsi_hi or near_ema):
+                            continue
+                    if p.scale_in and t not in shares:
+                        # Quarter-size start; scales to full at a later
+                        # rebalance once the position shows follow-through
+                        # (still a candidate and trading above entry).
+                        w *= 0.25
+                    elif p.scale_in and t in shares:
+                        if close.loc[day, t] <= entry_px.get(t, np.inf):
+                            w *= 0.25  # no follow-through yet: stay small
                     if w > 0:
                         targets[t] = w
                         cat_used[cat] = cat_used.get(cat, 0.0) + min(base_w, room)

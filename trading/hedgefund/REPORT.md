@@ -65,6 +65,52 @@ Daily close/volume 2019-01-02 → 2026-07-02 for 39 universe names + SMH/SPY/QQQ
 5. **Close-to-close ATR proxy** (no intraday H/L) makes stops slightly tighter than true-range ATR would.
 6. Volume for VIX/BTC is zero (unused); equity volume is in thousands (RVOL is scale-invariant).
 
+---
+
+# Desk-Level Strategy Optimization
+
+Each execution desk backtested and refined independently (2019-06 → 2026-07, walk-forward where applicable).
+
+## Desk 1 — Crypto algo (Turtle dual-system + ADX/Keltner/OBV)
+
+Implemented in `hedgefund/crypto_algo.py` exactly as embedded in the crypto_algo_trader agent. Real BTC/ETH OHLCV (FMP crypto full endpoint).
+
+| | CAGR | Sharpe | Max DD | MAR | Trades | Win % | PF |
+|---|---|---|---|---|---|---|---|
+| BTC buy-and-hold | 32.4% | 0.64 | −76.7% | 0.42 | — | — | — |
+| **BTC Turtle (final)** | 21.1% | 0.75 | **−23.1%** | **0.92** | 30 | 30.0 | **3.44** |
+| ETH buy-and-hold | 30.6% | 0.62 | −79.4% | 0.39 | — | — | — |
+| ETH Turtle (final) | 21.0% | 0.69 | −42.6% | 0.49 | 30 | 30.0 | 2.45 |
+
+**Goal (beat BTC B&H risk-adjusted): achieved — 2.2× BTC's MAR at 30% of its drawdown.** Refinements from a 72-config walk-forward grid: classic 20/10–55/20 Donchian beats slower variants everywhere; **stop tightened to 1.5N**, **max 2 units** (crypto's fat tails punish 4-unit pyramids), **pyramid step widened to 1.0N**. The **ADX<20 veto is confirmed causal**: removing it drops BTC MAR 0.92 → 0.71. Turtle win rates are structurally low (30%) — the system is long-tail: PF 3.44 means winners are ~3.4× the losers in aggregate. Caveat: the 2023+ validation window favored buy-and-hold (grinding bull, few clean breakouts); the system's edge concentrates in avoiding 2022-style collapses.
+
+## Desk 2 — Options (LEAPS diagonal / PMCC)
+
+Simulated in `hedgefund/options_sim.py` via Black-Scholes with IV = realized-vol proxy (no chain data exists here — structure comparisons are meaningful, absolute P&L is approximate). Stock-replacement sizing (delta-equivalent exposure, spare cash at 4%).
+
+| Config (IV=1.15×HV) | CAGR | Max DD | MAR |
+|---|---|---|---|
+| SMH shares B&H | 42.2% | −45.3% | 0.93 |
+| **SMH full diagonal, short Δ0.22 (final)** | 21.8% | **−18.3%** | **1.19** |
+| SMH LEAPS only (no short) | 26.8% | −27.1% | 0.99 |
+| NVDA shares B&H | 77.6% | −66.4% | 1.17 |
+| NVDA full diagonal | 26.1% | −32.9% | 0.79 |
+| **NVDA LEAPS only (final for hyper-trenders)** | 39.3% | −42.4% | 0.93 |
+
+**Goal (beat underlying B&H MAR with defined risk): achieved on ETF underlyings** — the full diagonal on SMH beats shares on MAR (1.19 vs 0.93) at 40% of the drawdown. Structure rule discovered: **short calls belong on diversified underlyings; on hyper-momentum single names the cap costs more than the premium collects** — hold pure deep-ITM LEAPS there. Regime filter (200-SMA) essential in all variants. Under a conservative no-VRP assumption (IV=HV) the short leg still wins on SMH (MAR 1.04-1.09) — the conclusion is robust to the IV assumption.
+
+## Desk 3 — AI equity (momentum/RS + soft regime gate)
+
+Refinement of the already-validated strategy targeting the win-rate gap:
+
+| Variant | CAGR | Max DD | MAR | Win % | PF |
+|---|---|---|---|---|---|
+| Baseline (validated defaults) | 30.5% | −21.2% | 1.44 | 48.2 | 1.74 |
+| + pullback-only entries | 16.6% | −18.4% | 0.90 | 46.4 | 1.48 |
+| **+ scale-in (quarter-size starts)** | 19.3% | **−11.4%** | **1.69** | 48.2 | **3.65** |
+
+Two honest findings: (1) **the docs' pullback-entry preference is rejected** — in a rank-rebalance momentum system, waiting for dips forfeits the strongest continuations (CAGR nearly halves, win rate *falls*); (2) **win rate ~48% is structural** to weekly rank-churn (many small rebalance exits) and does not reach the 55–62% target by any tested entry filter — but **scale-in makes the target irrelevant**: quarter-size probes cut max drawdown to −11.4% and lift profit factor to 3.65, i.e. losses become tiny rather than less frequent. Recommended profiles: **baseline defaults for max growth** (MAR 1.44), **`scale_in=True` for drawdown-priority** (MAR 1.69; supports ~1.5× leverage to ~29% CAGR at ~−17% DD if desired).
+
 ## Reproduce
 
 ```
