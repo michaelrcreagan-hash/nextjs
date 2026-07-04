@@ -122,9 +122,52 @@ def run_daily(
     path = os.path.join(REPORTS_DIR, f"{summary['date']}.md")
     with open(path, "w") as f:
         f.write(report)
+
+    _write_dashboard_snapshot(result, summary, ledger, stale)
+
     print(report)
     print(f"[report written to {path}; ledger at {LEDGER_PATH}]")
     return path
+
+
+def _write_dashboard_snapshot(result, summary, ledger, stale: bool) -> None:
+    """Structured JSON consumed by the Next.js /fund dashboard page."""
+    import json
+
+    wl = result["watchlist"]
+    snapshot = {
+        "as_of": str(result["as_of"].date()),
+        "generated_utc": datetime.utcnow().isoformat(timespec="seconds"),
+        "stale": stale,
+        "regime": {
+            "state": result["regime"]["state"],
+            "score": int(result["regime"]["score"]),
+            "multiplier": float(result["regime"]["multiplier"]),
+            "breadth": round(float(result["regime"]["breadth"]), 3),
+        },
+        "equity": summary["equity"],
+        "start_equity": ledger["start_equity"],
+        "actions": summary["actions"],
+        "positions": summary.get("positions", {}),
+        "watchlist": [
+            {
+                "symbol": sym,
+                "score": float(row["score"]),
+                "tier": row["tier"],
+                "category": row["category"],
+                "trend_gate": bool(row["trend_gate"]),
+                "asymmetric": bool(row["asymmetric"]),
+                "rsi": float(row["rsi"]),
+                "off_52w_high": float(row["off_52w_high"]),
+            }
+            for sym, row in wl.iterrows()
+        ],
+        "asymmetric_setups": result["asymmetric_setups"],
+    }
+    state_dir = os.path.dirname(LEDGER_PATH)
+    os.makedirs(state_dir, exist_ok=True)
+    with open(os.path.join(state_dir, "dashboard.json"), "w") as f:
+        json.dump(snapshot, f, indent=2)
 
 
 def portfolio_summary() -> None:
