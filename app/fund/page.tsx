@@ -129,7 +129,7 @@ export default async function FundPage() {
         <div>
           <h1 className="text-2xl font-bold">Hedge Fund — Paper Account</h1>
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-            As of {snap.as_of} · updated nightly after US close
+            As of {snap.as_of} · updated each market morning at the open
             {snap.stale && ' · ⚠️ data stale'}
           </p>
         </div>
