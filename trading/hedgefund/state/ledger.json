@@ -1,0 +1,33 @@
+{
+  "created": "2026-07-04T15:07:47",
+  "start_equity": 100000.0,
+  "cash": 76000.0,
+  "positions": {
+    "CRWD": {
+      "shares": 61.800247386390296,
+      "entry_px": 193.98,
+      "entry_date": "2026-07-02",
+      "peak_px": 193.98,
+      "stop_px": 182.256
+    },
+    "DDOG": {
+      "shares": 46.043985205146676,
+      "entry_px": 260.36,
+      "entry_date": "2026-07-02",
+      "peak_px": 260.36,
+      "stop_px": 245.1515
+    }
+  },
+  "trades": [],
+  "history": [
+    {
+      "date": "2026-07-02",
+      "equity": 99976.02,
+      "cash": 76000.0,
+      "n_positions": 2,
+      "regime": "RISK_ON"
+    }
+  ],
+  "last_run": "2026-07-04T15:07:47",
+  "last_rebalance": "2026-07-02"
+}
