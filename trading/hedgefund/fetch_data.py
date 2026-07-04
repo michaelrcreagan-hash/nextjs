@@ -31,6 +31,27 @@ YF_SYMBOL = {"BTCUSD": "BTC-USD", "VIX": "^VIX"}
 FMP_SYMBOL = {"BTCUSD": "BTCUSD", "VIX": "^VIX"}
 
 
+def _drop_partial_bar(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop today's in-progress bar when running during market hours.
+
+    The pre-open scheduled run must trade on the last COMPLETE session:
+    yfinance includes a partial bar for the current NY date once trading
+    starts, and indicators computed on it are garbage. Keep it only after
+    the close (16:05 ET) when it is final.
+    """
+    from zoneinfo import ZoneInfo
+
+    now_ny = pd.Timestamp.now(tz=ZoneInfo("America/New_York"))
+    if df.empty:
+        return df
+    last_date = df["date"].iloc[-1]
+    is_today = last_date.date() == now_ny.date()
+    before_close = (now_ny.hour, now_ny.minute) < (16, 5)
+    if is_today and before_close:
+        return df.iloc[:-1]
+    return df
+
+
 def fetch_yfinance(symbol: str) -> pd.DataFrame | None:
     try:
         import yfinance as yf
@@ -46,7 +67,7 @@ def fetch_yfinance(symbol: str) -> pd.DataFrame | None:
         out = df.reset_index()[["Date", "Open", "High", "Low", "Close", "Volume"]]
         out.columns = ["date", "open", "high", "low", "close", "volume"]
         out["date"] = pd.to_datetime(out["date"]).dt.tz_localize(None)
-        return out
+        return _drop_partial_bar(out)
     except Exception as e:
         print(f"  yfinance failed for {symbol}: {e}", file=sys.stderr)
         return None

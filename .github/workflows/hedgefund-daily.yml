@@ -2,8 +2,11 @@ name: Hedge fund daily run
 
 on:
   schedule:
-    # 21:30 UTC = after US market close, Mon-Fri
-    - cron: "30 21 * * 1-5"
+    # 13:30 UTC = US market open 9:30 ET during daylight time
+    # (8:30 ET in winter — still pre-open, which suits a morning report).
+    # Signals use the last COMPLETE daily bar; fetch_data drops any
+    # in-progress bar for today.
+    - cron: "30 13 * * 1-5"
   workflow_dispatch:
     inputs:
       force_rebalance:
