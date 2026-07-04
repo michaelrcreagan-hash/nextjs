@@ -83,8 +83,23 @@ def update_ledger(
     px = close.loc[day]
 
     if ledger["history"] and ledger["history"][-1]["date"] == day_str:
-        return {"date": day_str, "skipped": "already processed this bar",
-                "equity": ledger["history"][-1]["equity"], "actions": []}
+        # Same bar (weekend/holiday re-run): no trading, but still report
+        # the real portfolio instead of appearing flat.
+        return {
+            "date": day_str,
+            "skipped": "already processed this bar",
+            "equity": ledger["history"][-1]["equity"],
+            "actions": [],
+            "rebalanced": False,
+            "positions": {
+                s: {"shares": round(pos["shares"], 4),
+                    "entry_px": pos["entry_px"],
+                    "last_px": float(px.get(s, np.nan)),
+                    "unrealized": round((float(px.get(s, np.nan)) - pos["entry_px"])
+                                        / pos["entry_px"] * 100, 1)}
+                for s, pos in ledger["positions"].items()
+            },
+        }
 
     sigs = compute_signals(panel, cols, p.signal)
     regime = compute_regime(panel, universe, p.regime)
