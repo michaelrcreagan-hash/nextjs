@@ -106,8 +106,14 @@ def run_daily(
             )
             lines += ["", "## LLM deep dives", ""]
             for t in names:
-                _, decision = graph.propagate(t, summary["date"])
-                lines.append(f"### {t}\n\n{decision}\n")
+                final_state, decision = graph.propagate(t, summary["date"])
+                lines.append(f"### {t} — {decision}\n")
+                rationale = (final_state or {}).get("final_trade_decision", "")
+                if rationale:
+                    lines.append(
+                        "<details><summary>Portfolio manager rationale"
+                        f"</summary>\n\n{rationale}\n\n</details>\n"
+                    )
         except Exception as e:  # missing API keys, etc. — report, don't crash
             lines += ["", f"_Deep dive skipped: {e}_"]
 
