@@ -25,7 +25,9 @@ DEFAULT_GRID: dict[str, list] = {
     "trailing_stop": [0.20, 0.25, 0.30],
     "atr_stop_mult": [2.0, 2.5, 3.0],
     "rsi_hi": [70.0, 80.0],
-    "use_regime": [True],
+    # Round-2 finding: the default regime gate cost 6 CAGR points for no
+    # drawdown benefit on 2019-2026 data, so the gate itself is searched.
+    "use_regime": [True, False],
 }
 
 
