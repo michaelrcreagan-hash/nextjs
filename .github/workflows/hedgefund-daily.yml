@@ -2,11 +2,14 @@ name: Hedge fund daily run
 
 on:
   schedule:
-    # 13:30 UTC = US market open 9:30 ET during daylight time
-    # (8:30 ET in winter — still pre-open, which suits a morning report).
+    # Every day at 13:30 UTC — US market open 9:30 ET during daylight
+    # time (8:30 ET in winter, still pre-open). Weekdays: full run with
+    # equity ledger + equity deep dives. Weekends: crypto desk update +
+    # crypto agents only (crypto has no weekend; the equity ledger
+    # recognizes the unchanged bar and skips).
     # Signals use the last COMPLETE daily bar; fetch_data drops any
     # in-progress bar for today.
-    - cron: "30 13 * * 1-5"
+    - cron: "30 13 * * *"
   workflow_dispatch:
     inputs:
       force_rebalance:

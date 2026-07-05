@@ -27,8 +27,13 @@ from .universe import ALL_SYMBOLS
 START = "2019-01-01"
 
 # cache alias -> vendor symbols
-YF_SYMBOL = {"BTCUSD": "BTC-USD", "VIX": "^VIX"}
-FMP_SYMBOL = {"BTCUSD": "BTCUSD", "VIX": "^VIX"}
+YF_SYMBOL = {"BTCUSD": "BTC-USD", "ETHUSD": "ETH-USD", "VIX": "^VIX"}
+FMP_SYMBOL = {"BTCUSD": "BTCUSD", "ETHUSD": "ETHUSD", "VIX": "^VIX"}
+
+# Crypto desk assets fetched in addition to the equity universe. Their
+# OHLCV also lands in <SYM>_full.csv, which the Turtle signals read.
+CRYPTO_EXTRA = ["ETHUSD"]
+CRYPTO_FULL_COPY = ["BTCUSD", "ETHUSD"]
 
 
 def _drop_partial_bar(df: pd.DataFrame) -> pd.DataFrame:
@@ -98,7 +103,7 @@ def fetch_fmp(symbol: str) -> pd.DataFrame | None:
 def main():
     os.makedirs(DATA_DIR, exist_ok=True)
     ok, failed = [], []
-    for sym in ALL_SYMBOLS:
+    for sym in ALL_SYMBOLS + CRYPTO_EXTRA:
         print(f"fetching {sym} ...")
         df = fetch_yfinance(sym)
         if df is None:
@@ -107,6 +112,8 @@ def main():
             failed.append(sym)
             continue
         df.to_csv(os.path.join(DATA_DIR, f"{sym}.csv"), index=False)
+        if sym in CRYPTO_FULL_COPY:
+            df.to_csv(os.path.join(DATA_DIR, f"{sym}_full.csv"), index=False)
         ok.append(sym)
         time.sleep(0.4)  # be polite to the API
     print(f"\ndone: {len(ok)} cached, {len(failed)} failed")

@@ -94,26 +94,52 @@ def run_daily(
     if result["asymmetric_setups"]:
         lines += ["", f"**Asymmetric setups:** {', '.join(result['asymmetric_setups'])}"]
 
+    # Crypto desk runs EVERY day — crypto has no weekend.
+    from .crypto_desk import crypto_report_lines
+
+    lines += crypto_report_lines()
+
+    is_weekend = datetime.utcnow().weekday() >= 5
     if deep_dive:
         try:
             from tradingagents.default_config import DEFAULT_CONFIG
             from tradingagents.graph.trading_graph import TradingAgentsGraph
 
-            names = deep_dive_tickers(result)
-            graph = TradingAgentsGraph(
-                selected_analysts=("market", "news", "ai_bottleneck", "options"),
+            lines += ["", "## LLM deep dives", ""]
+
+            # Equity deep dives only on trading days.
+            if not is_weekend:
+                names = deep_dive_tickers(result)
+                graph = TradingAgentsGraph(
+                    selected_analysts=("market", "news", "ai_bottleneck", "options"),
+                    config=DEFAULT_CONFIG,
+                )
+                for t in names:
+                    final_state, decision = graph.propagate(t, summary["date"])
+                    lines.append(f"### {t} — {decision}\n")
+                    rationale = (final_state or {}).get("final_trade_decision", "")
+                    if rationale:
+                        lines.append(
+                            "<details><summary>Portfolio manager rationale"
+                            f"</summary>\n\n{rationale}\n\n</details>\n"
+                        )
+
+            # Crypto agents run daily, weekends included.
+            crypto_graph = TradingAgentsGraph(
+                selected_analysts=("crypto_algo_trader", "crypto_investor"),
                 config=DEFAULT_CONFIG,
             )
-            lines += ["", "## LLM deep dives", ""]
-            for t in names:
-                final_state, decision = graph.propagate(t, summary["date"])
-                lines.append(f"### {t} — {decision}\n")
-                rationale = (final_state or {}).get("final_trade_decision", "")
-                if rationale:
-                    lines.append(
-                        "<details><summary>Portfolio manager rationale"
-                        f"</summary>\n\n{rationale}\n\n</details>\n"
-                    )
+            crypto_date = datetime.utcnow().strftime("%Y-%m-%d")
+            final_state, decision = crypto_graph.propagate(
+                "BTC-USD", crypto_date, asset_type="crypto"
+            )
+            lines.append(f"### BTC-USD — {decision}\n")
+            rationale = (final_state or {}).get("final_trade_decision", "")
+            if rationale:
+                lines.append(
+                    "<details><summary>Portfolio manager rationale"
+                    f"</summary>\n\n{rationale}\n\n</details>\n"
+                )
         except Exception as e:  # missing API keys, etc. — report, don't crash
             lines += ["", f"_Deep dive skipped: {e}_"]
 
