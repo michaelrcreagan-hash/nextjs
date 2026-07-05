@@ -19,7 +19,22 @@ each session start.
 
 Marketplace + plugin from https://github.com/JuliusBrussee/caveman, registered
 in `settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) so Claude Code
-auto-installs it for sessions in this repo.
+auto-installs it for sessions in this repo. Cuts output tokens ~65% (terse
+"caveman" phrasing, full technical accuracy kept).
+
+Repo-wide, cross-agent activation ran via `caveman-init` — writes the same
+always-on terse rule for every IDE agent, not just Claude Code:
+`.cursor/rules/caveman.mdc`, `.windsurf/rules/caveman.md`,
+`.clinerules/caveman.md`, `.github/copilot-instructions.md`,
+`.opencode/AGENTS.md`, `AGENTS.md`. Re-run `node
+.claude/plugins/marketplaces/caveman/src/tools/caveman-init.js --force` (or
+`/caveman-init`) if these ever need regenerating.
+
+Use `/caveman-compress <file>` to shrink CLAUDE.md/memory files into the same
+format when one exists. Delegate locate/1-2-file-edit/review work to the
+`cavecrew-investigator` / `cavecrew-builder` / `cavecrew-reviewer` subagents
+(caveman-compressed output, ~60% fewer tokens back to main context) instead of
+plain `Explore` where it fits.
 
 ## Autoresearch skill
 
