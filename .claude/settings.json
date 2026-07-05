@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p \"$HOME/.claude\" && cp -rf \"$CLAUDE_PROJECT_DIR/.claude/cbt-framework\" \"$HOME/.claude/\""
+          }
+        ]
+      }
+    ]
+  }
+}
