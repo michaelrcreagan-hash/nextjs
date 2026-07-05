@@ -15,6 +15,12 @@ The cbt commands reference support files at `~/.claude/cbt-framework/`; the
 `SessionStart` hook in `settings.json` syncs `.claude/cbt-framework/` there on
 each session start.
 
+## Caveman plugin
+
+Marketplace + plugin from https://github.com/JuliusBrussee/caveman, registered
+in `settings.json` (`extraKnownMarketplaces` + `enabledPlugins`) so Claude Code
+auto-installs it for sessions in this repo.
+
 ## Autoresearch skill
 
 Autonomous goal-directed iteration (modify → verify → keep/discard → repeat),
