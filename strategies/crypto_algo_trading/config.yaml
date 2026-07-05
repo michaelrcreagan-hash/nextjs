@@ -56,7 +56,7 @@ time:
 
 # Prop Firm Challenge Rules (set during /cbt:discover)
 prop_firm:
-  enabled: false
+  enabled: true
   phase: 1                        # 1 | 2
   max_drawdown_percent: 10.0      # Fixed from initial capital
   daily_loss_percent: 5.0         # From previous day equity

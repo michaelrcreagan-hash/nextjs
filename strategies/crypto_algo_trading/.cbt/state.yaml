@@ -13,14 +13,14 @@ mode: interactive
 engine: pandas
 
 # Project type: indicator | ml | hybrid
-project_type: null
+project_type: hybrid
 
 # Current phase in workflow
-phase: discovery  # discovery | research | eda | config | plan | build | iterate
+phase: research  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
-  discovery: false
+  discovery: true
   research: false
   eda: false
   config: false
@@ -57,5 +57,5 @@ live:
 
 # Prop firm challenge tracking
 prop_firm:
-  enabled: false
-  account_type: personal          # personal | prop_firm
+  enabled: true
+  account_type: prop_firm          # personal | prop_firm
