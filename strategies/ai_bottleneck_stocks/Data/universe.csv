@@ -1,0 +1,55 @@
+ticker,layer
+NVDA,Compute/GPU
+AMD,Compute/GPU
+AVGO,Custom Silicon/Networking
+MRVL,Custom Silicon/Networking
+ARM,Custom Silicon/Networking
+QCOM,Custom Silicon/Networking
+MU,Memory/HBM
+WDC,Memory/HBM
+STX,Memory/HBM
+SNDK,Memory/HBM
+VRT,Power/Cooling/Grid
+VST,Power/Cooling/Grid
+CEG,Power/Cooling/Grid
+GEV,Power/Cooling/Grid
+ETN,Power/Cooling/Grid
+PWR,Power/Cooling/Grid
+POWL,Power/Cooling/Grid
+BE,Power/Cooling/Grid
+ANET,Optical/Networking
+COHR,Optical/Networking
+LITE,Optical/Networking
+CRDO,Optical/Networking
+ALAB,Optical/Networking
+CIEN,Optical/Networking
+MTSI,Optical/Networking
+AAOI,Optical/Networking
+RMBS,Optical/Networking
+FN,Optical/Networking
+TSM,Semi Equipment/Foundry
+ASML,Semi Equipment/Foundry
+AMAT,Semi Equipment/Foundry
+LRCX,Semi Equipment/Foundry
+KLAC,Semi Equipment/Foundry
+AMKR,Semi Equipment/Foundry
+ONTO,Semi Equipment/Foundry
+ICHR,Semi Equipment/Foundry
+COHU,Semi Equipment/Foundry
+TEL,Semi Equipment/Foundry
+OKLO,Nuclear/SMR
+LEU,Nuclear/SMR
+BWXT,Nuclear/SMR
+CCJ,Nuclear/SMR
+SMR,Nuclear/SMR
+IREN,AI Hosting/BTC-to-AI pivot
+CORZ,AI Hosting/BTC-to-AI pivot
+HUT,AI Hosting/BTC-to-AI pivot
+CIFR,AI Hosting/BTC-to-AI pivot
+APLD,AI Hosting/BTC-to-AI pivot
+RKLB,Speculative/Pre-IPO beta
+ASTS,Speculative/Pre-IPO beta
+KTOS,Speculative/Pre-IPO beta
+AEHR,Speculative/Pre-IPO beta
+AXTI,Speculative/Pre-IPO beta
+NBIS,Speculative/Pre-IPO beta
