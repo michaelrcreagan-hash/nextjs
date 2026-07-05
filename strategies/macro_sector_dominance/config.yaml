@@ -65,7 +65,16 @@ prop_firm:
   breach_action: halt             # halt trading on breach
 
 # Strategy-specific parameters (populated by /cbt:build)
-strategy_params: {}
+strategy_params:
+  regime_factors:
+    vix: { bull: 18, bear: 25 }
+    smh_200d: { above: 2, below: -2 }
+    net_liquidity: { expanding: 2, contracting: 0 }
+    ism: { above_50: 1 }
+    dxy: { below_105: 1 }
+  sector_ranking_lookbacks_months: [3, 6, 12]
+  top_sectors: 3
+  rotation_frequency: monthly
 
 # Notification channels (populated by /cbt:live)
 notifications:

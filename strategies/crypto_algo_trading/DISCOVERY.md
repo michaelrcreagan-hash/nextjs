@@ -29,6 +29,9 @@ Crowded, overleveraged positioning (visible via funding + OI) combined with orde
 | CVD alignment | Spot CVD and futures CVD both trend in the entry direction (or show a defined divergence pattern) | Spot trade tape, futures trade tape → cumulative volume delta |
 | Smart-money confirmation | Net positioning of the filtered top-wallet cohort (ranked by return% + win-rate consistency) agrees with direction | Hyperliquid wallet leaderboard + per-wallet position/PnL history |
 | Regime filter (macro) | BTC weekly close above 20-week SMA (long bias) / below (short bias or flat) | BTC weekly OHLCV |
+| Momentum filter (added) | RSI(14) between `rsi_min` and `rsi_max`, and price above `ma_short` which is above `ma_long` (direction-aligned crossover) | Symbol OHLCV close, RSI(14), MA(`ma_short`), MA(`ma_long`) |
+
+Merged per `Edge_config.yaml` / `Parameters_ranges.yaml`: the RSI/MA layer does not replace the composite (funding+CVD+wallet+regime) — it's an additional confirmation filter. A candidate entry must still pass the original 4 conditions; RSI/MA then further times/confirms it. Tunable ranges (from `Parameters_ranges.yaml`): `funding_rate` in [-0.1, -0.01, 0.01, 0.1], `rsi_min` in [40, 50, 60], `rsi_max` in [60, 70, 80], `ma_short` in [10, 20, 30], `ma_long` in [50, 100, 200], `leverage` in [1, 2, 3, 4, 5]. Default point estimate (from `Edge_config.yaml`): `funding_rate: -0.05`, `rsi_min: 50`, `rsi_max: 70`, `ma_short: 20`, `ma_long: 50`.
 
 ### Entry Signal Logic
 ```
@@ -36,7 +39,9 @@ if oi_weighted_funding is at extreme(direction)
    and spot_cvd_trend == direction
    and futures_cvd_trend == direction
    and top_wallet_net_position == direction
-   and btc_weekly_close vs 20w_SMA supports direction:
+   and btc_weekly_close vs 20w_SMA supports direction
+   and rsi_min <= RSI(14) <= rsi_max
+   and MA(ma_short) vs MA(ma_long) supports direction:
         enter(direction, size=base_size * leverage_overlay)
 ```
 `leverage_overlay` = 0.5x around CME OpEx / CPI / FOMO windows, else 1x (needs an economic-calendar/event-date feed).
@@ -50,6 +55,11 @@ No single fixed target — optimize empirically for whatever maximizes overall r
 
 ### Stop Loss
 **Signal invalidation** — exit when the entry thesis breaks: funding/OI normalizes or flips, CVD alignment reverses, or the top-wallet cohort's net positioning flips against the trade. Not a fixed %/ATR stop.
+
+Concrete invalidation triggers merged from `Edge_config.yaml`: `funding_rate` reaching `0.1` (crowded-opposite extreme) or BTC closing below its 200-period MA — both treated as instances of the signal-invalidation exit above, not a separate fixed stop.
+
+### Risk Caps (added)
+`leverage_max: 5`, `position_max: 0.1` (10% of capital per position) — hard ceilings from `Edge_config.yaml`, applied regardless of the `leverage_overlay` event throttle above.
 
 ### Other Exit Conditions
 - **Macro kill-switch:** if BTC closes below its 20-week SMA for 2 consecutive weeks, flatten/avoid new longs (regime filter, not per-trade stop).

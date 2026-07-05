@@ -1,0 +1,104 @@
+# Strategy Discovery: macro_sector_dominance
+
+**Date:** 2026-07-05
+**Phase:** Discovery Complete (auto, from `Edge_config.yaml`)
+**Engine:** pandas
+**Project Type:** indicator (macro regime scoring + sector rotation)
+
+---
+
+## Core Hypothesis
+
+Broad market regime (risk-on/risk-off, liquidity expanding/contracting, macro cycle position) can be scored from a small set of macro factors (VIX, SMH 200-day trend as a semis/growth proxy, net liquidity, ISM, DXY). Capital rotates monthly into the top-ranked sectors under the prevailing regime, rather than holding a static allocation.
+
+### Market Behavior Exploited
+Sector leadership rotates with the macro cycle; a regime score built from volatility, liquidity, growth, and dollar-strength inputs should identify which sectors are favored before the rotation is obvious in price alone.
+
+### Theoretical Basis
+Standard macro-regime investing: risk appetite (VIX), growth-sensitive proxy (SMH 200d trend), liquidity conditions (net liquidity), manufacturing cycle (ISM), and dollar strength (DXY) are established macro regime inputs; combining them into a single score and ranking sectors against it is a systematic rotation approach.
+
+---
+
+## Regime Factors (scoring inputs)
+
+| Factor | Bullish/Favorable | Bearish/Unfavorable |
+|--------|--------------------|-----------------------|
+| VIX | ≤ 18 (bull) | ≥ 25 (bear) |
+| SMH 200-day trend | above 200d (+2 score) | below 200d (-2 score) |
+| Net liquidity | expanding (+2 score) | contracting (0 score) |
+| ISM | above 50 (+1 score) | below 50 (0 / implicit) |
+| DXY | below 105 (+1 score) | above 105 (0 / implicit) |
+
+Composite regime score = sum of the above component scores. Exact score-to-regime-label thresholds not specified — needs definition in `/cbt:research` (e.g. what total score = "risk-on" vs "risk-off").
+
+## Sector Rotation Logic
+
+- Rank sectors using lookback windows of `[3, 6, 12]` months (multi-horizon momentum ranking, method for combining the 3 lookbacks into one rank not specified).
+- Hold `top_sectors: 3` — the 3 highest-ranked sectors under the current regime.
+- Rebalance `rotation_frequency: monthly`.
+
+### Entry/Rebalance Signal Logic
+```
+regime_score = vix_score + smh_200d_score + net_liquidity_score + ism_score + dxy_score
+sector_ranks = rank_sectors(lookbacks=[3,6,12])  # combination method: undefined
+monthly:
+    hold top_sectors=3 sectors from sector_ranks, weighted/sized per regime_score
+```
+
+---
+
+## Exit Conditions
+
+No per-position stop-loss/take-profit specified — this is a rotation strategy (exit = sector drops out of the monthly top-3 ranking, or the macro regime shifts). Confirm this interpretation in `/cbt:research` before building.
+
+---
+
+## Data Requirements
+
+| Dataset | Resolution | Source | Status |
+|---------|------------|--------|--------|
+| VIX | Daily | Standard index feed | [ ] Need |
+| SMH price (200d MA) | Daily | Standard OHLCV | [ ] Need |
+| Net liquidity (Fed balance sheet - TGA - RRP, or similar proxy) | Weekly | Fed/Treasury data, definition **undefined** | [ ] Need — exact formula unspecified |
+| ISM Manufacturing PMI | Monthly | Economic data provider | [ ] Need |
+| DXY | Daily | Standard index feed | [ ] Need |
+| Sector ETF prices (for ranking + rotation universe) | Daily | Standard OHLCV | [ ] Need — which sector ETF set (e.g. SPDR 11) not specified |
+
+### Data Scale
+Small — all inputs are daily/weekly/monthly macro series. pandas is fine.
+
+---
+
+## Build Plan
+
+**Complexity Level:** Simple-to-Medium — mostly rule-based scoring and ranking, blocked on 2 undefined specifics (net liquidity formula, sector-rank combination method, regime score thresholds).
+
+| Step | Description | Output |
+|------|-------------|--------|
+| 1 | Define net liquidity formula precisely | `src/features/net_liquidity.py` |
+| 2 | Define regime-score → regime-label thresholds | `src/features/regime_score.py` |
+| 3 | Define sector universe + 3/6/12-month rank combination method | `src/features/sector_rank.py` |
+| 4 | Source VIX, SMH, ISM, DXY, net liquidity inputs, sector ETF prices | `Data/*.csv` |
+| 5 | Build monthly rotation backtest (top 3 sectors) | `src/backtest.py` |
+
+---
+
+## Success Criteria
+Not specified — carry forward a default bar (Sharpe > 1.0 for a rotation strategy) pending user input.
+
+## Kill Criteria
+- [ ] Net liquidity / regime-score-threshold / sector-rank-combination specifics never get defined
+- [ ] Regime score shows no predictive relationship to realized sector leadership in backtest
+
+---
+
+## Questions for Research Phase
+
+1. Exact net liquidity formula (Fed balance sheet minus TGA minus RRP, or a different definition)?
+2. What total regime score maps to "risk-on" vs "risk-off" (thresholds)?
+3. How are the 3/6/12-month sector rank lookbacks combined into one ranking — equal-weighted average, or something else?
+4. Which sector universe (e.g. the 11 SPDR sector ETFs, or a custom list)?
+
+---
+
+*Generated by CBT Framework /cbt:discover --auto, sourced from Edge_config.yaml + Parameters_ranges.yaml*

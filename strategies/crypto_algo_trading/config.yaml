@@ -15,11 +15,12 @@ sizing:
   percent_per_trade: 2.0
   fixed_amount: null
   max_positions: 3
+  position_max_percent: 10.0  # position_max from Edge_config.yaml
 
 leverage:
   enabled: true
   default: 5
-  max: 20
+  max: 5  # leverage_max from Edge_config.yaml (overrides framework default of 20)
 
 risk:
   stop_loss:
@@ -65,7 +66,23 @@ prop_firm:
   breach_action: halt             # halt trading on breach
 
 # Strategy-specific parameters (populated by /cbt:build)
-strategy_params: {}
+strategy_params:
+  # Point estimates (Edge_config.yaml) -- used as starting values for /cbt:optimize
+  funding_rate_entry: -0.05
+  funding_rate_exit: 0.1
+  rsi_min: 50
+  rsi_max: 70
+  ma_short: 20
+  ma_long: 50
+  btc_exit_ma: 200
+  # Tunable grids (Parameters_ranges.yaml) -- used by /cbt:optimize
+  optimize_ranges:
+    funding_rate: [-0.1, -0.01, 0.01, 0.1]
+    rsi_min: [40, 50, 60]
+    rsi_max: [60, 70, 80]
+    ma_short: [10, 20, 30]
+    ma_long: [50, 100, 200]
+    leverage: [1, 2, 3, 4, 5]
 
 # Notification channels (populated by /cbt:live)
 notifications:

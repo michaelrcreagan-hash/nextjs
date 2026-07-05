@@ -65,7 +65,20 @@ prop_firm:
   breach_action: halt             # halt trading on breach
 
 # Strategy-specific parameters (populated by /cbt:build)
-strategy_params: {}
+strategy_params:
+  accumulation:
+    price_below_200wma: true
+    fear_greed_below: 25
+    days_below: 30
+    btc_dominance_above: 55
+    mvrv_zscore_below: 1.0
+    tranches: [0.25, 0.25, 0.25, 0.25]
+  distribution:
+    mvrv_zscore_above: 6.0
+    fear_greed_above: 85
+    days_above: 30
+    sell_per_month: 0.20
+    allocation: { btc: 0.45, eth: 0.30, alts: 0.25 }
 
 # Notification channels (populated by /cbt:live)
 notifications:

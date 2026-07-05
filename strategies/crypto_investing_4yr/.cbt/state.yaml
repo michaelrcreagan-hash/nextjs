@@ -13,14 +13,14 @@ mode: yolo
 engine: pandas
 
 # Project type: indicator | ml | hybrid
-project_type: null
+project_type: indicator
 
 # Current phase in workflow
-phase: discovery  # discovery | research | eda | config | plan | build | iterate
+phase: research  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
-  discovery: false
+  discovery: true
   research: false
   eda: false
   config: false

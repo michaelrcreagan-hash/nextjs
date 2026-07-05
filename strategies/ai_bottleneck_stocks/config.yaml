@@ -15,6 +15,7 @@ sizing:
   percent_per_trade: 2.0
   fixed_amount: null
   max_positions: 3
+  position_max_percent: 6.0  # max_position from Edge_config.yaml
 
 leverage:
   enabled: true
@@ -65,7 +66,23 @@ prop_firm:
   breach_action: halt             # halt trading on breach
 
 # Strategy-specific parameters (populated by /cbt:build)
-strategy_params: {}
+strategy_params:
+  four_factor_threshold: 16   # undefined composite -- see DISCOVERY.md open items
+  phase_score_threshold: 40   # undefined composite -- see DISCOVERY.md open items
+  ema_stack: [8, 21, 50, 200]
+  rsi_min: 50
+  rsi_max: 65
+  rvol_min: 1.5
+  rvol_max: 2.0
+  sell_composite_count: 3     # undefined composite -- see DISCOVERY.md open items
+  days_post_earnings: 60
+  optimize_ranges:
+    four_factor_threshold: [14, 16, 18, 20]
+    phase_score_threshold: [35, 40, 45]
+    rsi_min: [45, 50, 55]
+    rsi_max: [60, 65, 70]
+    rvol_min: [1.2, 1.5, 1.8]
+    rvol_max: [1.8, 2.0, 2.5]
 
 # Notification channels (populated by /cbt:live)
 notifications:
