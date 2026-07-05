@@ -58,8 +58,13 @@ def run_daily(
         save_ledger(ledger)
 
     # ---- morning report ----
+    # Named by RUN date so weekend/holiday reports never overwrite the
+    # last trading day's file; the header carries the market-data date.
+    run_date = datetime.utcnow().strftime("%Y-%m-%d")
     lines = [
-        f"# Morning Report — {summary['date']}",
+        f"# Morning Report — {run_date}",
+        "",
+        f"_Market data through {summary['date']}_",
         "",
         f"**Regime:** {reg['state']} (score {reg['score']}, gross "
         f"{reg['multiplier']:.0%}, breadth {reg['breadth']:.0%})"
@@ -145,7 +150,7 @@ def run_daily(
 
     report = "\n".join(lines) + "\n"
     os.makedirs(REPORTS_DIR, exist_ok=True)
-    path = os.path.join(REPORTS_DIR, f"{summary['date']}.md")
+    path = os.path.join(REPORTS_DIR, f"{run_date}.md")
     with open(path, "w") as f:
         f.write(report)
 
