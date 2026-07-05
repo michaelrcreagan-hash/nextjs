@@ -67,14 +67,14 @@ prop_firm:
 
 # Strategy-specific parameters (populated by /cbt:build)
 strategy_params:
-  four_factor_threshold: 16   # undefined composite -- see DISCOVERY.md open items
-  phase_score_threshold: 40   # undefined composite -- see DISCOVERY.md open items
+  four_factor_threshold: 16   # Tier 2 (16-19 of 25) -- resolved, see DISCOVERY.md
+  phase_score_threshold: 40   # STRONG BUY (40-50 of 50) -- resolved, see DISCOVERY.md
   ema_stack: [8, 21, 50, 200]
   rsi_min: 50
   rsi_max: 65
   rvol_min: 1.5
   rvol_max: 2.0
-  sell_composite_count: 3     # undefined composite -- see DISCOVERY.md open items
+  sell_composite_count: 3     # min triggers of 5 weighted components -- resolved, see DISCOVERY.md
   days_post_earnings: 60
   optimize_ranges:
     four_factor_threshold: [14, 16, 18, 20]
@@ -83,6 +83,47 @@ strategy_params:
     rsi_max: [60, 65, 70]
     rvol_min: [1.2, 1.5, 1.8]
     rvol_max: [1.8, 2.0, 2.5]
+
+  # Four-Factor Model (0-25 scale): weight -> points -> scoring basis, see DISCOVERY.md
+  four_factor_model:
+    earnings_revision_momentum: { weight_pct: 40, max_points: 10 }
+    relative_strength_smh_spx: { weight_pct: 25, max_points: 6.25 }
+    scarcity_moat_durability: { weight_pct: 20, max_points: 5 }
+    technicals: { weight_pct: 15, max_points: 3.75 }
+    tiers:
+      tier1_full_size: [20, 25]
+      tier2_half_size: [16, 19]
+      tier3_quarter_size: [12, 15]
+      no_entry_below: 12
+
+  # Phase Score (0-50 scale): 5 factors x 0-10, see DISCOVERY.md
+  phase_score_model:
+    factors: [capex_velocity, supply_tightness, eps_revision, analyst_upgrades, momentum]
+    max_points_per_factor: 10
+    thresholds:
+      strong_buy: [40, 50]
+      hold_add: [30, 39]
+      reduce: [20, 29]
+      exit_below: 20
+
+  # Sell Composite (5 weighted components), see DISCOVERY.md
+  sell_composite_model:
+    components:
+      options_flow: { weight_pct: 30, trigger: "P/C > 1.4 (30d avg) OR dark pool below bid" }
+      rsi_exhaustion: { weight_pct: 25, trigger: "RSI(14) > 80 with bearish divergence, or RSI > 80 + declining volume" }
+      rvol_failure: { weight_pct: 20, trigger: "RVOL < 0.6 on attempted breakout" }
+      hyperscaler_capex_signal: { weight_pct: 15, trigger: "guidance flat/miss + stock > 5% off ATH" }
+      opex_calendar_timing: { weight_pct: 10, trigger: "3rd Friday +/- 2 days + RSI > 72" }
+    action:
+      "3_of_5": scale_out_50pct
+      "4_of_5": scale_out_75pct
+      "5_of_5": full_exit
+
+  # Trailing stop (no fixed %/ATR stop -- see DISCOVERY.md)
+  trailing_stop_by_phase:
+    early_phase_5_6: 0.20
+    mid_phase_3_4: 0.15
+    hard_exit_triggers: [phase_score_below_25_for_2_weeks, hyperscaler_capex_cut, governance_red_flag]
 
 # Notification channels (populated by /cbt:live)
 notifications:
