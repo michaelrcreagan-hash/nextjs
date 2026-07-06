@@ -107,14 +107,17 @@ strategy_params:
       exit_below: 20
 
   # Quota-throttled scan policy for the paid/rate-limited connectors (Tipranks 10 calls/month,
-  # AlphaVantage 25 requests/day) -- can't cover the full ~52-ticker universe, so restrict scope.
+  # AlphaVantage 25 requests/day) and the manual WebSearch fallback -- none of these scale to
+  # the full ~52-ticker universe daily, so restrict scope.
   api_scan_policy:
     scope: top_3_by_phase_score  # re-ranked each run; not a fixed ticker list
     frequency: weekly
     scans:
       tipranks: [get_options_unusual_trades, get_hedge_fund_activity, get_investor_sentiment]
       alphavantage: [EARNINGS_ESTIMATES]
-    rationale: "10 Tipranks calls/month and 25 AlphaVantage requests/day can't cover 52 tickers daily -- spend the budget on the top 3 highest-conviction names only, refreshed weekly"
+      websearch: [earnings_revisions, scarcity_moat, hyperscaler_capex_guidance, analyst_upgrades]  # manual, per-ticker -- not automatable inside src/features.py
+    rationale: "10 Tipranks calls/month, 25 AlphaVantage requests/day, and WebSearch's one-ticker-at-a-time nature can't cover 52 tickers daily -- spend the budget on the top 3 highest-conviction names only, refreshed weekly"
+    finnhub: not_connected  # requested by user; not showing as an available tool this session, needs to be added via claude.ai connector settings or `claude mcp add`
 
   # Sell Composite (5 weighted components), see DISCOVERY.md
   sell_composite_model:
