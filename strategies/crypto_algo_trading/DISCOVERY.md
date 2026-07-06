@@ -71,12 +71,12 @@ Concrete invalidation triggers merged from `Edge_config.yaml`: `funding_rate` re
 
 | Dataset | Resolution | Source | Size Estimate | Status |
 |---------|------------|--------|---------------|--------|
-| Funding rate + OI (per perp) | Intraday (likely 1h or per-funding-interval) | Exchange API (Hyperliquid/Binance/Bybit) | Unknown | [ ] Need |
-| Spot trade tape → CVD | Intraday (tick or 1m aggregated) | Exchange API / data vendor | Unknown | [ ] Need |
-| Futures trade tape → CVD | Intraday (tick or 1m aggregated) | Exchange API / data vendor | Unknown | [ ] Need |
-| Hyperliquid wallet leaderboard + positions | Daily/near-real-time | Hyperliquid API | Unknown | [ ] Need |
-| BTC weekly OHLCV | Weekly | Any OHLCV source | Small | [ ] Need |
-| Macro event calendar (CME OpEx, CPI, FOMC dates) | Event dates | Manual/economic calendar API | Small | [ ] Need |
+| Funding rate + OI (per perp) | Intraday (per funding interval) | Hyperliquid's official public `info` endpoint (`fundingHistory` request type) — free, keyless, documented at hyperliquid.gitbook.io. **Confirmed blocked from this sandbox**: a direct `curl -X POST https://api.hyperliquid.xyz/info` was rejected by this environment's network egress gateway (403, "policy denial"), same as the Fear&Greed/CoinGecko hosts below — not an API-side failure | Unknown | ⚠️ API is free/open; this environment's network policy blocks it |
+| Hyperliquid wallet leaderboard + positions | Daily/near-real-time | Same Hyperliquid `info` API documents a vault/leaderboard endpoint (account values, PnL history, APR, followers) — same network-policy block applies | Unknown | ⚠️ API is free/open; this environment's network policy blocks it |
+| Spot trade tape → CVD | Intraday (tick or 1m aggregated) | No packaged CVD data point found anywhere — would need raw trade-tape aggregation from an exchange API (buildable in code, nothing off-the-shelf) | Unknown | ❌ Not reachable as a ready dataset |
+| Futures trade tape → CVD | Intraday (tick or 1m aggregated) | Same as spot CVD above | Unknown | ❌ Not reachable as a ready dataset |
+| BTC/crypto spot price | Daily/weekly | FMP `crypto` — confirmed reachable, verified live ($62,762) | Small | ✅ Reachable |
+| Macro event calendar (CME OpEx, CPI, FOMC dates) | Event dates | Tipranks `get_economic_calendar` — confirmed reachable (Fed meeting, CPI, PPI, jobs reports all present in a real pull); CME OpEx specifically not confirmed | Small | ✅ Mostly reachable |
 
 ### Data Scale
 - **Estimated rows:** unknown — not yet sourced

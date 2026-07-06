@@ -122,14 +122,18 @@ This universe is explicitly one correlated bet on AI infrastructure capex (per t
 
 | Dataset | Resolution | Source | Status |
 |---------|------------|--------|--------|
-| Daily OHLCV (universe above) | Daily | FMP — **confirmed reachable**, verified live (NVDA quote pulled successfully) | ✅ Reachable |
-| RSI/EMA/technicals | Daily | FMP `technicalIndicators` tool — reachable, same access tier as OHLCV | ✅ Reachable |
+| Daily OHLCV (universe above) | Daily | FMP — confirmed reachable, verified live (NVDA) | ✅ Reachable |
+| RSI/EMA/technicals | Daily | FMP `technicalIndicators` — reachable, same tier as OHLCV | ✅ Reachable |
 | Earnings dates | Per-ticker event | FMP calendar | Likely reachable, not yet tested |
-| Earnings estimate revisions | 30/90-day | Zacks/Visible Alpha per source docs (paid, ~$30+/mo) — no equivalent free tool connected in this environment | ❌ Not reachable via connected tools |
-| Relative strength vs SMH/SPX | Daily | Computable from OHLCV already reachable (SPX proxy via index; SMH itself hit an FMP plan-tier gate on `quote`/ETF endpoint — see macro_sector_dominance discovery for the same blocker) | ⚠️ Partially blocked (SMH ETF quote gated) |
+| Relative strength vs SMH/SPX | Daily | SMH now reachable via Tipranks `get_stock_quotes` (592.29, verified live) — RS computable once both series held | ✅ Reachable |
+| **Options flow (sell composite)** | Real-time | ~~Unusual Whales, unreachable~~ → **Tipranks `get_options_unusual_trades`** confirmed reachable — real flagged NVDA trades pulled live (size/strike/expiry/sentiment tags) | ✅ Reachable (via Tipranks) |
+| Institutional/hedge-fund flow (bonus, not in original spec) | Quarterly (13F-based) | Tipranks `get_hedge_fund_activity` — confirmed reachable, real fund-level buy/sell data pulled for NVDA (Fisher Asset Mgmt, Tiger Global, etc.) | ✅ Reachable |
+| Retail/crowd sentiment (bonus) | Real-time | Tipranks `get_investor_sentiment` — confirmed reachable, real data pulled for NVDA | ✅ Reachable |
+| Earnings estimate revisions | 30/90-day | AlphaVantage `EARNINGS_ESTIMATES` exists and covers this directly, but hit its **25-requests/day** free-tier cap on the first call this session — not practically usable across a ~50-name universe without a paid key | ⚠️ Endpoint exists, quota makes it impractical free |
 | Scarcity/moat data (lead times, backlog) | Qualitative/quarterly | Supply-chain trackers (TrendForce, Everstream per source docs), earnings transcripts | ❌ Not reachable via connected tools — qualitative judgment call likely needed initially |
-| Options flow / dark pool | Real-time | Unusual Whales (paid, ~$50-150/mo per source docs) | ❌ Not reachable via connected tools |
 | Hyperscaler capex guidance | Quarterly | Earnings transcripts/press releases (MSFT, AMZN, GOOGL, META, ORCL) | Manually trackable, not automatable via connected tools |
+
+**Quota caveats:** Tipranks is capped at **10 calls/month total** (2 remain after this session's testing across all 4 strategies) — fine for periodic manual checks, not for a live/backtest feed. AlphaVantage caps at 25 requests/day free tier. Neither scales to daily coverage of a ~50-name universe without a paid upgrade; FMP (no quota hit yet) remains the workhorse for OHLCV/technicals.
 
 ### Data Scale
 Small (<1M rows for a daily-bar equity universe of ~40-60 names). pandas is fine.

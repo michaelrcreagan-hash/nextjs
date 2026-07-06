@@ -85,13 +85,16 @@ Rotation strategy — exit = sector drops out of the monthly top-3 ranking, or a
 
 | Dataset | Resolution | Source | Status |
 |---------|------------|--------|--------|
-| VIX | Daily | FMP — **confirmed reachable**, verified live (15.81 pulled successfully) | ✅ Reachable |
-| SMH price (50d/200d MA) | Daily | FMP — **blocked**, ETF quote endpoint hit a plan-tier gate ("requires higher plan") | ❌ Blocked (FMP plan upgrade needed) |
-| Fed Balance Sheet, TGA, RRP (for net liquidity proxy) | Weekly | FRED — not tested this session, likely reachable via a FRED-connected tool if one exists, otherwise needs a new data source | Untested |
-| ISM Manufacturing New Orders | Monthly | FMP `economics-indicators` — name lookup failed twice this session ("Invalid name"), unclear if wrong parameter string or plan-gated | ⚠️ Unresolved |
-| DXY | Daily | FMP — **blocked**, forex quote endpoint hit the same plan-tier gate as SMH | ❌ Blocked (FMP plan upgrade needed) |
-| 11 SPDR sector ETF prices | Daily | FMP — likely same ETF-quote plan gate as SMH, untested individually | ❌ Likely blocked |
-| 10Y Treasury yield (for the hard kill switch) | Daily | FMP `treasury-rates` — **confirmed reachable**, verified live (full yield curve pulled) | ✅ Reachable |
+| VIX | Daily | FMP — confirmed reachable, verified live (15.81) | ✅ Reachable |
+| SMH price | Daily | ~~FMP ETF-quote plan-gated~~ → **Tipranks `get_stock_quotes`** confirmed reachable, verified live (592.29, -4.5% that session) | ✅ Reachable (via Tipranks, not FMP) |
+| 11 SPDR sector ETF prices | Daily | Tipranks `get_stock_quotes` accepts a comma-separated ticker list — same tool/pattern as SMH almost certainly covers all 11 in **one call**; not individually verified this session to conserve Tipranks quota (see caveat below) | ✅ Likely reachable, unverified per-ticker |
+| Fed Balance Sheet | Weekly | Tipranks `get_economic_calendar` — confirmed reachable, real weekly series pulled ($6.71T → $6.73T across successive weeks) | ✅ Reachable |
+| TGA, RRP (remaining net-liquidity legs) | Weekly | Not encountered in the Tipranks calendar window sampled (truncated at 200 of 709 matched rows) — may still be present, not confirmed either way | ⚠️ Unresolved |
+| ISM Manufacturing New Orders | Monthly | ~~FMP name lookup failed~~ → current reading found via web search: **PMI 53.3, New Orders 56 (June 2026, still expansionary)**; next release Aug 3, 2026. No live API confirmed yet — TradingEconomics/ycharts host historical series | ⚠️ Current value known, no live API confirmed |
+| DXY | Daily | FMP blocked (plan-tier). Tipranks `get_forex_quote('DXY')` returned empty — DXY is an index, not a standard FX pair, wrong tool for it | ❌ Still blocked |
+| 10Y Treasury yield (hard kill switch) | Daily | FMP `treasury-rates` — confirmed reachable, full yield curve | ✅ Reachable |
+
+**Tipranks quota caveat:** the connector has a hard **10 calls/month** limit — 8 were spent this session confirming the above, leaving 2. Not usable as a live/backtest data feed at any real frequency; treat it as an occasional manual spot-check tool, and batch tickers into single calls (it accepts comma-separated lists) to conserve quota. AlphaVantage similarly rate-limited (25 requests/day free tier) — hit the cap on the first `EARNINGS_ESTIMATES` call.
 
 ### Data Scale
 Small — all inputs are daily/weekly/monthly macro series. pandas is fine.
