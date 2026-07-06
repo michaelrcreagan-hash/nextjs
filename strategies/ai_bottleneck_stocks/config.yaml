@@ -106,6 +106,16 @@ strategy_params:
       reduce: [20, 29]
       exit_below: 20
 
+  # Quota-throttled scan policy for the paid/rate-limited connectors (Tipranks 10 calls/month,
+  # AlphaVantage 25 requests/day) -- can't cover the full ~52-ticker universe, so restrict scope.
+  api_scan_policy:
+    scope: top_3_by_phase_score  # re-ranked each run; not a fixed ticker list
+    frequency: weekly
+    scans:
+      tipranks: [get_options_unusual_trades, get_hedge_fund_activity, get_investor_sentiment]
+      alphavantage: [EARNINGS_ESTIMATES]
+    rationale: "10 Tipranks calls/month and 25 AlphaVantage requests/day can't cover 52 tickers daily -- spend the budget on the top 3 highest-conviction names only, refreshed weekly"
+
   # Sell Composite (5 weighted components), see DISCOVERY.md
   sell_composite_model:
     components:

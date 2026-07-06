@@ -135,6 +135,8 @@ This universe is explicitly one correlated bet on AI infrastructure capex (per t
 
 **Quota caveats:** Tipranks is capped at **10 calls/month total** (2 remain after this session's testing across all 4 strategies) — fine for periodic manual checks, not for a live/backtest feed. AlphaVantage caps at 25 requests/day free tier. Neither scales to daily coverage of a ~50-name universe without a paid upgrade; FMP (no quota hit yet) remains the workhorse for OHLCV/technicals.
 
+**Scan throttle policy (user directive):** the Tipranks (options-flow, hedge-fund activity, investor sentiment) and AlphaVantage (earnings estimates) scans run against the **top 3 stocks only, once a week** — re-ranked by Phase Score each run, not a fixed list. See `config.yaml` → `api_scan_policy`.
+
 ### Data Scale
 Small (<1M rows for a daily-bar equity universe of ~40-60 names). pandas is fine.
 
