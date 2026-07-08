@@ -58,11 +58,11 @@ if distribution_zone: sell 20% of position per month, rebalance toward
 
 | Dataset | Resolution | Source | Status |
 |---------|------------|--------|--------|
-| BTC price + 200-week MA | Weekly | Standard OHLCV | [ ] Need |
-| MVRV Z-score | Daily | On-chain data provider (e.g. Glassnode-style) | [ ] Need |
-| Fear & Greed Index | Daily | alternative.me or similar | [ ] Need |
-| BTC dominance | Daily | Market-cap aggregator (e.g. CoinGecko/CMC-style) | [ ] Need |
-| ETH + alt allocation prices (for distribution rebalancing) | Daily | Standard OHLCV | [ ] Need |
+| BTC price + 200-week MA | Weekly | FMP `crypto` — confirmed reachable, verified live ($62,762) | ✅ Reachable |
+| Fear & Greed Index | Daily | alternative.me — free, public, keyless API, `limit=0` returns full history. **This sandbox's network egress policy blocks it** (confirmed via direct curl: gateway returns 403 "policy denial" on the CONNECT to `api.alternative.me`, not an API-side error) | ⚠️ API is free/open; this environment's network policy blocks it |
+| MVRV Z-score | Daily | BGeometrics `bitcoin-data` API — free, current reading 0.25 as of 2026-07-02 (via AhaSignals). Not directly tested, but same host-allowlist restriction almost certainly applies | ⚠️ Likely same network-policy block |
+| BTC dominance | Daily | CoinGecko `/global` (free, no key) — **confirmed blocked** by this sandbox's egress policy (gateway 403 on `api.coingecko.com`, same as above) | ⚠️ API is free/open; this environment's network policy blocks it |
+| ETH + alt allocation prices (for distribution rebalancing) | Daily | FMP `crypto` — same tool as BTC, untested for ETH/alts specifically but same access tier | ✅ Likely reachable |
 
 ### Data Scale
 Small — all inputs are daily/weekly aggregate series across a multi-year history (need 2+ full cycles, ideally 8-10+ years). pandas is fine.
