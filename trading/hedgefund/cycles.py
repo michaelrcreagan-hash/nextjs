@@ -61,9 +61,16 @@ class CycleParams:
 
 
 def year_in_cycle(year: int, p: CycleParams) -> int:
-    """1-4 position within the 4-year presidential cycle for ``year``."""
-    prior = max(e for e in p.election_years if e <= year)
-    return year - prior
+    """1-4 position within the 4-year presidential cycle for ``year``.
+
+    Arithmetic on the cycle anchor rather than a lookup so any year works —
+    election years themselves are year 4. (The previous max()-based version
+    raised KeyError(0) in election years like 2028 and ValueError for years
+    before the first listed election.)
+    """
+    anchor = p.election_years[0]
+    offset = (year - anchor) % 4
+    return 4 if offset == 0 else offset
 
 
 def secular_phase(year: int, p: CycleParams) -> tuple[str, float]:
