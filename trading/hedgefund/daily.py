@@ -18,8 +18,11 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 from .backtest import StrategyParams
+from .cycles import check_invalidation, cycle_report_line
 from .data import load_panel
 from .ledger import LEDGER_PATH, load_ledger, mark_equity, save_ledger, update_ledger
+from .sell_composite import latest_sell_signals
+from .themes import THEME_MAP, latest_theme_ranking
 from .universe import ALL_SYMBOLS, UNIVERSE
 from .workflow import deep_dive_tickers, screen
 
@@ -99,6 +102,66 @@ def run_daily(
     if result["asymmetric_setups"]:
         lines += ["", f"**Asymmetric setups:** {', '.join(result['asymmetric_setups'])}"]
 
+    # ---- Theme Rotation Engine ----
+    # Only themes with any cached member/proxy data score meaningfully;
+    # others silently drop out (fetch_data hasn't pulled their history yet
+    # — see universe.py's EXTENDED_UNIVERSE note).
+    lines += ["", "## Theme Rotation", ""]
+    theme_ranking = None
+    try:
+        usable_themes = {
+            k: v for k, v in THEME_MAP.items()
+            if any(t in panel.close.columns for t in v["tickers"])
+        }
+        theme_ranking = latest_theme_ranking(panel, theme_map=usable_themes)
+        lines.append("| Theme | Score | Action |")
+        lines.append("|---|---|---|")
+        for theme, row in theme_ranking.iterrows():
+            lines.append(f"| {theme.replace('_', ' ')} | {row['score']:.0f} | {row['action']} |")
+        missing = set(THEME_MAP) - set(usable_themes)
+        if missing:
+            lines.append(
+                f"\n_{len(missing)} themes not yet scored (no cached data): "
+                f"{', '.join(sorted(missing))}_"
+            )
+    except Exception as e:
+        lines.append(f"_Theme rotation unavailable: {e}_")
+
+    # ---- Macro cycle overlay (4yr x 16.8yr x seasonal) ----
+    lines += ["", "## Macro Cycle Overlay", ""]
+    cycle_sig, cycle_inv = None, None
+    try:
+        from .cycles import cycle_signal
+
+        as_of = result["as_of"]
+        cycle_sig = cycle_signal(as_of)
+        lines.append(cycle_report_line(panel, as_of))
+        cycle_inv = check_invalidation(panel, as_of)
+        if cycle_inv.get("invalidated"):
+            lines.append(f"\n⚠️ **{cycle_inv['reason']}**")
+    except Exception as e:
+        lines.append(f"_Cycle overlay unavailable: {e}_")
+
+    # ---- 88% Sell Composite on open positions ----
+    held = list(summary.get("positions", {}).keys())
+    if held:
+        lines += ["", "## Sell Composite — Open Positions", ""]
+        try:
+            sc = latest_sell_signals(panel, held)
+            lines.append("| Symbol | Measured Triggers | Action |")
+            lines.append("|---|---|---|")
+            for sym, row in sc.iterrows():
+                lines.append(
+                    f"| {sym} | {row['measured_triggers']}/3 | {row['action']} |"
+                )
+            lines.append(
+                "\n_Counts only the 3 mechanically measurable triggers "
+                "(options-flow and capex-miss triggers need data this repo "
+                "doesn't fetch yet) — treat as a lower bound._"
+            )
+        except Exception as e:
+            lines.append(f"_Sell composite unavailable: {e}_")
+
     # Crypto desk runs EVERY day — crypto has no weekend.
     from .crypto_desk import crypto_report_lines
 
@@ -154,14 +217,17 @@ def run_daily(
     with open(path, "w") as f:
         f.write(report)
 
-    _write_dashboard_snapshot(result, summary, ledger, stale)
+    _write_dashboard_snapshot(result, summary, ledger, stale, theme_ranking, cycle_sig, cycle_inv)
 
     print(report)
     print(f"[report written to {path}; ledger at {LEDGER_PATH}]")
     return path
 
 
-def _write_dashboard_snapshot(result, summary, ledger, stale: bool) -> None:
+def _write_dashboard_snapshot(
+    result, summary, ledger, stale: bool,
+    theme_ranking=None, cycle_sig=None, cycle_inv=None,
+) -> None:
     """Structured JSON consumed by the Next.js /fund dashboard page."""
     import json
 
@@ -194,6 +260,25 @@ def _write_dashboard_snapshot(result, summary, ledger, stale: bool) -> None:
             for sym, row in wl.iterrows()
         ],
         "asymmetric_setups": result["asymmetric_setups"],
+        "themes": (
+            [
+                {"theme": t, "score": float(row["score"]), "action": row["action"]}
+                for t, row in theme_ranking.iterrows()
+            ]
+            if theme_ranking is not None
+            else []
+        ),
+        "cycle": (
+            {
+                "year_in_cycle": cycle_sig["year_in_cycle"],
+                "secular_phase": cycle_sig["secular_phase"],
+                "quarter": cycle_sig["quarter"],
+                "cycle_multiplier": cycle_sig["cycle_multiplier"],
+                "invalidated": bool((cycle_inv or {}).get("invalidated", False)),
+            }
+            if cycle_sig is not None
+            else None
+        ),
     }
     state_dir = os.path.dirname(LEDGER_PATH)
     os.makedirs(state_dir, exist_ok=True)

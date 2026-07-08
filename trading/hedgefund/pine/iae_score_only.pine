@@ -1,0 +1,132 @@
+//@version=6
+indicator("IAE Score Only", overlay=false, precision=0, max_bars_back=300)
+
+// ———— INPUTS ————
+show_score = input.bool(true, "Show Score Panel")
+show_tiers = input.bool(true, "Show Tier Flags")
+len_donchian = input.int(55, "Donchian Length")
+len_rsi = input.int(14, "RSI Length")
+len_atr = input.int(14, "ATR Length")
+len_vol = input.int(20, "Volume Lookback")
+rvol_hi = input.float(2.0, "RVOL High")
+rvol_lo = input.float(0.6, "RVOL Low")
+
+// ———— CORE ————
+sma200 = ta.sma(close, 200)
+sma50 = ta.sma(close, 50)
+rsi = ta.rsi(close, len_rsi)
+atr = ta.atr(len_atr)
+atr_pct = (atr / close) * 100
+avg_vol = ta.sma(volume, len_vol)
+rvol = volume / avg_vol
+donch_hi = ta.highest(high, len_donchian)
+donch_lo = ta.lowest(low, len_donchian)
+
+trend_ok = close > sma50 and sma50 > sma200
+golden = ta.crossover(sma50, sma200)
+
+// Momentum
+[macd_line, signal_line, macd_hist] = ta.macd(close, 12, 26, 9)
+macd_bull = macd_hist > 0
+
+stoch_k = ta.stoch(close, high, low, 14)
+stoch_d = ta.ema(stoch_k, 3)
+stoch_bull = stoch_k > stoch_d and stoch_k < 80
+
+// Volatility
+bb_mid = ta.sma(close, 20)
+bb_dev = ta.stdev(close, 20) * 2
+bb_width = (bb_dev / bb_mid) * 100
+bb_squeeze = bb_width < ta.sma(bb_width, 20) * 0.8
+
+// DMI/ADX
+[pdi, ndi] = ta.dmi(14)
+di_bullish = pdi > ndi
+adx = ta.adx(close, 14)
+
+// ———— SCORING (0-100) ————
+score = 0.0
+
+if close > sma200 and sma50 > sma200
+    score += 8
+if close > sma50
+    score += 6
+if golden
+    score += 4
+if close > ta.ema(close, 8)
+    score += 2
+
+if rsi > 50 and rsi < 70
+    score += 10
+if rsi <= 30
+    score += 5
+if macd_bull
+    score += 5
+
+if adx > 25 and di_bullish
+    score += 10
+if adx > 20
+    score += 5
+
+if atr_pct >= 2 and atr_pct <= 6
+    score += 8
+if bb_squeeze
+    score += 7
+
+if rvol > rvol_hi and close > open
+    score += 10
+if rvol > 1.0
+    score += 5
+
+if close > donch_hi[1]
+    score += 15
+if close >= sma50 and rsi <= 38 and (ta.highest(high, 42) - close) >= close * 0.10 and close > open
+    score += 12
+
+rs_50d = (close / ta.highest(high, 50)) * 100
+if rs_50d > 95
+    score += 10
+if rs_50d > 85
+    score += 5
+
+score := math.round(math.min(score, 100))
+
+// ———— TIERS ————
+platinum = score >= 90
+gold = score >= 85 and score < 90
+silver = score >= 70 and score < 85
+bronze = score >= 55 and score < 70
+avoid = score < 55
+
+tier_txt = platinum ? "PLATINUM" : gold ? "GOLD" : silver ? "SILVER" : bronze ? "BRONZE" : "AVOID"
+tier_clr = platinum ? #00FFD1 : gold ? #FFD700 : silver ? #C0C0C0 : bronze ? #CD7F32 : #FF4444
+
+// ———— SCREENER EXPORTS (data_window) ————
+plot(show_score ? score : na, title="IAE Score", display=display.data_window, color=tier_clr)
+
+// Tier flags — toggle these in screener conditions
+plot(show_tiers ? platinum ? 1 : na : na, title="Tier: Platinum", display=display.data_window)
+plot(show_tiers ? gold ? 1 : na : na, title="Tier: Gold", display=display.data_window)
+plot(show_tiers ? silver ? 1 : na : na, title="Tier: Silver", display=display.data_window)
+plot(show_tiers ? bronze ? 1 : na : na, title="Tier: Bronze", display=display.data_window)
+plot(show_tiers ? avoid ? 1 : na : na, title="Tier: Avoid", display=display.data_window)
+
+// ———— INFO TABLE ————
+var table t = table.new(position.top_right, 2, 8, border_width=1)
+if barstate.islast and show_score
+    table.cell(t, 0, 0, "SCORE", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 0, str.tostring(score), text_color=tier_clr, bg_color=color.new(#111,80), text_size=size.medium)
+    table.cell(t, 0, 1, "TIER", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 1, tier_txt, text_color=tier_clr, bg_color=color.new(#111,80), text_size=size.small)
+    table.cell(t, 0, 2, "ADX", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 2, str.tostring(math.round(adx,1)), text_color=#FFD700, bg_color=color.new(#111,80), text_size=size.small)
+    table.cell(t, 0, 3, "RSI", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 3, str.tostring(math.round(rsi,1)), text_color=#00FFD1, bg_color=color.new(#111,80), text_size=size.small)
+    table.cell(t, 0, 4, "ATR%", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 4, str.tostring(math.round(atr_pct,2)), text_color=#FFA500, bg_color=color.new(#111,80), text_size=size.small)
+    table.cell(t, 0, 5, "RVOL", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 5, str.tostring(math.round(rvol,2)), text_color=#FF00FF, bg_color=color.new(#111,80), text_size=size.small)
+    table.cell(t, 0, 6, "Donchian",text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 6, close > donch_hi[1] ? "Breakout" : close < donch_lo[1] ? "Breakdown" : "Range", text_color=close > donch_hi[1] ? #00FFD1 : close < donch_lo[1] ? #FF4444 : #FFF, bg_color=color.new(#111,80), text_size=size.small)
+    table.cell(t, 0, 7, "Trend", text_color=color.white, bg_color=color.new(#333,80), text_size=size.small)
+    table.cell(t, 1, 7, trend_ok ? "Bullish" : "Neutral", text_color=trend_ok ? #00FFD1 : #FFF, bg_color=color.new(#111,80), text_size=size.small)

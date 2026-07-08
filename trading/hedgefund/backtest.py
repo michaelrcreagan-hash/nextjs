@@ -41,6 +41,12 @@ class StrategyParams:
     rebalance_weekday: int = 4       # Friday decisions, Monday-close fills
     cost_bps: float = 10.0           # per side
     start_equity: float = 100_000.0
+    # Golden-rule gates (default OFF: REPORT.md's validated numbers were
+    # produced without them; enable + re-run optimize.py to validate
+    # before trusting a backtest with these on).
+    enforce_heat_check: bool = False    # 3 of last 5 trades lose -> half size
+    enforce_reentry_cooldown: bool = False  # >2% loss -> N-day re-entry cooldown
+    reentry_cooldown_days: int = 5
 
 
 @dataclass
@@ -97,22 +103,44 @@ def run_backtest(
         sh = shares.pop(t)
         proceeds = sh * px * (1 - cost)
         cash += proceeds
+        entry = entry_px.pop(t)
+        pnl_pct = (px / entry) - 1
         trades.append(
             {
                 "symbol": t,
                 "exit_date": day,
                 "exit_px": px,
-                "entry_px": entry_px.pop(t),
+                "entry_px": entry,
                 "shares": sh,
                 "pnl": proceeds - sh * trades_entry_cost[t],
                 "reason": reason,
             }
         )
+        if pnl_pct <= -0.02:
+            failure_log.append({"symbol": t, "date": day, "pnl_pct": pnl_pct})
         peak_px.pop(t, None)
         stop_px.pop(t, None)
         trades_entry_cost.pop(t, None)
 
     trades_entry_cost: dict[str, float] = {}
+    failure_log: list[dict] = []  # golden rule: log every >2% loss
+
+    def heat_check_mult() -> float:
+        if not p.enforce_heat_check:
+            return 1.0
+        recent = trades[-5:]
+        if len(recent) < 5:
+            return 1.0
+        return 0.5 if sum(1 for tr in recent if tr["pnl"] < 0) >= 3 else 1.0
+
+    def reentry_blocked(sym: str, day) -> bool:
+        if not p.enforce_reentry_cooldown:
+            return False
+        for entry in reversed(failure_log):
+            if entry["symbol"] != sym:
+                continue
+            return 0 <= (day - entry["date"]).days < p.reentry_cooldown_days
+        return False
 
     for i, day in enumerate(dates):
         px = close.loc[day]
@@ -187,6 +215,8 @@ def run_backtest(
             candidates = score_row[(score_row >= p.tier_cutoff) & gate_row]
             candidates = candidates.sort_values(ascending=False).head(p.top_n)
 
+            heat_mult = heat_check_mult()
+
             targets: dict[str, float] = {}
             if mult > 0 and len(candidates) > 0:
                 base_w = min(1.0 / len(candidates), p.max_name_weight)
@@ -195,8 +225,13 @@ def run_backtest(
                     cat = CATEGORY_OF.get(t, "other")
                     room = p.max_category_weight - cat_used.get(cat, 0.0)
                     w = max(0.0, min(base_w, room)) * mult
-                    if no_new and t not in shares:
+                    is_new_entry = t not in shares
+                    if no_new and is_new_entry:
                         continue  # kill switch: keep holds, no fresh entries
+                    if is_new_entry and reentry_blocked(t, day):
+                        continue  # golden rule: cooldown after a >2% loss
+                    if is_new_entry:
+                        w *= heat_mult  # golden rule: half size in a losing streak
                     if p.pullback_entry and t not in shares:
                         # Fresh entries only from a pullback zone: RSI below
                         # the ceiling, or price hugging EMA21. Extended names
