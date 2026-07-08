@@ -45,6 +45,9 @@ jobs:
         working-directory: trading
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Primary feed for hedgefund.revision_velocity; falls back to
+          # Yahoo's keyless upgrade/downgrade history when unset.
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
           TRADINGAGENTS_LLM_PROVIDER: anthropic
           TRADINGAGENTS_DEEP_THINK_LLM: claude-sonnet-4-6
           TRADINGAGENTS_QUICK_THINK_LLM: claude-haiku-4-5
