@@ -36,9 +36,34 @@ def new_ledger(start_equity: float = 100_000.0) -> dict:
         "positions": {},   # sym -> {shares, entry_px, entry_date, stop_px, peak_px}
         "trades": [],      # closed trades
         "history": [],     # {date, equity, cash, n_positions, regime}
+        "failure_log": [],  # golden rule: log every >2% loss before re-entry
         "last_run": None,
         "last_rebalance": None,
     }
+
+
+def _heat_check_multiplier(trades: list[dict], lookback: int = 5) -> float:
+    """Golden rule: 'never size up during a losing streak.' If 3 of the
+    last 5 closed trades lost, cut new-entry size in half until the
+    streak clears (3 consecutive winners resets it naturally as the
+    losing trades roll out of the lookback window)."""
+    recent = trades[-lookback:]
+    if len(recent) < lookback:
+        return 1.0
+    losses = sum(1 for t in recent if t["pnl"] < 0)
+    return 0.5 if losses >= 3 else 1.0
+
+
+def _reentry_blocked(failure_log: list[dict], sym: str, day: pd.Timestamp, cooldown_days: int = 5) -> bool:
+    """Golden rule: 'after any >2% loss, log exact failure before
+    re-entering.' Mechanically: block new entries into a name for
+    ``cooldown_days`` trading days after it logged a >2% loss."""
+    for entry in reversed(failure_log):
+        if entry["symbol"] != sym:
+            continue
+        days_since = (day - pd.Timestamp(entry["date"])).days
+        return 0 <= days_since < cooldown_days
+    return False
 
 
 def load_ledger(path: str = LEDGER_PATH) -> dict:
@@ -127,12 +152,20 @@ def update_ledger(
             proceeds = pos["shares"] * price * (1 - cost)
             ledger["cash"] += proceeds
             pnl = proceeds - pos["shares"] * pos["entry_px"] * (1 + cost)
+            pnl_pct = (price / pos["entry_px"]) - 1
             ledger["trades"].append(
                 {"symbol": sym, "entry_date": pos["entry_date"],
                  "entry_px": pos["entry_px"], "exit_date": day_str,
                  "exit_px": float(price), "shares": pos["shares"],
                  "pnl": round(pnl, 2), "reason": reason}
             )
+            if pnl_pct <= -0.02:
+                ledger["failure_log"].append(
+                    {"symbol": sym, "date": day_str, "pnl_pct": round(pnl_pct, 4),
+                     "reason": reason,
+                     "note": f"{sym} exited {pnl_pct*100:.1f}% via {reason} — "
+                              f"cooldown before re-entry"}
+                )
             del ledger["positions"][sym]
             actions.append(f"EXIT {sym} @ {price:.2f} ({reason}, P&L {pnl:+,.0f})")
 
@@ -150,6 +183,8 @@ def update_ledger(
             .head(p.top_n)
         )
 
+        heat_mult = _heat_check_multiplier(ledger["trades"])
+
         targets: dict[str, float] = {}
         if mult > 0 and len(candidates) > 0:
             base_w = min(1.0 / len(candidates), p.max_name_weight)
@@ -158,9 +193,15 @@ def update_ledger(
                 cat = CATEGORY_OF.get(sym, "other")
                 room = p.max_category_weight - cat_used.get(cat, 0.0)
                 w = max(0.0, min(base_w, room)) * mult
-                if no_new and sym not in ledger["positions"]:
+                is_new_entry = sym not in ledger["positions"]
+                if no_new and is_new_entry:
                     continue
-                if p.scale_in and sym not in ledger["positions"]:
+                # Golden rule: after a >2% loss, cool down before re-entry.
+                if is_new_entry and _reentry_blocked(ledger["failure_log"], sym, day):
+                    continue
+                if is_new_entry:
+                    w *= heat_mult  # golden rule: half size during a losing streak
+                if p.scale_in and is_new_entry:
                     w *= 0.25
                 elif p.scale_in and sym in ledger["positions"]:
                     if px[sym] <= ledger["positions"][sym]["entry_px"]:
@@ -182,12 +223,20 @@ def update_ledger(
                     proceeds = pos["shares"] * price * (1 - cost)
                     ledger["cash"] += proceeds
                     pnl = proceeds - pos["shares"] * pos["entry_px"] * (1 + cost)
+                    pnl_pct = (price / pos["entry_px"]) - 1
                     ledger["trades"].append(
                         {"symbol": sym, "entry_date": pos["entry_date"],
                          "entry_px": pos["entry_px"], "exit_date": day_str,
                          "exit_px": float(price), "shares": pos["shares"],
                          "pnl": round(pnl, 2), "reason": "rebalance_exit"}
                     )
+                    if pnl_pct <= -0.02:
+                        ledger["failure_log"].append(
+                            {"symbol": sym, "date": day_str, "pnl_pct": round(pnl_pct, 4),
+                             "reason": "rebalance_exit",
+                             "note": f"{sym} exited {pnl_pct*100:.1f}% on rank drop — "
+                                      f"cooldown before re-entry"}
+                        )
                     actions.append(f"EXIT {sym} @ {price:.2f} (rank drop, P&L {pnl:+,.0f})")
                 else:
                     d_sh = (cur_val - tgt_val) / price

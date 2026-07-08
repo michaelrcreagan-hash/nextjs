@@ -122,3 +122,104 @@ python -m hedgefund.run screen      # today's regime + ranked watchlist + asymme
 ```
 
 Full grid results: `hedgefund/results/grid_results.csv`.
+
+---
+
+# Institutional Alpha Engine Upgrade
+
+A second strategy source (the "Thematic Multi-Factor Institutional Alpha
+Engine" notes) added six new mechanical layers on top of the validated
+system above. **These layers are new tooling, not re-validated strategy**
+— they compute correctly against cached data (verified below) but have not
+been through the walk-forward process that produced the numbers earlier in
+this report. Treat their output as decision support, not a replacement for
+the validated defaults, until they've had their own optimize.py pass.
+
+## What was added
+
+| Module | What it does | Status |
+|---|---|---|
+| `themes.py` | Theme Rotation Engine — 13 secular themes scored 0-100 (relative strength 40% + breadth/leadership gate 30% + trend quality 30%), INCREASE/MAINTAIN/WATCH/REDUCE actions | New, smoke-tested |
+| `confluence.py` | 10-layer technical confluence score mirroring the provided TradingView Pine indicator (`pine/iae_score_only.pine`, saved verbatim) | New, smoke-tested |
+| `cycles.py` | 4-year presidential cycle × 16.8-year secular cycle × quarterly seasonality → an equity-exposure multiplier | New — pure calendar math, verified exactly against the source note's worked example (0.7 × 1.0 × 0.7 = 0.49, × 0.8 base = 39.2%, matching the Q3 2026 defensive call) |
+| `sell_composite.py` | 88% Sell Composite — 3-of-5-trigger mechanical exit signal | New; only 3 of 5 triggers are computable from cached data (see gaps below) |
+| `iv_rank.py` | IV-rank decision tree for options structure selection (credit spread / debit spread / avoid-selling by realized-vol percentile) | New, decision-support only — the validated PMCC engine (options_sim.py) is unchanged |
+| `universe.py` (extended) | AI Layer Cake tags (Jensen's compute-stack layers 1-6) + `NEW_THEME_CATEGORIES` (defense, healthcare, resources, crypto-equities, financial infrastructure/RWA) | New tickers added to `EXTENDED_UNIVERSE`, **not** the validated `UNIVERSE` — no price history cached yet for most of them |
+| `backtest.py`, `ledger.py` | Two golden-rule gates: heat-check (3 of last 5 trades lose → half size on new entries) and re-entry cooldown (>2% loss → 5-day cooldown on that name) | New params, **default OFF** in `backtest.py` (opt-in via `enforce_heat_check`/`enforce_reentry_cooldown`) so REPORT.md's cited numbers stay reproducible; **always ON** in the live paper ledger since the notes frame these as non-negotiable |
+
+## Golden-rule gates: measured impact
+
+Quick full-period comparison (2019-06 → 2026-07, same universe/params otherwise):
+
+| Config | CAGR | Max DD | MAR | Win % | PF |
+|---|---|---|---|---|---|
+| Baseline (validated defaults) | 30.5% | −21.2% | 1.44 | 48.2 | 1.74 |
+| + heat-check + re-entry cooldown | 24.6% | −19.3% | 1.28 | 48.3 | 1.89 |
+
+The gates trade some return for a better profit factor and modestly lower
+drawdown — consistent with their purpose (avoid piling into a name or a
+losing streak) but not a strict improvement on MAR in this backtest window.
+Left off by default; available for anyone who wants the more conservative
+posture.
+
+## LLM agent prompt upgrades
+
+`ai_bottleneck_analyst.py` now runs the full 100-point Institutional Alpha
+Score (Fundamentals 20 + Trend/RS 20 + Analyst Revisions 10 + Institutional
+Buying 10 + AI Layer Cake 10 + Situational Awareness 10 + Tokenization 5 +
+Thematic Leadership 5) with a hard Fundamental Gate (≥14/20 or cap at HOLD)
+and Operating Leverage Filter ahead of the existing validated trend
+filter / momentum sizing / exit rules, which are unchanged. `options_analyst.py`
+gained the IV-rank ATR-based strike selection rules and the "never hold a
+debit spread into final 14 DTE" / heat-check golden rules. Both agents now
+explicitly defer to upstream regime/theme gates (macro → theme → stock →
+options ordering).
+
+## Known gaps (stated plainly, not silently glossed over)
+
+1. **Fundamental Gate / Operating Leverage / Analyst Revisions / PEAD /
+   Earnings Quality Score live only in the LLM agent prompt**, not the
+   mechanical backtester — they need per-quarter revenue/opex/margin
+   history and analyst-revision counts this repo doesn't fetch. The
+   mechanical layer's Fundamentals sub-score is a placeholder until that
+   data pipeline exists.
+2. **88% Sell Composite is really a "60% Sell Composite"** — options
+   flow/dark-pool distribution and hyperscaler-capex-miss triggers have no
+   data source here; the composite only counts the 3 triggers built from
+   price/volume/calendar data. Treat any reported count as a lower bound.
+3. **Theme Rotation Engine covers 8 of 13 themes** with the currently
+   cached universe (defense, healthcare, resources, tokenization, and
+   RWA/financial-infrastructure themes need their tickers' price history
+   fetched — `NEW_THEME_CATEGORIES` in universe.py lists them). Two theme
+   proxies (XLU for power/nuclear) were missing too; `themes.py` degrades
+   gracefully to a member-average trend check when a named proxy ETF isn't
+   cached, so those two score today using existing data — the real ETF
+   proxy is still preferable once fetched.
+4. **Confluence score approximates OHLC from close-only data** (same
+   documented ATR-proxy limitation as the rest of this repo) — donchian
+   channel, ADX, and the "green candle" checks use close-to-close deltas,
+   not real intraday highs/lows/opens. Pulling full OHLCV for the equity
+   universe (already done for crypto) would tighten this.
+5. **Cycle overlay anchors (election years, secular-phase start year) are
+   stated assumptions from the source notes**, not derived — revisit them
+   if the macro thesis they're built on changes.
+6. **Not implemented in this pass**: the RSS "Group Brain" news-sentiment
+   pipeline (a separate local tool, not portable to this repo without new
+   infrastructure) and the full 4-sleeve Macro/Income-Hedge/Innovation/
+   Options portfolio construction with non-equity assets (TLT, GLD, HYB
+   income ETFs) — that's a larger, separate build (new asset classes, new
+   portfolio-level allocation logic) flagged here as a scoped-out follow-up
+   rather than bolted on incompletely.
+
+## Next steps to fully validate this layer
+
+1. Fetch price history for `NEW_THEME_CATEGORIES` tickers and the missing
+   theme-proxy ETFs (XLU, XLK, XLV, ITA, COPX) via `fetch_data.py`.
+2. Run `optimize.py` against `EXTENDED_UNIVERSE` with the Theme Rotation
+   Engine gating stock selection, to see whether theme-first selection
+   actually improves on the already-validated flat top-N momentum
+   backtest — the notes estimate +5-12% annualized from this, but that's
+   their estimate, not this repo's backtest.
+3. Wire a real fundamentals-history data source (quarterly revenue/opex/
+   margins + analyst revision counts) to move the Fundamental Gate from
+   LLM-agent-only into the mechanical backtester.
