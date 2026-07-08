@@ -1,0 +1,25 @@
+{
+  "as_of": "2026-07-08T23:52:02.880322+00:00",
+  "half_life_days": 30,
+  "window_days": 120,
+  "results": [],
+  "errors": [
+    "NVDA",
+    "AVGO",
+    "MRVL",
+    "CRDO",
+    "ALAB",
+    "COHR",
+    "LITE",
+    "AAOI",
+    "MU",
+    "VRT",
+    "AGI",
+    "PAAS",
+    "SSRM",
+    "AEM",
+    "KGC",
+    "TECK"
+  ],
+  "history": []
+}
