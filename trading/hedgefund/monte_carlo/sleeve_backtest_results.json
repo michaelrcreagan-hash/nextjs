@@ -1,0 +1,704 @@
+{
+  "2023_2026": {
+    "portfolio": {
+      "cagr": 32.6,
+      "vol": 17.6,
+      "sharpe": 1.71,
+      "max_dd": -17.3,
+      "mar": 1.88,
+      "total_x": 2.69,
+      "years": 3.51
+    },
+    "sleeves": {
+      "macro": {
+        "cagr": 13.5,
+        "vol": 17.3,
+        "sharpe": 0.82,
+        "max_dd": -22.3,
+        "mar": 0.61,
+        "total_x": 1.56,
+        "years": 3.51
+      },
+      "income": {
+        "cagr": 8.6,
+        "vol": 11.0,
+        "sharpe": 0.8,
+        "max_dd": -16.7,
+        "mar": 0.51,
+        "total_x": 1.33,
+        "years": 3.51
+      },
+      "innovation": {
+        "cagr": 163.0,
+        "vol": 58.4,
+        "sharpe": 1.96,
+        "max_dd": -48.9,
+        "mar": 3.33,
+        "total_x": 29.81,
+        "years": 3.51
+      },
+      "options": {
+        "cagr": 28.7,
+        "vol": 18.8,
+        "sharpe": 1.45,
+        "max_dd": -12.9,
+        "mar": 2.22,
+        "total_x": 2.43,
+        "years": 3.51
+      }
+    },
+    "regime": {
+      "days": 881,
+      "state_share": {
+        "RISK_ON": 0.781,
+        "MIXED": 0.133,
+        "RISK_OFF": 0.068,
+        "CAUTION": 0.018
+      },
+      "n_rebalances": 105,
+      "avg_turnover": 0.405,
+      "stop_engagements": 0,
+      "days_stopped": 0,
+      "avg_cash": 0.219,
+      "avg_equity_w": 0.709
+    },
+    "benchmarks": {
+      "SPY_buy_hold": {
+        "cagr": 22.6,
+        "vol": 15.1,
+        "sharpe": 1.43,
+        "max_dd": -18.8,
+        "mar": 1.21,
+        "total_x": 2.05,
+        "years": 3.51
+      },
+      "QQQ_buy_hold": {
+        "cagr": 33.3,
+        "vol": 20.2,
+        "sharpe": 1.53,
+        "max_dd": -22.8,
+        "mar": 1.46,
+        "total_x": 2.74,
+        "years": 3.51
+      },
+      "SMH_buy_hold": {
+        "cagr": 66.4,
+        "vol": 35.3,
+        "sharpe": 1.63,
+        "max_dd": -35.7,
+        "mar": 1.86,
+        "total_x": 5.97,
+        "years": 3.51
+      },
+      "60_40_spy_tlt": {
+        "cagr": 12.7,
+        "vol": 11.2,
+        "sharpe": 1.12,
+        "max_dd": -12.8,
+        "mar": 1.0,
+        "total_x": 1.52,
+        "years": 3.51
+      }
+    },
+    "ablations": {
+      "macro_regime": {
+        "cagr": 31.1,
+        "vol": 14.3,
+        "sharpe": 1.98,
+        "max_dd": -10.2,
+        "mar": 3.06,
+        "total_x": 2.59,
+        "years": 3.51
+      },
+      "cycle_overlay": {
+        "cagr": 34.6,
+        "vol": 20.3,
+        "sharpe": 1.57,
+        "max_dd": -20.8,
+        "mar": 1.67,
+        "total_x": 2.84,
+        "years": 3.51
+      },
+      "technical_gate": {
+        "cagr": 35.4,
+        "vol": 16.3,
+        "sharpe": 1.95,
+        "max_dd": -15.9,
+        "mar": 2.22,
+        "total_x": 2.89,
+        "years": 3.51
+      },
+      "momentum_selection": {
+        "cagr": 29.6,
+        "vol": 17.1,
+        "sharpe": 1.61,
+        "max_dd": -16.4,
+        "mar": 1.8,
+        "total_x": 2.48,
+        "years": 3.51
+      },
+      "portfolio_stop": {
+        "cagr": 32.6,
+        "vol": 17.6,
+        "sharpe": 1.71,
+        "max_dd": -17.3,
+        "mar": 1.88,
+        "total_x": 2.69,
+        "years": 3.51
+      },
+      "options_sleeve": {
+        "cagr": 30.6,
+        "vol": 16.9,
+        "sharpe": 1.67,
+        "max_dd": -17.2,
+        "mar": 1.78,
+        "total_x": 2.55,
+        "years": 3.51
+      }
+    },
+    "sleeve_correlation": {
+      "macro": {
+        "macro": 1.0,
+        "income": 0.39,
+        "innovation": 0.33,
+        "options": 0.19
+      },
+      "income": {
+        "macro": 0.39,
+        "income": 1.0,
+        "innovation": 0.21,
+        "options": 0.26
+      },
+      "innovation": {
+        "macro": 0.33,
+        "income": 0.21,
+        "innovation": 1.0,
+        "options": 0.46
+      },
+      "options": {
+        "macro": 0.19,
+        "income": 0.26,
+        "innovation": 0.46,
+        "options": 1.0
+      }
+    },
+    "monte_carlo": {
+      "portfolio": {
+        "n_paths": 10000,
+        "horizon_days": 880,
+        "terminal_multiple": {
+          "5": 1.6714,
+          "25": 2.2726,
+          "50": 2.8298,
+          "75": 3.4789,
+          "95": 4.6462
+        },
+        "cagr_pct": {
+          "5": 15.8,
+          "25": 26.4,
+          "50": 34.5,
+          "75": 42.6,
+          "95": 54.9
+        },
+        "max_dd_pct": {
+          "5": -24.4,
+          "25": -18.2,
+          "50": -14.8,
+          "75": -12.3,
+          "95": -9.8
+        },
+        "p_loss": 0.0003,
+        "p_dd_gt_20": 0.1617,
+        "p_dd_gt_25": 0.043,
+        "p_dd_gt_40": 0.0005
+      },
+      "sleeves": {
+        "macro": {
+          "n_paths": 5000,
+          "horizon_days": 880,
+          "terminal_multiple": {
+            "5": 0.9805,
+            "25": 1.3189,
+            "50": 1.5972,
+            "75": 1.9481,
+            "95": 2.5545
+          },
+          "cagr_pct": {
+            "5": -0.6,
+            "25": 8.2,
+            "50": 14.3,
+            "75": 20.9,
+            "95": 30.6
+          },
+          "max_dd_pct": {
+            "5": -34.9,
+            "25": -25.1,
+            "50": -20.0,
+            "75": -16.1,
+            "95": -11.9
+          },
+          "p_loss": 0.0578,
+          "p_dd_gt_20": 0.5022,
+          "p_dd_gt_25": 0.2516,
+          "p_dd_gt_40": 0.0186
+        },
+        "income": {
+          "n_paths": 5000,
+          "horizon_days": 880,
+          "terminal_multiple": {
+            "5": 0.9515,
+            "25": 1.1562,
+            "50": 1.3204,
+            "75": 1.4957,
+            "95": 1.7756
+          },
+          "cagr_pct": {
+            "5": -1.4,
+            "25": 4.2,
+            "50": 8.2,
+            "75": 12.2,
+            "95": 17.8
+          },
+          "max_dd_pct": {
+            "5": -25.7,
+            "25": -17.9,
+            "50": -14.1,
+            "75": -11.0,
+            "95": -7.9
+          },
+          "p_loss": 0.0798,
+          "p_dd_gt_20": 0.17,
+          "p_dd_gt_25": 0.0584,
+          "p_dd_gt_40": 0.0006
+        },
+        "innovation": {
+          "n_paths": 5000,
+          "horizon_days": 880,
+          "terminal_multiple": {
+            "5": 6.7547,
+            "25": 17.2114,
+            "50": 33.1061,
+            "75": 63.9865,
+            "95": 164.566
+          },
+          "cagr_pct": {
+            "5": 72.3,
+            "25": 125.0,
+            "50": 171.0,
+            "75": 227.0,
+            "95": 328.0
+          },
+          "max_dd_pct": {
+            "5": -58.6,
+            "25": -46.9,
+            "50": -39.9,
+            "75": -34.7,
+            "95": -26.9
+          },
+          "p_loss": 0.0,
+          "p_dd_gt_20": 0.9998,
+          "p_dd_gt_25": 0.9742,
+          "p_dd_gt_40": 0.4962
+        },
+        "options": {
+          "n_paths": 5000,
+          "horizon_days": 880,
+          "terminal_multiple": {
+            "5": 1.59,
+            "25": 2.0838,
+            "50": 2.5161,
+            "75": 3.0582,
+            "95": 4.0731
+          },
+          "cagr_pct": {
+            "5": 14.1,
+            "25": 23.3,
+            "50": 30.1,
+            "75": 37.5,
+            "95": 49.2
+          },
+          "max_dd_pct": {
+            "5": -21.6,
+            "25": -17.0,
+            "50": -14.5,
+            "75": -12.9,
+            "95": -9.9
+          },
+          "p_loss": 0.0004,
+          "p_dd_gt_20": 0.0918,
+          "p_dd_gt_25": 0.0152,
+          "p_dd_gt_40": 0.0002
+        }
+      }
+    },
+    "empirical_sleeve_params": {
+      "macro": {
+        "mean_pct": 14.3,
+        "vol_pct": 17.3
+      },
+      "income": {
+        "mean_pct": 8.9,
+        "vol_pct": 11.0
+      },
+      "innovation": {
+        "mean_pct": 114.3,
+        "vol_pct": 58.4
+      },
+      "options": {
+        "mean_pct": 27.2,
+        "vol_pct": 18.8
+      }
+    }
+  },
+  "2010_2023": {
+    "portfolio": {
+      "cagr": 9.0,
+      "vol": 10.5,
+      "sharpe": 0.87,
+      "max_dd": -23.0,
+      "mar": 0.39,
+      "total_x": 3.06,
+      "years": 12.99
+    },
+    "sleeves": {
+      "macro": {
+        "cagr": 11.8,
+        "vol": 16.7,
+        "sharpe": 0.75,
+        "max_dd": -29.6,
+        "mar": 0.4,
+        "total_x": 4.27,
+        "years": 12.99
+      },
+      "income": {
+        "cagr": 3.0,
+        "vol": 10.6,
+        "sharpe": 0.33,
+        "max_dd": -32.7,
+        "mar": 0.09,
+        "total_x": 1.46,
+        "years": 12.99
+      },
+      "innovation": {
+        "cagr": 9.3,
+        "vol": 35.6,
+        "sharpe": 0.43,
+        "max_dd": -73.9,
+        "mar": 0.13,
+        "total_x": 3.18,
+        "years": 12.99
+      },
+      "options": {
+        "cagr": 9.5,
+        "vol": 11.7,
+        "sharpe": 0.83,
+        "max_dd": -18.9,
+        "mar": 0.5,
+        "total_x": 3.23,
+        "years": 12.99
+      }
+    },
+    "regime": {
+      "days": 3272,
+      "state_share": {
+        "RISK_ON": 0.531,
+        "RISK_OFF": 0.241,
+        "MIXED": 0.194,
+        "CAUTION": 0.034
+      },
+      "n_rebalances": 496,
+      "avg_turnover": 0.398,
+      "stop_engagements": 1,
+      "days_stopped": 70,
+      "avg_cash": 0.239,
+      "avg_equity_w": 0.697
+    },
+    "benchmarks": {
+      "SPY_buy_hold": {
+        "cagr": 11.9,
+        "vol": 17.6,
+        "sharpe": 0.73,
+        "max_dd": -33.7,
+        "mar": 0.35,
+        "total_x": 4.32,
+        "years": 12.99
+      },
+      "QQQ_buy_hold": {
+        "cagr": 15.5,
+        "vol": 20.8,
+        "sharpe": 0.8,
+        "max_dd": -35.1,
+        "mar": 0.44,
+        "total_x": 6.48,
+        "years": 12.99
+      },
+      "SMH_buy_hold": {
+        "cagr": 17.7,
+        "vol": 27.5,
+        "sharpe": 0.73,
+        "max_dd": -45.3,
+        "mar": 0.39,
+        "total_x": 8.3,
+        "years": 12.99
+      },
+      "60_40_spy_tlt": {
+        "cagr": 9.3,
+        "vol": 9.8,
+        "sharpe": 0.95,
+        "max_dd": -27.5,
+        "mar": 0.34,
+        "total_x": 3.17,
+        "years": 12.99
+      }
+    },
+    "ablations": {
+      "macro_regime": {
+        "cagr": 8.7,
+        "vol": 9.9,
+        "sharpe": 0.9,
+        "max_dd": -16.1,
+        "mar": 0.54,
+        "total_x": 2.97,
+        "years": 12.99
+      },
+      "cycle_overlay": {
+        "cagr": 9.0,
+        "vol": 11.8,
+        "sharpe": 0.79,
+        "max_dd": -26.7,
+        "mar": 0.34,
+        "total_x": 3.06,
+        "years": 12.99
+      },
+      "technical_gate": {
+        "cagr": 8.3,
+        "vol": 9.5,
+        "sharpe": 0.88,
+        "max_dd": -22.1,
+        "mar": 0.37,
+        "total_x": 2.81,
+        "years": 12.99
+      },
+      "momentum_selection": {
+        "cagr": 9.1,
+        "vol": 10.3,
+        "sharpe": 0.89,
+        "max_dd": -23.0,
+        "mar": 0.39,
+        "total_x": 3.09,
+        "years": 12.99
+      },
+      "portfolio_stop": {
+        "cagr": 9.0,
+        "vol": 10.5,
+        "sharpe": 0.87,
+        "max_dd": -23.0,
+        "mar": 0.39,
+        "total_x": 3.06,
+        "years": 12.99
+      },
+      "options_sleeve": {
+        "cagr": 8.4,
+        "vol": 10.0,
+        "sharpe": 0.86,
+        "max_dd": -22.6,
+        "mar": 0.37,
+        "total_x": 2.86,
+        "years": 12.99
+      }
+    },
+    "sleeve_correlation": {
+      "macro": {
+        "macro": 1.0,
+        "income": -0.05,
+        "innovation": 0.34,
+        "options": 0.31
+      },
+      "income": {
+        "macro": -0.05,
+        "income": 1.0,
+        "innovation": -0.03,
+        "options": 0.02
+      },
+      "innovation": {
+        "macro": 0.34,
+        "income": -0.03,
+        "innovation": 1.0,
+        "options": 0.34
+      },
+      "options": {
+        "macro": 0.31,
+        "income": 0.02,
+        "innovation": 0.34,
+        "options": 1.0
+      }
+    },
+    "monte_carlo": {
+      "portfolio": {
+        "n_paths": 10000,
+        "horizon_days": 3271,
+        "terminal_multiple": {
+          "5": 1.7389,
+          "25": 2.4777,
+          "50": 3.1514,
+          "75": 4.0483,
+          "95": 5.7936
+        },
+        "cagr_pct": {
+          "5": 4.3,
+          "25": 7.2,
+          "50": 9.2,
+          "75": 11.4,
+          "95": 14.5
+        },
+        "max_dd_pct": {
+          "5": -27.0,
+          "25": -20.6,
+          "50": -17.2,
+          "75": -14.5,
+          "95": -11.8
+        },
+        "p_loss": 0.0017,
+        "p_dd_gt_20": 0.2843,
+        "p_dd_gt_25": 0.0868,
+        "p_dd_gt_40": 0.0013
+      },
+      "sleeves": {
+        "macro": {
+          "n_paths": 5000,
+          "horizon_days": 3271,
+          "terminal_multiple": {
+            "5": 1.8357,
+            "25": 3.1468,
+            "50": 4.4554,
+            "75": 6.1273,
+            "95": 9.9354
+          },
+          "cagr_pct": {
+            "5": 4.8,
+            "25": 9.2,
+            "50": 12.2,
+            "75": 15.0,
+            "95": 19.3
+          },
+          "max_dd_pct": {
+            "5": -42.9,
+            "25": -33.3,
+            "50": -28.1,
+            "75": -24.2,
+            "95": -18.1
+          },
+          "p_loss": 0.0022,
+          "p_dd_gt_20": 0.905,
+          "p_dd_gt_25": 0.7144,
+          "p_dd_gt_40": 0.0856
+        },
+        "income": {
+          "n_paths": 5000,
+          "horizon_days": 3271,
+          "terminal_multiple": {
+            "5": 0.8445,
+            "25": 1.192,
+            "50": 1.5089,
+            "75": 1.9125,
+            "95": 2.6561
+          },
+          "cagr_pct": {
+            "5": -1.3,
+            "25": 1.4,
+            "50": 3.2,
+            "75": 5.1,
+            "95": 7.8
+          },
+          "max_dd_pct": {
+            "5": -40.3,
+            "25": -29.8,
+            "50": -24.0,
+            "75": -19.7,
+            "95": -15.3
+          },
+          "p_loss": 0.1224,
+          "p_dd_gt_20": 0.729,
+          "p_dd_gt_25": 0.4464,
+          "p_dd_gt_40": 0.0526
+        },
+        "innovation": {
+          "n_paths": 5000,
+          "horizon_days": 3271,
+          "terminal_multiple": {
+            "5": 0.4032,
+            "25": 1.4179,
+            "50": 3.362,
+            "75": 7.8495,
+            "95": 26.2854
+          },
+          "cagr_pct": {
+            "5": -6.8,
+            "25": 2.7,
+            "50": 9.8,
+            "75": 17.2,
+            "95": 28.6
+          },
+          "max_dd_pct": {
+            "5": -87.8,
+            "25": -75.2,
+            "50": -65.5,
+            "75": -56.6,
+            "95": -46.1
+          },
+          "p_loss": 0.1656,
+          "p_dd_gt_20": 1.0,
+          "p_dd_gt_25": 1.0,
+          "p_dd_gt_40": 0.9886
+        },
+        "options": {
+          "n_paths": 5000,
+          "horizon_days": 3271,
+          "terminal_multiple": {
+            "5": 1.776,
+            "25": 2.5387,
+            "50": 3.2475,
+            "75": 4.2282,
+            "95": 5.9812
+          },
+          "cagr_pct": {
+            "5": 4.5,
+            "25": 7.4,
+            "50": 9.5,
+            "75": 11.7,
+            "95": 14.8
+          },
+          "max_dd_pct": {
+            "5": -31.3,
+            "25": -23.9,
+            "50": -19.8,
+            "75": -16.5,
+            "95": -13.1
+          },
+          "p_loss": 0.0014,
+          "p_dd_gt_20": 0.484,
+          "p_dd_gt_25": 0.1984,
+          "p_dd_gt_40": 0.0066
+        }
+      }
+    },
+    "empirical_sleeve_params": {
+      "macro": {
+        "mean_pct": 12.6,
+        "vol_pct": 16.7
+      },
+      "income": {
+        "mean_pct": 3.5,
+        "vol_pct": 10.6
+      },
+      "innovation": {
+        "mean_pct": 15.3,
+        "vol_pct": 35.6
+      },
+      "options": {
+        "mean_pct": 9.7,
+        "vol_pct": 11.7
+      }
+    }
+  }
+}
