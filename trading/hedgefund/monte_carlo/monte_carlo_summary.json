@@ -1,0 +1,58 @@
+{
+  "Baseline (no crisis)": {
+    "label": "Baseline (no crisis)",
+    "median_final_k": 2848.669,
+    "mean_final_k": 2866.0,
+    "worst5_final_k": 2413.99,
+    "best5_final_k": 3380.444,
+    "median_cagr": 44.9,
+    "mean_cagr": 44.9,
+    "max_dd_median": -0.1,
+    "max_dd_worst5": -1.1,
+    "prob_loss_pct": 0.0,
+    "prob_over_1m_pct": 100.0,
+    "prob_over_10m_pct": 0.0
+  },
+  "2008-style crisis (years 9-10)": {
+    "label": "2008-style crisis (years 9-10)",
+    "median_final_k": 2340.844,
+    "mean_final_k": 2355.0,
+    "worst5_final_k": 1983.655,
+    "best5_final_k": 2777.821,
+    "median_cagr": 42.0,
+    "mean_cagr": 42.1,
+    "max_dd_median": -15.9,
+    "max_dd_worst5": -17.4,
+    "prob_loss_pct": 0.0,
+    "prob_over_1m_pct": 100.0,
+    "prob_over_10m_pct": 0.0
+  },
+  "2022-style drawdown (years 9-10)": {
+    "label": "2022-style drawdown (years 9-10)",
+    "median_final_k": 2399.651,
+    "mean_final_k": 2414.0,
+    "worst5_final_k": 2033.488,
+    "best5_final_k": 2847.606,
+    "median_cagr": 42.4,
+    "mean_cagr": 42.4,
+    "max_dd_median": -13.8,
+    "max_dd_worst5": -15.3,
+    "prob_loss_pct": 0.0,
+    "prob_over_1m_pct": 100.0,
+    "prob_over_10m_pct": 0.0
+  },
+  "Dual crisis (2008 + 2022, years 8-10)": {
+    "label": "Dual crisis (2008 + 2022, years 8-10)",
+    "median_final_k": 2340.844,
+    "mean_final_k": 2355.0,
+    "worst5_final_k": 1983.655,
+    "best5_final_k": 2777.821,
+    "median_cagr": 42.0,
+    "mean_cagr": 42.1,
+    "max_dd_median": -15.9,
+    "max_dd_worst5": -17.4,
+    "prob_loss_pct": 0.0,
+    "prob_over_1m_pct": 100.0,
+    "prob_over_10m_pct": 0.0
+  }
+}
