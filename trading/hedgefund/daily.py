@@ -162,6 +162,15 @@ def run_daily(
         except Exception as e:
             lines.append(f"_Sell composite unavailable: {e}_")
 
+    # Analyst revision velocity — earliest-signal scan of the ratings tape.
+    try:
+        from .revision_velocity import report_lines as rv_report_lines, run as rv_run
+
+        lines += ["", "## Analyst revision velocity", ""]
+        lines += rv_report_lines(rv_run())
+    except Exception as e:
+        lines.append(f"_Revision velocity unavailable: {e}_")
+
     # Crypto desk runs EVERY day — crypto has no weekend.
     from .crypto_desk import crypto_report_lines
 

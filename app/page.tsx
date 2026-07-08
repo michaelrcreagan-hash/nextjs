@@ -8,12 +8,20 @@ export default function Home() {
         <p className="text-gray-400 max-w-sm">
           Live tracking for Peter Wolff Flagship Fund, AI World War III Portfolio, and Photonics is Next — with price alerts.
         </p>
-        <Link
-          href="/dashboard"
-          className="rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-8 py-3 transition-colors"
-        >
-          Open Dashboard →
-        </Link>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link
+            href="/dashboard"
+            className="rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-8 py-3 transition-colors"
+          >
+            Open Dashboard →
+          </Link>
+          <Link
+            href="/revisions"
+            className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-8 py-3 transition-colors"
+          >
+            Revision Velocity →
+          </Link>
+        </div>
       </main>
     </div>
   );
