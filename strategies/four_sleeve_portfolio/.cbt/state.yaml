@@ -16,16 +16,16 @@ engine: pandas
 project_type: indicator
 
 # Current phase in workflow
-phase: config  # discovery | research | eda | config | plan | build | iterate
+phase: iterate  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
   discovery: true
   research: true
   eda: false
-  config: false
-  plan: false
-  build: false
+  config: true
+  plan: true
+  build: true
 
 # Build process tracking
 build:
@@ -37,19 +37,16 @@ build:
 # Baseline comes from the already-built mechanical backtest in
 # trading/hedgefund/sleeves.py (2023-2026 full-system Sharpe).
 experiments:
-  count: 1
+  count: 44
   current: null
-  best: sleeve_backtest_full_2023_2026
+  best: optimized_2026-07-08 (Sharpe 2.40 / MAR 4.33 2023-2026)
   baseline_sharpe: 1.71
 
 # Pending observations to test (priority order from RESEARCH.md)
 pending_observations:
-  - "Sleeve 3: Daniel-Moskowitz dynamic momentum / crash guard"
-  - "Trend gate: hysteresis bands or Moreira-Muir vol-scaling replacement"
-  - "Sleeve 2: duration ladder + correlation-conditional gold expansion"
-  - "Sleeve 4: delta-band short-call rolls instead of calendar-only"
-  - "Sleeve 1: rank-based selection at quarterly cadence"
+  - "Sleeve 4: delta-band short-call rolls (needs options_sim change)"
   - "Rebalance tranching to remove timing luck"
+  - "Re-validate Sleeve 3 params after 2026 year-end (IS window was non-discriminating)"
 
 # Iteration history
 iterations: []

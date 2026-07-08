@@ -1,0 +1,39 @@
+# four_sleeve_portfolio — active configuration
+# Optimized 2026-07-08 via /cbt:optimize (see OPTIMIZATION_REPORT.md).
+# Engine: trading/hedgefund/sleeves.py (SleeveParams); defaults there
+# reproduce the pre-optimization baseline — these overrides are the
+# adopted optimal parameters.
+
+engine: trading/hedgefund/sleeves.py
+evaluator: trading/hedgefund/monte_carlo/sleeve_optimize.py
+
+baseline:                       # committed SLEEVE_BACKTEST_REPORT.md numbers
+  sharpe_2023_2026: 1.71
+  cagr_2023_2026: 32.6
+  max_dd_2023_2026: -17.3
+
+optimized_params:               # -> SleeveParams(**optimized_params)
+  macro_trend_gate: false       # S1: drop binary gate; keep inverse-vol
+  income_variant: both          # S2: TLT duration halving + corr-conditional gold
+  innovation_top_n: 4           # S3: concentrate in top 4 by momentum
+  momentum_window: 63           # S3: 3-month momentum ranking
+  innovation_vol_target: 0.35   # S3: Daniel-Moskowitz-style crash guard
+
+optimized_results:
+  cagr_2023_2026: 41.3
+  max_dd_2023_2026: -9.5
+  sharpe_2023_2026: 2.40
+  cagr_2010_2023: 9.8
+  max_dd_2010_2023: -17.4
+  sharpe_2010_2023: 0.96
+
+unchanged:
+  sleeve4_pmcc: {short_delta: 0.22, sell_short_leg: true}   # best IS, broad optimum
+  cost_bps_side: 10
+  min_price_floor: 5.0
+  regime_matrix: part10_note    # sleeve weights by RISK_ON/MIXED/CAUTION/RISK_OFF
+  cycle_overlay: on             # risk modifier only, leverage-capped
+
+overfitting_flags:
+  sleeve3: "IS window non-discriminating; params provisional — re-validate after 2026 year-end"
+  options: "Black-Scholes simulated; paper-trade before sizing"

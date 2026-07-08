@@ -105,6 +105,11 @@ class SleeveParams:
     static_state: str = "MIXED"       # matrix row used when macro is OFF
     innovation_top_n: int = 6
     momentum_window: int = 126
+    # --- optimization knobs (defaults reproduce the committed baseline;
+    # winning values from monte_carlo/sleeve_optimize.py) ---
+    macro_trend_gate: bool = True         # winner: False (rank/weight only)
+    income_variant: str = "baseline"      # winner: "both" (duration + gold)
+    innovation_vol_target: float | None = None   # winner: 0.35 (annualized)
     vol_window: int = 63
     cost_bps_side: float = 10.0
     cash_yield: float = 0.03          # blended 2010-2026 T-bill-ish
@@ -138,6 +143,11 @@ class _Precomp:
         self.inv_vol = 1.0 / self.ret.rolling(p.vol_window).std()
         self.inv_vol = self.inv_vol.replace([np.inf, -np.inf], np.nan)
         self.investable = close.rolling(63).median() > p.min_price
+        # income-variant signals (duration shock proxy, corr flip)
+        self.tlt_below_200 = (close["TLT"] < sma200["TLT"]
+                              if "TLT" in close.columns else None)
+        self.spy_tlt_corr = (self.ret["SPY"].rolling(126).corr(self.ret["TLT"])
+                             if "TLT" in close.columns else None)
 
 
 def _sleeve_internal_weights(pc: _Precomp, members: list[str], day,
@@ -158,13 +168,36 @@ def _sleeve_internal_weights(pc: _Precomp, members: list[str], day,
     return {m: v / total for m, v in w.items()} if total else {}
 
 
-def _income_weights(pc: _Precomp, day, state: str) -> dict[str, float]:
-    mix = INCOME_MIX[state]
+def _income_weights(pc: _Precomp, day, state: str,
+                    variant: str = "baseline") -> dict[str, float]:
+    mix = dict(INCOME_MIX[state])
+    # "duration": halve TLT when it trades below its own 200DMA (rates-
+    # rising / inflation-shock proxy) — freed weight sits in cash.
+    if variant in ("duration", "both") and mix.get("TLT", 0) > 0 \
+            and pc.tlt_below_200 is not None \
+            and bool(pc.tlt_below_200.at[day]):
+        mix["TLT"] *= 0.5
+    # "gold": when the trailing 126d stock-bond correlation flips positive
+    # (the regime where bonds stop hedging), gold takes half of TLT.
+    if variant in ("gold", "both") and mix.get("TLT", 0) > 0 \
+            and pc.spy_tlt_corr is not None:
+        corr = pc.spy_tlt_corr.at[day]
+        if not pd.isna(corr) and corr > 0:
+            shift = mix["TLT"] * 0.5
+            mix["TLT"] -= shift
+            mix["GLD"] = mix.get("GLD", 0.0) + shift
     live = {m: w for m, w in mix.items()
             if w > 0 and m in pc.close.columns
             and not pd.isna(pc.close.at[day, m])}
-    total = sum(live.values())
-    return {m: w / total for m, w in live.items()} if total else {}
+    if not live:
+        return {}
+    if variant == "baseline":
+        total = sum(live.values())
+        return {m: w / total for m, w in live.items()}
+    # Variants normalize against the ORIGINAL mix total so weight freed by
+    # the duration cut stays in cash instead of being redistributed.
+    base_total = sum(w for w in INCOME_MIX[state].values() if w > 0)
+    return {m: w / base_total for m, w in live.items()}
 
 
 def run_sleeve_backtest(
@@ -230,12 +263,18 @@ def run_sleeve_backtest(
                 s = p.stop_equity_scale / eq_total
                 w_macro, w_innov, w_opt = w_macro * s, w_innov * s, w_opt * s
 
-        macro_w = _sleeve_internal_weights(pc, MACRO_MEMBERS, day, p,
-                                           p.use_trend_gate, None)
+        macro_w = _sleeve_internal_weights(
+            pc, MACRO_MEMBERS, day, p,
+            p.use_trend_gate and p.macro_trend_gate, None)
         innov_w = _sleeve_internal_weights(
             pc, INNOVATION_MEMBERS, day, p, p.use_trend_gate,
             p.innovation_top_n if p.use_momentum_selection else None)
-        income_w = _income_weights(pc, day, state)
+        if p.innovation_vol_target and len(innov_trail) >= 21:
+            realized = float(np.std(innov_trail[-21:]) * np.sqrt(252))
+            if realized > 0:
+                guard = min(1.0, p.innovation_vol_target / realized)
+                innov_w = {m: w * guard for m, w in innov_w.items()}
+        income_w = _income_weights(pc, day, state, p.income_variant)
 
         target: dict[str, float] = {}
         for m, w in macro_w.items():
@@ -260,14 +299,23 @@ def run_sleeve_backtest(
     sleeve_cash = {"macro": p.start_equity, "income": p.start_equity,
                    "innovation": p.start_equity}
 
+    innov_trail: list[float] = []   # daily returns of the innovation book
+
     def sleeve_targets(day, state):
+        innov = _sleeve_internal_weights(
+            pc, INNOVATION_MEMBERS, day, p, p.use_trend_gate,
+            p.innovation_top_n if p.use_momentum_selection else None)
+        if p.innovation_vol_target and len(innov_trail) >= 21:
+            realized = float(np.std(innov_trail[-21:]) * np.sqrt(252))
+            if realized > 0:
+                guard = min(1.0, p.innovation_vol_target / realized)
+                innov = {m: w * guard for m, w in innov.items()}
         return {
-            "macro": _sleeve_internal_weights(pc, MACRO_MEMBERS, day, p,
-                                              p.use_trend_gate, None),
-            "innovation": _sleeve_internal_weights(
-                pc, INNOVATION_MEMBERS, day, p, p.use_trend_gate,
-                p.innovation_top_n if p.use_momentum_selection else None),
-            "income": _income_weights(pc, day, state),
+            "macro": _sleeve_internal_weights(
+                pc, MACRO_MEMBERS, day, p,
+                p.use_trend_gate and p.macro_trend_gate, None),
+            "innovation": innov,
+            "income": _income_weights(pc, day, state, p.income_variant),
         }
 
     for i, day in enumerate(days):
@@ -282,6 +330,7 @@ def run_sleeve_backtest(
             cash_v *= (1.0 + daily_rf)
             equity = sum(values.values()) + options_v + cash_v
 
+            prev_innov = sleeve_eq["innovation"]
             for name in ("macro", "income", "innovation"):
                 for m in list(sleeve_pos[name]):
                     r = pc.ret.at[day, m]
@@ -291,6 +340,7 @@ def run_sleeve_backtest(
                 sleeve_eq[name] = (sum(sleeve_pos[name].values())
                                    + sleeve_cash[name])
             sleeve_eq["options"] *= (1.0 + r_opt)
+            innov_trail.append(sleeve_eq["innovation"] / prev_innov - 1.0)
 
         peak = max(peak, equity)
         dd = equity / peak - 1.0
