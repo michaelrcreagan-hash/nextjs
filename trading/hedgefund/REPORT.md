@@ -175,14 +175,42 @@ debit spread into final 14 DTE" / heat-check golden rules. Both agents now
 explicitly defer to upstream regime/theme gates (macro → theme → stock →
 options ordering).
 
+## Analyst Revision Velocity (revision_velocity.py + /revisions web page)
+
+Live early-signal scan of the sell-side ratings tape:
+
+    velocity      = sum(rating_change x weight)
+    weight        = analyst_success x recency_decay
+    recency_decay = 0.5 ^ (age_days / 30d half-life), 120d window
+
+- **Data**: FMP grades feed when `FMP_API_KEY` is set (GitHub secret /
+  Vercel env), else Yahoo Finance's keyless upgrade/downgrade history.
+  The Next.js app serves the same engine live at `/revisions` via
+  `/api/revisions` (`lib/revisions.ts` mirrors this module's math).
+- **Tracked roster, bucketed** — AI bottlenecks: Quinn Bolton (Needham),
+  Raymond James, Goldman Sachs, Piper Sandler, RBC; Macro: Morgan Stanley
+  (Wilson), BCA, Fundstrat (Tom Lee), Duquesne (Druckenmiller, 13F-cadence);
+  Sector rotation: LSEG StarMine ARM/SmartEstimate (registry slot only —
+  needs an LSEG entitlement this repo doesn't have); Individual stocks
+  (non-AI): Siperco (RBC), MacRury (Canaccord), Nagle + DeMarco (National
+  Bank) — the miners coverage crew. Success seeds from TipRanks (Siperco
+  verified live 2026-07-08: rank #5, avg 1y return +64.7%); grade feeds only
+  carry firm names, so tracked analysts are attributed by firm + coverage
+  -list match. Untracked firms still count at a 0.5 default weight.
+- **Cadence**: runs inside the daily morning report (guarded try/except)
+  and appends a rolling 30-run score history to
+  `state/revision_velocity.json` for week-over-week velocity deltas.
+
 ## Known gaps (stated plainly, not silently glossed over)
 
-1. **Fundamental Gate / Operating Leverage / Analyst Revisions / PEAD /
-   Earnings Quality Score live only in the LLM agent prompt**, not the
-   mechanical backtester — they need per-quarter revenue/opex/margin
-   history and analyst-revision counts this repo doesn't fetch. The
-   mechanical layer's Fundamentals sub-score is a placeholder until that
-   data pipeline exists.
+1. **Fundamental Gate / Operating Leverage / PEAD / Earnings Quality Score
+   live only in the LLM agent prompt**, not the mechanical backtester —
+   they need per-quarter revenue/opex/margin history this repo doesn't
+   fetch. The mechanical layer's Fundamentals sub-score is a placeholder
+   until that data pipeline exists. (Analyst revisions are now covered
+   mechanically by `revision_velocity.py` above — rating actions, not yet
+   estimate revisions; StarMine SmartEstimate-style estimate-level data
+   still needs an LSEG or paid-FMP entitlement.)
 2. **88% Sell Composite is really a "60% Sell Composite"** — options
    flow/dark-pool distribution and hyperscaler-capex-miss triggers have no
    data source here; the composite only counts the 3 triggers built from
