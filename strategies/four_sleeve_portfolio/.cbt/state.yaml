@@ -1,0 +1,69 @@
+# CBT Framework State
+# Strategy: four_sleeve_portfolio
+# DO NOT EDIT MANUALLY - managed by CBT Framework
+
+strategy: four_sleeve_portfolio
+created: 2026-07-08
+last_updated: 2026-07-08
+
+# Workflow mode: interactive (confirm each step) | yolo (auto-approve)
+mode: yolo
+
+# Computing engine: pandas (standard) | fast (Polars + NumPy + Numba)
+engine: pandas
+
+# Project type: indicator | ml | hybrid
+project_type: indicator
+
+# Current phase in workflow
+phase: config  # discovery | research | eda | config | plan | build | iterate
+
+# Phase completion tracking
+phases_completed:
+  discovery: true
+  research: true
+  eda: false
+  config: false
+  plan: false
+  build: false
+
+# Build process tracking
+build:
+  plan: []
+  current_step: null
+  progress: "0/0"
+
+# Experiment tracking
+# Baseline comes from the already-built mechanical backtest in
+# trading/hedgefund/sleeves.py (2023-2026 full-system Sharpe).
+experiments:
+  count: 1
+  current: null
+  best: sleeve_backtest_full_2023_2026
+  baseline_sharpe: 1.71
+
+# Pending observations to test (priority order from RESEARCH.md)
+pending_observations:
+  - "Sleeve 3: Daniel-Moskowitz dynamic momentum / crash guard"
+  - "Trend gate: hysteresis bands or Moreira-Muir vol-scaling replacement"
+  - "Sleeve 2: duration ladder + correlation-conditional gold expansion"
+  - "Sleeve 4: delta-band short-call rolls instead of calendar-only"
+  - "Sleeve 1: rank-based selection at quarterly cadence"
+  - "Rebalance tranching to remove timing luck"
+
+# Iteration history
+iterations: []
+
+# Report file path (relative to strategy dir)
+report_file: ../../trading/hedgefund/monte_carlo/SLEEVE_BACKTEST_REPORT.md
+
+# Live deployment status
+live:
+  deployed: false
+  exchange: null
+  mode: null  # paper | live
+
+# Prop firm challenge tracking
+prop_firm:
+  enabled: false
+  account_type: personal          # personal | prop_firm
