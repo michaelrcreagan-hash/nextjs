@@ -17,7 +17,7 @@ on:
         type: boolean
         default: false
       deep_dive:
-        description: "Run LLM deep dives on top names (needs ANTHROPIC_API_KEY secret)"
+        description: "Run LLM deep dives on top names (needs OPENROUTER_API_KEY secret)"
         type: boolean
         default: true
 
@@ -44,17 +44,17 @@ jobs:
       - name: Run daily job (screen + paper ledger + morning report)
         working-directory: trading
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           # Primary feed for hedgefund.revision_velocity; falls back to
           # Yahoo's keyless upgrade/downgrade history when unset.
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
-          TRADINGAGENTS_LLM_PROVIDER: anthropic
-          TRADINGAGENTS_DEEP_THINK_LLM: claude-sonnet-4-6
-          TRADINGAGENTS_QUICK_THINK_LLM: claude-haiku-4-5
+          TRADINGAGENTS_LLM_PROVIDER: OPENROUTER
+          TRADINGAGENTS_DEEP_THINK_LLM: Openrouter/auto
+          TRADINGAGENTS_QUICK_THINK_LLM: Openrouter/fusion
         run: |
           FLAGS=""
           if [ "${{ inputs.force_rebalance }}" = "true" ]; then FLAGS="--force-rebalance"; fi
-          if [ "${{ inputs.deep_dive }}" != "false" ] && [ -n "$ANTHROPIC_API_KEY" ]; then FLAGS="$FLAGS --deep-dive"; fi
+          if [ "${{ inputs.deep_dive }}" != "false" ] && [ -n "$OPENROUTER_API_KEY" ]; then FLAGS="$FLAGS --deep-dive"; fi
           python -m hedgefund.run daily $FLAGS
 
       - name: Commit ledger + report
