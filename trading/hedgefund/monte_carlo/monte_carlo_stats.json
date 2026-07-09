@@ -1,0 +1,58 @@
+[
+  {
+    "Scenario": "Baseline (no crisis)",
+    "Median Final ($K)": 7.503506191113386e+190,
+    "Mean Final ($K)": 1.2930823642357276e+250,
+    "Median CAGR": 7.99864779831843e+20,
+    "Mean CAGR": 8.333213260080493e+23,
+    "Worst 5% Final ($K)": 3.430872004358401e+163,
+    "Best 5% Final ($K)": 2.8260216819103554e+219,
+    "Max DD (median)": "0.0%",
+    "Max DD (worst 5%)": "0.0%",
+    "Prob Loss": "0.0%",
+    "Prob >$1M": "100.0%",
+    "Prob >$10M": "100.0%"
+  },
+  {
+    "Scenario": "2008 Crisis Stress (yr 9-10)",
+    "Median Final ($K)": 1.6738821611135744e+190,
+    "Mean Final ($K)": 2.884608138137062e+249,
+    "Median CAGR": 6.884345179902863e+20,
+    "Mean CAGR": 7.17230186734794e+23,
+    "Worst 5% Final ($K)": 7.653589267322723e+162,
+    "Best 5% Final ($K)": 6.304289168005623e+218,
+    "Max DD (median)": "0.0%",
+    "Max DD (worst 5%)": "0.0%",
+    "Prob Loss": "0.0%",
+    "Prob >$1M": "100.0%",
+    "Prob >$10M": "100.0%"
+  },
+  {
+    "Scenario": "2022 Drawdown Stress (yr 9-10)",
+    "Median Final ($K)": 2.575593507112052e+190,
+    "Mean Final ($K)": 4.438531076886419e+249,
+    "Median CAGR": 7.187500397399707e+20,
+    "Mean CAGR": 7.488137386301329e+23,
+    "Worst 5% Final ($K)": 1.17765367724003e+163,
+    "Best 5% Final ($K)": 9.700375943590936e+218,
+    "Max DD (median)": "0.0%",
+    "Max DD (worst 5%)": "0.0%",
+    "Prob Loss": "0.0%",
+    "Prob >$1M": "100.0%",
+    "Prob >$10M": "100.0%"
+  },
+  {
+    "Scenario": "Dual Crisis (2008 + 2022, yr 8-10)",
+    "Median Final ($K)": 1.6738821611135744e+190,
+    "Mean Final ($K)": 2.884608138137062e+249,
+    "Median CAGR": 6.884345179902863e+20,
+    "Mean CAGR": 7.17230186734794e+23,
+    "Worst 5% Final ($K)": 7.653589267322723e+162,
+    "Best 5% Final ($K)": 6.304289168005623e+218,
+    "Max DD (median)": "0.0%",
+    "Max DD (worst 5%)": "0.0%",
+    "Prob Loss": "0.0%",
+    "Prob >$1M": "100.0%",
+    "Prob >$10M": "100.0%"
+  }
+]

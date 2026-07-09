@@ -1,0 +1,579 @@
+// © 2026 — Unified Institutional Alpha Engine — Technical Confluence Indicator
+// Pine Script v5 — Composite Multi-Layer Technical Score + Trading Signals
+// Based on: TECE v5.2, 10-Layer Confluence, Turtle/Donchian, Pullback, Breakout, Reversal frameworks
+//
+// ─────────────────────────────────────────────────────────────────────────────
+//  LAYER INDEX
+//  1. Regime / Trend        — EMA ribbon, 50/200 SMA, Anchored VWAP trend
+//  2. Momentum              — RSI(14), MACD histogram, Stochastic RSI
+//  3. Trend Strength        — ADX(14), +DI/-DI cross
+//  4. Volatility            — ATR(14) percentile, Bollinger Band width
+//  5. Volume / RVOL         — Relative volume 20d, volume spike detection
+//  6. Support / Resistance  — Swing points, volume-profile POC, Fib retracement
+//  7. Breakout / Pullback   — Donchian 20/55, 10–25% pullback detection, ATR compression
+//  8. Relative Strength     — vs SPY, vs QQQ, vs Theme ETF
+//  9. Breadth / Leadership  — % above key MAs, new 52w highs/lows
+// 10. Options / Flow Proxy  — Volume + price action proxy for unusual activity
+//
+//  OUTPUT: 0–100 Composite Confluence Score with tier labels
+//          8-classification AI Layer Cake tags
+//          Long / Short / Reduce / Hedge signals
+// ─────────────────────────────────────────────────────────────────────────────
+
+//@version=5
+indicator(
+    title = "Institutional Alpha Engine — Technical Confluence Score",
+    shorttitle = "IAE Tech Score",
+    overlay = true,
+    precision = 2,
+    max_bars_back = 500,
+    default_qty_type = strategy.cash,
+    default_qty_value = 10000,
+    pyramiding = 0,
+    calc_on_order_fills = false,
+    calc_on_every_tick = false,
+    backtest_fill_limits = false
+)
+
+// ──────────────────────────────────────────────
+//  § 0. USER INPUTS
+// ──────────────────────────────────────────────
+grp_regime   = "§1 Regime / Trend"
+grp_momentum = "§2 Momentum"
+grp_vol      = "§3 Volatility"
+grp_volum    = "§4 Volume"
+grp_sr       = "§5 Support / Resistance"
+grp_tech     = "§6 Breakout / Pullback"
+grp_rs       = "§7 Relative Strength"
+grp_breadth  = "§8 Breadth"
+grp_layer    = "§9 AI Layer Cake"
+grp_score    = "§10 Score & Signals"
+
+// Regime
+show_emas      = input.bool(true, "Show EMA Ribbon",           group = grp_regime)
+ema_fast       = input.int(8,  "EMA Fast",                    group = grp_regime)
+ema_mid        = input.int(21, "EMA Mid",                     group = grp_regime)
+ema_slow       = input.int(50, "EMA Slow",                    group = grp_regime)
+ema_long       = input.int(200,"EMA Long",                    group = grp_regime)
+show_sma50     = input.bool(true, "Show SMA 50",              group = grp_regime)
+show_sma200    = input.bool(true, "Show SMA 200",             group = grp_regime)
+show_avwap     = input.bool(true, "Show Anchored VWAP",       group = grp_regime)
+avwap_start    = input.time(timestamp("2024-01-01"), "Anchored VWAP Start", group = grp_regime)
+
+// Momentum
+rsi_len        = input.int(14, "RSI Length",                 group = grp_momentum)
+rsi_ob         = input.int(70, "RSI Overbought",             group = grp_momentum)
+rsi_os         = input.int(30, "RSI Oversold",               group = grp_momentum)
+show_macd      = input.bool(true, "Show MACD",               group = grp_momentum)
+stoch_k        = input.int(14, "Stoch %K Length",            group = grp_momentum)
+stoch_d        = input.int(3,  "Stoch %D Length",            group = grp_momentum)
+stoch_ob       = input.int(80, "Stoch Overbought",           group = grp_momentum)
+stoch_os       = input.int(20, "Stoch Oversold",             group = grp_momentum)
+
+// Volatility
+adx_len        = input.int(14, "ADX Length",                 group = grp_vol)
+adx_thresh     = input.int(25, "ADX Trend Threshold",        group = grp_vol)
+atr_len        = input.int(14, "ATR Length",                 group = grp_vol)
+bb_len         = input.int(20, "Bollinger Length",           group = grp_vol)
+bb_mult        = input.float(2.0, "Bollinger Mult",          group = grp_vol)
+
+// Volume
+rvol_len       = input.int(20, "RVOL Lookback",              group = grp_volum)
+rvol_thresh_hi = input.float(2.0, "RVOL High Threshold",     group = grp_volum)
+rvol_thresh_lo = input.float(0.6, "RVOL Low Threshold",      group = grp_volum)
+show_vpoc      = input.bool(false, "Show Volume Profile POC", group = grp_volum)
+vpoc_bars      = input.int(200, "Volume Profile Lookback",   group = grp_volum)
+
+// Support / Resistance
+show_sr        = input.bool(true, "Show S/R Levels",         group = grp_sr)
+sr_lookback    = input.int(50, "S/R Lookback",               group = grp_sr)
+sr_touch       = input.int(2, "S/R Touch Min",               group = grp_sr)
+
+// Technical / Breakout-Pullback
+donchian_short = input.int(20, "Donchian Short (Exit)",      group = grp_tech)
+donchian_long  = input.int(55, "Donchian Long (Entry)",      group = grp_tech)
+pullback_min   = input.float(10.0, "Pullback Min %",         group = grp_tech)
+pullback_max   = input.float(25.0, "Pullback Max %",         group = grp_tech)
+atr_comp_ratio = input.float(0.65, "ATR Compression Ratio",  group = grp_tech)
+
+// Relative Strength
+show_rs        = input.bool(true, "Show Relative Strength",  group = grp_rs)
+rs_ticker1     = input.string("SPY", "RS vs Ticker 1",       group = grp_rs)
+rs_ticker2     = input.string("QQQ", "RS vs Ticker 2",       group = grp_rs)
+rs_ticker3     = input.string("SMH", "RS vs Ticker 3",       group = grp_rs)
+
+// Breadth
+show_breadth   = input.bool(true, "Show Breadth Panel",      group = grp_breadth)
+
+// Layer Cake
+show_layers    = input.bool(true, "Show Layer Cake Labels",  group = grp_layer)
+
+// Score & Signals
+show_score_panel = input.bool(true, "Show Score Panel",      group = grp_score)
+show_signals     = input.bool(true, "Show Trade Signals",    group = grp_score)
+score_smoothing  = input.int(3, "Score Smoothing Bars",      group = grp_score)
+
+// ──────────────────────────────────────────────
+//  § 1. REGIME / TREND CALCULATIONS
+// ──────────────────────────────────────────────
+ema8  = ta.ema(close, ema_fast)
+ema21 = ta.ema(close, ema_mid)
+ema50 = ta.ema(close, ema_slow)
+ema200 = ta.ema(close, ema_long)
+sma50  = ta.sma(close, 50)
+sma200 = ta.sma(close, 200)
+
+// Regime boolean set
+trend_bullish_slow = close > sma200 and sma50 > sma200
+trend_bullish_mid  = close > sma50 and ema50 > ema200
+golden_cross       = ta.crossover(sma50, sma200)
+death_cross        = ta.crossunder(sma50, sma200)
+
+// Anchored VWAP
+var float avwap = na
+if barstate.isfirst
+    avwap := close
+else
+    avwap := (avwap * 1) + (close * 1)  // placeholder; true anchored VWAP accumulation below
+
+// Proper anchored VWAP using ta.avg since bar time >= start
+avwap_val = ta.avg(close, volume, bar_index >= bar_indexof(avwap_start))
+
+// ──────────────────────────────────────────────
+//  § 2. MOMENTUM
+// ──────────────────────────────────────────────
+rsi_val = ta.rsi(close, rsi_len)
+
+[macd_line, signal_line, hist_line] = ta.macro(close, 12, 26, 9)
+macd_bullish = macd_line > signal_line and hist_line > 0
+
+stoch_k_val = ta.stoch(close, high, low, stoch_k)
+stoch_d_val = ta.ema(stoch_k_val, stoch_d)
+stoch_bullish = stoch_k_val > stoch_d_val and stoch_k_val < stoch_ob
+
+// ──────────────────────────────────────────────
+//  § 3. VOLATILITY & TREND STRENGTH
+// ──────────────────────────────────────────────
+[adx_val, plus_di, minus_di] = ta.dmi(adx_len, adx_len)
+adx_strong = adx_val > adx_thresh
+di_bullish = plus_di > minus_di
+
+atr_val = ta.atr(atr_len)
+atr_pct = (atr_val / close) * 100
+
+// Bollinger Band width
+bb_basis = ta.sma(close, bb_len)
+bb_upper = bb_basis + bb_mult * ta.stdev(close, bb_len)
+bb_lower = bb_basis - bb_mult * ta.stdev(close, bb_len)
+bb_width = (bb_upper - bb_lower) / bb_basis * 100
+bb_squeeze = bb_width < ta.sma(bb_width, 20) * 0.8
+
+// ──────────────────────────────────────────────
+//  § 4. VOLUME / RVOL
+// ──────────────────────────────────────────────
+avg_vol = ta.sma(volume, rvol_len)
+rvol = volume / avg_vol
+vol_spike = rvol > rvol_thresh_hi
+vol_drought = rvol < rvol_thresh_lo
+
+// Volume Profile POC (approximation via highest-volume price level)
+// Simple approximation: bar with max volume in lookback
+float vpoc_price = na
+float vpoc_vol = 0
+for i = 0 to vpoc_bars - 1
+    if volume[i] > vpoc_vol
+        vpoc_vol := volume[i]
+        vpoc_price := close[i]
+vpoc_above = close > vpoc_price
+
+// ──────────────────────────────────────────────
+//  § 5. SUPPORT / RESISTANCE
+// ──────────────────────────────────────────────
+// Swing high / low detection
+swing_high = ta.highest(high, sr_lookback)[1] == high[1]
+swing_low  = ta.lowest(low,  sr_lookback)[1] == low[1]
+
+// Cluster S/R: count touches
+var float[] sr_levels = array.new_float()
+var int[]   sr_counts = array.new_int()
+
+if swing_high or swing_low
+    level = swing_high ? high[1] : low[1]
+    // Round to nearest dollar for clustering
+    level_rounded = math.round(level)
+    found = false
+    for i = 0 to array.size(sr_levels) - 1
+        if math.abs(array.get(sr_levels, i) - level_rounded) <= close * 0.005
+            array.set(sr_counts, i, array.get(sr_counts, i) + 1)
+            found := true
+            break
+    if not found
+        array.push(sr_levels, level_rounded)
+        array.push(sr_counts, 1)
+
+// Keep array bounded
+if array.size(sr_levels) > 20
+    array.shift(sr_levels)
+    array.shift(sr_counts)
+
+// Nearest S/R
+float nearest_res = na
+float nearest_sup = na
+float min_dist_res = 1e9
+float min_dist_sup = 1e9
+for i = 0 to array.size(sr_levels) - 1
+    lvl = array.get(sr_levels, i)
+    cnt = array.get(sr_counts, i)
+    if cnt >= sr_touch
+        if lvl > close and (lvl - close) < min_dist_res
+            min_dist_res := lvl - close
+            nearest_res := lvl
+        if lvl < close and (close - lvl) < min_dist_sup
+            min_dist_sup := close - lvl
+            nearest_sup := lvl
+
+// ──────────────────────────────────────────────
+//  § 6. BREAKOUT / PULLBACK / REVERSAL
+// ──────────────────────────────────────────────
+// Donchian channels
+donchian_upper = ta.highest(high, donchian_long)
+donchian_lower = ta.lowest(low, donchian_long)
+donchian_exit_upper = ta.highest(high, donchian_short)
+donchian_exit_lower = ta.lowest(low, donchian_short)
+
+donchian_breakout = close > donchian_upper[1]
+donchian_breakdown = close < donchian_lower[1]
+
+// Pullback detection in uptrend: 10–25% from recent high, RSI ≤38
+recent_high = ta.highest(high, 42)
+pullback_depth = ((recent_high - close) / recent_high) * 100
+in_pullback = pullback_depth >= pullback_min and pullback_depth <= pullback_max and rsi_val <= 38 and trend_bullish_mid
+
+// Reversal detection: ≥20% drop in 20 days, RSI ≤28, above 200DMA
+price_20d_ago = close[20]
+drop_20d = ((price_20d_ago - close) / price_20d_ago) * 100
+reversal_setup = drop_20d >= 20 and rsi_val <= 28 and close > sma200
+
+// ATR compression (breakout precursor)
+atr_compressed = atr_val < ta.sma(atr_val, 60) * atr_comp_ratio
+
+// ──────────────────────────────────────────────
+//  § 7. RELATIVE STRENGTH
+// ──────────────────────────────────────────────
+// RS vs SPY/QQQ/SMH via request.security
+get_rs(ticker_input) =>
+    sec = request.security(ticker_input, timeframe.period, close)
+    (close / sec) / ta.sma(close / sec, 50) * 100  // normalized 50d RS
+
+rs_spy = show_rs ? get_rs(rs_ticker1) : 100
+rs_qqq = show_rs ? get_rs(rs_ticker2) : 100
+rs_smh = show_rs ? get_rs(rs_ticker3) : 100
+
+rs_strong = rs_spy > 100 and rs_qqq > 100
+
+// ──────────────────────────────────────────────
+//  § 8. BREADTH
+// ──────────────────────────────────────────────
+// Breadth proxies: price above key MAs
+above_ema8  = close > ema8
+above_ema21 = close > ema21
+above_ema50 = close > ema50
+above_ema200= close > ema200
+
+new_52w_high = high >= ta.highest(high, 252)[1]
+new_52w_low  = low  <= ta.lowest(low,  252)[1]
+
+// ──────────────────────────────────────────────
+//  § 9. AI LAYER CAKE CLASSIFICATION
+// ──────────────────────────────────────────────
+layer1 = syminfo.ticker in ["NVDA","AMD","AVGO","TSM","MU"]
+layer2 = syminfo.ticker in ["AMAT","LRCX","KLAC","ASML","ONTO"]
+layer3 = syminfo.ticker in ["MRVL","CRDO","ANET","ALAB"]
+layer4 = syminfo.ticker in ["VRT","ETN","PWR","CEG","VST"]
+layer5 = syminfo.ticker in ["MSFT","GOOGL","META","ORCL","SNOW","PLTR"]
+layer6 = syminfo.ticker in ["UBER","DUOL","APP"]
+
+layer_label = layer1 ? "L1_Compute" :
+              layer2 ? "L2_Fab" :
+              layer3 ? "L3_Net" :
+              layer4 ? "L4_Infra" :
+              layer5 ? "L5_SW" :
+              layer6 ? "L6_App" : "Other"
+
+// ──────────────────────────────────────────────
+//  § 10. COMPOSITE CONFLUENCE SCORE (0–100)
+// ──────────────────────────────────────────────
+// Each layer contributes 0–10 points. Total 100.
+
+// Layer 1 — Regime/Trend (10 pts)
+l1_score = 0.0
+if trend_bullish_slow
+    l1_score := l1_score + 4
+if trend_bullish_mid
+    l1_score := l1_score + 3
+if close > avwap_val
+    l1_score := l1_score + 2
+if golden_cross
+    l1_score := l1_score + 1
+
+// Layer 2 — Momentum (10 pts)
+l2_score = 0.0
+if rsi_val > 50 and rsi_val < rsi_ob
+    l2_score := l2_score + 3
+if rsi_val <= rsi_os
+    l2_score := l2_score + 2  // oversold bounce potential
+if macd_bullish
+    l2_score := l2_score + 3
+if stoch_bullish
+    l2_score := l2_score + 2
+
+// Layer 3 — Trend Strength (10 pts)
+l3_score = 0.0
+if adx_strong and adx_val > 30
+    l3_score := l3_score + 4
+if adx_strong and di_bullish
+    l3_score := l3_score + 3
+if adx_val > 20
+    l3_score := l3_score + 2
+if di_bullish
+    l3_score := l3_score + 1
+
+// Layer 4 — Volatility (10 pts)
+l4_score = 0.0
+if atr_pct >= 2.0 and atr_pct <= 6.0
+    l4_score := l4_score + 4  // healthy volatility
+if bb_squeeze
+    l4_score := l4_score + 3  # compression = breakout fuel
+if close > bb_lower and close < bb_upper
+    l4_score := l4_score + 2  # inside bands
+if close > bb_basis
+    l4_score := l2_score + 1
+
+// Layer 5 — Volume / RVOL (10 pts)
+l5_score = 0.0
+if vol_spike and close > open
+    l5_score := l5_score + 5  # accumulation
+if close > vpoc_price
+    l5_score := l5_score + 3
+if rvol > 1.0
+    l5_score := l5_score + 2
+
+// Layer 6 — Support / Resistance (10 pts)
+l6_score = 0.0
+if not na(nearest_res) and (nearest_res - close) / close > 0.03
+    l6_score := l6_score + 3  # room to run
+if not na(nearest_sup) and (close - nearest_sup) / close > 0.01
+    l6_score := l6_score + 3  # clear support
+if swing_high[1] and close > open
+    l6_score := l6_score + 2
+if swing_low[1] and close > open
+    l6_score := l6_score + 2
+
+// Layer 7 — Breakout / Pullback (10 pts)
+l7_score = 0.0
+if donchian_breakout
+    l7_score := l7_score + 5
+if in_pullback and close > open
+    l7_score := l7_score + 5
+if reversal_setup and close > open
+    l7_score := l7_score + 4
+if atr_compressed
+    l7_score := l7_score + 2
+
+// Layer 8 — Relative Strength (10 pts)
+l8_score = 0.0
+if show_rs
+    if rs_spy > 105
+        l8_score := l8_score + 4
+    if rs_qqq > 105
+        l8_score := l8_score + 3
+    if rs_smh > 105
+        l8_score := l8_score + 3
+
+// Layer 9 — Breadth / Leadership (10 pts)
+l9_score = 0.0
+if above_ema8 and above_ema21 and above_ema50
+    l9_score := l9_score + 4
+if above_ema200
+    l9_score := l9_score + 3
+if new_52w_high
+    l9_score := l9_score + 2
+if not new_52w_low
+    l9_score := l9_score + 1
+
+// Layer 10 — Flow / Institutional Proxy (10 pts)
+l10_score = 0.0
+if vol_spike and close > open and (high - low) / atr_val > 1.5
+    l10_score := l10_score + 4  # wide range, high volume = institutional participation
+if close > ema8 and volume > avg_vol * 1.2
+    l10_score := l10_score + 3
+if barstate.islast and show_signals
+    l10_score := l10_score + 3  # end-of-day strength proxy
+
+// Raw score
+raw_score = l1_score + l2_score + l3_score + l4_score + l5_score + l6_score + l7_score + l8_score + l9_score + l10_score
+
+// Smoothed score
+smooth_score = ta.ema(raw_score, score_smoothing)
+
+// Tier classification
+tier_platinum = smooth_score >= 90
+tier_gold     = smooth_score >= 85 and smooth_score < 90
+tier_silver   = smooth_score >= 70 and smooth_score < 85
+tier_bronze   = smooth_score >= 55 and smooth_score < 70
+tier_avoid    = smooth_score < 55
+
+tier_label = tier_platinum ? "PLATINUM" :
+             tier_gold     ? "GOLD" :
+             tier_silver   ? "SILVER" :
+             tier_bronze   ? "BRONZE" : "AVOID"
+
+tier_color = tier_platinum ? color.new(#00FFD1, 0) :
+             tier_gold     ? color.new(#FFD700, 0) :
+             tier_silver   ? color.new(#C0C0C0, 0) :
+             tier_bronze   ? color.new(#CD7F32, 0) : color.new(#FF4444, 0)
+
+// ──────────────────────────────────────────────
+//  § 11. AI LAYER CAKE TAGS ON CHART
+// ──────────────────────────────────────────────
+var label layer_tag = label.new(bar_index, high, "", xloc.bar_index, yloc.abovebar, color=color.new(color.blue, 80), style=label.style_label_down, size=size.small)
+if show_layers and barstate.islast
+    label.set_xy(layer_tag, bar_index - 20, high)
+    label.set_text(layer_tag, layer_label)
+    label.set_color(layer_tag, color.new(color.blue, 60))
+    label.set_textcolor(layer_tag, color.white)
+
+// ──────────────────────────────────────────────
+//  § 12. TRADE SIGNALS
+// ──────────────────────────────────────────────
+// Long conditions (multi-confluence)
+long_cond_turtle   = donchian_breakout and trend_bullish_mid and adx_strong and vol_spike
+long_cond_pullback = in_pullback and close > open and rvol > 1.0
+long_cond_reversal = reversal_setup and close > open and not na(nearest_sup) and close > nearest_sup
+long_cond_atr_break = atr_compressed and donchian_breakout and rvol > 1.5
+
+any_long  = long_cond_turtle or long_cond_pullback or long_cond_reversal or long_cond_atr_break
+
+// Reduce / Hedge signals (88% Sell Composite proxy)
+reduce1 = rsi_val > rsi_ob and ta.crossunder(hist_line, 0)
+reduce2 = rvol < rvol_thresh_lo and close < open
+reduce3 = close < donchian_exit_lower[1]
+reduce4 = close < sma50 and sma50 < sma200
+reduce5 = drop_20d >= 25 and rsi_val < 30 and not long_cond_reversal  # deep correction, no reversal confirmed
+reduce_cnt = reduce1 ? 1 : 0 + reduce2 ? 1 : 0 + reduce3 ? 1 : 0 + reduce4 ? 1 : 0 + reduce5 ? 1 : 0
+scale_half = reduce_cnt >= 3
+full_exit  = reduce_cnt >= 4
+
+// ──────────────────────────────────────────────
+//  § 13. PLOTTING
+// ──────────────────────────────────────────────
+// EMAs
+if show_emas
+    plot(ema8,  "EMA 8",  color.new(#00FFD1, 0), 1, plot.style_line)
+    plot(ema21, "EMA 21", color.new(#00BFFF, 0), 1, plot.style_line)
+    plot(ema50, "EMA 50", color.new(#FFD700, 0), 1, plot.style_line)
+    plot(ema200,"EMA 200",color.new(#FF4444, 0), 2, plot.style_line)
+
+// SMAs
+if show_sma50
+    plot(sma50,  "SMA 50",  color.new(#FFA500, 0), 1, plot.style_dash)
+if show_sma200
+    plot(sma200, "SMA 200", color.new(#FF00FF, 0), 2, plot.style_dash)
+
+// Anchored VWAP
+if show_avwap
+    plot(avwap_val, "Anchored VWAP", color.new(#FFFFFF, 0), 2, plot.style_circles)
+
+// Bollinger Bands
+p_bb_upper = plot(bb_upper, "BB Upper", color.new(#808080, 50), 1, plot.style_dash)
+p_bb_lower = plot(bb_lower, "BB Lower", color.new(#808080, 50), 1, plot.style_dash)
+fill(p_bb_upper, p_bb_lower, color.new(#4444FF, 15))
+
+// Donchian channels
+p_donch_upper = plot(donchian_upper, "Donchian Upper", color.new(#00FF00, 30), 1, plot.style_circles)
+p_donch_lower = plot(donchian_lower, "Donchian Lower", color.new(#FF0000, 30), 1, plot.style_circles)
+
+// Support / Resistance
+if show_sr and not na(nearest_res)
+    line.new(bar_index - 50, nearest_res, bar_index, nearest_res, color=color.new(#FF4444, 40), width=1, style=line.style_dashed, extend=extend.right)
+if show_sr and not na(nearest_sup)
+    line.new(bar_index - 50, nearest_sup, bar_index, nearest_sup, color=color.new(#00FF00, 40), width=1, style=line.style_dashed, extend=extend.right)
+
+// Volume Profile POC
+if show_vpoc and not na(vpoc_price)
+    line.new(bar_index - vpoc_bars, vpoc_price, bar_index, vpoc_price, color=color.new(#FFFF00, 30), width=2, style=line.style_solid, extend=extend.right)
+
+// Long signals
+if show_signals
+    plotshape(series = long_cond_turtle,   title = "Turtle Long",   location = location.belowbar, color=color.new(#00FFD1, 0), style=shape.labelup, text="TURTLE", textcolor=color.white, size=size.small)
+    plotshape(series = long_cond_pullback, title = "Pullback Long", location = location.belowbar, color=color.new(#00BFFF, 0), style=shape.labelup, text="PULLBACK", textcolor=color.white, size=size.small)
+    plotshape(series = long_cond_reversal, title = "Reversal Long", location = location.belowbar, color=color.new(#FFD700, 0), style=shape.labelup, text="REVERSAL", textcolor=color.black, size=size.small)
+    plotshape(series = long_cond_atr_break,title = "ATR Breakout",  location = location.belowbar, color=color.new(#FF00FF, 0), style=shape.labelup, text="BREAKOUT", textcolor=color.white, size=size.small)
+
+// Reduce / exit
+if show_signals
+    plotshape(series = scale_half, title = "Scale 50%", location = location.abovebar, color=color.new(#FFA500, 0), style=shape.triangledown, text="50%", textcolor=color.white, size=size.small)
+    plotshape(series = full_exit,  title = "Full Exit",  location = location.abovebar, color=color.new(#FF0000, 0), style=shape.triangledown, text="EXIT", textcolor=color.white, size=size.small)
+
+// ──────────────────────────────────────────────
+//  § 14. SCORE PLOTS
+// ──────────────────────────────────────────────
+var float score_plot = na
+score_plot := switch score_smoothing
+    case 1  => raw_score
+    => ta.ema(raw_score, score_smoothing)
+
+plot(show_score_panel ? score_plot : na, "Confluence Score", tier_color, 2, plot.style_areabr, display=display.data_window)
+plot(show_score_panel ? 90 : na, "Platinum", color.new(#00FFD1, 0), 1, plot.style_dashed, display=display.data_window)
+plot(show_score_panel ? 85 : na, "Gold",     color.new(#FFD700, 0), 1, plot.style_dashed, display=display.data_window)
+plot(show_score_panel ? 70 : na, "Silver",   color.new(#C0C0C0, 0), 1, plot.style_dashed, display=display.data_window)
+plot(show_score_panel ? 55 : na, "Bronze",   color.new(#CD7F32, 0), 1, plot.style_dashed, display=display.data_window)
+
+// ──────────────────────────────────────────────
+//  § 15. INFO TABLE (LAST BAR)
+// ──────────────────────────────────────────────
+var table info_tbl = table.new(position.top_right, 8, 12, border_width=1)
+
+if barstate.islast and show_score_panel
+    table.cell(info_tbl, 0, 0, "TECH SCORE",    text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 0, str.tostring(math.round(score_plot, 1)), text_color=tier_color, bg_color=color.new(#111111, 80), text_size=size.medium)
+    table.cell(info_tbl, 0, 1, "TIER",          text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 1, tier_label,      text_color=tier_color, bg_color=color.new(#111111, 80), text_size=size.small)
+    table.cell(info_tbl, 0, 2, "LAYER",         text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 2, layer_label,     text_color=color.new(#00BFFF, 0), bg_color=color.new(#111111, 80), text_size=size.small)
+    table.cell(info_tbl, 0, 3, "ADX",           text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 3, str.tostring(math.round(adx_val, 1)), text_color=color.new(#FFD700, 0), bg_color=color.new(#111111, 80), text_size=size.small)
+    table.cell(info_tbl, 0, 4, "RSI",           text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 4, str.tostring(math.round(rsi_val, 1)), text_color=color.new(#00FFD1, 0), bg_color=color.new(#111111, 80), text_size=size.small)
+    table.cell(info_tbl, 0, 5, "ATR%",          text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 5, str.tostring(math.round(atr_pct, 2)), text_color=color.new(#FFA500, 0), bg_color=color.new(#111111, 80), text_size=size.small)
+    table.cell(info_tbl, 0, 6, "RVOL",          text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 6, str.tostring(math.round(rvol, 2)), text_color=color.new(#FF00FF, 0), bg_color=color.new(#111111, 80), text_size=size.small)
+    table.cell(info_tbl, 0, 7, "RS(SPY)",       text_color=color.white, bg_color=color.new(#333333, 80), text_size=size.small)
+    table.cell(info_tbl, 1, 7, str.tostring(math.round(rs_spy, 1)), text_color=color.new(#00FF00, 0) if rs_spy > 100 else color.new(#FF4444, 0), bg_color=color.new(#111111, 80), text_size=size.small)
+
+// ──────────────────────────────────────────────
+//  § 16. ALERTS
+// ──────────────────────────────────────────────
+alertcondition(long_cond_turtle,   "Turtle Long Signal",   "TURTLE breakout confirmed on {{ticker}} — Confluence: {{plot(\"Confluence Score\")}}")
+alertcondition(long_cond_pullback, "Pullback Long Signal", "PULLBACK entry on {{ticker}} — Confluence: {{plot(\"Confluence Score\")}}")
+alertcondition(long_cond_reversal, "Reversal Long Signal", "REVERSAL setup on {{ticker}} — Confluence: {{plot(\"Confluence Score\")}}")
+alertcondition(long_cond_atr_break,"ATR Breakout Signal",  "ATR COMPRESSION BREAKOUT on {{ticker}}")
+alertcondition(scale_half,         "Scale 50% Signal",     "88% Sell Composite partial exit trigger on {{ticker}}")
+alertcondition(full_exit,          "Full Exit Signal",     "88% Sell Composite FULL EXIT on {{ticker}}")
+alertcondition(tier_platinum,      "Platinum Rating",      "{{ticker}} reached PLATINUM tier — Score: {{plot(\"Confluence Score\")}}")
+alertcondition(tier_avoid,         "Avoid Rating",         "{{ticker}} downgraded to AVOID — Score: {{plot(\"Confluence Score\")}}")
+
+// ──────────────────────────────────────────────
+//  § 17. STRATEGY BACKTEST WRAPPER (OPTIONAL)
+// ──────────────────────────────────────────────
+// Uncomment to use as a strategy instead of indicator
+//
+// strategy("IAE Strategy", overlay=false, initial_capital=100000, default_qty_type=strategy.cash, default_qty_value=10000, pyramiding=0, commission_type=strategy.commission.percent, commission_value=0.1)
+// strategy.entry("Long", strategy.long, when=any_long)
+// strategy.close("Long", when=full_exit)
+// strategy.close("Long", when=scale_half, qty_percent=50)
+
+// ──────────────────────────────────────────────
+//  END OF SCRIPT
+// ──────────────────────────────────────────────

@@ -21,8 +21,13 @@ from tradingagents.agents.utils.news_data_tools import (
     get_insider_transactions,
     get_news,
 )
+from tradingagents.agents.utils.options_scanner_tools import scan_omega_defined_risk_options
 from tradingagents.agents.utils.prediction_markets_tools import get_prediction_markets
 from tradingagents.agents.utils.technical_indicators_tools import get_indicators
+from tradingagents.agents.utils.theme_rotation_tools import (
+    rank_omega_theme_stocks,
+    score_omega_theme_rotation,
+)
 
 # Public surface: the data tools are imported here so agents and the graph
 # import them from one place, plus the instrument/language helpers defined below.
@@ -39,9 +44,13 @@ __all__ = [
     "get_macro_indicators",
     "get_prediction_markets",
     "get_verified_market_snapshot",
+    "score_omega_theme_rotation",
+    "rank_omega_theme_stocks",
+    "scan_omega_defined_risk_options",
     "build_instrument_context",
     "resolve_instrument_identity",
     "get_instrument_context_from_state",
+    "get_strategy_context_from_state",
     "get_language_instruction",
     "create_msg_delete",
 ]
@@ -185,6 +194,14 @@ def get_instrument_context_from_state(state: Mapping[str, Any]) -> str:
         str(state["company_of_interest"]),
         state.get("asset_type", "stock"),
     )
+
+
+def get_strategy_context_from_state(state: Mapping[str, Any]) -> str:
+    """Return optional strategy instructions stored on the graph state."""
+    context = state.get("strategy_context")
+    if isinstance(context, str) and context.strip():
+        return "\n\nStrategy context:\n" + context.strip()
+    return ""
 
 
 def create_msg_delete():

@@ -25,7 +25,10 @@ from tradingagents.agents.utils.agent_utils import (
     get_prediction_markets,
     get_stock_data,
     get_verified_market_snapshot,
+    rank_omega_theme_stocks,
     resolve_instrument_identity,
+    scan_omega_defined_risk_options,
+    score_omega_theme_rotation,
 )
 from tradingagents.agents.utils.memory import TradingMemoryLog
 from tradingagents.dataflows.config import set_config
@@ -33,6 +36,7 @@ from tradingagents.dataflows.utils import safe_ticker_component
 from tradingagents.default_config import DEFAULT_CONFIG
 from tradingagents.llm_clients import create_llm_client
 from tradingagents.reporting import write_report_tree
+from tradingagents.strategies import build_strategy_context
 
 from .checkpointer import checkpoint_step, clear_checkpoint, get_checkpointer, thread_id
 from .conditional_logic import ConditionalLogic
@@ -65,6 +69,7 @@ class TradingAgentsGraph:
         self.debug = debug
         self.config = config or DEFAULT_CONFIG
         self.callbacks = callbacks or []
+        self.strategy_context = build_strategy_context(self.config)
 
         # Update the interface's config
         set_config(self.config)
@@ -171,6 +176,9 @@ class TradingAgentsGraph:
                     # LLM and required by its prompt; must be executable here or
                     # the call fails and the model reports it "unavailable").
                     get_verified_market_snapshot,
+                    score_omega_theme_rotation,
+                    rank_omega_theme_stocks,
+                    scan_omega_defined_risk_options,
                 ]
             ),
             "social": ToolNode(
@@ -187,6 +195,8 @@ class TradingAgentsGraph:
                     get_insider_transactions,
                     get_macro_indicators,
                     get_prediction_markets,
+                    score_omega_theme_rotation,
+                    scan_omega_defined_risk_options,
                 ]
             ),
             "fundamentals": ToolNode(
@@ -196,6 +206,8 @@ class TradingAgentsGraph:
                     get_balance_sheet,
                     get_cashflow,
                     get_income_statement,
+                    score_omega_theme_rotation,
+                    rank_omega_theme_stocks,
                 ]
             ),
             "etf": ToolNode(
@@ -443,6 +455,7 @@ class TradingAgentsGraph:
             asset_type=asset_type,
             past_context=past_context,
             instrument_context=instrument_context,
+            strategy_context=self.strategy_context,
         )
         args = self.propagator.get_graph_args()
 
