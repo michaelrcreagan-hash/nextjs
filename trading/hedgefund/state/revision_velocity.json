@@ -1,10 +1,39 @@
 {
-  "as_of": "2026-07-09T13:41:20.986957+00:00",
+  "as_of": "2026-07-09T16:12:54.845061+00:00",
   "half_life_days": 30,
   "window_days": 120,
-  "results": [],
+  "results": [
+    {
+      "symbol": "NVDA",
+      "velocity": 0.0,
+      "weighted_avg": 0.0,
+      "weight_sum": 5.4754,
+      "events": 44,
+      "upgrades": 0,
+      "downgrades": 0,
+      "signal": "flat",
+      "buckets": {
+        "ai-bottlenecks": {
+          "velocity": 0.0,
+          "weight_sum": 0.9743,
+          "events": 7
+        },
+        "other": {
+          "velocity": 0.0,
+          "weight_sum": 4.1515,
+          "events": 35
+        },
+        "macro": {
+          "velocity": 0.0,
+          "weight_sum": 0.3497,
+          "events": 2
+        }
+      },
+      "tracked_hits": [],
+      "provider": "fmp"
+    }
+  ],
   "errors": [
-    "NVDA",
     "AVGO",
     "MRVL",
     "CRDO",
@@ -24,6 +53,10 @@
   "history": [
     {
       "as_of": "2026-07-08T23:51:16.269766+00:00",
+      "scores": {}
+    },
+    {
+      "as_of": "2026-07-09T13:41:20.986957+00:00",
       "scores": {}
     }
   ]
