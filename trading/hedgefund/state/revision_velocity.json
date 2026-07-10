@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-07-10T05:45:08.317161+00:00",
+  "as_of": "2026-07-10T13:36:36.157813+00:00",
   "half_life_days": 30,
   "window_days": 120,
   "results": [
@@ -7,7 +7,7 @@
       "symbol": "NVDA",
       "velocity": 0.0,
       "weighted_avg": 0.0,
-      "weight_sum": 5.3735,
+      "weight_sum": 5.333,
       "events": 43,
       "upgrades": 0,
       "downgrades": 0,
@@ -15,17 +15,17 @@
       "buckets": {
         "ai-bottlenecks": {
           "velocity": 0.0,
-          "weight_sum": 0.9617,
+          "weight_sum": 0.9544,
           "events": 7
         },
         "other": {
           "velocity": 0.0,
-          "weight_sum": 4.0667,
+          "weight_sum": 4.036,
           "events": 34
         },
         "macro": {
           "velocity": 0.0,
-          "weight_sum": 0.3451,
+          "weight_sum": 0.3425,
           "events": 2
         }
       },
@@ -67,6 +67,12 @@
     },
     {
       "as_of": "2026-07-09T18:10:21.360279+00:00",
+      "scores": {
+        "NVDA": 0.0
+      }
+    },
+    {
+      "as_of": "2026-07-10T05:45:08.317161+00:00",
       "scores": {
         "NVDA": 0.0
       }
