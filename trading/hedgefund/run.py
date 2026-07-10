@@ -103,6 +103,13 @@ def cmd_portfolio(_args):
     portfolio_summary()
 
 
+def cmd_topdown(args):
+    from .topdown import run_topdown
+
+    run_topdown(top_setups=args.setups,
+                fetch_revisions=not args.no_revisions)
+
+
 def main():
     ap = argparse.ArgumentParser(prog="hedgefund")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -129,6 +136,10 @@ def main():
 
     sub.add_parser("portfolio")
 
+    td = sub.add_parser("topdown")
+    td.add_argument("--setups", type=int, default=5)
+    td.add_argument("--no-revisions", action="store_true")
+
     args = ap.parse_args()
     {
         "status": cmd_status,
@@ -137,6 +148,7 @@ def main():
         "screen": cmd_screen,
         "daily": cmd_daily,
         "portfolio": cmd_portfolio,
+        "topdown": cmd_topdown,
     }[args.cmd](args)
 
 
