@@ -1,39 +1,10 @@
 {
-  "as_of": "2026-07-10T15:52:53.931860+00:00",
+  "as_of": "2026-07-08T23:52:02.880322+00:00",
   "half_life_days": 30,
   "window_days": 120,
-  "results": [
-    {
-      "symbol": "NVDA",
-      "velocity": 0.0,
-      "weighted_avg": 0.0,
-      "weight_sum": 5.3213,
-      "events": 43,
-      "upgrades": 0,
-      "downgrades": 0,
-      "signal": "flat",
-      "buckets": {
-        "ai-bottlenecks": {
-          "velocity": 0.0,
-          "weight_sum": 0.9523,
-          "events": 7
-        },
-        "other": {
-          "velocity": 0.0,
-          "weight_sum": 4.0272,
-          "events": 34
-        },
-        "macro": {
-          "velocity": 0.0,
-          "weight_sum": 0.3418,
-          "events": 2
-        }
-      },
-      "tracked_hits": [],
-      "provider": "fmp"
-    }
-  ],
+  "results": [],
   "errors": [
+    "NVDA",
     "AVGO",
     "MRVL",
     "CRDO",
@@ -50,38 +21,5 @@
     "KGC",
     "TECK"
   ],
-  "history": [
-    {
-      "as_of": "2026-07-08T23:51:16.269766+00:00",
-      "scores": {}
-    },
-    {
-      "as_of": "2026-07-09T13:41:20.986957+00:00",
-      "scores": {}
-    },
-    {
-      "as_of": "2026-07-09T16:12:54.845061+00:00",
-      "scores": {
-        "NVDA": 0.0
-      }
-    },
-    {
-      "as_of": "2026-07-09T18:10:21.360279+00:00",
-      "scores": {
-        "NVDA": 0.0
-      }
-    },
-    {
-      "as_of": "2026-07-10T05:45:08.317161+00:00",
-      "scores": {
-        "NVDA": 0.0
-      }
-    },
-    {
-      "as_of": "2026-07-10T13:36:36.157813+00:00",
-      "scores": {
-        "NVDA": 0.0
-      }
-    }
-  ]
+  "history": []
 }
