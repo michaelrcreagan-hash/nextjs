@@ -1,0 +1,128 @@
+// v7 Breakout: ATR+RSI
+// Winner: Comp 23.6, DD -0.9%
+//@version=6
+strategy("v7 BO ATR+RSI",
+ overlay=true,
+ default_qty_type=
+ strategy.percent_of_equity,
+ default_qty_value=5,
+ commission_value=0.1,
+ slippage=1)
+
+// Parameters
+cd=input.int(5,"CD",
+ minval=1,
+ group="Setup")
+asl=input.float(2.0,
+ "Stop ATR",
+ step=0.5,
+ group="Risk")
+atp=input.float(3.0,
+ "Tgt ATR",
+ step=0.5,
+ group="Risk")
+ka=input.int(20,
+ "ATR Lookbk",
+ minval=5,
+ group="Setup")
+th=input.float(1.3,
+ "ATR% Thr",
+ step=0.1,
+ group="Setup")
+rl=input.int(50,
+ "RSI Lo",
+ minval=30,
+ maxval=60,
+ group="Setup")
+ru=input.int(70,
+ "RSI Hi",
+ minval=60,
+ maxval=85,
+ group="Setup")
+utf=input.bool(true,
+ "Trend>Filt",
+ group="Filters")
+
+// Indicators
+a=ta.atr(14)
+ap=a/close*100
+aa=ta.sma(ap,ka)
+r=ta.rsi(close,14)
+e21=ta.ema(close,21)
+e50=ta.ema(close,50)
+
+// Trend Filter
+tk=not utf or
+ (close>e21 and e21>e50)
+
+// Signal
+ac=ap>th*aa
+rc=r>rl and r<ru
+lc=ac and rc and tk
+sz=strategy.position_size==0
+
+// Cooldown
+var int lb=0
+if lc and (bar_index-lb)>=cd
+ lb:=bar_index
+
+// Entry
+if lc and sz and
+ (bar_index-lb)<=1
+ sl=close-asl*a
+ tp=close+atp*a
+ strategy.entry("BO",
+  strategy.long)
+ strategy.exit("X","BO",
+  stop=sl,limit=tp)
+
+// Visuals
+plotshape(lc,"E",
+ shape.triangleup,
+ location.belowbar,
+ color.green,size.small)
+plot(e21,"E21",
+ color=color.orange)
+plot(e50,"E50",
+ color=color.blue)
+
+// Dashboard
+var table d=table.new(
+ position.top_right,2,5,
+ bgcolor=color.new(
+  color.black,20),
+ frame_width=1)
+if barstate.islast
+ table.cell(d,0,0,"ATR%",
+  text_color=color.white,
+  text_size=size.small)
+ table.cell(d,1,0,
+  str.tostring(ap,"#.##"),
+  text_color=color.white,
+  text_size=size.small)
+ table.cell(d,0,1,"RSI",
+  text_color=color.white,
+  text_size=size.small)
+ table.cell(d,1,1,
+  str.tostring(r,"#."),
+  text_color=color.white,
+  text_size=size.small)
+ table.cell(d,0,2,"TREND",
+  text_color=color.white,
+  text_size=size.small)
+ tc=tk?color.green:color.red
+ table.cell(d,1,2,
+  tk?"OK":"NO",
+  text_color=tc,
+  text_size=size.small)
+ table.cell(d,0,3,"SIG",
+  text_color=color.white,
+  text_size=size.small)
+ sc=lc?color.green:color.gray
+ table.cell(d,1,3,
+  lc?"BUY":"---",
+  text_color=sc,
+  text_size=size.small)
+ table.cell(d,0,4,"v7",
+  text_color=color.gray,
+  text_size=size.tiny)
