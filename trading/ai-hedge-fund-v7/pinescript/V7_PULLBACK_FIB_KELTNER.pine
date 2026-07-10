@@ -1,0 +1,140 @@
+// v7 Pullback: F61+KCL
+// Winner: Comp 17.7, WR 74%
+//@version=6
+strategy("v7 PB FIB+KLT",
+ overlay=true,
+ default_qty_type=
+ strategy.percent_of_equity,
+ default_qty_value=5,
+ commission_value=0.1,
+ slippage=1)
+
+// Parameters
+fl=input.int(60,"Fib Lkbk",
+ minval=20,
+ group="Setup")
+ft=input.float(4.0,
+ "Fib Tol%",
+ step=0.5,
+ group="Setup")
+km=input.float(2.0,
+ "Kelt Mult",
+ step=0.5,
+ group="Setup")
+kl=input.int(20,
+ "Kelt Len",
+ minval=10,
+ group="Setup")
+slm=input.float(1.5,
+ "Stop ATR",
+ step=0.5,
+ group="Risk")
+cd=input.int(5,"CD",
+ minval=1,
+ group="Setup")
+utf=input.bool(true,
+ "UpTrend",
+ group="Filters")
+
+// Fib Levels
+ph=ta.highest(high,fl)
+pl=ta.lowest(low,fl)
+fr=ph-pl
+f38=ph-0.382*fr
+f50=ph-0.500*fr
+f61=ph-0.618*fr
+f78=ph-0.786*fr
+
+// Keltner
+ke=ta.ema(close,kl)
+ak=ta.atr(10)
+ku=ke+km*ak
+klw=ke-km*ak
+
+// Trend
+e50=ta.ema(close,50)
+e200=ta.ema(close,200)
+ut=not utf or
+ (close>e50 and e50>e200)
+
+// Signal
+fd=math.abs(close-f61)
+ /close*100
+akc=close<=klw*1.02
+pc=fd<=ft and akc and ut
+sz=strategy.position_size==0
+
+// Cooldown
+var int lb=0
+if pc and (bar_index-lb)>=cd
+ lb:=bar_index
+
+// Entry
+if pc and sz and
+ (bar_index-lb)<=1
+ s1=f78-0.5*ta.atr(14)
+ s2=close-slm*ta.atr(14)
+ sl=math.max(s1,s2)
+ strategy.entry("PB",
+  strategy.long)
+ strategy.exit("X","PB",
+  stop=sl,limit=f38)
+
+// Visuals
+plot(f61,"F61",
+ color=color.purple,
+ style=plot.style_linebr)
+plot(f38,"F38",
+ color=color.blue,
+ style=plot.style_linebr)
+plot(f78,"F78",
+ color=color.red,
+ style=plot.style_linebr)
+plot(klw,"KLo",
+ color=color.orange)
+plotshape(pc,"E",
+ shape.labelup,
+ location.belowbar,
+ color.green,size.small)
+
+// Dashboard
+var table d=table.new(
+ position.top_right,2,5,
+ bgcolor=color.new(
+  color.black,20),
+ frame_width=1)
+if barstate.islast
+ table.cell(d,0,0,"FD%",
+  text_color=color.white,
+  text_size=size.small)
+ table.cell(d,1,0,
+  str.tostring(fd,"#.##"),
+  text_color=color.white,
+  text_size=size.small)
+ table.cell(d,0,1,"KELT",
+  text_color=color.white,
+  text_size=size.small)
+ kc=akc?color.green:color.red
+ table.cell(d,1,1,
+  akc?"YES":"NO",
+  text_color=kc,
+  text_size=size.small)
+ table.cell(d,0,2,"TREND",
+  text_color=color.white,
+  text_size=size.small)
+ tc=ut?color.green:color.red
+ table.cell(d,1,2,
+  ut?"UP":"DOWN",
+  text_color=tc,
+  text_size=size.small)
+ table.cell(d,0,3,"SIG",
+  text_color=color.white,
+  text_size=size.small)
+ sc=pc?color.green:color.gray
+ table.cell(d,1,3,
+  pc?"BUY":"---",
+  text_color=sc,
+  text_size=size.small)
+ table.cell(d,0,4,"v7",
+  text_color=color.gray,
+  text_size=size.tiny)
