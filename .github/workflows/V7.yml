@@ -1,0 +1,98 @@
+# AI Hedge Fund v7.0 Configuration
+# Top-Down: Macro -> Sector -> Stock -> Setup -> Execution
+
+universe:
+  tiers:
+    tier1: [NVDA, AVGO, ASML, AMAT, KLAC, LRCX]
+    tier2: [TSM, SNPS, CDNS, MRVL, MPWR, ONTO, UCTT, TER]
+    tier3: [NBIS, GEV, DDOG, PANW, AXON, RBRK, SMCI, CRWD]
+    tier4: [OKLO, BWXT, CCJ, LEU, HOOD, CIFR, WULF, IREN, MSTR, AIPO, MAGS, GRID]
+  etfs: [SMH, SOXL, XLU, XLV, XLI, XBI, QQQ, XLK, PAVE, ICLN, WGMI, AIPO, MAGS, GRID]
+
+regime:
+  vix_thresholds:
+    low: 17
+    high: 25
+    spike: 30
+  breadth_thresholds:
+    strong: 60
+    weak: 40
+  scoring_weights:
+    vix: 2.0
+    smh_200dma: 2.0
+    breadth: 2.0
+    btc_trend: 1.0
+    module_f: 1.0
+
+composite:
+  module_weights:
+    hyperscaler: 0.20
+    earnings: 0.20
+    peer_val: 0.15
+    technical: 0.15
+    atr: 0.10
+    analyst_rev: 0.20
+
+signals:
+  breakout:
+    indicators: [ATR, RSI]
+    rule: "2_of_2"
+    atr_threshold: 1.3
+    rsi_lower: 50
+    rsi_upper: 70
+    stop_mult: 2.0
+    target_mult: 3.0
+    cooldown: 5
+  pullback:
+    indicators: [FIB_618, KELTNER_LOWER]
+    rule: "2_of_2"
+    fib_lookback: 60
+    fib_tolerance_pct: 4.0
+    keltner_mult: 2.0
+    stop_mult: 1.5
+    cooldown: 5
+
+options:
+  iv_rank_thresholds:
+    high: 50
+    medium: 30
+  strategies:
+    above_50: CREDIT_SPREAD
+    30_to_50: DEBIT_SPREAD
+    below_30_breakout: LONG_OPTION
+    below_30_pullback: PMCC
+  sizing:
+    risk_on: 3.0
+    mixed: 2.0
+    caution: 1.0
+    risk_off: 0.5
+    composite_above_70_mult: 1.5
+    composite_55_70_mult: 1.0
+    composite_40_55_mult: 0.6
+    composite_below_40_mult: 0.3
+
+hedge:
+  universe:
+    VIXY: {type: volatility, weight: 0.30}
+    TLT: {type: rates, weight: 0.25}
+    GLD: {type: gold, weight: 0.25}
+    SQQQ: {type: inverse, weight: 0.20}
+  regime_allocation:
+    RISK-ON: {hedge: 5.0, cash: 0.0}
+    MIXED: {hedge: 15.0, cash: 5.0}
+    CAUTION: {hedge: 30.0, cash: 20.0}
+    RISK-OFF: {hedge: 45.0, cash: 45.0}
+  vix_override:
+    above_30: +10
+    above_25: +5
+
+confluence:
+  layers:
+    trend: 0.18
+    momentum: 0.15
+    volatility: 0.12
+    volume: 0.12
+    mean_rev: 0.10
+    strength: 0.13
+    breadth: 0.12
+    execution: 0.08
