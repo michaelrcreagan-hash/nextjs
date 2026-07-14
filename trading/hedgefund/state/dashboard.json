@@ -1,6 +1,6 @@
 {
   "as_of": "2026-07-13",
-  "generated_utc": "2026-07-14T15:09:03",
+  "generated_utc": "2026-07-14T18:53:10",
   "stale": false,
   "regime": {
     "state": "MIXED",
@@ -8,7 +8,7 @@
     "multiplier": 0.85,
     "breadth": 0.763
   },
-  "equity": 99595.37097283495,
+  "equity": 99595.37,
   "start_equity": 100000.0,
   "actions": [],
   "positions": {
