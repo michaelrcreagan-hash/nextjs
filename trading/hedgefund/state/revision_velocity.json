@@ -1,25 +1,59 @@
 {
-  "as_of": "2026-07-08T23:52:02.880322+00:00",
+  "as_of": "2026-07-14T15:09:17.381262+00:00",
   "half_life_days": 30,
   "window_days": 120,
-  "results": [],
-  "errors": [
-    "NVDA",
-    "AVGO",
-    "MRVL",
-    "CRDO",
-    "ALAB",
-    "COHR",
-    "LITE",
-    "AAOI",
-    "MU",
-    "VRT",
-    "AGI",
-    "PAAS",
-    "SSRM",
-    "AEM",
-    "KGC",
-    "TECK"
+  "results": [
+    {
+      "symbol": "AMD",
+      "velocity": 0.4565,
+      "weighted_avg": 0.0554,
+      "weight_sum": 8.2441,
+      "events": 57,
+      "upgrades": 5,
+      "downgrades": 2,
+      "signal": "flat",
+      "buckets": {
+        "other": {
+          "velocity": 0.3344,
+          "weight_sum": 7.056,
+          "events": 50
+        },
+        "ai-bottlenecks": {
+          "velocity": 0.1221,
+          "weight_sum": 0.9651,
+          "events": 5
+        },
+        "macro": {
+          "velocity": 0.0,
+          "weight_sum": 0.223,
+          "events": 2
+        }
+      },
+      "tracked_hits": [],
+      "provider": "fmp"
+    }
   ],
-  "history": []
+  "errors": [
+    "DDOG",
+    "SNOW",
+    "ANET",
+    "DELL",
+    "MU",
+    "CRWD",
+    "STX",
+    "WDC",
+    "GEV"
+  ],
+  "history": [
+    {
+      "as_of": "2026-07-08T23:52:02.880322+00:00",
+      "scores": {}
+    },
+    {
+      "as_of": "2026-07-14T15:09:00.230279+00:00",
+      "scores": {
+        "NVDA": 0.0
+      }
+    }
+  ]
 }

@@ -47,8 +47,15 @@
       "cash": 76000.0,
       "n_positions": 2,
       "regime": "RISK_ON"
+    },
+    {
+      "date": "2026-07-13",
+      "equity": 99595.37,
+      "cash": 76000.0,
+      "n_positions": 2,
+      "regime": "MIXED"
     }
   ],
-  "last_run": "2026-07-08T23:51:22",
+  "last_run": "2026-07-14T15:08:38",
   "last_rebalance": "2026-07-02"
 }
