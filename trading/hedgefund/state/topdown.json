@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-07-14T18:53:15",
-  "as_of": "2026-07-13",
+  "generated_utc": "2026-07-15T15:08:05",
+  "as_of": "2026-07-14",
   "regime": "MIXED",
   "cycle_multiplier": 0.49,
   "sleeve_weights": {
@@ -15,16 +15,16 @@
     "PFF": 0.045,
     "GDXJ": 0.045,
     "XLV": 0.0255,
-    "XLU": 0.0254,
+    "XLU": 0.0253,
     "TLT": 0.0225,
-    "JNJ": 0.0186,
+    "JNJ": 0.0187,
     "NEE": 0.0164,
     "UNH": 0.0162,
-    "VRT": 0.0138,
-    "STX": 0.0126,
-    "MARA": 0.0126,
+    "STX": 0.0137,
+    "MARA": 0.0136,
     "LLY": 0.012,
-    "NBIS": 0.0088,
+    "COHR": 0.0115,
+    "NBIS": 0.0095,
     "URNM": 0.0085,
     "COPX": 0.0084,
     "FCX": 0.008,
@@ -38,52 +38,52 @@
     },
     {
       "theme": "healthcare_ai",
-      "score": 84.9,
+      "score": 85.2,
       "action": "MAINTAIN"
     },
     {
       "theme": "ai_networking_optical",
-      "score": 76.3,
+      "score": 76.4,
       "action": "WATCH"
     },
     {
       "theme": "ai_compute",
-      "score": 73.8,
+      "score": 72.8,
       "action": "WATCH"
     },
     {
       "theme": "semi_equipment",
-      "score": 72.6,
+      "score": 72.2,
       "action": "WATCH"
     },
     {
       "theme": "enterprise_ai_software",
-      "score": 65.4,
+      "score": 68.7,
       "action": "REDUCE"
     },
     {
       "theme": "data_centers",
-      "score": 64.1,
+      "score": 65.4,
       "action": "REDUCE"
     },
     {
       "theme": "power_infrastructure",
-      "score": 60.3,
+      "score": 59.9,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 38.2,
+      "score": 37.8,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 23.5,
+      "score": 23.2,
       "action": "REDUCE"
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 15.9,
+      "score": 15.3,
       "action": "REDUCE"
     }
   ],
