@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-07-16T15:18:14",
-  "as_of": "2026-07-15",
+  "generated_utc": "2026-07-17T14:58:15",
+  "as_of": "2026-07-16",
   "regime": "MIXED",
   "cycle_multiplier": 0.49,
   "sleeve_weights": {
@@ -8,37 +8,32 @@
     "income": 0.25,
     "innovation": 0.098,
     "options": 0.049,
-    "cash": 0.548
+    "cash": 0.544
   },
   "position_targets": {
     "GLD": 0.0925,
     "PFF": 0.045,
     "GDXJ": 0.045,
-    "XLV": 0.0256,
+    "XLV": 0.0257,
     "XLU": 0.0254,
     "TLT": 0.0225,
-    "JNJ": 0.0186,
-    "NEE": 0.0164,
-    "UNH": 0.0161,
-    "VRT": 0.0149,
-    "MARA": 0.0135,
-    "STX": 0.0134,
+    "JNJ": 0.0188,
+    "NEE": 0.0163,
+    "UNH": 0.016,
+    "VRT": 0.0158,
+    "MARA": 0.0149,
+    "STX": 0.0137,
     "LLY": 0.012,
-    "NBIS": 0.0094,
+    "NBIS": 0.0101,
     "URNM": 0.0086,
     "COPX": 0.0084,
-    "FCX": 0.008,
-    "CCJ": 0.008
+    "FCX": 0.0079,
+    "CCJ": 0.0079
   },
   "themes": [
     {
-      "theme": "semi_equipment",
-      "score": 88.1,
-      "action": "MAINTAIN"
-    },
-    {
       "theme": "healthcare_ai",
-      "score": 85.6,
+      "score": 85.9,
       "action": "MAINTAIN"
     },
     {
@@ -47,87 +42,57 @@
       "action": "WATCH"
     },
     {
-      "theme": "ai_compute",
-      "score": 73.0,
+      "theme": "semi_equipment",
+      "score": 73.2,
       "action": "WATCH"
     },
     {
       "theme": "ai_networking_optical",
-      "score": 72.0,
+      "score": 70.3,
       "action": "WATCH"
     },
     {
+      "theme": "ai_compute",
+      "score": 69.3,
+      "action": "REDUCE"
+    },
+    {
       "theme": "enterprise_ai_software",
-      "score": 66.5,
+      "score": 67.0,
       "action": "REDUCE"
     },
     {
       "theme": "data_centers",
-      "score": 63.2,
+      "score": 59.4,
       "action": "REDUCE"
     },
     {
       "theme": "power_infrastructure",
-      "score": 61.2,
+      "score": 55.9,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 36.1,
+      "score": 34.8,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 23.2,
+      "score": 23.7,
       "action": "REDUCE"
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 15.1,
+      "score": 15.0,
       "action": "REDUCE"
     }
   ],
-  "qualified": [
-    "ASML"
-  ],
-  "setups": [
-    {
-      "symbol": "ASML",
-      "last": 1815.27,
-      "atr20": 63.97,
-      "mode": "pullback to EMA21",
-      "entry_zone": [
-        1759.36,
-        1823.32
-      ],
-      "stop": 1631.42,
-      "target_2R": 2111.17,
-      "trail": "25% from peak after 1R",
-      "risk_pct_equity": 0.85,
-      "starter_notional": 2403.0,
-      "full_notional": 9612.0
-    }
-  ],
-  "options": [
-    {
-      "rank": 95.6,
-      "structure": "credit spread / iron condor (sell premium)",
-      "short_atr": 1.5,
-      "long_atr": 2.0,
-      "rationale": "IV rank 96 > 60 \u2014 premium is rich, sell it",
-      "spot": 1815.27001953125,
-      "atr": 63.96649780273435,
-      "short_strike_call": 1911.22,
-      "short_strike_put": 1719.32,
-      "long_strike_call": 1943.2,
-      "long_strike_put": 1687.34,
-      "date": "2026-07-15",
-      "symbol": "ASML"
-    }
-  ],
+  "qualified": [],
+  "setups": [],
+  "options": [],
   "hedge_signals": {
     "tlt_below_200dma": true,
-    "spy_tlt_corr_126d": 0.32
+    "spy_tlt_corr_126d": 0.33
   },
   "pmcc_core_on": true,
   "invalidated": false

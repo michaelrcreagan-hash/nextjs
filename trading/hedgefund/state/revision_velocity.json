@@ -1,31 +1,31 @@
 {
-  "as_of": "2026-07-16T15:18:13.894576+00:00",
+  "as_of": "2026-07-17T14:58:15.315350+00:00",
   "half_life_days": 30,
   "window_days": 120,
   "results": [
     {
       "symbol": "AMD",
-      "velocity": 0.4358,
+      "velocity": 0.426,
       "weighted_avg": 0.0495,
-      "weight_sum": 8.8115,
+      "weight_sum": 8.613,
       "events": 59,
       "upgrades": 5,
       "downgrades": 2,
       "signal": "flat",
       "buckets": {
         "other": {
-          "velocity": 0.3192,
-          "weight_sum": 7.6772,
+          "velocity": 0.3121,
+          "weight_sum": 7.5043,
           "events": 52
         },
         "ai-bottlenecks": {
-          "velocity": 0.1165,
-          "weight_sum": 0.9214,
+          "velocity": 0.1139,
+          "weight_sum": 0.9007,
           "events": 5
         },
         "macro": {
           "velocity": 0.0,
-          "weight_sum": 0.2129,
+          "weight_sum": 0.2081,
           "events": 2
         }
       },
@@ -36,25 +36,25 @@
       "symbol": "NVDA",
       "velocity": 0.0,
       "weighted_avg": 0.0,
-      "weight_sum": 4.8167,
-      "events": 35,
+      "weight_sum": 4.6712,
+      "events": 34,
       "upgrades": 0,
       "downgrades": 0,
       "signal": "flat",
       "buckets": {
         "other": {
           "velocity": 0.0,
-          "weight_sum": 3.7662,
+          "weight_sum": 3.6814,
           "events": 28
         },
         "ai-bottlenecks": {
           "velocity": 0.0,
-          "weight_sum": 0.7527,
-          "events": 5
+          "weight_sum": 0.6988,
+          "events": 4
         },
         "macro": {
           "velocity": 0.0,
-          "weight_sum": 0.2977,
+          "weight_sum": 0.291,
           "events": 2
         }
       },
@@ -65,12 +65,12 @@
   "errors": [
     "CRWD",
     "DDOG",
-    "DELL",
     "SNOW",
-    "ASML",
-    "TLN",
+    "DELL",
     "ETN",
-    "GEV"
+    "ASML",
+    "GEV",
+    "AMAT"
   ],
   "history": [
     {
@@ -115,6 +115,19 @@
     },
     {
       "as_of": "2026-07-16T15:18:04.702449+00:00",
+      "scores": {
+        "NVDA": 0.0
+      }
+    },
+    {
+      "as_of": "2026-07-16T15:18:13.894576+00:00",
+      "scores": {
+        "AMD": 0.0495,
+        "NVDA": 0.0
+      }
+    },
+    {
+      "as_of": "2026-07-17T14:58:01.489643+00:00",
       "scores": {
         "NVDA": 0.0
       }
