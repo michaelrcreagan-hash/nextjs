@@ -89,8 +89,15 @@
       "cash": 76000.0,
       "n_positions": 2,
       "regime": "MIXED"
+    },
+    {
+      "date": "2026-07-22",
+      "equity": 98960.63,
+      "cash": 76000.0,
+      "n_positions": 2,
+      "regime": "MIXED"
     }
   ],
-  "last_run": "2026-07-22T15:20:09",
+  "last_run": "2026-07-23T15:31:46",
   "last_rebalance": "2026-07-02"
 }

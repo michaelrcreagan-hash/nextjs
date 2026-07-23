@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-07-22T15:20:25",
-  "as_of": "2026-07-21",
+  "generated_utc": "2026-07-23T15:32:18",
+  "as_of": "2026-07-22",
   "regime": "MIXED",
   "cycle_multiplier": 0.49,
   "sleeve_weights": {
@@ -8,27 +8,27 @@
     "income": 0.25,
     "innovation": 0.098,
     "options": 0.049,
-    "cash": 0.548
+    "cash": 0.543
   },
   "position_targets": {
     "GLD": 0.0925,
     "PFF": 0.045,
     "GDXJ": 0.045,
-    "XLV": 0.0255,
-    "XLU": 0.0252,
+    "XLV": 0.0253,
+    "XLU": 0.025,
     "TLT": 0.0225,
-    "JNJ": 0.0187,
-    "UNH": 0.0179,
-    "NEE": 0.0159,
-    "MARA": 0.0155,
+    "JNJ": 0.0185,
+    "UNH": 0.018,
+    "VRT": 0.0164,
+    "NEE": 0.0157,
+    "MARA": 0.0156,
     "STX": 0.0136,
-    "LLY": 0.0118,
-    "LITE": 0.0116,
-    "NBIS": 0.0104,
-    "URNM": 0.0084,
+    "LLY": 0.0117,
+    "NBIS": 0.0105,
+    "URNM": 0.0086,
     "COPX": 0.0083,
-    "FCX": 0.0078,
-    "CCJ": 0.0076
+    "CCJ": 0.008,
+    "FCX": 0.0078
   },
   "themes": [
     {
@@ -38,58 +38,93 @@
     },
     {
       "theme": "healthcare_ai",
-      "score": 86.2,
+      "score": 85.4,
       "action": "MAINTAIN"
     },
     {
       "theme": "ai_networking_optical",
-      "score": 73.9,
+      "score": 75.0,
       "action": "WATCH"
     },
     {
       "theme": "ai_compute",
-      "score": 71.4,
+      "score": 73.7,
       "action": "WATCH"
     },
     {
       "theme": "semi_equipment",
-      "score": 70.9,
+      "score": 71.6,
       "action": "WATCH"
     },
     {
-      "theme": "enterprise_ai_software",
-      "score": 65.2,
+      "theme": "data_centers",
+      "score": 64.2,
       "action": "REDUCE"
     },
     {
-      "theme": "data_centers",
-      "score": 61.2,
+      "theme": "enterprise_ai_software",
+      "score": 61.9,
       "action": "REDUCE"
     },
     {
       "theme": "power_infrastructure",
-      "score": 56.5,
+      "score": 61.3,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 36.2,
+      "score": 35.4,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 23.3,
+      "score": 23.6,
       "action": "REDUCE"
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 15.0,
+      "score": 14.2,
       "action": "REDUCE"
     }
   ],
-  "qualified": [],
-  "setups": [],
-  "options": [],
+  "qualified": [
+    "AMD"
+  ],
+  "setups": [
+    {
+      "symbol": "AMD",
+      "last": 552.33,
+      "atr20": 20.22,
+      "mode": "pullback to EMA21",
+      "entry_zone": [
+        515.85,
+        536.07
+      ],
+      "stop": 475.4,
+      "target_2R": 627.08,
+      "trail": "25% from peak after 1R",
+      "risk_pct_equity": 0.85,
+      "starter_notional": 2188.0,
+      "full_notional": 8750.0
+    }
+  ],
+  "options": [
+    {
+      "rank": 65.5,
+      "structure": "credit spread / iron condor (sell premium)",
+      "short_atr": 1.5,
+      "long_atr": 2.0,
+      "rationale": "IV rank 65 > 60 \u2014 premium is rich, sell it",
+      "spot": 552.3300170898438,
+      "atr": 20.223995971679688,
+      "short_strike_call": 582.67,
+      "short_strike_put": 521.99,
+      "long_strike_call": 592.78,
+      "long_strike_put": 511.88,
+      "date": "2026-07-22",
+      "symbol": "AMD"
+    }
+  ],
   "hedge_signals": {
     "tlt_below_200dma": true,
     "spy_tlt_corr_126d": 0.29
