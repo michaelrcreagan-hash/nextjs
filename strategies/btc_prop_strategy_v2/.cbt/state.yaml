@@ -16,7 +16,7 @@ engine: pandas
 project_type: hybrid
 
 # Current phase in workflow
-phase: plan  # discovery | research | eda | config | plan | build | iterate
+phase: iterate  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
@@ -24,21 +24,21 @@ phases_completed:
   research: true
   eda: true
   config: true
-  plan: false
-  build: false
+  plan: true
+  build: true
 
 # Build process tracking
 build:
   plan: [data_loader, indicators, cvd_engine, regime_filter, trend_rider, range_hunter, funding_farmer, dcb_overlay, coinglass_filters, timing_filters, risk_manager, position_sizing, signal_confluence, strategy_orchestrator, backtester, baseline_run]
   current_step: null
-  progress: "0/16"
+  progress: "5/16 (buildable subset; rest blocked on data)"
 
 # Experiment tracking
 experiments:
-  count: 0
+  count: 28
   current: null
   best: null
-  baseline_sharpe: null
+  baseline_sharpe: 0.006
 
 # Pending observations to test
 pending_observations: []
