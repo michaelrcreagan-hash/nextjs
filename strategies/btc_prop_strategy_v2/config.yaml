@@ -120,13 +120,14 @@ strategy_params:
 
   funding_farmer:
     timeframe: "4H"
-    funding_threshold_pct: 0.01   # 8h rate
+    funding_threshold_pct: 0.02   # 8h rate; raised from 0.01 per RESEARCH.md -- academic funding-arbitrage study finds spreads only economically significant above ~20bps annualized-equivalent
     funding_optimal_zone_min: -0.01  # optimal short zone, from Coinglass backtest
     funding_optimal_zone_max: 0.03
     cvd_lookback: 20
     hold_max_hours: 48
     hold_min_hours: 24
     rr_min: 1.0
+    expected_win_rate_pct: 50  # downgraded from source docs' 70-90% per RESEARCH.md -- academic data shows only ~40% of top funding-arb opportunities profitable after costs; using 50% as a conservative working target pending /cbt:eda validation
 
   # DCB-short overlay -- conditional sub-strategy, active only in confirmed bear regime (price < 365DMA)
   dcb_overlay:
@@ -206,7 +207,7 @@ strategy_params:
     sharpe_baseline: 1.84
     sharpe_enhanced: 2.68
     max_drawdown_pct: 19.3  # backtest context, not the live prop account's 6% internal buffer
-    note: "Figures are source-document backtest claims, several self-flagged as practitioner estimates rather than rigorous stats -- treat as build targets to validate in /cbt:research and /cbt:eda, not established fact."
+    note: "Figures are source-document backtest claims, several self-flagged as practitioner estimates rather than rigorous stats. /cbt:research (RESEARCH.md) found academic support for Trend Rider's category (Sharpe ~1.5-1.6, SFI 2025 paper) but found Funding Farmer's 70-90% win-rate claim contradicted by academic data (~40% after costs); DCB-overlay and on-chain thresholds remain unvalidated practitioner estimates. Treat as build targets to validate in /cbt:eda, not established fact."
 
   optimize_ranges:
     adx_threshold: [20, 25, 30]
