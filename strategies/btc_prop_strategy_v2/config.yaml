@@ -113,7 +113,10 @@ strategy_params:
     atr_stop_multiple: 1.0
     rr_min: 1.5
     # confirmation layer folded in from stale Dec-2024 doc (generic pattern only, see DISCOVERY.md merge notes)
+    # EDA finding (EDA.md): raw RSI(2) extreme fires on 55.5% of days -- far too frequent to be
+    # selective on its own, so confirmation is a HARD GATE, not optional
     confirmation:
+      required: true
       volume_spike_multiple: 1.5  # vs 50-period average
       stoch_rsi_reversal_from: 20  # cross up from <20 (longs) / down from >80 (shorts)
       validation_closes_required: 3  # 3 green (or red) daily closes post-trigger
@@ -159,6 +162,10 @@ strategy_params:
       derivatives: 0.20
       technical: 0.15
       dcb: 0.10           # rises to 0.25 in confirmed bear
+    # RESEARCH.md recommendation 5: within the technical layer, SuperTrend / 4H EMA / Ichimoku
+    # are correlated trend-alignment measures -- count them as ONE trend-direction vote plus
+    # ADX strength, not three independent signals, to avoid inflating apparent confluence
+    technical_layer_dedup: collapse_trend_signals_to_one_vote
     leverage_tiers:
       "4_of_6": 2.0
       "5_of_6": 2.5
