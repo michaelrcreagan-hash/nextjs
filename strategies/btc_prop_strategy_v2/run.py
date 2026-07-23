@@ -15,10 +15,11 @@ from src.backtester import run_backtest, walk_forward_windows
 from src.risk import RiskConfig
 
 
-def load():
+def load(timeframe="1d"):
     with open("config.yaml") as f:
         cfg = yaml.safe_load(f)
-    df = pd.read_csv("Data/btc_ohlcv_1d.csv", parse_dates=["date"]).sort_values("date").reset_index(drop=True)
+    path = "Data/btc_ohlcv_4h_okx.csv" if timeframe == "4h" else "Data/btc_ohlcv_1d.csv"
+    df = pd.read_csv(path, parse_dates=["date"]).sort_values("date").reset_index(drop=True)
     sp = cfg["strategy_params"]
     rmc = sp["risk_manager"]
     risk_cfg = RiskConfig(
@@ -40,26 +41,30 @@ def print_result(tag, r):
         print(f"  breaches: {r['breaches']}")
 
 
-def cmd_baseline():
-    cfg, df, sp, risk_cfg = load()
-    r = run_backtest(df, sp, cfg["fees"], risk_cfg, cfg["account"]["initial_capital"])
-    print_result("BASELINE (full history 2018-2026)", r)
+def cmd_baseline(timeframe="1d"):
+    cfg, df, sp, risk_cfg = load(timeframe)
+    ppy = 365 * 6 if timeframe == "4h" else 365
+    r = run_backtest(df, sp, cfg["fees"], risk_cfg, cfg["account"]["initial_capital"],
+                     periods_per_year=ppy)
+    print_result(f"BASELINE {timeframe} (full history 2018-2026)", r)
     tdf = pd.DataFrame(r["trade_list"])
     if not tdf.empty:
         print("\nPer sub-strategy:")
         for strat, g in tdf.groupby("strat"):
             print(f"  {strat}: {len(g)} trades, winrate {(g['pnl'] > 0).mean() * 100:.1f}%, "
                   f"net pnl ${g['pnl'].sum():,.0f}")
-    r["equity"].to_csv("experiments/baseline_equity.csv", index=False)
+    suffix = "" if timeframe == "1d" else f"_{timeframe}"
+    r["equity"].to_csv(f"experiments/baseline_equity{suffix}.csv", index=False)
     summary = {k: v for k, v in r.items() if k not in ("trade_list", "equity")}
-    with open("experiments/baseline.json", "w") as f:
+    with open(f"experiments/baseline{suffix}.json", "w") as f:
         json.dump(summary, f, indent=2, default=str)
     return r
 
 
-def cmd_optimize():
-    cfg, df, sp, risk_cfg = load()
+def cmd_optimize(timeframe="1d"):
+    cfg, df, sp, risk_cfg = load(timeframe)
     fees, cap = cfg["fees"], cfg["account"]["initial_capital"]
+    ppy = 365 * 6 if timeframe == "4h" else 365
 
     grid = {
         "adx_threshold": [20, 25, 30],
@@ -74,13 +79,16 @@ def cmd_optimize():
         is_metrics, oos_metrics = [], []
         for train, test in walk_forward_windows(df, n_windows=5):
             r_is = run_backtest(train, sp, fees, risk_cfg, cap,
-                                adx_threshold=adx_t, rsi_oversold=rsi_o, trail_mult=trail)
+                                adx_threshold=adx_t, rsi_oversold=rsi_o, trail_mult=trail,
+                                periods_per_year=ppy)
             r_oos = run_backtest(test, sp, fees, risk_cfg, cap,
-                                 adx_threshold=adx_t, rsi_oversold=rsi_o, trail_mult=trail)
+                                 adx_threshold=adx_t, rsi_oversold=rsi_o, trail_mult=trail,
+                                 periods_per_year=ppy)
             is_metrics.append(r_is)
             oos_metrics.append(r_oos)
         full = run_backtest(df, sp, fees, risk_cfg, cap,
-                            adx_threshold=adx_t, rsi_oversold=rsi_o, trail_mult=trail)
+                            adx_threshold=adx_t, rsi_oversold=rsi_o, trail_mult=trail,
+                            periods_per_year=ppy)
         results.append({
             "adx_threshold": adx_t, "rsi_oversold": rsi_o, "trail_mult": trail,
             "is_sharpe_avg": round(sum(m["sharpe"] for m in is_metrics) / 5, 3),
@@ -96,7 +104,8 @@ def cmd_optimize():
               f"full={full['sharpe']} trades={full['trades']}")
 
     rdf = pd.DataFrame(results).sort_values("oos_sharpe_avg", ascending=False)
-    rdf.to_csv("experiments/optimize_grid.csv", index=False)
+    suffix = "" if timeframe == "1d" else f"_{timeframe}"
+    rdf.to_csv(f"experiments/optimize_grid{suffix}.csv", index=False)
     print("\nTop 5 by OOS sharpe:")
     print(rdf.head(5).to_string(index=False))
     return rdf
@@ -104,7 +113,8 @@ def cmd_optimize():
 
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "baseline"
+    tf = sys.argv[2] if len(sys.argv) > 2 else "1d"
     if mode == "baseline":
-        cmd_baseline()
+        cmd_baseline(tf)
     elif mode == "optimize":
-        cmd_optimize()
+        cmd_optimize(tf)

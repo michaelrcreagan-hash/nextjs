@@ -36,7 +36,8 @@ def run_backtest(df_raw: pd.DataFrame, params: dict, fees_cfg: dict,
                  risk_cfg: RiskConfig, initial_equity: float = 50000.0,
                  adx_threshold: float | None = None,
                  rsi_oversold: float | None = None,
-                 trail_mult: float | None = None) -> dict:
+                 trail_mult: float | None = None,
+                 periods_per_year: int = 365) -> dict:
     p = {k: (dict(v) if isinstance(v, dict) else v) for k, v in params.items()}
     tr_cfg, rh_cfg = p["trend_rider"], p["range_hunter"]
     if adx_threshold is not None:
@@ -159,10 +160,10 @@ def run_backtest(df_raw: pd.DataFrame, params: dict, fees_cfg: dict,
         if rm.s.halted_total:
             break
 
-    return _metrics(trades, equity_curve, initial_equity, rm)
+    return _metrics(trades, equity_curve, initial_equity, rm, periods_per_year)
 
 
-def _metrics(trades, equity_curve, initial_equity, rm) -> dict:
+def _metrics(trades, equity_curve, initial_equity, rm, periods_per_year=365) -> dict:
     eq = pd.DataFrame(equity_curve)
     if eq.empty or not trades:
         return {"sharpe": 0.0, "total_return_pct": 0.0, "max_dd_pct": 0.0,
@@ -170,7 +171,7 @@ def _metrics(trades, equity_curve, initial_equity, rm) -> dict:
                 "halted": rm.s.halted_total, "breaches": rm.s.breach_log,
                 "trade_list": [], "equity": eq}
     eq["ret"] = eq["equity"].pct_change()
-    sharpe = eq["ret"].mean() / eq["ret"].std() * np.sqrt(365) if eq["ret"].std() > 0 else 0.0
+    sharpe = eq["ret"].mean() / eq["ret"].std() * np.sqrt(periods_per_year) if eq["ret"].std() > 0 else 0.0
     peak = eq["equity"].cummax()
     max_dd = ((eq["equity"] - peak) / peak).min() * 100
     tdf = pd.DataFrame(trades)
