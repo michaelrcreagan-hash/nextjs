@@ -75,6 +75,15 @@ strategy_params:
   ma_short: 20
   ma_long: 50
   btc_exit_ma: 200
+  # TTM Squeeze + ADX (added 2026-07-23, replaces wallet-positioning condition) --
+  # standard textbook defaults, no source-doc precedent; confirm against BTC-specific
+  # behavior in /cbt:research per the open question in DISCOVERY.md
+  ttm_squeeze:
+    bb_period: 20
+    bb_stddev: 2.0
+    kc_period: 20
+    kc_atr_multiplier: 1.5
+  adx_threshold: 20
   # Tunable grids (Parameters_ranges.yaml) -- used by /cbt:optimize
   optimize_ranges:
     funding_rate: [-0.1, -0.01, 0.01, 0.1]
@@ -83,6 +92,7 @@ strategy_params:
     ma_short: [10, 20, 30]
     ma_long: [50, 100, 200]
     leverage: [1, 2, 3, 4, 5]
+    adx_threshold: [15, 20, 25]
 
 # Notification channels (populated by /cbt:live)
 notifications:
