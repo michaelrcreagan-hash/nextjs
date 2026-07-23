@@ -4,9 +4,9 @@
 
 | File | Format | Columns | Notes |
 |------|--------|---------|-------|
-| btc_ohlcv_1h.parquet | Parquet | timestamp, open, high, low, close, volume | Primary Range Hunter timeframe |
-| btc_ohlcv_4h.parquet | Parquet | timestamp, open, high, low, close, volume | Trend Rider entry / Funding Farmer / DCB overlay |
-| btc_ohlcv_1d.parquet | Parquet | timestamp, open, high, low, close, volume | Trend Rider trend timeframe / on-chain daily alignment |
+| btc_ohlcv_1h.parquet | Parquet | timestamp, open, high, low, close, volume | Primary Range Hunter timeframe -- not yet sourced |
+| btc_ohlcv_4h.parquet | Parquet | timestamp, open, high, low, close, volume | Trend Rider entry / Funding Farmer / DCB overlay -- not yet sourced |
+| **btc_ohlcv_1d.csv** | **CSV** | date, open, high, low, close, volume, vwap | ✅ **Sourced** via FMP `cryptocurrency-historical-price-eod-full`, 2018-01-01 to 2026-07-23 (3,126 rows). Used for `/cbt:eda`; see `btc_ohlcv_1d_with_indicators.csv` for the version with EMA/ADX/RSI(2)/BB/ATR/365DMA columns added. |
 | btc_ohlcv_1w.parquet | Parquet | timestamp, open, high, low, close, volume | 200WMA, cycle position |
 | funding_oi.parquet | Parquet | timestamp, funding_rate, open_interest | Blocked in this sandbox's network egress (see DISCOVERY.md) |
 | cvd_spot_futures.parquet | Parquet | timestamp, spot_cvd, futures_cvd | Not sourced as ready dataset -- build-it-yourself trade-tape aggregation |

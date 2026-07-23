@@ -22,7 +22,7 @@ phase: config  # discovery | research | eda | config | plan | build | iterate
 phases_completed:
   discovery: true
   research: true
-  eda: false
+  eda: true
   config: false
   plan: false
   build: false
