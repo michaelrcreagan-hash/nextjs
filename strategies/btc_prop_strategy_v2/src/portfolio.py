@@ -16,7 +16,10 @@ from .donchian import DonchianParams, prepare
 
 def run_portfolio(dfs: dict[str, pd.DataFrame], p: DonchianParams,
                   initial_equity: float = 50000.0,
-                  max_concurrent: int | None = None) -> dict:
+                  max_concurrent: int | None = None,
+                  asset_leverage: dict[str, float] | None = None) -> dict:
+    """asset_leverage: per-symbol leverage cap override, e.g. {'btc':5,'eth':5,'sol':2}.
+    Falls back to p.max_leverage for symbols not listed."""
     prepped = {sym: prepare(df, p).set_index("date") for sym, df in dfs.items()}
     all_dates = sorted(set().union(*[set(d.index) for d in prepped.values()]))
 
@@ -73,7 +76,8 @@ def run_portfolio(dfs: dict[str, pd.DataFrame], p: DonchianParams,
                 entry = row["open"]
                 stop_dist = p.trail_atr_mult * prev["atr"]
                 units = (equity * p.risk_per_trade_pct / 100) / stop_dist
-                units = min(units, equity * p.max_leverage / entry)
+                lev_cap = (asset_leverage or {}).get(sym, p.max_leverage)
+                units = min(units, equity * lev_cap / entry)
                 if units > 0:
                     equity -= fees(entry * units)
                     positions[sym] = {"direction": direction, "entry": entry, "units": units,
