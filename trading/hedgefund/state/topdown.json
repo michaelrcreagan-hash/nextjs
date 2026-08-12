@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-08-11T14:36:08",
-  "as_of": "2026-08-10",
+  "generated_utc": "2026-08-12T14:36:21",
+  "as_of": "2026-08-11",
   "regime": "MIXED",
   "cycle_multiplier": 0.49,
   "sleeve_weights": {
@@ -14,31 +14,31 @@
     "GLD": 0.0925,
     "PFF": 0.045,
     "GDXJ": 0.045,
-    "MARA": 0.0288,
-    "CLSK": 0.0282,
-    "XLU": 0.0255,
-    "XLV": 0.0233,
+    "MARA": 0.029,
+    "CLSK": 0.0284,
+    "XLU": 0.0252,
+    "XLV": 0.0236,
     "TLT": 0.0225,
-    "STX": 0.0217,
-    "NBIS": 0.0193,
-    "NEE": 0.0189,
-    "UNH": 0.0168,
-    "JNJ": 0.0167,
+    "STX": 0.0215,
+    "NBIS": 0.0191,
+    "NEE": 0.0187,
+    "UNH": 0.0172,
+    "JNJ": 0.0166,
     "LLY": 0.0134,
     "URNM": 0.0089,
-    "FCX": 0.0083,
+    "FCX": 0.0082,
     "COPX": 0.0078,
-    "CCJ": 0.0074
+    "CCJ": 0.0073
   },
   "themes": [
     {
       "theme": "enterprise_ai_software",
-      "score": 93.2,
+      "score": 93.4,
       "action": "INCREASE"
     },
     {
       "theme": "healthcare_ai",
-      "score": 84.7,
+      "score": 84.3,
       "action": "MAINTAIN"
     },
     {
@@ -48,111 +48,77 @@
     },
     {
       "theme": "ai_networking_optical",
-      "score": 71.2,
+      "score": 71.7,
       "action": "WATCH"
     },
     {
       "theme": "ai_compute",
-      "score": 70.1,
+      "score": 71.4,
       "action": "WATCH"
     },
     {
       "theme": "semi_equipment",
-      "score": 64.9,
+      "score": 68.5,
       "action": "REDUCE"
     },
     {
       "theme": "data_centers",
-      "score": 64.8,
+      "score": 66.0,
       "action": "REDUCE"
     },
     {
       "theme": "power_infrastructure",
-      "score": 54.3,
+      "score": 55.3,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 39.9,
+      "score": 43.5,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 25.2,
+      "score": 25.4,
       "action": "REDUCE"
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 19.0,
+      "score": 20.4,
       "action": "REDUCE"
     }
   ],
   "qualified": [
     "CRWD",
-    "DDOG",
-    "SNOW",
-    "ANET"
+    "SNOW"
   ],
   "setups": [
     {
       "symbol": "CRWD",
       "last": 225.16,
-      "atr20": 5.55,
+      "atr20": 4.41,
       "mode": "breakout/now",
       "entry_zone": [
         225.16,
         226.29
       ],
-      "stop": 211.85,
-      "target_2R": 253.47,
+      "stop": 214.7,
+      "target_2R": 247.77,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 0.85,
       "starter_notional": 3058.0,
       "full_notional": 12231.0
     },
     {
-      "symbol": "DDOG",
-      "last": 260.78,
-      "atr20": 9.16,
-      "mode": "pullback to EMA21",
-      "entry_zone": [
-        252.45,
-        261.6
-      ],
-      "stop": 234.14,
-      "target_2R": 302.8,
-      "trail": "25% from peak after 1R",
-      "risk_pct_equity": 0.85,
-      "starter_notional": 2432.0,
-      "full_notional": 9729.0
-    },
-    {
       "symbol": "SNOW",
       "last": 334.7,
-      "atr20": 5.67,
+      "atr20": 5.3,
       "mode": "breakout/now",
       "entry_zone": [
         334.7,
         336.37
       ],
-      "stop": 321.37,
-      "target_2R": 363.86,
-      "trail": "25% from peak after 1R",
-      "risk_pct_equity": 0.85,
-      "starter_notional": 3058.0,
-      "full_notional": 12231.0
-    },
-    {
-      "symbol": "ANET",
-      "last": 191.52,
-      "atr20": 4.65,
-      "mode": "pullback to EMA21",
-      "entry_zone": [
-        177.65,
-        182.3
-      ],
-      "stop": 168.36,
-      "target_2R": 203.21,
+      "stop": 322.28,
+      "target_2R": 362.04,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 0.85,
       "starter_notional": 3058.0,
@@ -161,66 +127,36 @@
   ],
   "options": [
     {
-      "rank": 80.2,
-      "structure": "credit spread / iron condor (sell premium)",
-      "short_atr": 1.5,
-      "long_atr": 2.0,
-      "rationale": "IV rank 80 > 60 \u2014 premium is rich, sell it",
-      "spot": 225.16000366210935,
-      "atr": 5.549499511718747,
-      "short_strike_call": 233.48,
-      "short_strike_put": 216.84,
-      "long_strike_call": 236.26,
-      "long_strike_put": 214.06,
-      "date": "2026-08-10",
-      "symbol": "CRWD"
-    },
-    {
-      "rank": 92.1,
-      "structure": "credit spread / iron condor (sell premium)",
-      "short_atr": 1.5,
-      "long_atr": 2.0,
-      "rationale": "IV rank 92 > 60 \u2014 premium is rich, sell it",
-      "spot": 260.7799987792969,
-      "atr": 9.155001831054685,
-      "short_strike_call": 274.51,
-      "short_strike_put": 247.05,
-      "long_strike_call": 279.09,
-      "long_strike_put": 242.47,
-      "date": "2026-08-10",
-      "symbol": "DDOG"
-    },
-    {
-      "rank": 14.3,
-      "structure": "avoid selling; long strangle only with a confirmed catalyst",
-      "strike_atr": 2.5,
-      "rationale": "IV rank 14 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 334.70001220703125,
-      "atr": 5.665504455566406,
-      "strike_strike_call": 348.86,
-      "strike_strike_put": 320.54,
-      "date": "2026-08-10",
-      "symbol": "SNOW"
-    },
-    {
-      "rank": 55.6,
+      "rank": 49.6,
       "structure": "debit spread (buy directional)",
       "long_atr": 1.0,
       "short_atr": 2.0,
-      "rationale": "IV rank 56 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
-      "spot": 191.5200042724609,
-      "atr": 4.64750137329101,
-      "long_strike_call": 196.17,
-      "long_strike_put": 186.87,
-      "short_strike_call": 200.82,
-      "short_strike_put": 182.23,
-      "date": "2026-08-10",
-      "symbol": "ANET"
+      "rationale": "IV rank 50 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
+      "spot": 225.16000366210935,
+      "atr": 4.408499908447263,
+      "long_strike_call": 229.57,
+      "long_strike_put": 220.75,
+      "short_strike_call": 233.98,
+      "short_strike_put": 216.34,
+      "date": "2026-08-11",
+      "symbol": "CRWD"
+    },
+    {
+      "rank": 13.1,
+      "structure": "avoid selling; long strangle only with a confirmed catalyst",
+      "strike_atr": 2.5,
+      "rationale": "IV rank 13 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 334.70001220703125,
+      "atr": 5.301004028320312,
+      "strike_strike_call": 347.95,
+      "strike_strike_put": 321.45,
+      "date": "2026-08-11",
+      "symbol": "SNOW"
     }
   ],
   "hedge_signals": {
     "tlt_below_200dma": true,
-    "spy_tlt_corr_126d": 0.31
+    "spy_tlt_corr_126d": 0.32
   },
   "pmcc_core_on": true,
   "invalidated": false
