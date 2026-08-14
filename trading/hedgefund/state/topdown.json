@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-08-12T14:36:21",
-  "as_of": "2026-08-11",
+  "generated_utc": "2026-08-14T14:31:06",
+  "as_of": "2026-08-13",
   "regime": "MIXED",
   "cycle_multiplier": 0.49,
   "sleeve_weights": {
@@ -14,17 +14,17 @@
     "GLD": 0.0925,
     "PFF": 0.045,
     "GDXJ": 0.045,
-    "MARA": 0.029,
-    "CLSK": 0.0284,
-    "XLU": 0.0252,
-    "XLV": 0.0236,
+    "MARA": 0.0287,
+    "CLSK": 0.0283,
+    "XLU": 0.0253,
+    "XLV": 0.0234,
     "TLT": 0.0225,
-    "STX": 0.0215,
-    "NBIS": 0.0191,
-    "NEE": 0.0187,
-    "UNH": 0.0172,
-    "JNJ": 0.0166,
-    "LLY": 0.0134,
+    "STX": 0.0207,
+    "NBIS": 0.0202,
+    "NEE": 0.0186,
+    "UNH": 0.0171,
+    "JNJ": 0.0169,
+    "LLY": 0.0135,
     "URNM": 0.0089,
     "FCX": 0.0082,
     "COPX": 0.0078,
@@ -33,130 +33,227 @@
   "themes": [
     {
       "theme": "enterprise_ai_software",
-      "score": 93.4,
+      "score": 93.2,
       "action": "INCREASE"
     },
     {
+      "theme": "ai_networking_optical",
+      "score": 92.2,
+      "action": "INCREASE"
+    },
+    {
+      "theme": "data_centers",
+      "score": 89.4,
+      "action": "MAINTAIN"
+    },
+    {
       "theme": "healthcare_ai",
-      "score": 84.3,
+      "score": 83.3,
       "action": "MAINTAIN"
     },
     {
       "theme": "hbm_memory",
-      "score": 77.5,
-      "action": "WATCH"
-    },
-    {
-      "theme": "ai_networking_optical",
-      "score": 71.7,
-      "action": "WATCH"
+      "score": 80.0,
+      "action": "MAINTAIN"
     },
     {
       "theme": "ai_compute",
-      "score": 71.4,
+      "score": 71.3,
       "action": "WATCH"
     },
     {
       "theme": "semi_equipment",
-      "score": 68.5,
-      "action": "REDUCE"
-    },
-    {
-      "theme": "data_centers",
-      "score": 66.0,
-      "action": "REDUCE"
+      "score": 71.0,
+      "action": "WATCH"
     },
     {
       "theme": "power_infrastructure",
-      "score": 55.3,
+      "score": 57.4,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 43.5,
+      "score": 48.5,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 25.4,
+      "score": 24.9,
       "action": "REDUCE"
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 20.4,
+      "score": 19.8,
       "action": "REDUCE"
     }
   ],
   "qualified": [
+    "DELL",
     "CRWD",
-    "SNOW"
+    "ANET",
+    "SNOW",
+    "DLR",
+    "EQIX"
   ],
   "setups": [
     {
-      "symbol": "CRWD",
-      "last": 225.16,
-      "atr20": 4.41,
+      "symbol": "DELL",
+      "last": 494.51,
+      "atr20": 18.5,
       "mode": "breakout/now",
       "entry_zone": [
-        225.16,
-        226.29
+        494.51,
+        496.98
       ],
-      "stop": 214.7,
-      "target_2R": 247.77,
+      "stop": 449.49,
+      "target_2R": 588.25,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 0.85,
-      "starter_notional": 3058.0,
-      "full_notional": 12231.0
+      "starter_notional": 2313.0,
+      "full_notional": 9252.0
+    },
+    {
+      "symbol": "CRWD",
+      "last": 225.53,
+      "atr20": 4.42,
+      "mode": "breakout/now",
+      "entry_zone": [
+        225.53,
+        226.66
+      ],
+      "stop": 215.05,
+      "target_2R": 248.18,
+      "trail": "25% from peak after 1R",
+      "risk_pct_equity": 0.85,
+      "starter_notional": 3047.0,
+      "full_notional": 12186.0
+    },
+    {
+      "symbol": "ANET",
+      "last": 203.62,
+      "atr20": 5.17,
+      "mode": "pullback to EMA21",
+      "entry_zone": [
+        183.41,
+        188.57
+      ],
+      "stop": 173.07,
+      "target_2R": 211.83,
+      "trail": "25% from peak after 1R",
+      "risk_pct_equity": 0.85,
+      "starter_notional": 3047.0,
+      "full_notional": 12186.0
     },
     {
       "symbol": "SNOW",
-      "last": 334.7,
-      "atr20": 5.3,
+      "last": 337.38,
+      "atr20": 5.38,
       "mode": "breakout/now",
       "entry_zone": [
-        334.7,
-        336.37
+        337.38,
+        339.07
       ],
-      "stop": 322.28,
-      "target_2R": 362.04,
+      "stop": 324.77,
+      "target_2R": 365.14,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 0.85,
-      "starter_notional": 3058.0,
-      "full_notional": 12231.0
+      "starter_notional": 3047.0,
+      "full_notional": 12186.0
+    },
+    {
+      "symbol": "DLR",
+      "last": 197.58,
+      "atr20": 3.38,
+      "mode": "pullback to EMA21",
+      "entry_zone": [
+        188.5,
+        191.88
+      ],
+      "stop": 181.74,
+      "target_2R": 207.1,
+      "trail": "25% from peak after 1R",
+      "risk_pct_equity": 0.85,
+      "starter_notional": 3047.0,
+      "full_notional": 12186.0
     }
   ],
   "options": [
     {
-      "rank": 49.6,
+      "rank": 83.3,
+      "structure": "credit spread / iron condor (sell premium)",
+      "short_atr": 1.5,
+      "long_atr": 2.0,
+      "rationale": "IV rank 83 > 60 \u2014 premium is rich, sell it",
+      "spot": 494.510009765625,
+      "atr": 18.50139312744141,
+      "short_strike_call": 522.26,
+      "short_strike_put": 466.76,
+      "long_strike_call": 531.51,
+      "long_strike_put": 457.51,
+      "date": "2026-08-13",
+      "symbol": "DELL"
+    },
+    {
+      "rank": 48.4,
       "structure": "debit spread (buy directional)",
       "long_atr": 1.0,
       "short_atr": 2.0,
-      "rationale": "IV rank 50 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
-      "spot": 225.16000366210935,
-      "atr": 4.408499908447263,
-      "long_strike_call": 229.57,
-      "long_strike_put": 220.75,
-      "short_strike_call": 233.98,
-      "short_strike_put": 216.34,
-      "date": "2026-08-11",
+      "rationale": "IV rank 48 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
+      "spot": 225.52999877929688,
+      "atr": 4.416500091552733,
+      "long_strike_call": 229.95,
+      "long_strike_put": 221.11,
+      "short_strike_call": 234.36,
+      "short_strike_put": 216.7,
+      "date": "2026-08-13",
       "symbol": "CRWD"
     },
     {
-      "rank": 13.1,
+      "rank": 57.1,
+      "structure": "debit spread (buy directional)",
+      "long_atr": 1.0,
+      "short_atr": 2.0,
+      "rationale": "IV rank 57 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
+      "spot": 203.6199951171875,
+      "atr": 5.169000244140622,
+      "long_strike_call": 208.79,
+      "long_strike_put": 198.45,
+      "short_strike_call": 213.96,
+      "short_strike_put": 193.28,
+      "date": "2026-08-13",
+      "symbol": "ANET"
+    },
+    {
+      "rank": 10.3,
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
-      "rationale": "IV rank 13 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 334.70001220703125,
-      "atr": 5.301004028320312,
-      "strike_strike_call": 347.95,
-      "strike_strike_put": 321.45,
-      "date": "2026-08-11",
+      "rationale": "IV rank 10 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 337.3800048828125,
+      "atr": 5.383003234863281,
+      "strike_strike_call": 350.84,
+      "strike_strike_put": 323.92,
+      "date": "2026-08-13",
       "symbol": "SNOW"
+    },
+    {
+      "rank": 94.8,
+      "structure": "credit spread / iron condor (sell premium)",
+      "short_atr": 1.5,
+      "long_atr": 2.0,
+      "rationale": "IV rank 95 > 60 \u2014 premium is rich, sell it",
+      "spot": 197.5800018310547,
+      "atr": 3.3819999694824303,
+      "short_strike_call": 202.65,
+      "short_strike_put": 192.51,
+      "long_strike_call": 204.34,
+      "long_strike_put": 190.82,
+      "date": "2026-08-13",
+      "symbol": "DLR"
     }
   ],
   "hedge_signals": {
     "tlt_below_200dma": true,
-    "spy_tlt_corr_126d": 0.32
+    "spy_tlt_corr_126d": 0.37
   },
   "pmcc_core_on": true,
   "invalidated": false
