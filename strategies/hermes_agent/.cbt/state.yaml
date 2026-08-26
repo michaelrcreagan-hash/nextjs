@@ -21,7 +21,7 @@ phase: config  # discovery | research | eda | config | plan | build | iterate
 # Phase completion tracking
 phases_completed:
   discovery: true
-  research: false
+  research: true
   eda: true
   config: false
   plan: false
@@ -41,7 +41,34 @@ experiments:
   baseline_sharpe: null
 
 # Pending observations to test
-pending_observations: []
+# Pre-registered from /cbt:research (RESEARCH.md) BEFORE any sweep runs,
+# per this repo's convention in strategies/four_sleeve_portfolio/RESEARCH.md.
+pending_observations:
+  - id: R1
+    claim: "Regime-scaled trailing-stop core alone beats buy-and-hold on MAR; confluence layer must beat THIS baseline, not B&H"
+    source: "Moreira-Muir 2017 vs Cederburg 2020; crypto stop-loss momentum JBEF 2023"
+  - id: R2
+    claim: "Deduplicating the 4 collinear ETF feature groups does not reduce confluence-layer edge (if it does, the edge was redundancy)"
+    source: "EDA.md collinearity (80 pairs >0.9); forecast-combination diversity precondition"
+  - id: R3
+    claim: "Trailing-stop threshold optimum falls in the 15-20% band, not tighter"
+    source: "Dai et al. 2021; ai_bottleneck_stocks trailing_stop_by_phase 20%/15%"
+  - id: R4
+    claim: "Flow-speed features (funding/OI/CVD/ETF flow) add no measurable edge at daily cadence"
+    source: "FalconX: corr 0.30, <10% variance, IRF peak days 3-4; CVD coincident-not-leading"
+  - id: R5
+    claim: "Realistic per-trade costs at ACTUAL position sizes (~$143 avg Merrill) keep the strategy profitable"
+    source: "Barber-Odean 2000: 6.5pp/yr drag, gross returns identical across activity levels"
+  - id: R6
+    claim: "Crypto carry / futures basis adds crash-regime predictive value beyond vol clustering"
+    source: "BIS WP 1087 - carry predicts future crypto crashes"
+
+# Metrics discipline adopted from research (applies to all later phases)
+metrics_policy:
+  headline_metric: deflated_sharpe   # Bailey & Lopez de Prado - report trial count
+  ablation_baseline: static_allocation_and_mechanical_core  # not just buy-and-hold
+  llm_layer: forward_paper_only      # quarantined from backtested claims (training-cutoff leakage)
+  cost_model: per_trade_dollar_cost  # not percentage-of-portfolio abstraction
 
 # Iteration history
 iterations: []
