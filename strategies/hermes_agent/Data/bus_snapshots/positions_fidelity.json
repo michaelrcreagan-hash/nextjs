@@ -1,0 +1,363 @@
+{
+  "generated": "2026-08-26T15:26:52.496720",
+  "generated_display": "2026-08-26 15:26",
+  "source": "Fidelity transaction log \u2014 Aug 25-26, 2026 (user-provided)",
+  "transaction_count": 20,
+  "cash_flow_total": -634.69,
+  "margin_flow_total": 2030.97,
+  "total_net_flow": 1396.28,
+  "positions": [
+    {
+      "symbol": "WULF",
+      "description": "Terawulf Inc",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "SELL",
+          "amount": 1549.96,
+          "detail": "Closing sale \u2014 Margin"
+        }
+      ],
+      "account": "Margin",
+      "asset_type": "EQUITY",
+      "net_amount": 1549.96,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Closing sale \u2014 Margin",
+      "pnl_net": 1549.96
+    },
+    {
+      "symbol": "STRIVE-VRERA",
+      "description": "Strive Variable Rate Series A",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "SELL",
+          "amount": 500.01,
+          "detail": "Sold \u2014 Margin, STRIVE INC VAR RATER A"
+        }
+      ],
+      "account": "Margin",
+      "asset_type": "EQUITY",
+      "net_amount": 500.01,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Sold \u2014 Margin, STRIVE INC VAR RATER A",
+      "pnl_net": 500.01
+    },
+    {
+      "symbol": "CALL:NVDA",
+      "description": "NVIDIA Call (closing)",
+      "transactions": [
+        {
+          "date": "2026-08-26",
+          "action": "SELL",
+          "amount": 369.34,
+          "detail": "Closing SELL \u2014 NVDA call"
+        },
+        {
+          "date": "2026-08-26",
+          "action": "BUY",
+          "amount": -105.66,
+          "detail": "Closing BUY \u2014 NVDA call"
+        }
+      ],
+      "account": "Options",
+      "asset_type": "OPTION",
+      "net_amount": 263.67999999999995,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Closing SELL \u2014 NVDA call",
+      "pnl_net": 263.67999999999995
+    },
+    {
+      "symbol": "CALL:IBIT",
+      "description": "iShares Bitcoin Trust Call",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -224.66,
+          "detail": "Opening CALL \u2014 MAR 19 2027, strike ~$20s"
+        }
+      ],
+      "account": "Options",
+      "asset_type": "OPTION",
+      "net_amount": -224.66,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening CALL \u2014 MAR 19 2027, strike ~$20s",
+      "pnl_net": -224.66
+    },
+    {
+      "symbol": "CLPT",
+      "description": "ClearPoint Neuro Inc",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -169.6,
+          "detail": "Margin purchase"
+        }
+      ],
+      "account": "Margin",
+      "asset_type": "EQUITY",
+      "net_amount": -169.6,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Margin purchase",
+      "pnl_net": -169.6
+    },
+    {
+      "symbol": "CALL:TLT",
+      "description": "20 Yr Treasury ETF Call",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -154.06,
+          "detail": "Opening CALL \u2014 NOV 2 2026, strike ~$20s"
+        }
+      ],
+      "account": "Options",
+      "asset_type": "OPTION",
+      "net_amount": -154.06,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening CALL \u2014 NOV 2 2026, strike ~$20s",
+      "pnl_net": -154.06
+    },
+    {
+      "symbol": "STRIVE-VRAPR",
+      "description": "Strive Variable Rate Series APR",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "SELL",
+          "amount": 150.6,
+          "detail": "Sold \u2014 Margin, STRIVE INC VAR RAT SER APR"
+        }
+      ],
+      "account": "Margin",
+      "asset_type": "EQUITY",
+      "net_amount": 150.6,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Sold \u2014 Margin, STRIVE INC VAR RAT SER APR",
+      "pnl_net": 150.6
+    },
+    {
+      "symbol": "SPHB",
+      "description": "Invesco S&P 500 High Dividend ETF",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -148.0,
+          "detail": "Opening purchase"
+        }
+      ],
+      "account": "Cash",
+      "asset_type": "EQUITY",
+      "net_amount": -148.0,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening purchase",
+      "pnl_net": -148.0
+    },
+    {
+      "symbol": "URNM",
+      "description": "Sprott Uranium Miners ETF",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -122.08,
+          "detail": "Spot purchase"
+        }
+      ],
+      "account": "Cash",
+      "asset_type": "EQUITY",
+      "net_amount": -122.08,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Spot purchase",
+      "pnl_net": -122.08
+    },
+    {
+      "symbol": "JEPI",
+      "description": "J.P. Morgan Equity Premium Income ETF",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -116.28,
+          "detail": "Opening purchase"
+        }
+      ],
+      "account": "Cash",
+      "asset_type": "EQUITY",
+      "net_amount": -116.28,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening purchase",
+      "pnl_net": -116.28
+    },
+    {
+      "symbol": "SOXL",
+      "description": "Direxion Daily Semiconductor Bull 3X",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -116.2,
+          "detail": "Opening purchase"
+        }
+      ],
+      "account": "Cash",
+      "asset_type": "EQUITY",
+      "net_amount": -116.2,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening purchase",
+      "pnl_net": -116.2
+    },
+    {
+      "symbol": "TQQQ",
+      "description": "ProShares UltraPro QQQ",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -70.33,
+          "detail": "Opening purchase"
+        }
+      ],
+      "account": "Cash",
+      "asset_type": "EQUITY",
+      "net_amount": -70.33,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening purchase",
+      "pnl_net": -70.33
+    },
+    {
+      "symbol": "SLV",
+      "description": "iShares Silver Trust",
+      "transactions": [
+        {
+          "date": "2026-08-25",
+          "action": "BUY",
+          "amount": -62.31,
+          "detail": "Opening purchase"
+        }
+      ],
+      "account": "Cash",
+      "asset_type": "EQUITY",
+      "net_amount": -62.31,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Opening purchase",
+      "pnl_net": -62.31
+    },
+    {
+      "symbol": "PUT:IBIT",
+      "description": "iShares Bitcoin Trust Put (closing)",
+      "transactions": [
+        {
+          "date": "2026-08-26",
+          "action": "SELL",
+          "amount": 9.4,
+          "detail": "Closing SELL \u2014 PUT Sep 18 2026 $33 strike"
+        },
+        {
+          "date": "2026-08-26",
+          "action": "BUY",
+          "amount": -4.01,
+          "detail": "Closing BUY \u2014 PUT Sep 18 2026 ~$2 strike"
+        }
+      ],
+      "account": "Options",
+      "asset_type": "OPTION",
+      "net_amount": 5.390000000000001,
+      "qty": null,
+      "avg_price": null,
+      "value": 0.0,
+      "status": "ACTIVE",
+      "detail": "Closing SELL \u2014 PUT Sep 18 2026 $33 strike",
+      "pnl_net": 5.390000000000001
+    },
+    {
+      "symbol": "PUT:SOXX",
+      "description": "iShares Semiconductor ETF Put (expired)",
+      "action": "EXPIRED",
+      "amount": 0.0,
+      "detail": "Expired \u2014 AUG 21 2026 $335 strike",
+      "account": "Options",
+      "asset_type": "OPTION",
+      "qty": null,
+      "value": 0.0,
+      "status": "EXPIRED",
+      "net_amount": 0.0,
+      "avg_price": null,
+      "pnl_net": 0.0
+    }
+  ],
+  "last_updated": "2026-08-26T16:04:53.126812",
+  "last_fidelity_refresh": "2026-08-26",
+  "fidelity_transactions_logged": {
+    "date": "2026-08-26T16:04:53.126820",
+    "count": 20,
+    "new_positions": [
+      "IBIT",
+      "URNM",
+      "TLT",
+      "TQQQ",
+      "JEPI",
+      "SLV",
+      "SPHB",
+      "SOXL",
+      "CLPT",
+      "NVDA",
+      "IBIT"
+    ],
+    "closed_positions": [
+      "STRIVE",
+      "STRIVE",
+      "STRIVE",
+      "STRIVE",
+      "NVDA",
+      "WULF",
+      "IBIT"
+    ],
+    "net_flow": 1136.03,
+    "purchases_total": -1293.19,
+    "income_total": 2429.22
+  }
+}

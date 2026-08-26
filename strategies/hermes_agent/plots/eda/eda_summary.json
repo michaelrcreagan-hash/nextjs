@@ -1,0 +1,567 @@
+{
+  "price_shape": [
+    524,
+    11
+  ],
+  "price_range": [
+    "2024-07-23",
+    "2026-08-24"
+  ],
+  "feat_shape": [
+    325,
+    42
+  ],
+  "feat_range": [
+    "2025-05-08",
+    "2026-08-24"
+  ],
+  "price_gaps_gt_3d": 13,
+  "price_dup_dates": 0,
+  "price_missing_pct": 0.0,
+  "btc_ret_mean": 0.0007605515965255057,
+  "btc_ret_std": 0.02890737406148086,
+  "btc_ret_skew": 0.29065255530940765,
+  "btc_ret_kurtosis": 3.9881958611976067,
+  "btc_corr_with_others": {
+    "BITB": 0.91,
+    "IBIT": 0.909,
+    "FBTC": 0.909,
+    "ARKB": 0.909,
+    "ETH-USD": 0.838,
+    "SOL-USD": 0.798,
+    "ETHA": 0.756,
+    "MSTR": 0.732,
+    "SPY": 0.43,
+    "TLT": -0.048
+  },
+  "dow_return": {
+    "Mon": 0.001665843771450629,
+    "Tue": -0.0005335452941450864,
+    "Wed": 0.004010262841207945,
+    "Thu": -0.0031563908508804935,
+    "Fri": 0.0017610700910138078
+  },
+  "month_return": {
+    "1": 0.001662735254727679,
+    "2": -0.01068709336066196,
+    "3": 0.0007963248284207642,
+    "4": 0.006148084519113298,
+    "5": 0.0016448475039678966,
+    "6": -0.004474651553661048,
+    "7": 0.0027160691830907233,
+    "8": 0.0018825111267673565,
+    "9": 0.0031807720338503168,
+    "10": 0.0016852591594084326,
+    "11": 0.004410754005288982,
+    "12": -0.0015324540802157394
+  },
+  "vol_30d_median_annualized": 0.48369510821230877,
+  "high_vol_days": 68,
+  "adf_price_p": 0.4776892657307181,
+  "adf_returns_p": 2.956389226473257e-23,
+  "kpss_returns_p": 0.1,
+  "target_balance": {
+    "0": 0.52,
+    "1": 0.48
+  },
+  "top5_feature_target_corr": {
+    "spy_return": -0.13164289304818919,
+    "ETHA_return_1d": -0.10836805109993561,
+    "ETHA_flow_proxy": -0.10653975741865872,
+    "btc_eth_spread": 0.09556951357483442,
+    "total_etf_flow": -0.09364838218741257
+  },
+  "high_corr_pairs_gt_0.9": [
+    [
+      "btc_price",
+      "btc_pct_above_ma200",
+      0.919
+    ],
+    [
+      "btc_price",
+      "IBIT_vol",
+      0.992
+    ],
+    [
+      "btc_price",
+      "FBTC_vol",
+      0.992
+    ],
+    [
+      "btc_price",
+      "ARKB_vol",
+      0.992
+    ],
+    [
+      "btc_price",
+      "BITB_vol",
+      0.992
+    ],
+    [
+      "btc_price",
+      "btc_volume",
+      0.992
+    ],
+    [
+      "btc_price",
+      "mstr_volume",
+      0.924
+    ],
+    [
+      "btc_price",
+      "total_volume",
+      0.992
+    ],
+    [
+      "btc_price",
+      "oi_proxy",
+      0.946
+    ],
+    [
+      "btc_pct_above_ma200",
+      "btc_above_ma200",
+      0.917
+    ],
+    [
+      "btc_pct_above_ma200",
+      "mstr_volume",
+      0.955
+    ],
+    [
+      "btc_above_ma200",
+      "mstr_volume",
+      0.923
+    ],
+    [
+      "IBIT_return_1d",
+      "IBIT_flow_proxy",
+      0.978
+    ],
+    [
+      "IBIT_return_1d",
+      "FBTC_return_1d",
+      1.0
+    ],
+    [
+      "IBIT_return_1d",
+      "FBTC_flow_proxy",
+      0.978
+    ],
+    [
+      "IBIT_return_1d",
+      "ARKB_return_1d",
+      1.0
+    ],
+    [
+      "IBIT_return_1d",
+      "ARKB_flow_proxy",
+      0.978
+    ],
+    [
+      "IBIT_return_1d",
+      "BITB_return_1d",
+      1.0
+    ],
+    [
+      "IBIT_return_1d",
+      "BITB_flow_proxy",
+      0.978
+    ],
+    [
+      "IBIT_return_1d",
+      "total_etf_flow",
+      0.97
+    ],
+    [
+      "IBIT_return_1d",
+      "btc_return_1d",
+      0.919
+    ],
+    [
+      "IBIT_vol",
+      "FBTC_vol",
+      1.0
+    ],
+    [
+      "IBIT_vol",
+      "ARKB_vol",
+      1.0
+    ],
+    [
+      "IBIT_vol",
+      "BITB_vol",
+      1.0
+    ],
+    [
+      "IBIT_vol",
+      "btc_volume",
+      1.0
+    ],
+    [
+      "IBIT_vol",
+      "mstr_volume",
+      0.92
+    ],
+    [
+      "IBIT_vol",
+      "total_volume",
+      1.0
+    ],
+    [
+      "IBIT_vol",
+      "oi_proxy",
+      0.965
+    ],
+    [
+      "IBIT_flow_proxy",
+      "FBTC_return_1d",
+      0.977
+    ],
+    [
+      "IBIT_flow_proxy",
+      "FBTC_flow_proxy",
+      1.0
+    ],
+    [
+      "IBIT_flow_proxy",
+      "ARKB_return_1d",
+      0.977
+    ],
+    [
+      "IBIT_flow_proxy",
+      "ARKB_flow_proxy",
+      1.0
+    ],
+    [
+      "IBIT_flow_proxy",
+      "BITB_return_1d",
+      0.977
+    ],
+    [
+      "IBIT_flow_proxy",
+      "BITB_flow_proxy",
+      1.0
+    ],
+    [
+      "IBIT_flow_proxy",
+      "total_etf_flow",
+      0.996
+    ],
+    [
+      "FBTC_return_1d",
+      "FBTC_flow_proxy",
+      0.978
+    ],
+    [
+      "FBTC_return_1d",
+      "ARKB_return_1d",
+      1.0
+    ],
+    [
+      "FBTC_return_1d",
+      "ARKB_flow_proxy",
+      0.978
+    ],
+    [
+      "FBTC_return_1d",
+      "BITB_return_1d",
+      1.0
+    ],
+    [
+      "FBTC_return_1d",
+      "BITB_flow_proxy",
+      0.977
+    ],
+    [
+      "FBTC_return_1d",
+      "total_etf_flow",
+      0.97
+    ],
+    [
+      "FBTC_return_1d",
+      "btc_return_1d",
+      0.919
+    ],
+    [
+      "FBTC_vol",
+      "ARKB_vol",
+      1.0
+    ],
+    [
+      "FBTC_vol",
+      "BITB_vol",
+      1.0
+    ],
+    [
+      "FBTC_vol",
+      "btc_volume",
+      1.0
+    ],
+    [
+      "FBTC_vol",
+      "mstr_volume",
+      0.92
+    ],
+    [
+      "FBTC_vol",
+      "total_volume",
+      1.0
+    ],
+    [
+      "FBTC_vol",
+      "oi_proxy",
+      0.965
+    ],
+    [
+      "FBTC_flow_proxy",
+      "ARKB_return_1d",
+      0.977
+    ],
+    [
+      "FBTC_flow_proxy",
+      "ARKB_flow_proxy",
+      1.0
+    ],
+    [
+      "FBTC_flow_proxy",
+      "BITB_return_1d",
+      0.978
+    ],
+    [
+      "FBTC_flow_proxy",
+      "BITB_flow_proxy",
+      1.0
+    ],
+    [
+      "FBTC_flow_proxy",
+      "total_etf_flow",
+      0.996
+    ],
+    [
+      "ARKB_return_1d",
+      "ARKB_flow_proxy",
+      0.978
+    ],
+    [
+      "ARKB_return_1d",
+      "BITB_return_1d",
+      1.0
+    ],
+    [
+      "ARKB_return_1d",
+      "BITB_flow_proxy",
+      0.977
+    ],
+    [
+      "ARKB_return_1d",
+      "total_etf_flow",
+      0.97
+    ],
+    [
+      "ARKB_return_1d",
+      "btc_return_1d",
+      0.919
+    ],
+    [
+      "ARKB_vol",
+      "BITB_vol",
+      1.0
+    ],
+    [
+      "ARKB_vol",
+      "btc_volume",
+      1.0
+    ],
+    [
+      "ARKB_vol",
+      "mstr_volume",
+      0.92
+    ],
+    [
+      "ARKB_vol",
+      "total_volume",
+      1.0
+    ],
+    [
+      "ARKB_vol",
+      "oi_proxy",
+      0.965
+    ],
+    [
+      "ARKB_flow_proxy",
+      "BITB_return_1d",
+      0.978
+    ],
+    [
+      "ARKB_flow_proxy",
+      "BITB_flow_proxy",
+      1.0
+    ],
+    [
+      "ARKB_flow_proxy",
+      "total_etf_flow",
+      0.996
+    ],
+    [
+      "BITB_return_1d",
+      "BITB_flow_proxy",
+      0.978
+    ],
+    [
+      "BITB_return_1d",
+      "total_etf_flow",
+      0.97
+    ],
+    [
+      "BITB_return_1d",
+      "btc_return_1d",
+      0.92
+    ],
+    [
+      "BITB_vol",
+      "btc_volume",
+      1.0
+    ],
+    [
+      "BITB_vol",
+      "mstr_volume",
+      0.92
+    ],
+    [
+      "BITB_vol",
+      "total_volume",
+      1.0
+    ],
+    [
+      "BITB_vol",
+      "oi_proxy",
+      0.965
+    ],
+    [
+      "BITB_flow_proxy",
+      "total_etf_flow",
+      0.996
+    ],
+    [
+      "ETHA_return_1d",
+      "ETHA_flow_proxy",
+      0.954
+    ],
+    [
+      "btc_volume",
+      "mstr_volume",
+      0.92
+    ],
+    [
+      "btc_volume",
+      "total_volume",
+      1.0
+    ],
+    [
+      "btc_volume",
+      "oi_proxy",
+      0.965
+    ],
+    [
+      "mstr_volume",
+      "total_volume",
+      0.92
+    ],
+    [
+      "total_volume",
+      "oi_proxy",
+      0.965
+    ]
+  ],
+  "feat_missing_total": 0,
+  "train_test_drift_features": {
+    "btc_price": {
+      "ks_stat": 0.811,
+      "p": 0.0
+    },
+    "btc_ma200": {
+      "ks_stat": 0.714,
+      "p": 0.0
+    },
+    "btc_pct_above_ma200": {
+      "ks_stat": 0.626,
+      "p": 0.0
+    },
+    "btc_above_ma200": {
+      "ks_stat": 0.53,
+      "p": 0.0
+    },
+    "IBIT_vol": {
+      "ks_stat": 0.819,
+      "p": 0.0
+    },
+    "FBTC_vol": {
+      "ks_stat": 0.819,
+      "p": 0.0
+    },
+    "ARKB_vol": {
+      "ks_stat": 0.819,
+      "p": 0.0
+    },
+    "BITB_vol": {
+      "ks_stat": 0.819,
+      "p": 0.0
+    },
+    "ETHA_vol": {
+      "ks_stat": 0.806,
+      "p": 0.0
+    },
+    "ETHA_flow_proxy": {
+      "ks_stat": 0.222,
+      "p": 0.00186
+    },
+    "btc_volume": {
+      "ks_stat": 0.819,
+      "p": 0.0
+    },
+    "spot_cvd_proxy": {
+      "ks_stat": 0.427,
+      "p": 0.0
+    },
+    "spot_cvd_5d": {
+      "ks_stat": 0.237,
+      "p": 0.00073
+    },
+    "spot_cvd_20d": {
+      "ks_stat": 0.254,
+      "p": 0.00022
+    },
+    "mstr_volume": {
+      "ks_stat": 0.604,
+      "p": 0.0
+    },
+    "futures_cvd_proxy": {
+      "ks_stat": 0.348,
+      "p": 0.0
+    },
+    "futures_cvd_5d": {
+      "ks_stat": 0.244,
+      "p": 0.00045
+    },
+    "total_volume": {
+      "ks_stat": 0.819,
+      "p": 0.0
+    },
+    "oi_proxy": {
+      "ks_stat": 0.863,
+      "p": 0.0
+    },
+    "oi_change_20d": {
+      "ks_stat": 0.269,
+      "p": 7e-05
+    },
+    "exchange_flow_proxy": {
+      "ks_stat": 0.233,
+      "p": 0.00094
+    },
+    "yield_curve_proxy": {
+      "ks_stat": 0.924,
+      "p": 0.0
+    }
+  }
+}

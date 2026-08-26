@@ -1,0 +1,106 @@
+{
+  "generated": "2026-08-23 16:05",
+  "macro": {
+    "CPI": 332.8,
+    "UNRATE": 4.1,
+    "T10Y2Y": 0.5,
+    "regime": "RISK-ON"
+  },
+  "account": {
+    "equity": 16514.55,
+    "cash": 9909.0,
+    "buying_power": 58042.38
+  },
+  "setups": [
+    {
+      "symbol": "COIN",
+      "dir": "LONG",
+      "price": 186.49,
+      "entry": 186.49,
+      "target": 210,
+      "stop": 172,
+      "rr": 2.1,
+      "conf": 8.5,
+      "size": "8-10%",
+      "catalyst": "Crypto adoption tailwind; +8.2% breakout above 50DMA",
+      "score": {
+        "F": 8,
+        "T": 9,
+        "S": 9,
+        "M": 8
+      }
+    },
+    {
+      "symbol": "MSTR",
+      "dir": "LONG",
+      "price": 119.25,
+      "entry": 119.25,
+      "target": 134,
+      "stop": 110,
+      "rr": 2.0,
+      "conf": 8.0,
+      "size": "6-8%",
+      "catalyst": "BTC +19% momentum; broke 50DMA, leveraged BTC proxy",
+      "score": {
+        "F": 8,
+        "T": 8,
+        "S": 9,
+        "M": 8
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "dir": "LONG",
+      "price": 214.72,
+      "entry": 214.72,
+      "target": 228,
+      "stop": 206,
+      "rr": 1.8,
+      "conf": 7.5,
+      "size": "5-7%",
+      "catalyst": "AI infra tailwind; above 50DMA, pullback entry zone",
+      "score": {
+        "F": 9,
+        "T": 7,
+        "S": 8,
+        "M": 7
+      }
+    },
+    {
+      "symbol": "MU",
+      "dir": "LONG",
+      "price": 966.78,
+      "entry": 966.78,
+      "target": 1020,
+      "stop": 940,
+      "rr": 1.9,
+      "conf": 7.0,
+      "size": "4-6%",
+      "catalyst": "Memory/HBM supercycle; above 50DMA",
+      "score": {
+        "F": 8,
+        "T": 7,
+        "S": 7,
+        "M": 7
+      }
+    },
+    {
+      "symbol": "BTC",
+      "dir": "LONG",
+      "price": 77116,
+      "entry": 77116,
+      "target": 84000,
+      "stop": 72500,
+      "rr": 1.7,
+      "conf": 7.0,
+      "size": "3-5%",
+      "catalyst": "Risk-on crypto regime; above 50DMA",
+      "score": {
+        "F": 7,
+        "T": 8,
+        "S": 8,
+        "M": 8
+      }
+    }
+  ]
+}

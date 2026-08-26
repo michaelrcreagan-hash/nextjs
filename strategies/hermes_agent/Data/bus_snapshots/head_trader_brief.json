@@ -1,0 +1,83 @@
+{
+  "generated": "2026-08-26T15:02:27.711662",
+  "regime": "RISK-ON",
+  "risk_score": "MODERATE",
+  "portfolio_value": 0,
+  "sizing_multiplier": 1.0,
+  "trade_setups": [],
+  "hedge_recommendations": [],
+  "domains_available": [
+    "portfolio_allocation",
+    "portfolio_rebalancing",
+    "hedging",
+    "options",
+    "crypto_perps",
+    "macro",
+    "risks",
+    "news",
+    "earnings",
+    "catalysts",
+    "analyst_sentiment",
+    "market_consensus",
+    "fundamental",
+    "technical",
+    "data_sources",
+    "crypto_perps_aggregated",
+    "crypto_perps_hyperliquid",
+    "crypto_perps_okx",
+    "crypto_perps_ccxt",
+    "crypto_perps_coinbase"
+  ],
+  "cross_domain_alerts": [
+    {
+      "alert": "CATALYST: MACRO(FOMC) \u2014 position ahead of these events",
+      "severity": "INFO",
+      "domains": [
+        "catalysts",
+        "earnings",
+        "options"
+      ],
+      "timestamp": "2026-08-26T15:01:47.591053+00:00"
+    },
+    {
+      "alert": "OPTIONS: Low IV on COIN(IV=0.0777) \u2014 buy options (LEAPS, debit spreads)",
+      "severity": "INFO",
+      "domains": [
+        "options"
+      ],
+      "timestamp": "2026-08-26T15:01:47.034536+00:00"
+    },
+    {
+      "alert": "PORTFOLIO: {} \u2014 coinbase 0% vs fidelity 0%",
+      "severity": "INFO",
+      "domains": [
+        "portfolio_rebalancing",
+        "portfolio_allocation"
+      ],
+      "timestamp": "2026-08-26T15:01:37.545595+00:00"
+    },
+    {
+      "alert": "OPTIONS: avg IV None% across top 0 holdings",
+      "severity": "INFO",
+      "domains": [
+        "options",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:37.345134+00:00"
+    },
+    {
+      "alert": "CVD: ARB-USD strong SELL pressure 5m (buy_ratio=0.2323, CVD=-144100.68)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.896327+00:00"
+    }
+  ],
+  "news_headline_count": 1,
+  "news_sentiment_shift": "NEUTRAL",
+  "earnings_this_week_portfolio": [],
+  "earnings_next_week_portfolio": [],
+  "earnings_warnings": []
+}

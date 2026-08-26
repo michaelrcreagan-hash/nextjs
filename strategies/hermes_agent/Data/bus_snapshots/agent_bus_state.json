@@ -1,0 +1,3080 @@
+{
+  "bus_version": "1.0.0",
+  "created": "2026-08-24T14:10:19.815152+00:00",
+  "domains": {
+    "portfolio_allocation": {
+      "data": {
+        "total_value": 0,
+        "accounts": {},
+        "account_pct": {},
+        "concentration_warnings": {},
+        "positions_count": 0
+      },
+      "source": "live_portfolio/positions.json",
+      "confidence": 0.99,
+      "agent_id": "seed_bus",
+      "timestamp": "2026-08-26T15:01:29.531272+00:00",
+      "history": []
+    },
+    "portfolio_rebalancing": {
+      "data": {
+        "drift_report": {
+          "total_value": 0,
+          "accounts": {},
+          "account_pct": {},
+          "type_pct": {}
+        },
+        "rebalance_needed": false,
+        "scanned_at": "2026-08-26T15:01:37.542378"
+      },
+      "source": "live_portfolio",
+      "confidence": 0.95,
+      "agent_id": "rebalancing_agent",
+      "timestamp": "2026-08-26T15:01:37.542994+00:00",
+      "history": []
+    },
+    "hedging": {
+      "data": {
+        "hedge_recommendations": [],
+        "btc_concentration_pct": 0,
+        "equity_concentration_pct": 0,
+        "macro_regime": "RISK-ON",
+        "risk_score": "MODERATE",
+        "evaluated_at": "2026-08-26T15:01:47.104689"
+      },
+      "source": "agent_hedging",
+      "confidence": 0.8,
+      "agent_id": "hedging_agent",
+      "timestamp": "2026-08-26T15:01:47.105269+00:00",
+      "history": []
+    },
+    "options": {
+      "data": {
+        "scanned_at": "2026-08-26T15:01:47.030248",
+        "crypto_stock_tickers": [
+          "COIN",
+          "MSTR",
+          "WGMI",
+          "RIOT",
+          "CRCL",
+          "IBIT",
+          "ETHA",
+          "PURR",
+          "BLSH",
+          "HOOD",
+          "BULL",
+          "MARA",
+          "HUT",
+          "CORZ",
+          "CLSK",
+          "WULF",
+          "IREN",
+          "HIVE"
+        ],
+        "held_tickers": [],
+        "options_data": {
+          "COIN": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 50,
+            "put_count": 0,
+            "iv_mean": 0.0777,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca + alpha_vantage_fallback"
+          },
+          "MSTR": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 50,
+            "put_count": 0,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "WGMI": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-09-18"
+            ],
+            "call_count": 31,
+            "put_count": 19,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "RIOT": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 46,
+            "put_count": 4,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "CRCL": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 50,
+            "put_count": 0,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "IBIT": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-26"
+            ],
+            "call_count": 50,
+            "put_count": 0,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "ETHA": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 47,
+            "put_count": 3,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "PURR": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 38,
+            "put_count": 12,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "BLSH": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 44,
+            "put_count": 6,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          },
+          "HOOD": {
+            "has_options": true,
+            "contract_count": 50,
+            "expirations": [
+              "2026-08-28"
+            ],
+            "call_count": 50,
+            "put_count": 0,
+            "iv_mean": null,
+            "iv_range": null,
+            "greeks_sample": [],
+            "data_source": "alpaca"
+          }
+        },
+        "recommendations": [
+          {
+            "symbol": "COIN",
+            "iv_mean": 0.0777,
+            "put_call_ratio": 0.0,
+            "strategy": "BUY_OPTIONS (call debit spread / LEAPS)",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "MSTR",
+            "iv_mean": null,
+            "put_call_ratio": 0.0,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "WGMI",
+            "iv_mean": null,
+            "put_call_ratio": 0.61,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "RIOT",
+            "iv_mean": null,
+            "put_call_ratio": 0.09,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "CRCL",
+            "iv_mean": null,
+            "put_call_ratio": 0.0,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "IBIT",
+            "iv_mean": null,
+            "put_call_ratio": 0.0,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "ETHA",
+            "iv_mean": null,
+            "put_call_ratio": 0.06,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "PURR",
+            "iv_mean": null,
+            "put_call_ratio": 0.32,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "BLSH",
+            "iv_mean": null,
+            "put_call_ratio": 0.14,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          },
+          {
+            "symbol": "HOOD",
+            "iv_mean": null,
+            "put_call_ratio": 0.0,
+            "strategy": "HOLD",
+            "in_portfolio": false,
+            "analyst_target": null,
+            "analyst_rating": null
+          }
+        ],
+        "data_source_primary": "alpaca",
+        "data_source_fallback": "fmp + alpha_vantage",
+        "av_quotes_scanned": 1
+      },
+      "source": "agent_options_alpaca",
+      "confidence": 0.85,
+      "agent_id": "options_agent",
+      "timestamp": "2026-08-26T15:01:47.031193+00:00",
+      "history": []
+    },
+    "crypto_perps": {
+      "data": {
+        "squeeze_ready": 0,
+        "confluence": 3,
+        "total_scanned": 28,
+        "funding_snapshot": {
+          "BTC": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "CONFLUENCE"
+          },
+          "ETH": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "CONFLUENCE"
+          },
+          "SOL": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "CONFLUENCE"
+          },
+          "XRP": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          },
+          "DOGE": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          },
+          "ADA": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          },
+          "AVAX": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          },
+          "LINK": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          },
+          "LTC": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          },
+          "DOT": {
+            "rate": 0,
+            "oi": 0,
+            "bucket": "NEUTRAL"
+          }
+        },
+        "coinalyze_status": {
+          "ok": false,
+          "detail": "no key in COINALYZE_API_KEY"
+        }
+      },
+      "source": "altcoin_squeeze_scanner",
+      "confidence": 0.85,
+      "agent_id": "seed_bus",
+      "timestamp": "2026-08-26T15:01:29.528102+00:00",
+      "history": []
+    },
+    "macro": {
+      "data": {
+        "regime": "RISK-ON",
+        "fetched": "2026-08-26T15:01:33.294704",
+        "cpi": 332.813,
+        "yield_curve_10y2y": 0.47,
+        "unemployment": 4.1,
+        "fed_funds_rate": 3.75,
+        "real_gdp": 24269.613,
+        "dxy": 1.1684,
+        "vix": 15.45
+      },
+      "source": "fred_api",
+      "confidence": 0.95,
+      "agent_id": "macro_agent",
+      "timestamp": "2026-08-26T15:01:33.295514+00:00",
+      "history": []
+    },
+    "risks": {
+      "data": {
+        "risk_score": "MODERATE",
+        "regime": "RISK-ON",
+        "concentration_risks": [],
+        "circuit_breaker_status": "OK",
+        "note": "Auto-scored from macro regime=RISK-ON, concentrations=0"
+      },
+      "source": "seed_bus_risk_heuristic",
+      "confidence": 0.7,
+      "agent_id": "seed_bus",
+      "timestamp": "2026-08-26T15:01:29.535864+00:00",
+      "history": []
+    },
+    "news": {
+      "data": {
+        "headlines": [
+          {
+            "symbol": "MACRO",
+            "title": "FOMC: FOMC rate decision \u2014 watch yield curve moves",
+            "url": "",
+            "publishedDate": "2026-09-17",
+            "source": "bus_catalysts",
+            "sentiment_hint": "neutral"
+          }
+        ],
+        "headline_count": 1,
+        "sector_impact": {
+          "MACRO": 1
+        },
+        "sentiment_shift": "NEUTRAL",
+        "bullish_count": 0,
+        "bearish_count": 0,
+        "regulatory_alerts": [],
+        "scanned_at": "2026-08-26T15:01:35.507490+00:00",
+        "source": "bus_cross_scan"
+      },
+      "source": "agent_news_bus_scan",
+      "confidence": 0.5,
+      "agent_id": "news_agent",
+      "timestamp": "2026-08-26T15:01:35.508022+00:00",
+      "history": []
+    },
+    "earnings": {
+      "data": {
+        "this_week": {
+          "portfolio_filtered": [],
+          "breadth": [],
+          "count_portfolio": 0,
+          "count_breadth": 0
+        },
+        "next_week": {
+          "portfolio_filtered": [],
+          "breadth": [],
+          "count_portfolio": 0,
+          "count_breadth": 0
+        },
+        "surprise_tracker": {},
+        "implied_moves": [],
+        "post_earnings_drift": {},
+        "scanned_at": "2026-08-26T15:01:36.688161+00:00",
+        "source": "fmp_earnings_api"
+      },
+      "source": "agent_earnings",
+      "confidence": 0.9,
+      "agent_id": "earnings_agent",
+      "timestamp": "2026-08-26T15:01:36.689836+00:00",
+      "history": []
+    },
+    "catalysts": {
+      "data": {
+        "active_catalysts": [
+          {
+            "type": "FOMC",
+            "symbol": "MACRO",
+            "date": "2026-09-17",
+            "impact": "HIGH",
+            "note": "FOMC rate decision \u2014 watch yield curve moves"
+          }
+        ],
+        "earnings_this_week": [],
+        "count": 1,
+        "scanned_at": "2026-08-26T15:01:47.586555"
+      },
+      "source": "agent_catalysts",
+      "confidence": 0.85,
+      "agent_id": "catalyst_agent",
+      "timestamp": "2026-08-26T15:01:47.587682+00:00",
+      "history": []
+    },
+    "analyst_sentiment": {
+      "data": {
+        "ratings": [],
+        "avg_rating": "NEUTRAL",
+        "scanned_at": "2026-08-26T15:01:47.778640",
+        "source": "fmp",
+        "buy_ratio": 0.0
+      },
+      "source": "agent_analyst_consensus",
+      "confidence": 0.9,
+      "agent_id": "analyst_consensus_agent",
+      "timestamp": "2026-08-26T15:01:47.779269+00:00",
+      "history": []
+    },
+    "market_consensus": {
+      "data": {
+        "head_trader_brief": {
+          "generated": "2026-08-26T15:02:27.711662",
+          "regime": "RISK-ON",
+          "risk_score": "MODERATE",
+          "portfolio_value": 0,
+          "sizing_multiplier": 1.0,
+          "trade_setups": [],
+          "hedge_recommendations": [],
+          "domains_available": [
+            "portfolio_allocation",
+            "portfolio_rebalancing",
+            "hedging",
+            "options",
+            "crypto_perps",
+            "macro",
+            "risks",
+            "news",
+            "earnings",
+            "catalysts",
+            "analyst_sentiment",
+            "market_consensus",
+            "fundamental",
+            "technical",
+            "data_sources",
+            "crypto_perps_aggregated",
+            "crypto_perps_hyperliquid",
+            "crypto_perps_okx",
+            "crypto_perps_ccxt",
+            "crypto_perps_coinbase"
+          ],
+          "cross_domain_alerts": [
+            {
+              "alert": "CATALYST: MACRO(FOMC) \u2014 position ahead of these events",
+              "severity": "INFO",
+              "domains": [
+                "catalysts",
+                "earnings",
+                "options"
+              ],
+              "timestamp": "2026-08-26T15:01:47.591053+00:00"
+            },
+            {
+              "alert": "OPTIONS: Low IV on COIN(IV=0.0777) \u2014 buy options (LEAPS, debit spreads)",
+              "severity": "INFO",
+              "domains": [
+                "options"
+              ],
+              "timestamp": "2026-08-26T15:01:47.034536+00:00"
+            },
+            {
+              "alert": "PORTFOLIO: {} \u2014 coinbase 0% vs fidelity 0%",
+              "severity": "INFO",
+              "domains": [
+                "portfolio_rebalancing",
+                "portfolio_allocation"
+              ],
+              "timestamp": "2026-08-26T15:01:37.545595+00:00"
+            },
+            {
+              "alert": "OPTIONS: avg IV None% across top 0 holdings",
+              "severity": "INFO",
+              "domains": [
+                "options",
+                "hedging"
+              ],
+              "timestamp": "2026-08-26T15:01:37.345134+00:00"
+            },
+            {
+              "alert": "CVD: ARB-USD strong SELL pressure 5m (buy_ratio=0.2323, CVD=-144100.68)",
+              "severity": "INFO",
+              "domains": [
+                "crypto_perps",
+                "hedging"
+              ],
+              "timestamp": "2026-08-26T15:01:17.896327+00:00"
+            }
+          ],
+          "news_headline_count": 1,
+          "news_sentiment_shift": "NEUTRAL",
+          "earnings_this_week_portfolio": [],
+          "earnings_next_week_portfolio": [],
+          "earnings_warnings": []
+        },
+        "synthesized_at": "2026-08-26T15:02:27.711700"
+      },
+      "source": "head_trader_synthesis",
+      "confidence": 0.85,
+      "agent_id": "head_trader",
+      "timestamp": "2026-08-26T15:02:27.712532+00:00",
+      "history": []
+    },
+    "fundamental": {
+      "data": {
+        "holdings_fundamentals": [],
+        "scanned_count": 0,
+        "scanned_at": "2026-08-26T15:01:34.321442"
+      },
+      "source": "yfinance",
+      "confidence": 0.85,
+      "agent_id": "fundamental_agent",
+      "timestamp": "2026-08-26T15:01:34.322249+00:00",
+      "history": []
+    },
+    "technical": {
+      "data": {
+        "holdings_technicals": [],
+        "rsi_bullish_setup": 0,
+        "rsi_oversold": 0,
+        "scanned_count": 0,
+        "scanned_at": "2026-08-26T15:01:35.002662"
+      },
+      "source": "yfinance",
+      "confidence": 0.85,
+      "agent_id": "technical_agent",
+      "timestamp": "2026-08-26T15:01:35.003441+00:00",
+      "history": []
+    },
+    "quant": {
+      "data": {
+        "status": "pending",
+        "note": "Quantitative signals \u2014 factor models, backtests, optimization"
+      },
+      "source": "initialization",
+      "confidence": 1.0,
+      "agent_id": "agent_state_bus",
+      "timestamp": "2026-08-24T14:10:19.821851+00:00",
+      "history": []
+    },
+    "data_sources": {
+      "data": {
+        "scanned_at": "2026-08-26T15:00:26.973420",
+        "mcp_servers": {
+          "fred": {
+            "status": "\u2705 LIVE",
+            "domains_served": [
+              "macro",
+              "risks"
+            ],
+            "has_api_key": true
+          },
+          "alpaca": {
+            "status": "\u2705 LIVE",
+            "domains_served": [
+              "portfolio_allocation",
+              "portfolio_rebalancing"
+            ],
+            "has_api_key": true
+          },
+          "fmp": {
+            "status": "\u2705 LIVE",
+            "domains_served": [
+              "fundamental",
+              "analyst_sentiment",
+              "earnings",
+              "catalysts",
+              "market_consensus",
+              "hedging",
+              "options"
+            ],
+            "has_api_key": true
+          },
+          "longbridge": {
+            "status": "\u2705 LIVE",
+            "domains_served": [
+              "market_consensus"
+            ],
+            "has_api_key": true
+          },
+          "options": {
+            "status": "\u2705 LIVE",
+            "domains_served": [
+              "options"
+            ],
+            "has_api_key": true
+          },
+          "coinbase": {
+            "status": "\ud83d\udfe1 KEY PRESENT (needs accounts:read scope)",
+            "domains_served": [
+              "portfolio_allocation",
+              "crypto_perps",
+              "hedging"
+            ],
+            "has_api_key": true
+          },
+          "coinbase_exchange_public": {
+            "status": "\u2705 LIVE",
+            "domains_served": [
+              "crypto_perps",
+              "technical",
+              "market_consensus"
+            ],
+            "has_api_key": true
+          }
+        },
+        "api_keys_present": 11,
+        "api_keys_total": 13,
+        "api_inventory": {
+          "FRED": {
+            "present": true,
+            "domains": [
+              "macro"
+            ]
+          },
+          "FMP": {
+            "present": true,
+            "domains": [
+              "fundamental",
+              "analyst_sentiment",
+              "earnings",
+              "catalysts",
+              "hedging",
+              "options",
+              "risks"
+            ]
+          },
+          "ALPACA": {
+            "present": true,
+            "domains": [
+              "portfolio_allocation",
+              "portfolio_rebalancing"
+            ]
+          },
+          "FINNHUB": {
+            "present": true,
+            "domains": [
+              "news",
+              "analyst_sentiment",
+              "technical"
+            ]
+          },
+          "MARKETAUX": {
+            "present": true,
+            "domains": [
+              "news",
+              "sentiment"
+            ]
+          },
+          "COINGECKO": {
+            "present": true,
+            "domains": [
+              "crypto_perps",
+              "market_consensus",
+              "risks"
+            ]
+          },
+          "COINBASE": {
+            "present": true,
+            "domains": [
+              "portfolio_allocation",
+              "crypto_perps",
+              "hedging"
+            ]
+          },
+          "ALPHA_VANTAGE": {
+            "present": true,
+            "domains": [
+              "technical",
+              "fundamental",
+              "quant",
+              "options",
+              "hedging"
+            ]
+          },
+          "FINANCIAL_DATASETS": {
+            "present": true,
+            "domains": [
+              "fundamental",
+              "quant"
+            ]
+          },
+          "PYTH": {
+            "present": true,
+            "domains": [
+              "crypto_perps"
+            ]
+          },
+          "MCP_TVREMIX": {
+            "present": true,
+            "domains": [
+              "technical"
+            ]
+          },
+          "OPENROUTER": {
+            "present": false,
+            "domains": [
+              "all"
+            ]
+          },
+          "GITHUB": {
+            "present": false,
+            "domains": [
+              "quant"
+            ]
+          }
+        },
+        "domain_sources": {
+          "macro": [
+            {
+              "type": "mcp",
+              "name": "fred",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FRED",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "fundamental": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "ALPHA_VANTAGE",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FINANCIAL_DATASETS",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "technical": [
+            {
+              "type": "mcp",
+              "name": "coinbase_exchange_public",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FINNHUB",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "ALPHA_VANTAGE",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "MCP_TVREMIX",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "analyst_sentiment": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FINNHUB",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "news": [
+            {
+              "type": "api",
+              "name": "FINNHUB",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "MARKETAUX",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "catalysts": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "earnings": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "options": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "mcp",
+              "name": "options",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "ALPHA_VANTAGE",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "crypto_perps": [
+            {
+              "type": "mcp",
+              "name": "coinbase",
+              "status": "\ud83d\udfe1 KEY PRESENT (needs accounts:read scope)"
+            },
+            {
+              "type": "mcp",
+              "name": "coinbase_exchange_public",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "COINGECKO",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "COINBASE",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "PYTH",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "portfolio_allocation": [
+            {
+              "type": "mcp",
+              "name": "alpaca",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "mcp",
+              "name": "coinbase",
+              "status": "\ud83d\udfe1 KEY PRESENT (needs accounts:read scope)"
+            },
+            {
+              "type": "api",
+              "name": "ALPACA",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "COINBASE",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "portfolio_rebalancing": [
+            {
+              "type": "mcp",
+              "name": "alpaca",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "ALPACA",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "risks": [
+            {
+              "type": "mcp",
+              "name": "fred",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "COINGECKO",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "hedging": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "mcp",
+              "name": "coinbase",
+              "status": "\ud83d\udfe1 KEY PRESENT (needs accounts:read scope)"
+            },
+            {
+              "type": "api",
+              "name": "FMP",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "COINBASE",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "ALPHA_VANTAGE",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "market_consensus": [
+            {
+              "type": "mcp",
+              "name": "fmp",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "mcp",
+              "name": "longbridge",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "mcp",
+              "name": "coinbase_exchange_public",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "COINGECKO",
+              "status": "\u2705 LIVE"
+            }
+          ],
+          "quant": [
+            {
+              "type": "api",
+              "name": "ALPHA_VANTAGE",
+              "status": "\u2705 LIVE"
+            },
+            {
+              "type": "api",
+              "name": "FINANCIAL_DATASETS",
+              "status": "\u2705 LIVE"
+            }
+          ]
+        },
+        "warnings": []
+      },
+      "source": "agent_data_sources",
+      "confidence": 0.99,
+      "agent_id": "data_source_inventory",
+      "timestamp": "2026-08-26T15:00:26.974607+00:00",
+      "history": []
+    },
+    "crypto_perps_aggregated": {
+      "data": {
+        "scanned_at": "2026-08-25T00:02:40.418351",
+        "source": "funding_oi_cvd_aggregator",
+        "funding_consensus": {},
+        "oi_consensus": {},
+        "cvd_consensus": {},
+        "altcoin_signals": {},
+        "source_count": 1
+      },
+      "source": "funding_oi_cvd_aggregator",
+      "confidence": 0.85,
+      "agent_id": "funding_oi_cvd_aggregator",
+      "timestamp": "2026-08-25T00:02:40.419285+00:00",
+      "history": []
+    },
+    "crypto_perps_hyperliquid": {
+      "data": {
+        "scanned_at": "2026-08-25T16:46:55.960392",
+        "source": "hyperliquid_public",
+        "symbols": {
+          "BTC": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "ETH": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "SOL": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "ARB": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "OP": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "AVAX": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "LINK": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "UNI": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "NEAR": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "APT": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "SUI": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "SEI": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "TIA": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "INJ": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "DYDX": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "RUNE": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "LDO": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "GMX": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "GNS": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "HYPE": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "PURR": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          },
+          "BLSH": {
+            "funding_8h": 0,
+            "funding_daily_pct": 0,
+            "funding_apr_pct": 0,
+            "open_interest": 0,
+            "open_interest_usd": 0,
+            "volume_24h_usd": 0,
+            "mark_price": 0,
+            "mid_price": 0,
+            "cvd_5m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_15m": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "cvd_full": {
+              "cvd": 0,
+              "buy_vol": 0,
+              "sell_vol": 0,
+              "buy_ratio": 0.5
+            },
+            "ob_imbalance": 0.0,
+            "max_leverage": 0
+          }
+        }
+      },
+      "source": "hyperliquid_public",
+      "confidence": 0.95,
+      "agent_id": "hyperliquid_public",
+      "timestamp": "2026-08-25T16:46:55.961913+00:00",
+      "history": []
+    },
+    "crypto_perps_okx": {
+      "data": {
+        "scanned_at": "2026-08-25T16:46:19.866732",
+        "source": "okx_public",
+        "symbols": {
+          "BTC": {
+            "inst_id": "BTC-USD-SWAP",
+            "funding_rate": -2.2e-05,
+            "funding_daily_pct": -0.0067,
+            "funding_apr_pct": -2.46,
+            "open_interest": 4634566.1,
+            "open_interest_ccy": 5842.6953,
+            "open_interest_usd": 463243935.89,
+            "volume_24h_usd": 8065.69,
+            "last_price": 79286.0,
+            "high_24h": 81233.8,
+            "low_24h": 78035.3,
+            "cvd_5m": {
+              "cvd": 60.8,
+              "buy_vol": 159.3,
+              "sell_vol": 98.5,
+              "buy_ratio": 0.6179,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": 446.7,
+              "buy_vol": 659.4,
+              "sell_vol": 212.7,
+              "buy_ratio": 0.7561,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": 712.7,
+              "buy_vol": 1039.0,
+              "sell_vol": 326.3,
+              "buy_ratio": 0.761,
+              "trade_count": 200
+            },
+            "ob_imbalance": -0.5511
+          },
+          "ETH": {
+            "inst_id": "ETH-USD-SWAP",
+            "funding_rate": -2e-06,
+            "funding_daily_pct": -0.0005,
+            "funding_apr_pct": -0.18,
+            "open_interest": 16073370.0,
+            "open_interest_ccy": 64850.4154,
+            "open_interest_usd": 160664310.06,
+            "volume_24h_usd": 87821.9,
+            "last_price": 2477.46,
+            "high_24h": 2532.23,
+            "low_24h": 2437.55,
+            "cvd_5m": {
+              "cvd": -152.0,
+              "buy_vol": 561.0,
+              "sell_vol": 713.0,
+              "buy_ratio": 0.4403,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": -3780.0,
+              "buy_vol": 4570.0,
+              "sell_vol": 8350.0,
+              "buy_ratio": 0.3537,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": -4261.0,
+              "buy_vol": 5615.0,
+              "sell_vol": 9876.0,
+              "buy_ratio": 0.3625,
+              "trade_count": 200
+            },
+            "ob_imbalance": 0.733
+          },
+          "SOL": {
+            "inst_id": "SOL-USD-SWAP",
+            "funding_rate": 6e-05,
+            "funding_daily_pct": 0.018,
+            "funding_apr_pct": 6.56,
+            "open_interest": 3444753.0,
+            "open_interest_ccy": 349437.3098,
+            "open_interest_usd": 34419575.02,
+            "volume_24h_usd": 847126.2,
+            "last_price": 98.5,
+            "high_24h": 103.12,
+            "low_24h": 94.72,
+            "cvd_5m": {
+              "cvd": -104.0,
+              "buy_vol": 98.0,
+              "sell_vol": 202.0,
+              "buy_ratio": 0.3267,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": 3239.0,
+              "buy_vol": 3715.0,
+              "sell_vol": 476.0,
+              "buy_ratio": 0.8864,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": 7284.0,
+              "buy_vol": 7760.0,
+              "sell_vol": 476.0,
+              "buy_ratio": 0.9422,
+              "trade_count": 200
+            },
+            "ob_imbalance": 0.4388
+          },
+          "LINK": {
+            "inst_id": "LINK-USD-SWAP",
+            "funding_rate": 8e-06,
+            "funding_daily_pct": 0.0025,
+            "funding_apr_pct": 0.9,
+            "open_interest": 281463.0,
+            "open_interest_ccy": 243817.5676,
+            "open_interest_usd": 2809753.65,
+            "volume_24h_usd": 90026.95,
+            "last_price": 11.524,
+            "high_24h": 11.954,
+            "low_24h": 11.347,
+            "cvd_5m": {
+              "cvd": 16.0,
+              "buy_vol": 115.0,
+              "sell_vol": 99.0,
+              "buy_ratio": 0.5374,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": 1329.0,
+              "buy_vol": 1526.0,
+              "sell_vol": 197.0,
+              "buy_ratio": 0.8857,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": 1261.0,
+              "buy_vol": 1714.0,
+              "sell_vol": 453.0,
+              "buy_ratio": 0.791,
+              "trade_count": 200
+            },
+            "ob_imbalance": 0.0288
+          },
+          "UNI": {
+            "inst_id": "UNI-USD-SWAP",
+            "funding_rate": 4.9e-05,
+            "funding_daily_pct": 0.0146,
+            "funding_apr_pct": 5.32,
+            "open_interest": 152365.0,
+            "open_interest_ccy": 348900.8473,
+            "open_interest_usd": 1524347.8,
+            "volume_24h_usd": 370809.6,
+            "last_price": 4.369,
+            "high_24h": 4.467,
+            "low_24h": 4.235,
+            "cvd_5m": {
+              "cvd": 146.0,
+              "buy_vol": 152.0,
+              "sell_vol": 6.0,
+              "buy_ratio": 0.962,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": -25.0,
+              "buy_vol": 362.0,
+              "sell_vol": 387.0,
+              "buy_ratio": 0.4833,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": 516.0,
+              "buy_vol": 919.0,
+              "sell_vol": 403.0,
+              "buy_ratio": 0.6952,
+              "trade_count": 200
+            },
+            "ob_imbalance": -0.0769
+          },
+          "SUI": {
+            "inst_id": "SUI-USD-SWAP",
+            "funding_rate": 0.0001,
+            "funding_daily_pct": 0.03,
+            "funding_apr_pct": 10.95,
+            "open_interest": 261801.0,
+            "open_interest_ccy": 3318978.1947,
+            "open_interest_usd": 2614027.23,
+            "volume_24h_usd": 3388531.44,
+            "last_price": 0.7876,
+            "high_24h": 0.8335,
+            "low_24h": 0.7768,
+            "cvd_5m": {
+              "cvd": -36.0,
+              "buy_vol": 460.0,
+              "sell_vol": 496.0,
+              "buy_ratio": 0.4812,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": -291.0,
+              "buy_vol": 582.0,
+              "sell_vol": 873.0,
+              "buy_ratio": 0.4,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": -386.0,
+              "buy_vol": 1528.0,
+              "sell_vol": 1914.0,
+              "buy_ratio": 0.4439,
+              "trade_count": 200
+            },
+            "ob_imbalance": -0.5654
+          },
+          "HYPE": {
+            "inst_id": "HYPE-USD-SWAP",
+            "funding_rate": 0.0001,
+            "funding_daily_pct": 0.03,
+            "funding_apr_pct": 10.95,
+            "open_interest": 97483.0,
+            "open_interest_ccy": 11936.499,
+            "open_interest_usd": 975605.87,
+            "volume_24h_usd": 18520.02,
+            "last_price": 81.733,
+            "high_24h": 82.0,
+            "low_24h": 76.76,
+            "cvd_5m": {
+              "cvd": 18.0,
+              "buy_vol": 67.0,
+              "sell_vol": 49.0,
+              "buy_ratio": 0.5776,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": 386.0,
+              "buy_vol": 494.0,
+              "sell_vol": 108.0,
+              "buy_ratio": 0.8206,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": 318.0,
+              "buy_vol": 501.0,
+              "sell_vol": 183.0,
+              "buy_ratio": 0.7325,
+              "trade_count": 200
+            },
+            "ob_imbalance": 0.8908
+          },
+          "DOGE": {
+            "inst_id": "DOGE-USD-SWAP",
+            "funding_rate": 0.0001,
+            "funding_daily_pct": 0.03,
+            "funding_apr_pct": 10.95,
+            "open_interest": 1969399.0,
+            "open_interest_ccy": 220611515.6268,
+            "open_interest_usd": 19682959.42,
+            "volume_24h_usd": 241342347.0,
+            "last_price": 0.0892,
+            "high_24h": 0.093,
+            "low_24h": 0.0868,
+            "cvd_5m": {
+              "cvd": -118.0,
+              "buy_vol": 283.0,
+              "sell_vol": 401.0,
+              "buy_ratio": 0.4137,
+              "trade_count": 50
+            },
+            "cvd_15m": {
+              "cvd": 1554.0,
+              "buy_vol": 2925.0,
+              "sell_vol": 1371.0,
+              "buy_ratio": 0.6809,
+              "trade_count": 150
+            },
+            "cvd_full": {
+              "cvd": 1523.0,
+              "buy_vol": 3374.0,
+              "sell_vol": 1851.0,
+              "buy_ratio": 0.6457,
+              "trade_count": 200
+            },
+            "ob_imbalance": 0.3878
+          }
+        }
+      },
+      "source": "okx_public",
+      "confidence": 0.95,
+      "agent_id": "okx_public",
+      "timestamp": "2026-08-25T16:46:19.867552+00:00",
+      "history": []
+    },
+    "crypto_perps_ccxt": {
+      "data": {
+        "scanned_at": "2026-08-25T16:47:04.009853",
+        "source": "ccxt_multi",
+        "exchanges": {
+          "binance": {
+            "BTC/USDT": {
+              "exchange": "binance",
+              "symbol": "BTC/USDT",
+              "error": "binance GET https://api.binance.com/api/v3/exchangeInfo 451  {\n  \"code\": 0,\n  \"msg\": \"Service unavai"
+            },
+            "ETH/USDT": {
+              "exchange": "binance",
+              "symbol": "ETH/USDT",
+              "error": "binance GET https://api.binance.com/api/v3/exchangeInfo 451  {\n  \"code\": 0,\n  \"msg\": \"Service unavai"
+            },
+            "SOL/USDT": {
+              "exchange": "binance",
+              "symbol": "SOL/USDT",
+              "error": "binance GET https://api.binance.com/api/v3/exchangeInfo 451  {\n  \"code\": 0,\n  \"msg\": \"Service unavai"
+            },
+            "BTC/USD": {
+              "exchange": "binance",
+              "symbol": "BTC/USD",
+              "error": "binance GET https://api.binance.com/api/v3/exchangeInfo 451  {\n  \"code\": 0,\n  \"msg\": \"Service unavai"
+            },
+            "ETH/USD": {
+              "exchange": "binance",
+              "symbol": "ETH/USD",
+              "error": "binance GET https://api.binance.com/api/v3/exchangeInfo 451  {\n  \"code\": 0,\n  \"msg\": \"Service unavai"
+            }
+          },
+          "kraken": {
+            "BTC/USD": {
+              "exchange": "kraken",
+              "symbol": "BTC/USD",
+              "error": "kraken fetchFundingRate() is not supported yet"
+            },
+            "ETH/USD": {
+              "exchange": "kraken",
+              "symbol": "ETH/USD",
+              "error": "kraken fetchFundingRate() is not supported yet"
+            },
+            "SOL/USD": {
+              "exchange": "kraken",
+              "symbol": "SOL/USD",
+              "error": "kraken fetchFundingRate() is not supported yet"
+            }
+          },
+          "bybit": {
+            "BTC/USDT": {
+              "exchange": "bybit",
+              "symbol": "BTC/USDT",
+              "error": "bybit GET https://api.bybit.com/v5/market/instruments-info?category=spot 403 Forbidden {\n    error:T"
+            },
+            "ETH/USDT": {
+              "exchange": "bybit",
+              "symbol": "ETH/USDT",
+              "error": "bybit GET https://api.bybit.com/v5/market/instruments-info?category=spot 403 Forbidden {\n    error:T"
+            },
+            "SOL/USDT": {
+              "exchange": "bybit",
+              "symbol": "SOL/USDT",
+              "error": "bybit GET https://api.bybit.com/v5/market/instruments-info?category=spot 403 Forbidden {\n    error:T"
+            },
+            "BTC/USD": {
+              "exchange": "bybit",
+              "symbol": "BTC/USD",
+              "error": "bybit GET https://api.bybit.com/v5/market/instruments-info?category=spot 403 Forbidden {\n    error:T"
+            },
+            "ETH/USD": {
+              "exchange": "bybit",
+              "symbol": "ETH/USD",
+              "error": "bybit GET https://api.bybit.com/v5/market/instruments-info?category=spot 403 Forbidden {\n    error:T"
+            }
+          }
+        }
+      },
+      "source": "ccxt_public",
+      "confidence": 0.9,
+      "agent_id": "ccxt_public",
+      "timestamp": "2026-08-25T16:47:04.010910+00:00",
+      "history": []
+    },
+    "crypto_perps_coinbase": {
+      "data": {
+        "scanned_at": "2026-08-26T15:01:17.877843",
+        "source": "coinbase_exchange_public",
+        "symbols": {
+          "BTC-USD": {
+            "cvd_5m": {
+              "cvd": -0.48279,
+              "buy_vol": 0.130604,
+              "sell_vol": 0.613394,
+              "net_vol": -0.48279,
+              "trade_count": 50,
+              "buy_ratio": 0.1755
+            },
+            "cvd_15m": {
+              "cvd": -2.619519,
+              "buy_vol": 0.855268,
+              "sell_vol": 3.474788,
+              "net_vol": -2.619519,
+              "trade_count": 150,
+              "buy_ratio": 0.1975
+            },
+            "cvd_full": {
+              "cvd": -2.711291,
+              "buy_vol": 0.886428,
+              "sell_vol": 3.597719,
+              "net_vol": -2.711291,
+              "trade_count": 200,
+              "buy_ratio": 0.1977
+            },
+            "volume_profile": {
+              "total_volume": 9631.1915,
+              "avg_volume": 27.5177,
+              "vwap": 78795.18,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 50.821,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 6424.98054149,
+              "price": 77813.2,
+              "bid": 77813.19,
+              "ask": 77813.2,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "ETH-USD": {
+            "cvd_5m": {
+              "cvd": 24.978202,
+              "buy_vol": 25.563741,
+              "sell_vol": 0.585539,
+              "net_vol": 24.978202,
+              "trade_count": 50,
+              "buy_ratio": 0.9776
+            },
+            "cvd_15m": {
+              "cvd": 28.173771,
+              "buy_vol": 37.496933,
+              "sell_vol": 9.323162,
+              "net_vol": 28.173771,
+              "trade_count": 150,
+              "buy_ratio": 0.8009
+            },
+            "cvd_full": {
+              "cvd": 35.320383,
+              "buy_vol": 46.769095,
+              "sell_vol": 11.448712,
+              "net_vol": 35.320383,
+              "trade_count": 200,
+              "buy_ratio": 0.8033
+            },
+            "volume_profile": {
+              "total_volume": 140983.3821,
+              "avg_volume": 402.8097,
+              "vwap": 2462.33,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 740.8791,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 90223.96704485,
+              "price": 2440.4,
+              "bid": 2440.4,
+              "ask": 2440.41,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "SOL-USD": {
+            "cvd_5m": {
+              "cvd": 140.386689,
+              "buy_vol": 221.329116,
+              "sell_vol": 80.942427,
+              "net_vol": 140.386689,
+              "trade_count": 50,
+              "buy_ratio": 0.7322
+            },
+            "cvd_15m": {
+              "cvd": 218.724941,
+              "buy_vol": 497.147098,
+              "sell_vol": 278.422157,
+              "net_vol": 218.724941,
+              "trade_count": 150,
+              "buy_ratio": 0.641
+            },
+            "cvd_full": {
+              "cvd": 395.290906,
+              "buy_vol": 785.366669,
+              "sell_vol": 390.075763,
+              "net_vol": 395.290906,
+              "trade_count": 200,
+              "buy_ratio": 0.6681
+            },
+            "volume_profile": {
+              "total_volume": 1472451.5015,
+              "avg_volume": 4207.0043,
+              "vwap": 97.53,
+              "volume_trend": "STABLE",
+              "recent_avg_vol": 5821.2638,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 916876.56896645,
+              "price": 95.45,
+              "bid": 95.45,
+              "ask": 95.47,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "LINK-USD": {
+            "cvd_5m": {
+              "cvd": -576.95,
+              "buy_vol": 441.78,
+              "sell_vol": 1018.73,
+              "net_vol": -576.95,
+              "trade_count": 50,
+              "buy_ratio": 0.3025
+            },
+            "cvd_15m": {
+              "cvd": 1152.58,
+              "buy_vol": 2547.86,
+              "sell_vol": 1395.28,
+              "net_vol": 1152.58,
+              "trade_count": 150,
+              "buy_ratio": 0.6462
+            },
+            "cvd_full": {
+              "cvd": 514.56,
+              "buy_vol": 3180.6,
+              "sell_vol": 2666.04,
+              "net_vol": 514.56,
+              "trade_count": 200,
+              "buy_ratio": 0.544
+            },
+            "volume_profile": {
+              "total_volume": 1577478.53,
+              "avg_volume": 4507.0815,
+              "vwap": 11.41,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 6563.05,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 1252464.24,
+              "price": 11.172,
+              "bid": 11.173,
+              "ask": 11.174,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "SUI-USD": {
+            "cvd_5m": {
+              "cvd": 2735.3,
+              "buy_vol": 10236.8,
+              "sell_vol": 7501.5,
+              "net_vol": 2735.3,
+              "trade_count": 50,
+              "buy_ratio": 0.5771
+            },
+            "cvd_15m": {
+              "cvd": 20365.9,
+              "buy_vol": 43338.5,
+              "sell_vol": 22972.6,
+              "net_vol": 20365.9,
+              "trade_count": 150,
+              "buy_ratio": 0.6536
+            },
+            "cvd_full": {
+              "cvd": 12787.8,
+              "buy_vol": 47037.4,
+              "sell_vol": 34249.6,
+              "net_vol": 12787.8,
+              "trade_count": 200,
+              "buy_ratio": 0.5787
+            },
+            "volume_profile": {
+              "total_volume": 25711566.1,
+              "avg_volume": 73461.6174,
+              "vwap": 0.77,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 162677.715,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 19526793.5,
+              "price": 0.7332,
+              "bid": 0.7331,
+              "ask": 0.7334,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "UNI-USD": {
+            "cvd_5m": {
+              "cvd": 5252.17914,
+              "buy_vol": 5477.362678,
+              "sell_vol": 225.183538,
+              "net_vol": 5252.17914,
+              "trade_count": 50,
+              "buy_ratio": 0.9605
+            },
+            "cvd_15m": {
+              "cvd": 11299.287442,
+              "buy_vol": 12083.332163,
+              "sell_vol": 784.044721,
+              "net_vol": 11299.287442,
+              "trade_count": 150,
+              "buy_ratio": 0.9391
+            },
+            "cvd_full": {
+              "cvd": 13777.070932,
+              "buy_vol": 14726.848623,
+              "sell_vol": 949.777691,
+              "net_vol": 13777.070932,
+              "trade_count": 200,
+              "buy_ratio": 0.9394
+            },
+            "volume_profile": {
+              "total_volume": 1387890.9654,
+              "avg_volume": 3965.4028,
+              "vwap": 4.32,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 4177.0438,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 901828.300596,
+              "price": 4.1904,
+              "bid": 4.1883,
+              "ask": 4.1916,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "NEAR-USD": {
+            "cvd_5m": {
+              "cvd": 150.674,
+              "buy_vol": 2244.436,
+              "sell_vol": 2093.762,
+              "net_vol": 150.674,
+              "trade_count": 50,
+              "buy_ratio": 0.5174
+            },
+            "cvd_15m": {
+              "cvd": 10073.338,
+              "buy_vol": 15643.799,
+              "sell_vol": 5570.461,
+              "net_vol": 10073.338,
+              "trade_count": 150,
+              "buy_ratio": 0.7374
+            },
+            "cvd_full": {
+              "cvd": 15227.176,
+              "buy_vol": 24155.579,
+              "sell_vol": 8928.403,
+              "net_vol": 15227.176,
+              "trade_count": 200,
+              "buy_ratio": 0.7301
+            },
+            "volume_profile": {
+              "total_volume": 4956856.425,
+              "avg_volume": 14162.4469,
+              "vwap": 1.89,
+              "volume_trend": "DECREASING",
+              "recent_avg_vol": 19157.1492,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 3460843.769,
+              "price": 1.8222,
+              "bid": 1.8221,
+              "ask": 1.8222,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "WLD-USD": {
+            "cvd_5m": {
+              "cvd": 2565.4,
+              "buy_vol": 4783.16,
+              "sell_vol": 2217.76,
+              "net_vol": 2565.4,
+              "trade_count": 50,
+              "buy_ratio": 0.6832
+            },
+            "cvd_15m": {
+              "cvd": 130517.45,
+              "buy_vol": 135603.5,
+              "sell_vol": 5086.05,
+              "net_vol": 130517.45,
+              "trade_count": 150,
+              "buy_ratio": 0.9638
+            },
+            "cvd_full": {
+              "cvd": 201532.39,
+              "buy_vol": 206618.44,
+              "sell_vol": 5086.05,
+              "net_vol": 201532.39,
+              "trade_count": 200,
+              "buy_ratio": 0.976
+            },
+            "volume_profile": {
+              "total_volume": 6018032.71,
+              "avg_volume": 17194.3792,
+              "vwap": 0.39,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 32302.3785,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 5233140.01,
+              "price": 0.385,
+              "bid": 0.3851,
+              "ask": 0.3852,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "AVAX-USD": {
+            "cvd_5m": {
+              "cvd": 625.252172,
+              "buy_vol": 844.726415,
+              "sell_vol": 219.474243,
+              "net_vol": 625.252172,
+              "trade_count": 50,
+              "buy_ratio": 0.7938
+            },
+            "cvd_15m": {
+              "cvd": 1184.976532,
+              "buy_vol": 2335.544992,
+              "sell_vol": 1150.56846,
+              "net_vol": 1184.976532,
+              "trade_count": 150,
+              "buy_ratio": 0.67
+            },
+            "cvd_full": {
+              "cvd": 1174.689664,
+              "buy_vol": 2670.143051,
+              "sell_vol": 1495.453387,
+              "net_vol": 1174.689664,
+              "trade_count": 200,
+              "buy_ratio": 0.641
+            },
+            "volume_profile": {
+              "total_volume": 627539.12,
+              "avg_volume": 1792.9689,
+              "vwap": 7.41,
+              "volume_trend": "DECREASING",
+              "recent_avg_vol": 2240.8467,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 383843.90295965,
+              "price": 7.209,
+              "bid": 7.209,
+              "ask": 7.211,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          },
+          "ARB-USD": {
+            "cvd_5m": {
+              "cvd": -144100.68,
+              "buy_vol": 62513.89,
+              "sell_vol": 206614.57,
+              "net_vol": -144100.68,
+              "trade_count": 50,
+              "buy_ratio": 0.2323
+            },
+            "cvd_15m": {
+              "cvd": -68157.71,
+              "buy_vol": 152591.85,
+              "sell_vol": 220749.56,
+              "net_vol": -68157.71,
+              "trade_count": 150,
+              "buy_ratio": 0.4087
+            },
+            "cvd_full": {
+              "cvd": -30693.36,
+              "buy_vol": 206218.36,
+              "sell_vol": 236911.72,
+              "net_vol": -30693.36,
+              "trade_count": 200,
+              "buy_ratio": 0.4654
+            },
+            "volume_profile": {
+              "total_volume": 10284375.13,
+              "avg_volume": 29383.9289,
+              "vwap": 0.09,
+              "volume_trend": "INCREASING",
+              "recent_avg_vol": 108013.592,
+              "candle_count": 350
+            },
+            "ticker_24h": {
+              "volume_24h": 7842634.99,
+              "price": 0.08879,
+              "bid": 0.08879,
+              "ask": 0.08887,
+              "high_24h": 0.0,
+              "low_24h": 0.0
+            }
+          }
+        },
+        "notes": "CVD = buy_vol - sell_vol from Coinbase Exchange trades (public). Positive = buying pressure."
+      },
+      "source": "coinbase_cvd",
+      "confidence": 0.9,
+      "agent_id": "coinbase_cvd",
+      "timestamp": "2026-08-26T15:01:17.878726+00:00",
+      "history": []
+    }
+  },
+  "cross_domain_alerts": [
+    {
+      "alert": "TEAM RUN COMPLETE: regime=RISK-ON risk=MODERATE portfolio=$0 squeeze=0 hedges=0 domains=20/15",
+      "severity": "INFO",
+      "domains": [
+        "portfolio_allocation",
+        "portfolio_rebalancing",
+        "hedging",
+        "options",
+        "crypto_perps",
+        "macro",
+        "risks",
+        "news",
+        "earnings",
+        "catalysts",
+        "analyst_sentiment",
+        "market_consensus",
+        "fundamental",
+        "technical",
+        "data_sources",
+        "crypto_perps_aggregated",
+        "crypto_perps_hyperliquid",
+        "crypto_perps_okx",
+        "crypto_perps_ccxt",
+        "crypto_perps_coinbase"
+      ],
+      "timestamp": "2026-08-26T15:02:27.723826+00:00"
+    },
+    {
+      "alert": "CATALYST: MACRO(FOMC) \u2014 position ahead of these events",
+      "severity": "INFO",
+      "domains": [
+        "catalysts",
+        "earnings",
+        "options"
+      ],
+      "timestamp": "2026-08-26T15:01:47.591053+00:00"
+    },
+    {
+      "alert": "OPTIONS: Low IV on COIN(IV=0.0777) \u2014 buy options (LEAPS, debit spreads)",
+      "severity": "INFO",
+      "domains": [
+        "options"
+      ],
+      "timestamp": "2026-08-26T15:01:47.034536+00:00"
+    },
+    {
+      "alert": "PORTFOLIO: {} \u2014 coinbase 0% vs fidelity 0%",
+      "severity": "INFO",
+      "domains": [
+        "portfolio_rebalancing",
+        "portfolio_allocation"
+      ],
+      "timestamp": "2026-08-26T15:01:37.545595+00:00"
+    },
+    {
+      "alert": "OPTIONS: avg IV None% across top 0 holdings",
+      "severity": "INFO",
+      "domains": [
+        "options",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:37.345134+00:00"
+    },
+    {
+      "alert": "CVD: ARB-USD strong SELL pressure 5m (buy_ratio=0.2323, CVD=-144100.68)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.896327+00:00"
+    },
+    {
+      "alert": "CVD: AVAX-USD strong BUY pressure 5m (buy_ratio=0.7938, CVD=625.252172)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.893449+00:00"
+    },
+    {
+      "alert": "CVD: UNI-USD strong BUY pressure 5m (buy_ratio=0.9605, CVD=5252.17914)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.890555+00:00"
+    },
+    {
+      "alert": "CVD: SOL-USD strong BUY pressure 5m (buy_ratio=0.7322, CVD=140.386689)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.887763+00:00"
+    },
+    {
+      "alert": "CVD: ETH-USD strong BUY pressure 5m (buy_ratio=0.9776, CVD=24.978202)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.884928+00:00"
+    },
+    {
+      "alert": "CVD: BTC-USD strong SELL pressure 5m (buy_ratio=0.1755, CVD=-0.48279)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-26T15:01:17.882025+00:00"
+    },
+    {
+      "alert": "CATALYST: MACRO(FOMC) \u2014 position ahead of these events",
+      "severity": "INFO",
+      "domains": [
+        "catalysts",
+        "earnings",
+        "options"
+      ],
+      "timestamp": "2026-08-25T18:59:21.390814+00:00"
+    },
+    {
+      "alert": "OPTIONS: avg IV 75.6% across top 5 holdings",
+      "severity": "INFO",
+      "domains": [
+        "options",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:20:04.577839+00:00"
+    },
+    {
+      "alert": "TEAM RUN COMPLETE: regime=RISK-ON risk=ELEVATED portfolio=$71,454 squeeze=0 hedges=2 domains=18/15",
+      "severity": "INFO",
+      "domains": [
+        "portfolio_allocation",
+        "portfolio_rebalancing",
+        "hedging",
+        "options",
+        "crypto_perps",
+        "macro",
+        "risks",
+        "catalysts",
+        "analyst_sentiment",
+        "market_consensus",
+        "fundamental",
+        "technical",
+        "data_sources",
+        "crypto_perps_aggregated",
+        "crypto_perps_hyperliquid",
+        "crypto_perps_okx",
+        "crypto_perps_ccxt",
+        "crypto_perps_coinbase"
+      ],
+      "timestamp": "2026-08-25T17:18:31.019472+00:00"
+    },
+    {
+      "alert": "CATALYST: MACRO(FOMC) \u2014 position ahead of these events",
+      "severity": "INFO",
+      "domains": [
+        "catalysts",
+        "earnings",
+        "options"
+      ],
+      "timestamp": "2026-08-25T17:17:48.508679+00:00"
+    },
+    {
+      "alert": "HEDGE: EQUITY_HEDGE; OPTIONS_OVERLAY (BTC/MSTR 0%, regime=RISK-ON)",
+      "severity": "WARN",
+      "domains": [
+        "hedging",
+        "options",
+        "risks"
+      ],
+      "timestamp": "2026-08-25T17:17:48.037517+00:00"
+    },
+    {
+      "alert": "OPTIONS: Low IV on RIOT(IV=0.0635), IREN(IV=0.0419) \u2014 buy options (LEAPS, debit spreads)",
+      "severity": "INFO",
+      "domains": [
+        "options"
+      ],
+      "timestamp": "2026-08-25T17:17:47.960580+00:00"
+    },
+    {
+      "alert": "PORTFOLIO: {'coinbase': 53.3, 'fidelity': 46.7} \u2014 coinbase 53.3% vs fidelity 46.7%",
+      "severity": "INFO",
+      "domains": [
+        "portfolio_rebalancing",
+        "portfolio_allocation"
+      ],
+      "timestamp": "2026-08-25T17:17:37.623819+00:00"
+    },
+    {
+      "alert": "OPTIONS: avg IV 77.7% across top 5 holdings",
+      "severity": "INFO",
+      "domains": [
+        "options",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:37.447266+00:00"
+    },
+    {
+      "alert": "CONCENTRATION: BT 44.2%, M 8.8%,  11.7%, ETH 5.6% \u2014 check rebalancing",
+      "severity": "WARN",
+      "domains": [
+        "portfolio_allocation",
+        "portfolio_rebalancing",
+        "risks"
+      ],
+      "timestamp": "2026-08-25T17:17:22.245762+00:00"
+    },
+    {
+      "alert": "CVD: ARB-USD strong BUY pressure 5m (buy_ratio=0.9337, CVD=52580.57)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.966297+00:00"
+    },
+    {
+      "alert": "CVD: WLD-USD strong SELL pressure 5m (buy_ratio=0.14, CVD=-12520.0)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.963256+00:00"
+    },
+    {
+      "alert": "CVD: NEAR-USD strong SELL pressure 5m (buy_ratio=0.1541, CVD=-6966.805)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.960159+00:00"
+    },
+    {
+      "alert": "CVD: SUI-USD strong SELL pressure 5m (buy_ratio=0.1709, CVD=-28244.0)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.957329+00:00"
+    },
+    {
+      "alert": "CVD: LINK-USD strong BUY pressure 5m (buy_ratio=0.9685, CVD=2640.03)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.953921+00:00"
+    },
+    {
+      "alert": "CVD: ETH-USD strong BUY pressure 5m (buy_ratio=0.8577, CVD=7.671842)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.950892+00:00"
+    },
+    {
+      "alert": "CVD: BTC-USD strong BUY pressure 5m (buy_ratio=0.8941, CVD=0.367651)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T17:17:17.947526+00:00"
+    },
+    {
+      "alert": "CONCENTRATION: BT 44.2%, M 8.8%,  11.7%, ETH 5.6% \u2014 check rebalancing",
+      "severity": "WARN",
+      "domains": [
+        "portfolio_allocation",
+        "portfolio_rebalancing",
+        "risks"
+      ],
+      "timestamp": "2026-08-25T17:16:12.988534+00:00"
+    },
+    {
+      "alert": "CVD: WLD-USD strong BUY pressure 5m (buy_ratio=0.7122, CVD=2954.95)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T16:46:46.917178+00:00"
+    },
+    {
+      "alert": "CVD: NEAR-USD strong SELL pressure 5m (buy_ratio=0.0759, CVD=-12365.195)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T16:46:46.913596+00:00"
+    },
+    {
+      "alert": "CVD: UNI-USD strong SELL pressure 5m (buy_ratio=0.1701, CVD=-181.564203)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T16:46:46.909350+00:00"
+    },
+    {
+      "alert": "CVD: SUI-USD strong BUY pressure 5m (buy_ratio=0.7903, CVD=14863.8)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T16:46:46.905456+00:00"
+    },
+    {
+      "alert": "CVD: SOL-USD strong SELL pressure 5m (buy_ratio=0.1976, CVD=-135.541027)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T16:46:46.901219+00:00"
+    },
+    {
+      "alert": "CVD: ETH-USD strong BUY pressure 5m (buy_ratio=0.9361, CVD=17.663924)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T16:46:46.897553+00:00"
+    },
+    {
+      "alert": "OKX CVD: UNI strong buy pressure (buy_ratio=0.962)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps"
+      ],
+      "timestamp": "2026-08-25T16:46:19.870677+00:00"
+    },
+    {
+      "alert": "CVD: ARB-USD strong SELL pressure 5m (buy_ratio=0.2527, CVD=-29000.79)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.129810+00:00"
+    },
+    {
+      "alert": "CVD: AVAX-USD strong BUY pressure 5m (buy_ratio=0.903, CVD=550.087161)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.127270+00:00"
+    },
+    {
+      "alert": "CVD: NEAR-USD strong SELL pressure 5m (buy_ratio=0.1096, CVD=-4663.892)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.124600+00:00"
+    },
+    {
+      "alert": "CVD: UNI-USD strong SELL pressure 5m (buy_ratio=0.0, CVD=-71.071301)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.122065+00:00"
+    },
+    {
+      "alert": "CVD: SUI-USD strong BUY pressure 5m (buy_ratio=0.7402, CVD=49509.3)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.119261+00:00"
+    },
+    {
+      "alert": "CVD: ETH-USD strong BUY pressure 5m (buy_ratio=0.923, CVD=13.304605)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.116797+00:00"
+    },
+    {
+      "alert": "CVD: BTC-USD strong SELL pressure 5m (buy_ratio=0.0013, CVD=-0.312524)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps",
+        "hedging"
+      ],
+      "timestamp": "2026-08-25T15:39:02.113927+00:00"
+    },
+    {
+      "alert": "OKX CVD: LINK strong sell pressure (buy_ratio=0.0182)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps"
+      ],
+      "timestamp": "2026-08-25T15:38:35.289471+00:00"
+    },
+    {
+      "alert": "OKX CVD: SOL strong sell pressure (buy_ratio=0.0289)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps"
+      ],
+      "timestamp": "2026-08-25T15:38:35.286329+00:00"
+    },
+    {
+      "alert": "OKX CVD: ETH strong buy pressure (buy_ratio=1.0)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps"
+      ],
+      "timestamp": "2026-08-25T15:38:35.282616+00:00"
+    },
+    {
+      "alert": "OKX CVD: BTC strong sell pressure (buy_ratio=0.2092)",
+      "severity": "INFO",
+      "domains": [
+        "crypto_perps"
+      ],
+      "timestamp": "2026-08-25T15:38:35.279074+00:00"
+    },
+    {
+      "alert": "TEAM RUN COMPLETE: regime=RISK-ON risk=ELEVATED portfolio=$71,998 squeeze=0 hedges=2 domains=18/15",
+      "severity": "INFO",
+      "domains": [
+        "portfolio_allocation",
+        "portfolio_rebalancing",
+        "hedging",
+        "options",
+        "crypto_perps",
+        "macro",
+        "risks",
+        "catalysts",
+        "analyst_sentiment",
+        "market_consensus",
+        "fundamental",
+        "technical",
+        "data_sources",
+        "crypto_perps_aggregated",
+        "crypto_perps_hyperliquid",
+        "crypto_perps_okx",
+        "crypto_perps_ccxt",
+        "crypto_perps_coinbase"
+      ],
+      "timestamp": "2026-08-25T13:03:28.667278+00:00"
+    },
+    {
+      "alert": "CATALYST: MACRO(FOMC) \u2014 position ahead of these events",
+      "severity": "INFO",
+      "domains": [
+        "catalysts",
+        "earnings",
+        "options"
+      ],
+      "timestamp": "2026-08-25T13:02:40.049553+00:00"
+    },
+    {
+      "alert": "HEDGE: EQUITY_HEDGE; OPTIONS_OVERLAY (BTC/MSTR 0%, regime=RISK-ON)",
+      "severity": "WARN",
+      "domains": [
+        "hedging",
+        "options",
+        "risks"
+      ],
+      "timestamp": "2026-08-25T13:02:39.570196+00:00"
+    },
+    {
+      "alert": "OPTIONS: Low IV on HOOD(IV=0.0578) \u2014 buy options (LEAPS, debit spreads)",
+      "severity": "INFO",
+      "domains": [
+        "options"
+      ],
+      "timestamp": "2026-08-25T13:02:39.490004+00:00"
+    }
+  ],
+  "last_updated": "2026-08-26T15:02:27.723851+00:00"
+}
