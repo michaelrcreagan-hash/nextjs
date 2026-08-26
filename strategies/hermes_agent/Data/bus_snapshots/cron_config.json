@@ -1,0 +1,77 @@
+{
+  "cron_jobs": [
+    {
+      "name": "btc_daily_bias_9_10am",
+      "schedule": "10 9 * * 1-5",
+      "description": "BTC Daily Bias Analysis - ML models + 12 data sources + backtest + Telegram delivery",
+      "telegram": true,
+      "agent_mode": true,
+      "delegation_id": "deleg_a84692cb",
+      "tracks_goals": ["btc_accumulation", "eth_accumulation", "mstr_bmnr_leaps_pnl", "perp_margin_pnl", "prop_firm_balance"]
+    },
+    {
+      "name": "portfolio_refresh_9_45am",
+      "schedule": "45 9 * * 1-5",
+      "description": "Live portfolio refresh (Alpaca + CoinGecko + OKX) - Update vs $1.5M target",
+      "telegram": true,
+      "tracks_goals": ["portfolio_value", "monthly_expenses_coverage", "crypto_positions"]
+    },
+    {
+      "name": "midday_crypto_check_1_30pm",
+      "schedule": "30 13 * * 1-5",
+      "description": "Mid-day crypto position monitoring - Perp/margin P&L tracking",
+      "telegram": false,
+      "tracks_goals": ["perp_margin_pnl", "btc_eth_accumulation", "active_trading_targets"]
+    },
+    {
+      "name": "pre_close_review_3pm",
+      "schedule": "0 15 * * 1-5",
+      "description": "Pre-close position review - Options expiry, LEAPS management",
+      "telegram": false,
+      "tracks_goals": ["mstr_bmnr_leaps_pnl", "options_overlay", "hedging_positions"]
+    },
+    {
+      "name": "eod_summary_11_30pm",
+      "schedule": "30 23 * * 1-5",
+      "description": "End-of-day summary - Daily P&L, goal progress, next day prep",
+      "telegram": true,
+      "tracks_goals": ["daily_pnl", "portfolio_vs_target", "milestone_progress", "expenses_coverage"]
+    },
+    {
+      "name": "macro_regime_sync",
+      "schedule": "0 8 * * 1-5",
+      "description": "Macro-economic data sync - FRED 7 series, regime classification",
+      "telegram": false,
+      "tracks_goals": ["regime_alignment", "strategy_selection"]
+    },
+    {
+      "name": "weekly_deep_analysis",
+      "schedule": "0 10 * * 1",
+      "description": "Comprehensive weekly analysis - Regime review, strategy performance, goal milestones",
+      "telegram": true,
+      "tracks_goals": ["weekly_performance", "regime_transition_check", "milestone_tracking"]
+    },
+    {
+      "name": "monthly_goal_review",
+      "schedule": "0 9 1 * *",
+      "description": "Monthly goal review - $1.5M target progress, crypto accumulation, prop firm performance",
+      "telegram": true,
+      "tracks_goals": ["monthly_net_worth", "btc_eth_accumulation", "prop_firm_returns", "active_trading_pnl"]
+    },
+    {
+      "name": "memory_compression",
+      "schedule": "0 3 * * *",
+      "description": "Memory compression and learning",
+      "telegram": false
+    },
+    {
+      "name": "prop_firm_tracking",
+      "schedule": "0 6 * * 1-5",
+      "description": "Prop firm challenge tracking - Account balance, 4%/mo target, challenge status",
+      "telegram": true,
+      "tracks_goals": ["prop_firm_balance", "prop_firm_monthly_pct", "challenge_completion"]
+    }
+  ],
+  "goal_config_ref": "/opt/data/goal_tracking_config.json",
+  "model_pinned": "openrouter/auto"
+}

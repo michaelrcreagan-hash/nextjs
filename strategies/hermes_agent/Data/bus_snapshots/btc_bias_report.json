@@ -1,0 +1,116 @@
+{
+ "timestamp": "2026-08-26T13:36:29.886985+00:00",
+ "regime": "MIXED",
+ "btc_bias": "LONG",
+ "btc_confidence": 0.449,
+ "btc_tier": "NEUTRAL",
+ "ibit_bias": "LONG",
+ "ibit_confidence": 0.449,
+ "mstr_bias": "NEUTRAL",
+ "mstr_confidence": 0.55,
+ "mstr_note": "MSTR $123.99 below 200DMA (-12.8%) despite +18.94% 5d pop; RSI 72.0 - no edge either way",
+ "composite_score_raw": 0.556,
+ "feature_scores": {
+  "ETF flows": {
+   "weight": 0.25,
+   "score": 1,
+   "value": "+$959M net over last 3 sessions",
+   "status": "LIVE"
+  },
+  "Funding (OKX)": {
+   "weight": 0.15,
+   "score": 0.1857584890746653,
+   "value": "0.0085%/8h (~9% ann)",
+   "status": "LIVE"
+  },
+  "Open interest": {
+   "weight": 0.1,
+   "score": 0.0,
+   "value": "HL BTC OI $2.79B; no reliable 24h dOa",
+   "status": "PARTIAL"
+  },
+  "Spot/Futures CVD": {
+   "weight": 0.3,
+   "score": null,
+   "value": "unavailable this run",
+   "status": "MISSING"
+  },
+  "Exchange netflow/reserves": {
+   "weight": 0.1,
+   "score": null,
+   "value": "unavailable this run",
+   "status": "MISSING"
+  },
+  "Whale alerts": {
+   "weight": 0.1,
+   "score": null,
+   "value": "unavailable this run",
+   "status": "MISSING"
+  },
+  "CME basis": {
+   "weight": 0.05,
+   "score": null,
+   "value": "unavailable this run",
+   "status": "MISSING"
+  }
+ },
+ "price_context": {
+  "BTC-USD": {
+   "last": 78315.54,
+   "chg1d_pct": -0.32,
+   "chg5d_pct": -0.03,
+   "rsi14": 87.3,
+   "above_ma200": true,
+   "ma200_dist_pct": 13.2
+  },
+  "ETH-USD": {
+   "last": 2451.18,
+   "chg1d_pct": 0.33,
+   "chg5d_pct": -2.55,
+   "rsi14": 83.6,
+   "above_ma200": true,
+   "ma200_dist_pct": 21.7
+  },
+  "MSTR": {
+   "last": 123.99,
+   "chg1d_pct": -2.24,
+   "chg5d_pct": 18.94,
+   "rsi14": 72.0,
+   "above_ma200": false,
+   "ma200_dist_pct": -12.8
+  },
+  "IBIT": {
+   "last": 44.36,
+   "chg1d_pct": -0.8,
+   "chg5d_pct": 14.39,
+   "rsi14": 86.0,
+   "above_ma200": true,
+   "ma200_dist_pct": 3.6
+  },
+  "BMNR": {
+   "last": 24.58,
+   "chg1d_pct": -0.96,
+   "chg5d_pct": 21.46,
+   "rsi14": 81.6,
+   "above_ma200": true,
+   "ma200_dist_pct": 8.0
+  }
+ },
+ "sentiment": {
+  "btc_dominance": 59.22,
+  "mcap_chg24h_pct": -3.75,
+  "fear_greed": 65
+ },
+ "guards_applied": [
+  "daily RSI 87 extremely overbought",
+  "Fear&Greed 65 (Greed)"
+ ],
+ "backtest_caveat": "Prior rolling backtest dir-accuracy 0.48 / AUC 0.46 (no better than coin flip) - treat ML ensemble as unvalidated; today bias uses transparent rule-weighted features instead",
+ "missing_sources": [
+  "Coinbase/Hyperliquid CVD",
+  "exchange netflow",
+  "whale alerts",
+  "CME basis",
+  "Coinalyze (gated)"
+ ]
+}

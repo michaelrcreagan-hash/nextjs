@@ -1,0 +1,149 @@
+{
+  "generated": "2026-08-26 15:02",
+  "timestamp_utc": "2026-08-26T15:02:27.452659",
+  "macro": {
+    "CPI": {
+      "ok": true,
+      "value": 332.813
+    },
+    "T10Y2Y": {
+      "ok": true,
+      "value": 0.47
+    },
+    "UNRATE": {
+      "ok": true,
+      "value": 4.1
+    },
+    "regime": "RISK-ON",
+    "fetched": "2026-08-26T15:01:49.302318"
+  },
+  "account": {
+    "ok": true,
+    "source": "alpaca-live",
+    "equity": 16431.31,
+    "cash": 9909.0,
+    "buying_power": 57809.33,
+    "portfolio_value": 16431.31
+  },
+  "holdings_source": "Portfolio_Positions_Aug-23-2026.csv (Fidelity)",
+  "total_holdings_value": 0,
+  "holdings_count": 0,
+  "top_holdings": [],
+  "setups": [
+    {
+      "symbol": "BTC",
+      "asset_type": "CRYPTO_PERP",
+      "direction": "LONG",
+      "entry": 76297.31,
+      "stop_loss": 71626.05,
+      "take_profit": 89532.56,
+      "risk_reward": 2.83,
+      "probability": 68,
+      "profit_factor": 2.3,
+      "technical_score": 72,
+      "fundamental_score": 78,
+      "score": {
+        "F": 7,
+        "T": 7,
+        "S": 8,
+        "M": 8
+      },
+      "catalyst": "confluence trend; macro-backed accumulation (spot $407M, OI $0M)",
+      "risk_level": "MEDIUM",
+      "timestamp": "2026-08-26T15:02:27.452577",
+      "avg_hold_time": 24.0,
+      "bucket": "CONFLUENCE",
+      "position_check": {
+        "conflict_flags": [],
+        "existing_qty": 0,
+        "existing_value": 0,
+        "allocatable_bp": 867.14
+      }
+    },
+    {
+      "symbol": "ETH",
+      "asset_type": "CRYPTO_PERP",
+      "direction": "LONG",
+      "entry": 2392.31,
+      "stop_loss": 2245.84,
+      "take_profit": 2807.3,
+      "risk_reward": 2.83,
+      "probability": 68,
+      "profit_factor": 2.3,
+      "technical_score": 72,
+      "fundamental_score": 78,
+      "score": {
+        "F": 7,
+        "T": 7,
+        "S": 8,
+        "M": 8
+      },
+      "catalyst": "confluence trend; macro-backed accumulation (spot $234M, OI $0M)",
+      "risk_level": "MEDIUM",
+      "timestamp": "2026-08-26T15:02:27.452604",
+      "avg_hold_time": 24.0,
+      "bucket": "CONFLUENCE",
+      "position_check": {
+        "conflict_flags": [],
+        "existing_qty": 0,
+        "existing_value": 0,
+        "allocatable_bp": 867.14
+      }
+    }
+  ],
+  "scan_summary": {
+    "total_perps": 28,
+    "squeeze_ready": 0,
+    "confluence": 2,
+    "neutral": 24,
+    "coinalyze_status": {
+      "ok": false,
+      "detail": "tier-gated: empty [] on derivatives endpoints"
+    },
+    "scanner_outputs": "/opt/data/altcoin_squeeze_scan.json"
+  },
+  "paper_orders": [
+    {
+      "symbol": "BTC/USD",
+      "asset_type": "crypto",
+      "qty": 0.0114,
+      "side": "buy",
+      "type": "limit",
+      "time_in_force": "day",
+      "limit_price": 76297.31,
+      "stop_loss": 71626.05,
+      "take_profit": 89532.56,
+      "rr": 2.83,
+      "confidence": "CONFLUENCE-macro (not auto-submitted)",
+      "position_check": {
+        "conflict_flags": [],
+        "existing_qty": 0,
+        "existing_value": 0,
+        "allocatable_bp": 867.14
+      },
+      "note": "PAPER spec: execute in Alpaca/cash UI only \u2014 limit entry at retest level"
+    },
+    {
+      "symbol": "ETH/USD",
+      "asset_type": "crypto",
+      "qty": 0.3625,
+      "side": "buy",
+      "type": "limit",
+      "time_in_force": "day",
+      "limit_price": 2392.31,
+      "stop_loss": 2245.84,
+      "take_profit": 2807.3,
+      "rr": 2.83,
+      "confidence": "CONFLUENCE-macro (not auto-submitted)",
+      "position_check": {
+        "conflict_flags": [],
+        "existing_qty": 0,
+        "existing_value": 0,
+        "allocatable_bp": 867.14
+      },
+      "note": "PAPER spec: execute in Alpaca/cash UI only \u2014 limit entry at retest level"
+    }
+  ],
+  "trade_setups_json": "/opt/data/squeeze_to_setup.json",
+  "trade_setups_pdf": "/opt/data/trade_reports/crypto_squeeze_report.pdf"
+}

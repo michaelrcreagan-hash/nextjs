@@ -1,0 +1,156 @@
+{
+  "date": "2026-08-26T16:04:53.126245",
+  "source": "Fidelity transaction log \u2014 Aug 25-26, 2026 (user-provided)",
+  "transaction_count": 20,
+  "cash_flow_total": -1293.19,
+  "income_total": 2429.22,
+  "total_net_flow": 1136.03,
+  "new_positions": [
+    {
+      "symbol": "IBIT",
+      "type": "BUY_OPTION_CALL",
+      "cost": -224.66,
+      "account": "JOINT NOS",
+      "opt_type": "CALL",
+      "expiry": "2026-03-19"
+    },
+    {
+      "symbol": "URNM",
+      "type": "BUY",
+      "cost": -122.08,
+      "account": "JOINT NOS"
+    },
+    {
+      "symbol": "TLT",
+      "type": "BUY_OPTION_CALL",
+      "cost": -154.06,
+      "account": "JOINT NOS",
+      "opt_type": "CALL",
+      "expiry": "2026-11-02"
+    },
+    {
+      "symbol": "TQQQ",
+      "type": "BUY",
+      "cost": -70.33,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "JEPI",
+      "type": "BUY",
+      "cost": -116.28,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "SLV",
+      "type": "BUY",
+      "cost": -62.31,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "SPHB",
+      "type": "BUY",
+      "cost": -148.0,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "SOXL",
+      "type": "BUY",
+      "cost": -116.2,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "CLPT",
+      "type": "BUY",
+      "cost": -169.6,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "NVDA",
+      "type": "BUY_OPTION_CALL",
+      "cost": -105.66,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "IBIT",
+      "type": "SELL_OPTION_PUT",
+      "cost": -4.01,
+      "account": "JOINT WROS",
+      "opt_type": "PUT",
+      "expiry": "2026-09-18",
+      "strike": 2
+    }
+  ],
+  "positions_closed": [
+    {
+      "symbol": "STRIVE",
+      "action": "RETURN_OF_CAPITAL",
+      "proceeds": 0.23,
+      "account": "JOINT NOS"
+    },
+    {
+      "symbol": "STRIVE",
+      "action": "SELL",
+      "proceeds": 500.01,
+      "account": "JOINT NOS",
+      "shares": 10.929,
+      "price": 10.929
+    },
+    {
+      "symbol": "STRIVE",
+      "action": "RETURN_OF_CAPITAL_SUBSTITUTE",
+      "proceeds": 0.1,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "STRIVE",
+      "action": "RETURN_OF_CAPITAL",
+      "proceeds": 0.18,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "NVDA",
+      "action": "SELL_OPTION_CALL",
+      "proceeds": 369.34,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "WULF",
+      "action": "SELL",
+      "proceeds": 1549.96,
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "IBIT",
+      "action": "SELL_OPTION_PUT",
+      "proceeds": 9.4,
+      "account": "JOINT WROS",
+      "opt_type": "PUT",
+      "expiry": "2026-09-18",
+      "strike": 33,
+      "contracts": 10
+    }
+  ],
+  "dividends_returns": [
+    {
+      "symbol": "STRIVE",
+      "type": "RETURN_OF_CAPITAL",
+      "amount": 0.23,
+      "date": "2026-08-24",
+      "account": "JOINT NOS"
+    },
+    {
+      "symbol": "STRIVE",
+      "type": "RETURN_OF_CAPITAL_SUBSTITUTE",
+      "amount": 0.1,
+      "date": "2026-08-21",
+      "account": "JOINT WROS"
+    },
+    {
+      "symbol": "STRIVE",
+      "type": "RETURN_OF_CAPITAL",
+      "amount": 0.18,
+      "date": "2026-08-21",
+      "account": "JOINT WROS"
+    }
+  ]
+}
