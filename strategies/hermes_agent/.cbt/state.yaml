@@ -16,13 +16,13 @@ engine: fast
 project_type: hybrid
 
 # Current phase in workflow
-phase: research  # discovery | research | eda | config | plan | build | iterate
+phase: config  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
   discovery: true
   research: false
-  eda: false
+  eda: true
   config: false
   plan: false
   build: false
