@@ -202,7 +202,33 @@ goal_expansion:
       status: ANALYSED_2026-08-27
       report: FIDELITY_SLEEVES.md
     breakout_crypto_prop:
-      status: RETESTED_REAL_RULES_2026-08-27
+      status: OPTIMIZED_4H_2026-08-27
+      report: BREAKOUT_OPTIMAL_STRATEGY.md
+      data: Data/h4/  # 6567 4H OHLCV bars x 8 symbols, 3.00y, Coinbase 1h resampled
+      engine: 4H Keltner expansion breakout L/S + MACD + ER/ADX + vol-regime gate
+      recommended:
+        classic_10k: {risk_pct: 0.75, atr_stop: 1.5, rr: 1.5, max_concurrent: 3, internal_daily_pct: 1.0}
+        turbo_200k:  {risk_pct: 0.50, atr_stop: 1.5, rr: 1.25, max_concurrent: 3, internal_daily_pct: 1.0}
+      measured_oos:
+        classic: {pass_pct: 100.0, breaches_pct: 0.0, trade_win_pct: 58.3, pf: 2.26}
+        turbo:   {pass_pct: 92.5,  breaches_pct: 2.5, trade_win_pct: 65.6, pf: 2.37, e_payouts: 12.3}
+      key_finding: >-
+        Under a floor that never resets, SMALLER targets beat bigger winners. Turbo
+        2.0R -> 1.25R raised OOS pass 67.5% -> 92.5% and cut dd breaches 32.5% -> 2.5%.
+        Open trades carry floating losses against both the daily limit and the floor,
+        so converting risk to closed profit fast is worth more than winning bigger.
+        Highest trade win rate and highest pass rate land on the SAME config here.
+      chatgpt_report_validated: [4H Keltner+MACD+ER/ADX+vol gate, leverage as ceiling not edge, internal daily stop inside firm limit]
+      chatgpt_report_falsified:
+        - "EMA pullback engine (their rank #2) has NEGATIVE expectancy: 0% pass, PF 0.48, avg -0.43R -- drop it"
+        - "ER>=0.30 and ADX>=25 thresholds do NO work: 0.20/0.30/0.40 and 20/25/30 all give identical 81.7% pass. The vol-expansion gate (only 7% of bars) is the entire filter."
+        - "Donchian 'robust benchmark' is far riskier than framed: 53% pass, 41.7% dd breaches"
+      fragility_caught: >-
+        First champion (risk0.75/stop1.5/RR2.0) showed 100% pass on the full panel but
+        IS 0% vs OOS 20% drawdown breaches. Full-panel 100% masked it. Discarded; Stage 4
+        re-ranks on OOS breach rate first. Cost stress 1x/2x/3x -> 100/95.0/91.7%.
+        Start-date density 30/60/120/240 stable.
+      superseded_status: RETESTED_REAL_RULES_2026-08-27
       report: PROP_FIRM_REPORT.md
       runner: run_crypto_prop.py
       rules: confirmed_by_author_and_cross_checked   # was ASSUMED before
@@ -257,7 +283,9 @@ blocked_on_user:
   - fidelity_margin_decision       # book is 1.45x gross; contradicts leverage.enabled:false
   - three_to_one_reading           # total-return (3.11x, passes) vs terminal-wealth (1.79x, fails)
   - point_in_time_crypto_universe  # paid data; needed to remove survivorship bias from CRYPTO_LOW_REPORT
-  - intraday_price_history         # 1m-15m; BLOCKS BOTH prop asks (#5 frequency, #6 entirely)
+  # RESOLVED 2026-08-27 for crypto: 4H panel built from Coinbase 1h (Data/h4/).
+  # Still needed for the FUTURES prop ask (#6).
+  - futures_intraday_price_history
   - futures_data_source            # ask #6 cannot start without it
 # RESOLVED 2026-08-27: fidelity_balance -> $18,996 (verified). See FIDELITY_SLEEVES.md.
 

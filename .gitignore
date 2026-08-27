@@ -44,3 +44,4 @@ next-env.d.ts
 strategies/*/Data/panel.parquet
 __pycache__/
 *.pyc
+strategies/*/Data/h4/*.csv
