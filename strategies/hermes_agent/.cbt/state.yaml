@@ -176,18 +176,44 @@ report_file: BASELINE_REPORT.md
 goal_expansion:
   status: mapped_not_built
   document: GOAL_RECONCILIATION.md
-  in_hermes_agent:                 # gated behind the failed step-5 gate
-    - crypto_spot_4y_low_entry     # mean-reversion entry; OPPOSITE of current momentum core
-    - leverage_microcap_satellite  # 20%; reverses leverage.enabled:false deliberately
+  in_hermes_agent:
+    crypto_spot_4y_low_entry:
+      status: TESTED_2026-08-27
+      report: CRYPTO_LOW_REPORT.md
+      panel: Data/crypto_panel_5y.csv   # 1831 bars x 25 names, 5.01y, Coinbase
+      verdict: >-
+        NEGATIVE. The low signal adds +0.92pp CAGR over a DCA control on the same
+        universe (23.40% vs 22.48%) with a slightly WORSE drawdown -- best of 16
+        trials on one 5y sample, i.e. noise. At 20% proximity all four lookback
+        windows give identical results, so the signal has stopped binding. The
+        return came from the universe and the staged deployment schedule.
+      caveat: >-
+        SURVIVORSHIP BIAS. Universe is today's top names; excludes LUNA/FTT-style
+        collapses that a buy-the-low rule would have bought to zero. Optimistic bound.
+      beats_btc: true                    # 23.40% vs 9.86% CAGR; -57% vs -77% DD; MAR 0.41 vs 0.13
+    leverage_microcap_satellite:
+      status: IMPLEMENTED_AS_CAPITAL_SPLIT
+      note: >-
+        20% split, NOT leverage (config leverage.enabled:false stands). True
+        micro-caps are not listed on Coinbase, so the sleeve is currently
+        "smaller top-25 names" rather than micro-caps.
   new_strategies_required:
     - fidelity_sleeves             # ANALYSED 2026-08-27 -> FIDELITY_SLEEVES.md; sized from real positions
     - breakout_crypto_prop         # bull + bear; start from strategies/crypto_algo_trading
     - futures_prop                 # futures / indices / commodities; no futures data yet
   benchmark_change:
     requested: ">3:1 vs BTC over 4 years"
-    arithmetic: "60-68% CAGR if BTC compounds at 30-35%; 25.4% CAGR if measured on this panel's window"
-    blocker: "panel starts 2024-07-23 -- no 4-year window exists; 1.29 tradeable years after warm-up"
-    recommendation: "fix the comparison to the backtest window; fetch a longer panel"
+    status: MEASURED_2026-08-27_AMBIGUOUS
+    measured_over: "5.01 years, 2021-08-23 -> 2026-08-27"
+    btc_actual: {cagr_pct: 9.86, total_return_pct: 60.1}
+    strategy_best: {cagr_pct: 23.40, total_return_pct: 186.8}
+    terminal_wealth_multiple: 1.79      # FAILS the 3.0x bar
+    total_return_multiple: 3.11         # PASSES the 3.0x bar
+    blocker: "AMBIGUOUS READING - the two defensible interpretations disagree. Needs the author's call."
+    note: >-
+      The earlier 60-68% CAGR projection assumed BTC compounding at 30-35%. Over the
+      actual window BTC did 9.86%, so the bar landed far lower. Confirms the benchmark
+      is not scale-free: it is easy when BTC is weak and near-impossible when BTC is strong.
   prop_targets:
     requested: "$70k/yr; 4%+/month on each $100k account"
     internal_consistency: ok       # 4%/mo compounds to 60.1%/yr; $70k fits inside an 80/20 split
@@ -202,6 +228,8 @@ blocked_on_user:
   - benchmark_window_decision      # see goal_expansion.benchmark_change
   - breakout_prop_firm_rules       # Monte Carlo assumed the harder trailing-DD variant
   - fidelity_margin_decision       # book is 1.45x gross; contradicts leverage.enabled:false
+  - three_to_one_reading           # total-return (3.11x, passes) vs terminal-wealth (1.79x, fails)
+  - point_in_time_crypto_universe  # paid data; needed to remove survivorship bias from CRYPTO_LOW_REPORT
 # RESOLVED 2026-08-27: fidelity_balance -> $18,996 (verified). See FIDELITY_SLEEVES.md.
 
 # Live deployment status

@@ -16,9 +16,9 @@ one, and states plainly where the arithmetic or the data does not support it.
 | # | Ask | Where it belongs | Blocked on |
 |---|---|---|---|
 | 1 | Fidelity: high-beta, yield/income, options, macro hedge | **new strategy** (4 sleeves) | ✅ **UNBLOCKED 2026-08-27** — book analysed, see `FIDELITY_SLEEVES.md`. Forward backtesting still needs option-chain data + a panel for these names |
-| 2 | Crypto spot: BTC + ETH + top-25 alts bought at the 4-year low | hermes_agent extension | top-25 alts absent from panel; panel is 2.09y, cannot see a 4-year low |
-| 3 | 20% of crypto to leverage / micro-cap satellites | hermes_agent extension | `leverage.enabled: false` by prior decision; no micro-cap data |
-| 4 | Iterate to ">3:1 vs BTC over 4 years" | benchmark change | **see the arithmetic below** |
+| 2 | Crypto spot: BTC + ETH + top-25 alts bought at the 4-year low | hermes_agent extension | ✅ **TESTED 2026-08-27** — 5.01y panel built, see `CRYPTO_LOW_REPORT.md`. **The low signal adds +0.92pp over a DCA control = noise** |
+| 3 | 20% of crypto to leverage / micro-cap satellites | hermes_agent extension | ⚠ implemented as a 20% **capital split**, not leverage. True micro-caps are not listed on Coinbase, so the sleeve is "smaller top-25 names" |
+| 4 | Iterate to ">3:1 vs BTC over 4 years" | benchmark change | ⚠ **AMBIGUOUS — needs your call.** 3.11× on total return (PASS) vs 1.79× on terminal wealth (FAIL) |
 | 5 | Breakout prop firm: bull + bear crypto strategies | **new strategy** | firm's actual rules unconfirmed |
 | 6 | US futures prop firm: futures, indices, commodities | **new strategy** | no futures data in repo |
 
@@ -48,6 +48,40 @@ Three findings that reach past this account, in full in `FIDELITY_SLEEVES.md`:
 3. **The capacity problem is confirmed in a second account.** 79 of 132
    positions are under $200 (45.3% of equity). `min_position_value_usd: 1000`
    would forbid 79 of the 132 positions actually held.
+
+---
+
+## Asks 2, 3, 4 — TESTED, see `CRYPTO_LOW_REPORT.md`
+
+The data blocker is gone: `Data/crypto_panel_5y.csv` is **1,831 daily bars ×
+25 names over 5.01 years** from Coinbase (the author's actual spot venue, so
+the 0.60% taker cost model is exact rather than approximate).
+
+| arm | CAGR | max DD | MAR |
+|---|---:|---:|---:|
+| BTC buy & hold | 9.86% | −76.67% | 0.13 |
+| equal-weight 25, lump sum | −5.34% | −77.08% | −0.07 |
+| DCA control (no signal) | 22.48% | −56.16% | 0.40 |
+| best low-buying arm | 23.40% | −56.95% | 0.41 |
+
+**The headline finding is negative and it is the useful one: buying the
+multi-year low beats blind dollar-cost averaging into the same basket by
++0.92pp of CAGR** — the best of 16 trials, on one 5-year sample, with a
+slightly *worse* drawdown. That is noise. What produced the 23% was the
+universe and the staged deployment schedule, not the signal. Corroboration:
+at 20% proximity all four lookback windows give byte-identical results, i.e.
+the signal has stopped binding and the arm has become DCA with extra steps.
+
+The strategy does clearly beat BTC (23.4% vs 9.86% CAGR, −57% vs −77% DD) —
+and that holds on the control arm too, so it survives the finding.
+
+⚠ **Survivorship bias outranks every number here.** The universe is today's
+top names, excluding LUNA/FTT-style collapses that a buy-the-low rule would
+have bought all the way down. Results are an optimistic bound. A point-in-time
+market-cap universe is the highest-value data purchase available to this project.
+
+Also worth noting: "top 25 by market cap" taken literally includes **eight
+stablecoins**, which have no trend to be at a low against. They are filtered out.
 
 ---
 
@@ -92,6 +126,21 @@ this cycle, so it is not the independent return source the benchmark needs.
   2024-07-23. There is no 4-year window in this repo, and after the regime
   engine's 200-day warm-up the tradeable sample is **1.29 years**. Any "4-year
   return" reported from this panel today would be fabricated.
+
+**MEASURED RESULT (2026-08-27), now that the panel exists:** over the actual
+5.01-year window BTC returned only **9.86% CAGR / +60.1% total**, far below the
+30–35% the projection above assumed — so the bar landed much lower than
+predicted. The benchmark is not scale-free, exactly as flagged. Against it:
+
+| reading | calculation | result | vs 3.0× |
+|---|---|---:|---|
+| terminal wealth | $286,796 / $160,148 | **1.79×** | ❌ FAIL |
+| total return | 186.8% / 60.1% | **3.11×** | ✅ PASS |
+
+Both are defensible readings of "outperform btc by a more than 3 to 1
+multiple" and they disagree. **Which did you mean?** I'd use total return
+("3× the profit BTC made"), which the strategy clears — but it decides whether
+ask #4 is already satisfied or still open, so it should be your call.
 
 **Recommendation:** keep the 3:1 ratio as the *stated ambition*, but fix the
 comparison window and state it — "3× BTC's total return measured over the same
