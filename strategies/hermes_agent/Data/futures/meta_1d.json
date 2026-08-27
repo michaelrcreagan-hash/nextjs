@@ -1,0 +1,77 @@
+{
+  "source": "Yahoo Finance chart endpoint (keyless, undocumented)",
+  "fetched": "2026-08-27T17:56:13.045066+00:00",
+  "interval": "1d",
+  "series": {
+    "ES": {
+      "symbol": "ES=F",
+      "bars": 2514,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "NQ": {
+      "symbol": "NQ=F",
+      "bars": 2514,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "YM": {
+      "symbol": "YM=F",
+      "bars": 2514,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "RTY": {
+      "symbol": "RTY=F",
+      "bars": 2300,
+      "years": 9.13,
+      "first": "2017-07-10",
+      "last": "2026-08-27"
+    },
+    "CL": {
+      "symbol": "CL=F",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "GC": {
+      "symbol": "GC=F",
+      "bars": 2512,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "SI": {
+      "symbol": "SI=F",
+      "bars": 2512,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "HG": {
+      "symbol": "HG=F",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "ZN": {
+      "symbol": "ZN=F",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "NG": {
+      "symbol": "NG=F",
+      "bars": 2514,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    }
+  }
+}

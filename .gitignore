@@ -45,3 +45,5 @@ strategies/*/Data/panel.parquet
 __pycache__/
 *.pyc
 strategies/*/Data/h4/*.csv
+strategies/*/Data/futures/*.csv
+strategies/*/Data/macro/*.csv

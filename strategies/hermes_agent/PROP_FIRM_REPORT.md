@@ -2,8 +2,11 @@
 
 **Date:** 2026-08-27 (revised with real rules)
 **Ask #5:** Breakout crypto prop — **RE-TESTED against the real rules. Result reversed.**
-**Ask #6:** US futures prop firm — **BLOCKED on data. Not built.**
-**Reproduce:** `python3 run_crypto_prop.py`
+**Ask #6:** US futures prop firm — **UNBLOCKED via keyless data, BUILT, and decisively negative.**
+**Reproduce:** `python3 fetch_keyless.py && python3 run_futures_prop.py && python3 run_futures_daily.py`
+
+> Ask #5's optimized successor lives in **`BREAKOUT_OPTIMAL_STRATEGY.md`** (4H engine,
+> 92–100% OOS pass). The daily-bar tables below are retained as the audit trail.
 
 ---
 
@@ -153,25 +156,69 @@ Other caveats:
 
 ---
 
-## Ask #6 — US futures prop firm: BLOCKED, not built
+## Ask #6 — US futures prop firm: UNBLOCKED, BUILT, and it does not work
 
-**No futures data is reachable from this environment:**
+**Status changed 2026-08-27.** The data blocker is gone. Yahoo Finance's chart
+endpoint is keyless and serves futures directly, so I fetched:
 
-| source | result |
-|---|---|
-| Binance public API | HTTP **451** — geo-blocked |
-| Stooq CSV (`es.f`, `gc.f`, `nq.f`, `cl.f`) | returns **HTML**, not CSV |
-| CoinGecko free tier historical | **401** beyond trial window |
-| Coinbase Exchange | works, but **crypto only** |
+- **10 years of daily futures** — ES, NQ, YM, RTY (indices), CL, NG (energy),
+  GC, SI, HG (metals), ZN (rates). 2,298 aligned bars.
+- **2.4 years of hourly futures**, resampled to 4H — 3,454 aligned bars.
+- **10 years of daily macro** — VIX, DXY, TNX, IRX, SMH, HYG, LQD, SPY, GLD.
 
-The repo has no futures, index or commodity history either. Building this would
-mean fabricating a backtest, which I won't do.
+(FRED's `fredgraph.csv` and `data/*.txt` endpoints both time out from this
+environment, and Stooq returns an HTML shell rather than CSV for every symbol
+tested. Yahoo was the one that worked. It is undocumented and can change
+without notice, so everything is cached to CSV on first fetch.)
 
-**To unblock, one of:** an AlphaVantage/FMP/Databento key with futures coverage;
-a CSV export of continuous contracts (ES, NQ, CL, GC, ZN) from your broker; or
-explicit acceptance of ETF proxies (SPY, QQQ, GLD, USO, TLT) — which would not
-be a futures strategy, since it drops the roll, the margin structure and the
-near-24-hour session, and I'd label it as such.
+### The result: negative expectancy, in both directions
+
+Rules modelled: representative Topstep-style $50k Combine — $3,000 target,
+$2,000 max drawdown, $1,000 (2%) daily loss. **Not confirmed with any firm**,
+since none was named. Both the trailing and static drawdown variants were run.
+
+| test | best pass | best PF | drawdown breaches |
+|---|---:|---:|---:|
+| 4H Keltner breakout (trailing DD) | 22.5% | **0.91** | 67.5–100% |
+| 4H Keltner breakout (static DD) | 22.5% | **0.82** | 67.5–97.5% |
+| Daily Keltner breakout, 10y | 0.0% | **0.73** | 85–87.5% |
+| Daily **inverted** (fade the breakout) | 7.5% | **0.81** | 77.5–90% |
+
+**Every profit factor is below 1.0.** The strategy that passes 92.5% of Breakout
+crypto evaluations loses money on futures at every timeframe, risk level and
+target tested — and so does its mirror image.
+
+### Three things this tells us, and one it doesn't
+
+1. **The crypto edge does not transfer.** This is the most useful finding. It
+   would have been easy to assume a validated engine generalizes; it does not.
+   Whatever the 4H Keltner expansion breakout is capturing in crypto is a
+   property of crypto, not a general market-structure effect.
+2. **When both a rule and its inverse lose, the answer is costs and noise, not
+   direction.** If futures simply mean-reverted where crypto trends, the faded
+   version would have been profitable. It wasn't (PF 0.81). That rules out the
+   most obvious fix and says the signal has no exploitable structure here at all.
+3. **Risk rules cannot rescue a losing edge.** The trailing and static drawdown
+   variants produced nearly identical outcomes. Below PF 1.0 the drawdown rule
+   is irrelevant — you lose either way, only the timing differs. This is worth
+   holding onto: on the crypto side, tuning the risk envelope mattered enormously,
+   but only *because* the underlying expectancy was positive.
+
+**What it does not tell us:** that futures prop is impossible. It tells us *this
+engine* fails on futures. The expansion regime fires on only **0.56% of daily
+cells** (128 signals across 10 years × 10 instruments) — the volatility gate
+that makes the crypto version selective makes the futures version starved.
+A futures-native strategy would likely need a different mechanism entirely
+(session-based ranges, roll/calendar effects, or intraday mean reversion around
+the cash open), not a re-tuning of this one. I did not build that, and I would
+not guess at its results.
+
+### Recommendation
+
+**Do not fund a futures prop account on the strength of anything in this repo.**
+There is no validated futures strategy here, and the one candidate tested is
+decisively negative. If you want to pursue it, the next step is a
+futures-native research cycle, not another parameter sweep on this engine.
 
 ---
 

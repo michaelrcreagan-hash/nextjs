@@ -1,0 +1,96 @@
+{
+  "bars": 2298,
+  "symbols": [
+    "CL",
+    "ES",
+    "GC",
+    "HG",
+    "NG",
+    "NQ",
+    "RTY",
+    "SI",
+    "YM",
+    "ZN"
+  ],
+  "results": {
+    "breakout risk0.5 rr1.25": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 85.0,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 39.6,
+      "profit_factor": 0.73,
+      "trades_per_month": 7.4,
+      "median_months_to_pass": null
+    },
+    "breakout risk0.5 rr1.5": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 85.0,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 29.0,
+      "profit_factor": 0.56,
+      "trades_per_month": 5.8,
+      "median_months_to_pass": null
+    },
+    "breakout risk0.75 rr1.5": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 87.5,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 35.8,
+      "profit_factor": 0.67,
+      "trades_per_month": 5.7,
+      "median_months_to_pass": null
+    },
+    "breakout risk0.5 rr2.0": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 85.0,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 25.8,
+      "profit_factor": 0.63,
+      "trades_per_month": 5.4,
+      "median_months_to_pass": null
+    },
+    "FADE risk0.5 rr1.25": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 77.5,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 36.7,
+      "profit_factor": 0.63,
+      "trades_per_month": 6.6,
+      "median_months_to_pass": null
+    },
+    "FADE risk0.5 rr1.5": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 77.5,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 35.9,
+      "profit_factor": 0.74,
+      "trades_per_month": 7.3,
+      "median_months_to_pass": null
+    },
+    "FADE risk0.75 rr1.5": {
+      "pass_pct": 7.5,
+      "pass_lo": 2.5,
+      "pass_hi": 12.5,
+      "breach_dd_pct": 90.0,
+      "breach_daily_pct": 0.0,
+      "trade_win_pct": 38.0,
+      "profit_factor": 0.81,
+      "trades_per_month": 7.0,
+      "median_months_to_pass": 0.9
+    }
+  },
+  "best": "FADE risk0.75 rr1.5",
+  "verdict": "none"
+}

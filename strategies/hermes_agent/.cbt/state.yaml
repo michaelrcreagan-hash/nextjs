@@ -251,9 +251,24 @@ goal_expansion:
       sample_caveat: "40 start dates ~35 bars apart on runs lasting far longer -- heavily overlapping, NOT 40 independent samples"
       unblock: "intraday data (1m-15m); Breakout's post-payout drawdown reset rule"
     futures_prop:
-      status: BLOCKED_NOT_BUILT
-      reason: "no futures/index/commodity data reachable: Binance 451, Stooq returns HTML, CoinGecko 401; none in repo"
-      unblock: "futures data key, a broker CSV export, or explicit acceptance of ETF proxies (which would not be a futures strategy)"
+      status: BUILT_AND_NEGATIVE_2026-08-27
+      report: PROP_FIRM_REPORT.md
+      runners: [fetch_keyless.py, run_futures_prop.py, run_futures_daily.py]
+      data_unblock: >-
+        Yahoo Finance chart endpoint is KEYLESS and serves futures. Fetched 10y daily
+        (ES NQ YM RTY CL NG GC SI HG ZN, 2298 aligned bars) + 2.4y hourly -> 4H
+        (3454 bars) + 10y macro (VIX DXY TNX IRX SMH HYG LQD SPY GLD).
+        FRED fredgraph.csv and data/*.txt both TIME OUT here; Stooq returns HTML not CSV.
+      verdict: >-
+        NEGATIVE AND DECISIVE. Every profit factor below 1.0: 4H breakout 0.82-0.91,
+        daily breakout 0.56-0.73, daily INVERTED (fade) 0.63-0.81. Pass rates 0-22.5%,
+        drawdown breaches 67-100%. The crypto champion does NOT transfer to futures.
+      key_findings:
+        - "When a rule AND its mirror image both lose, the answer is costs/noise, not direction -- rules out the obvious mean-reversion fix"
+        - "Trailing vs static drawdown produced near-identical results, because below PF 1.0 the drawdown rule is irrelevant. Risk rules cannot rescue a losing edge."
+        - "Expansion regime fires on only 0.56% of daily cells (128 signals / 10y / 10 instruments) -- the gate that makes the crypto version selective makes the futures version starved"
+      scope_note: "This tests THIS ENGINE on futures, not futures prop in general. A futures-native mechanism (session ranges, roll effects, intraday MR around the cash open) was NOT built and should not be guessed at."
+      recommendation: "Do NOT fund a futures prop account on anything in this repo."
   benchmark_change:
     requested: ">3:1 vs BTC over 4 years"
     status: MEASURED_2026-08-27_AMBIGUOUS
@@ -285,7 +300,10 @@ blocked_on_user:
   - point_in_time_crypto_universe  # paid data; needed to remove survivorship bias from CRYPTO_LOW_REPORT
   # RESOLVED 2026-08-27 for crypto: 4H panel built from Coinbase 1h (Data/h4/).
   # Still needed for the FUTURES prop ask (#6).
-  - futures_intraday_price_history
+  # RESOLVED 2026-08-27 via keyless Yahoo (Data/futures/, Data/macro/).
+  # Remaining futures gap is a STRATEGY gap, not a data gap.
+  - futures_native_strategy_research
+  - futures_prop_firm_choice        # no firm named; rules modelled are representative Topstep-style
   - futures_data_source            # ask #6 cannot start without it
 # RESOLVED 2026-08-27: fidelity_balance -> $18,996 (verified). See FIDELITY_SLEEVES.md.
 
