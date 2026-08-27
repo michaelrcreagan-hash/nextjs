@@ -8,13 +8,18 @@
 # inline. See "What changed and why" at the bottom of this file for the summary.
 
 account:
-  # Identified real capital as of 2026-08-26: Merrill IRA ~$9,860 + Coinbase
-  # spot ~$19,846 = ~$29,706, rounded down to $30,000.
-  # EXCLUDES Fidelity net equity and Hyperliquid margin equity, which were
-  # never quantified (only per-position P&L was provided). This is materially
-  # below the $100,000 that this session's $1.5M-by-2029 goal math assumed --
-  # RESEARCH.md open question #4. Revise once those two balances are known.
-  initial_capital: 30000
+  # Identified real capital as of 2026-08-26 (updated at /cbt:config round 2):
+  #   Merrill IRA (equities/ETFs, 69 positions) ...... $ 9,860
+  #   Coinbase spot #1 (20 tokens) ................... $19,846
+  #   Coinbase spot #2 ("coinbase2") ................. $25,000
+  #   Crypto perps (Hyperliquid) ..................... $26,000
+  #   IDENTIFIED TOTAL ............................... $80,706  -> rounded down
+  #
+  # STILL EXCLUDES Fidelity brokerage/margin net equity, never quantified
+  # (only per-position P&L was provided). The gap to the $100,000 that this
+  # session's $1.5M-by-2029 goal math assumed has narrowed from ~$70k to
+  # ~$19k -- Fidelity may well close most of what remains.
+  initial_capital: 80000
   currency: USD
 
 # Computing engine
@@ -23,19 +28,45 @@ engine:
 
 sizing:
   mode: percent  # percent | fixed | kelly
-  # 8% per position x 8 max positions = 64% max deployed, ~36% cash buffer.
-  # Template was 2% x 3 = 6% deployed, which is not a real allocation.
+  # CONCENTRATION -- determined at user request rather than chosen by them.
+  # At $80k the capacity floor is no longer the binding constraint (12
+  # positions still gives $5,360 each, 5.4x the floor), so this reverts to a
+  # diversification-vs-signal-quality question. The repo's own evidence
+  # CONFLICTS on it:
+  #   - trading/hedgefund/REPORT.md  : top_n 12 > 8 > 5 (momentum desk)
+  #   - four_sleeve OPTIMIZATION_...  : top 4 > top 6 (innovation sleeve)
+  # 10 sits between them and makes 8% x 10 = 80% max deployed, which lines up
+  # exactly with macro_sector_dominance's RISK_ON gross_exposure_pct of 80.
+  # Treated as a DEFAULT, not a determination -- the real answer is the
+  # pre-registered grid below, resolved at /cbt:optimize.
   percent_per_trade: 8.0
   fixed_amount: null
-  max_positions: 8
-  # CAPACITY GUARD -- the single most concrete finding in RESEARCH.md.
-  # The live Merrill book holds 69 positions averaging ~$143 each; Barber &
-  # Odean (2000) measured a 6.5pp/yr drag on the most-active retail cohort
-  # with gross returns nearly identical across activity levels -- the entire
-  # gap was costs. At $30k equity, 8% = $2,400/position, comfortably above
-  # this floor. Any signal that would size below the floor must be SKIPPED,
-  # not scaled down. Enforced in the backtester at /cbt:build.
+  max_positions: 10
+  optimize_ranges:
+    max_positions: [5, 7, 10, 12]      # spans both conflicting in-repo findings
+    percent_per_trade: [6.7, 8.0, 11.4, 16.0]  # paired to hold ~80% deployed
+  # CAPACITY GUARD -- the most concrete finding in RESEARCH.md. The live
+  # Merrill book holds 69 positions averaging ~$143 each; Barber & Odean
+  # (2000) measured a 6.5pp/yr drag on the most-active retail cohort with
+  # gross returns nearly identical across activity levels -- the entire gap
+  # was costs. Non-binding at $80k, but retained: it must bind if equity ever
+  # falls, and it is what stops the strategy from recreating the 69-position
+  # book. Any signal that would size below it is SKIPPED, never scaled down.
   min_position_value_usd: 1000
+
+# CASH POSITION -- determined at user request.
+# Deliberately NOT a fixed buffer. Cash is the residual of regime-scaled gross
+# exposure, so it expands exactly when the regime engine says risk is rising.
+# Values taken from macro_sector_dominance's regime_score_model (already in
+# this repo) rather than invented. four_sleeve's realized average cash weight
+# under an equivalent matrix was 21.9% / 23.9% across its two eras, which is
+# the ballpark to expect here.
+regime_gross_exposure:
+  RISK_ON: 80    # -> 20% cash
+  MIXED: 50      # -> 50% cash
+  CAUTION: 25    # -> 75% cash
+  RISK_OFF: 0    # -> 100% cash (hermes_agent has no income sleeve to rotate into)
+  source: strategies/macro_sector_dominance  # regime_score_model.regime_labels
 
 leverage:
   # Template shipped 5x default / 20x max. Disabled deliberately for the
@@ -65,29 +96,54 @@ risk:
     atr_multiplier: 3.0
     fixed_value: null
   take_profit:
-    # DISABLED. The user's chosen exit at discovery is a regime-scaled
-    # trailing stop; a fixed take-profit would cap exactly the right-tail
-    # continuations that make a trailing-stop system work. Crypto stop-loss
-    # momentum evidence (JBEF 2023, 147 coins) shows the gain there comes from
-    # AUGMENTED RETURNS, not just downside mitigation -- capping upside
-    # forfeits the mechanism. Revisit only if /cbt:iterate shows a fixed
-    # target improves profit factor.
-    enabled: false
-    mode: percent
+    # ENABLED as a PARTIAL scale-out at 1R, per the user's stated design:
+    # "take profit at 100% risk reward to reduce risk, then set a take profit
+    # with a trailing stop loss".
+    #
+    # This reverses the previous /cbt:config round, which disabled take-profit
+    # outright. That reasoning still holds for a FULL fixed target -- it would
+    # cap the right-tail continuations the trailing mechanism depends on. A
+    # PARTIAL scale-out is a different animal: it books risk off the table
+    # while the runner keeps riding the trail, so the tail is not capped.
+    #
+    # In-repo support: trading/hedgefund/REPORT.md's scale-in variant moved
+    # profit factor 1.74 -> 3.65, the largest PF lever found anywhere in this
+    # repo. See the tradeoff warning under scale_out below.
+    enabled: true
+    mode: rr_ratio  # percent | rr_ratio | fixed
     percent: null
-    rr_ratio: null
+    rr_ratio: 1.0   # 1R = one initial-risk unit = 3.0 x ATR of favorable move
     fixed_value: null
   trailing_stop:
-    # ENABLED -- this is hermes_agent's primary exit, and per RESEARCH.md the
-    # single best-evidenced design decision in the project.
+    # Applies to the RUNNER (the portion left after the 1R scale-out).
+    # Per RESEARCH.md the single best-evidenced design decision in the project.
     enabled: true
     activation: 5.0   # % profit before the trail engages
     # 20% = RISK_ON default. The literature clusters the optimum at 15-20%
     # (Dai et al. 2021 IRF; larger thresholds outperform net of costs), which
     # independently matches this repo's own ai_bottleneck_stocks
-    # trailing_stop_by_phase (20% early / 15% mid). Per-regime values below.
-    # Do NOT tighten below 15% without new evidence.
+    # trailing_stop_by_phase (20% early / 15% mid). Per-regime values in
+    # strategy_params. Do NOT tighten below 15% without new evidence.
     distance: 20.0
+  scale_out:
+    # The two-stage exit the user described, made explicit.
+    #   stage 1: at +1R -> sell `first_tranche_pct`, move remaining stop to BE
+    #   stage 2: runner rides the regime-scaled trailing stop
+    enabled: true
+    trigger_rr: 1.0
+    first_tranche_pct: 50        # % of position sold at the 1R trigger
+    move_stop_to_breakeven: true # the "reduce risk" half of the user's design
+    # DATA-DRIVEN GUARD. 1R is ATR-scaled, so its size in percent varies
+    # enormously by asset. Measured on the actual price panel:
+    #   BTC 1R = +6.0% | ETH +9.3% | SOL +10.6% | SPY +1.82%
+    # Without a floor, equity positions would scale out on a <2% move --
+    # mechanically inflating win rate and profit factor while churning
+    # turnover and cost. Do not scale out on a move smaller than this.
+    min_move_pct: 3.0
+    optimize_ranges:
+      trigger_rr: [1.0, 1.5, 2.0]
+      first_tranche_pct: [0, 33, 50, 67]  # 0 = no-scale-out CONTROL ARM
+      min_move_pct: [2.0, 3.0, 5.0]
 
 fees:
   # Template shipped crypto-exchange maker/taker (0.02/0.04%). hermes_agent
@@ -104,7 +160,7 @@ execution:
   # (see Data/bus_snapshots/crypto_squeeze_report.json paper_orders).
   entry_type: limit   # market | limit
   exit_type: market   # stops must fill as market
-  partial_exits: false
+  partial_exits: true # required by the 1R scale-out design above
 
 time:
   # Price panel coverage: Data/btc_historical_data.csv.
@@ -204,6 +260,28 @@ strategy_params:
                                       # unfixable by data plumbing
     cost_model: per_trade_dollar_cost
 
+  # --- Optimizer objective (user instruction at /cbt:config round 2)
+  # Stated goal: "highest profit factor and maximizing overall returns".
+  #
+  # ⚠ THESE TWO CONFLICT, and this repo has already measured the tradeoff.
+  # trading/hedgefund/REPORT.md, scale-in variant vs baseline:
+  #     profit factor  1.74 -> 3.65   (+110%)
+  #     CAGR          30.5% -> 19.3%  (-11.2pp)
+  #     max drawdown -21.2% -> -11.4% (+9.8pp better)
+  # Booking partial profit early raises PF and cuts drawdown by making losses
+  # small, and costs return by shrinking participation in the best runners.
+  # A single config cannot maximize both -- so PF is treated as the objective
+  # and CAGR as a reported constraint, rather than pretending both are met.
+  optimizer_objective:
+    maximize: profit_factor
+    subject_to:
+      - "deflated_sharpe significant at p<0.05 given the full trial count"
+      - "MAR >= mechanical-core baseline (no PF gain bought with drawdown)"
+      - "CAGR reported alongside, never suppressed -- the tradeoff must stay visible"
+    report_always: [profit_factor, cagr, max_drawdown, mar, deflated_sharpe, expectancy, turnover]
+    # The no-scale-out control arm (first_tranche_pct: 0) exists so the PF gain
+    # from scaling out is MEASURED against not doing it, not assumed.
+
   # --- Build-order requirements (RESEARCH.md recommendation #1)
   # DISCOVERY.md's plan built the confluence score BEFORE the regime engine.
   # Research inverted this: the regime + trailing-stop core has the evidence,
@@ -248,22 +326,34 @@ live:
 # ---------------------------------------------------------------------------
 # What changed from the CBT template, and why
 # ---------------------------------------------------------------------------
-# | Setting            | Template   | Now        | Driver                     |
-# |--------------------|------------|------------|----------------------------|
-# | initial_capital    | 10,000     | 30,000     | identified real capital    |
-# | percent_per_trade  | 2.0        | 8.0        | 6% deployed isn't an alloc |
-# | max_positions      | 3          | 8          | concentration vs cost drag |
-# | min_position_value | (none)     | $1,000     | capacity: $143 avg position|
-# | leverage           | 5x/20x on  | disabled   | benefit is DD reduction    |
-# | stop_loss          | 1.0% flat  | 3.0x ATR   | repo's validated default   |
-# | take_profit        | 2.0% on    | DISABLED   | caps the trailing mechanism|
-# | trailing_stop      | disabled   | ENABLED 20%| the chosen, evidenced exit |
-# | fees               | 0.02/0.04  | 0.25/0.35  | retail multi-venue reality |
-# | entry_type         | market     | limit      | live bus emits limits      |
-# | start_date         | null       | 2024-07-23 | actual data coverage       |
-# | strategy_params    | {}         | populated  | research-driven decisions  |
+# | Setting            | Template   | Now         | Driver                    |
+# |--------------------|------------|-------------|---------------------------|
+# | initial_capital    | 10,000     | 80,000      | 4 accounts reconciled     |
+# | percent_per_trade  | 2.0        | 8.0         | 6% deployed isn't an alloc|
+# | max_positions      | 3          | 10          | between conflicting evid. |
+# | min_position_value | (none)     | $1,000      | capacity guard (retained) |
+# | regime_gross_exp   | (none)     | 80/50/25/0  | cash as regime residual   |
+# | leverage           | 5x/20x on  | disabled    | benefit is DD reduction   |
+# | stop_loss          | 1.0% flat  | 3.0x ATR    | repo's validated default  |
+# | take_profit        | 2.0% full  | 1R PARTIAL  | user's scale-out design   |
+# | scale_out          | (none)     | 50% @ 1R    | "reduce risk, then trail" |
+# | trailing_stop      | disabled   | ENABLED 20% | best-evidenced exit       |
+# | partial_exits      | false      | true        | required by scale-out     |
+# | fees               | 0.02/0.04  | 0.25/0.35   | retail multi-venue reality|
+# | entry_type         | market     | limit       | live bus emits limits     |
+# | start_date         | null       | 2024-07-23  | actual data coverage      |
+# | strategy_params    | {}         | populated   | research-driven decisions |
 #
-# The template's stop_loss 1.0% / take_profit 2.0% pairing deserves specific
-# mention: a 1% stop on daily crypto data whose std is 2.89% (EDA.md) would be
-# hit by ordinary noise almost every session. Left unchanged it would have
-# produced a backtest measuring nothing but stop-out frequency.
+# Two settings deserve specific mention.
+#
+# 1. The template's stop_loss 1.0% / take_profit 2.0% pairing: a 1% stop on
+#    daily crypto data whose std is 2.89% (EDA.md) would be hit by ordinary
+#    noise almost every session. Left unchanged it would have produced a
+#    backtest measuring nothing but stop-out frequency.
+#
+# 2. take_profit reversed direction between /cbt:config rounds 1 and 2. Round
+#    1 disabled it (a full fixed target caps the trailing mechanism's tail --
+#    still true). Round 2 enabled it as a PARTIAL 1R scale-out per the user's
+#    design, which books risk without capping the runner. The distinction
+#    between a full and a partial target is the whole reason both calls are
+#    consistent.

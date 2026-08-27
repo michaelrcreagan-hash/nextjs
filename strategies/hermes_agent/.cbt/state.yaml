@@ -66,6 +66,20 @@ pending_observations:
   - id: R6
     claim: "Crypto carry / futures basis adds crash-regime predictive value beyond vol clustering"
     source: "BIS WP 1087 - carry predicts future crypto crashes"
+  # Added at /cbt:config round 2, from the user's stated exit design.
+  - id: R7
+    claim: "50% scale-out at 1R raises profit factor WITHOUT costing more CAGR than the PF gain is worth"
+    source: "user design; hedgefund REPORT.md scale-in precedent (PF 1.74->3.65, CAGR 30.5->19.3%)"
+    control_arm: "first_tranche_pct: 0 (no scale-out) must be run for comparison"
+    note: "PF and CAGR provably conflict here -- this claim is about the exchange rate, not a free lunch"
+  - id: R8
+    claim: "Optimal concentration lies between the repo's two conflicting findings (top-4 vs top-12)"
+    source: "four_sleeve OPTIMIZATION_REPORT (top4>top6) vs hedgefund REPORT (top12>8>5)"
+    note: "default 10 is a placeholder, NOT a determination -- grid [5,7,10,12] resolves it"
+  - id: R9
+    claim: "min_move_pct floor of 3% prevents the 1R scale-out from churning equities"
+    source: "measured on price panel: 1R = BTC 6.0% / ETH 9.3% / SOL 10.6% / SPY only 1.82%"
+    note: "without it, SPY-like names book a 'win' on <2% moves, inflating PF via turnover"
 
 # Metrics discipline adopted from research (applies to all later phases)
 metrics_policy:
@@ -73,6 +87,20 @@ metrics_policy:
   ablation_baseline: static_allocation_and_mechanical_core  # not just buy-and-hold
   llm_layer: forward_paper_only      # quarantined from backtested claims (training-cutoff leakage)
   cost_model: per_trade_dollar_cost  # not percentage-of-portfolio abstraction
+  optimizer_objective: profit_factor # user instruction; gated by DSR significance + MAR floor
+
+# Capital reconciliation status (updated /cbt:config round 2)
+capital:
+  identified_total_usd: 80706
+  configured_usd: 80000              # rounded down
+  accounts:
+    merrill_ira: 9860
+    coinbase_spot_1: 19846
+    coinbase_spot_2: 25000
+    hyperliquid_perps: 26000
+    fidelity: null                   # STILL UNQUANTIFIED - only per-position P&L given
+  goal_math_assumption_usd: 100000
+  remaining_gap_usd: 19294           # was 70294 before this round
 
 # Iteration history
 iterations: []
