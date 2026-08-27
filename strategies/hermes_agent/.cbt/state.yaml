@@ -198,9 +198,25 @@ goal_expansion:
         micro-caps are not listed on Coinbase, so the sleeve is currently
         "smaller top-25 names" rather than micro-caps.
   new_strategies_required:
-    - fidelity_sleeves             # ANALYSED 2026-08-27 -> FIDELITY_SLEEVES.md; sized from real positions
-    - breakout_crypto_prop         # bull + bear; start from strategies/crypto_algo_trading
-    - futures_prop                 # futures / indices / commodities; no futures data yet
+    fidelity_sleeves:
+      status: ANALYSED_2026-08-27
+      report: FIDELITY_SLEEVES.md
+    breakout_crypto_prop:
+      status: BUILT_AND_TESTED_2026-08-27
+      report: PROP_FIRM_REPORT.md
+      runner: run_crypto_prop.py
+      verdict: >-
+        FAILED. 0 of 8 arms survived 5 years; longest reached 2024-03. Required
+        PF 1.8-2.0 at 15-20+ trades/month; achieved PF 0.70-1.49 at 0.0-1.8
+        trades/month with a median monthly return of 0.00%. The frequency gap
+        (10-50x) is the binding constraint, not the edge gap.
+      root_cause: "daily bars cannot produce prop-account trade frequency at any parameter setting"
+      also_found: "6 of 8 died on TRAILING max drawdown, not daily loss -- every new high raises the floor"
+      unblock: "intraday data (1m-15m)"
+    futures_prop:
+      status: BLOCKED_NOT_BUILT
+      reason: "no futures/index/commodity data reachable: Binance 451, Stooq returns HTML, CoinGecko 401; none in repo"
+      unblock: "futures data key, a broker CSV export, or explicit acceptance of ETF proxies (which would not be a futures strategy)"
   benchmark_change:
     requested: ">3:1 vs BTC over 4 years"
     status: MEASURED_2026-08-27_AMBIGUOUS
@@ -230,6 +246,8 @@ blocked_on_user:
   - fidelity_margin_decision       # book is 1.45x gross; contradicts leverage.enabled:false
   - three_to_one_reading           # total-return (3.11x, passes) vs terminal-wealth (1.79x, fails)
   - point_in_time_crypto_universe  # paid data; needed to remove survivorship bias from CRYPTO_LOW_REPORT
+  - intraday_price_history         # 1m-15m; BLOCKS BOTH prop asks (#5 frequency, #6 entirely)
+  - futures_data_source            # ask #6 cannot start without it
 # RESOLVED 2026-08-27: fidelity_balance -> $18,996 (verified). See FIDELITY_SLEEVES.md.
 
 # Live deployment status

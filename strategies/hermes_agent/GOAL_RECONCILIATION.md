@@ -19,8 +19,8 @@ one, and states plainly where the arithmetic or the data does not support it.
 | 2 | Crypto spot: BTC + ETH + top-25 alts bought at the 4-year low | hermes_agent extension | ✅ **TESTED 2026-08-27** — 5.01y panel built, see `CRYPTO_LOW_REPORT.md`. **The low signal adds +0.92pp over a DCA control = noise** |
 | 3 | 20% of crypto to leverage / micro-cap satellites | hermes_agent extension | ⚠ implemented as a 20% **capital split**, not leverage. True micro-caps are not listed on Coinbase, so the sleeve is "smaller top-25 names" |
 | 4 | Iterate to ">3:1 vs BTC over 4 years" | benchmark change | ⚠ **AMBIGUOUS — needs your call.** 3.11× on total return (PASS) vs 1.79× on terminal wealth (FAIL) |
-| 5 | Breakout prop firm: bull + bear crypto strategies | **new strategy** | firm's actual rules unconfirmed |
-| 6 | US futures prop firm: futures, indices, commodities | **new strategy** | no futures data in repo |
+| 5 | Breakout prop firm: bull + bear crypto strategies | **new strategy** | ❌ **BUILT AND TESTED 2026-08-27 — 0 of 8 arms survived.** See `PROP_FIRM_REPORT.md`. Frequency gap is 10–50×; needs intraday data |
+| 6 | US futures prop firm: futures, indices, commodities | **new strategy** | ❌ **BLOCKED** — no futures data reachable (Binance 451, Stooq returns HTML, CoinGecko 401). Not built |
 
 ---
 
@@ -199,6 +199,36 @@ Two readings that matter:
   baseline PF is 1.05.** The gap between what exists and what these targets
   need is roughly a doubling of edge — and that gap, not risk sizing, is the
   real work.
+
+---
+
+### MEASURED RESULT (2026-08-27) — see `PROP_FIRM_REPORT.md`
+
+Ask #5 was built and run on the 5.01-year crypto panel. **Every one of 8 arms
+breached; the longest survivor reached March 2024.** Against the requirements
+derived above:
+
+| | required | achieved |
+|---|---:|---:|
+| profit factor | 1.8–2.0 | 0.70 – **1.49** |
+| **trades / month** | **15–20+** | **0.0 – 1.8** |
+| median monthly return | ≥ 4.0% | **0.00%** |
+
+The PF gap is modest. **The frequency gap is 10–50× and it is the binding
+constraint** — a median monthly return of exactly 0.00% means most months
+contain no trades at all. A 20-day breakout on *daily* bars across 25 names,
+gated by a regime neutral 37% of the time, cannot mechanically produce
+prop-account frequency at any parameter setting.
+
+Also confirmed: **the trailing drawdown kills these accounts, not the losses.**
+Six of eight arms died on max drawdown, not daily loss. The R:R 3.0 arm made
+4.87% CAGR and still breached, because every new equity high raises the floor.
+
+Ask #6 could not be started — no futures, index or commodity data is reachable
+from this environment and none exists in the repo.
+
+**Both prop asks are blocked on the same thing: intraday price history (1m–15m).**
+That is the single highest-value unblock for this half of the goal.
 
 **Recommendation:** the prop targets are arithmetically sound and not
 fantastical, unlike the 4-year 3:1 benchmark. They are gated on demonstrating a
