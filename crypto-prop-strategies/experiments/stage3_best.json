@@ -1,0 +1,258 @@
+{
+  "btc_long|classic_10k": {
+    "gate": "no ema200 + expansion",
+    "params": {
+      "risk_pct": 1.5,
+      "atr_stop": 1.25,
+      "rr": 1.5,
+      "max_concurrent": 1,
+      "internal_daily_pct": 1.5
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 43.3,
+      "pass_lo": 33.3,
+      "breach": 0.0,
+      "timeout": 56.7,
+      "win": 81.1,
+      "pf": 5.6,
+      "t_mo": 1.0,
+      "mo_to_pass": 5.2
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 3.3,
+      "pass_lo": 0.0,
+      "breach": 0.0,
+      "timeout": 96.7,
+      "win": 39.5,
+      "pf": 0.92,
+      "t_mo": 0.7,
+      "mo_to_pass": 5.8
+    }
+  },
+  "btc_long|turbo_200k": {
+    "gate": "ema200 + expansion",
+    "params": {
+      "risk_pct": 1.5,
+      "atr_stop": 1.25,
+      "rr": 1.5,
+      "max_concurrent": 1,
+      "internal_daily_pct": 1.0
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 26.7,
+      "pass_lo": 16.7,
+      "breach": 0.0,
+      "timeout": 73.3,
+      "win": 77.3,
+      "pf": 5.55,
+      "t_mo": 0.9,
+      "mo_to_pass": 5.2
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 3.3,
+      "pass_lo": 0.0,
+      "breach": 0.0,
+      "timeout": 96.7,
+      "win": 48.1,
+      "pf": 1.25,
+      "t_mo": 0.4,
+      "mo_to_pass": 5.8
+    }
+  },
+  "btc_short|classic_10k": {
+    "gate": "ema200 + any regime",
+    "params": {
+      "risk_pct": 1.5,
+      "atr_stop": 1.25,
+      "rr": 1.5,
+      "max_concurrent": 1,
+      "internal_daily_pct": 1.5
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 70.0,
+      "pass_lo": 60.0,
+      "breach": 0.0,
+      "timeout": 30.0,
+      "win": 74.0,
+      "pf": 3.72,
+      "t_mo": 1.8,
+      "mo_to_pass": 3.6
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 66.7,
+      "pass_lo": 56.7,
+      "breach": 10.0,
+      "timeout": 23.3,
+      "win": 58.7,
+      "pf": 2.03,
+      "t_mo": 2.9,
+      "mo_to_pass": 3.0
+    }
+  },
+  "btc_short|turbo_200k": {
+    "gate": "ema200 + any regime",
+    "params": {
+      "risk_pct": 1.5,
+      "atr_stop": 1.5,
+      "rr": 2.0,
+      "max_concurrent": 1,
+      "internal_daily_pct": 1.0
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 63.3,
+      "pass_lo": 53.3,
+      "breach": 0.0,
+      "timeout": 36.7,
+      "win": 58.5,
+      "pf": 3.41,
+      "t_mo": 1.3,
+      "mo_to_pass": 3.8
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 36.7,
+      "pass_lo": 26.7,
+      "breach": 60.0,
+      "timeout": 3.3,
+      "win": 37.8,
+      "pf": 1.38,
+      "t_mo": 1.8,
+      "mo_to_pass": 3.1
+    }
+  },
+  "alt_long|classic_10k": {
+    "gate": "ema200 + expansion, adx flat ok",
+    "params": {
+      "risk_pct": 0.75,
+      "atr_stop": 1.25,
+      "rr": 2.0,
+      "max_concurrent": 3,
+      "internal_daily_pct": 1.0
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 66.7,
+      "pass_lo": 56.7,
+      "breach": 0.0,
+      "timeout": 33.3,
+      "win": 56.7,
+      "pf": 2.67,
+      "t_mo": 3.0,
+      "mo_to_pass": 3.1
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 16.7,
+      "pass_lo": 6.7,
+      "breach": 0.0,
+      "timeout": 83.3,
+      "win": 47.8,
+      "pf": 1.77,
+      "t_mo": 1.3,
+      "mo_to_pass": 0.8
+    }
+  },
+  "alt_long|turbo_200k": {
+    "gate": "ema200 + expansion, adx flat ok",
+    "params": {
+      "risk_pct": 0.75,
+      "atr_stop": 1.25,
+      "rr": 2.0,
+      "max_concurrent": 3,
+      "internal_daily_pct": 1.0
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 66.7,
+      "pass_lo": 56.7,
+      "breach": 3.3,
+      "timeout": 30.0,
+      "win": 54.8,
+      "pf": 2.45,
+      "t_mo": 2.9,
+      "mo_to_pass": 3.1
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 16.7,
+      "pass_lo": 6.7,
+      "breach": 0.0,
+      "timeout": 83.3,
+      "win": 47.8,
+      "pf": 1.77,
+      "t_mo": 1.3,
+      "mo_to_pass": 0.8
+    }
+  },
+  "alt_short|classic_10k": {
+    "gate": "no ema200 + any regime",
+    "params": {
+      "risk_pct": 0.5,
+      "atr_stop": 1.5,
+      "rr": 2.0,
+      "max_concurrent": 3,
+      "internal_daily_pct": 1.5
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 86.7,
+      "pass_lo": 76.7,
+      "breach": 3.3,
+      "timeout": 10.0,
+      "win": 52.8,
+      "pf": 2.1,
+      "t_mo": 11.3,
+      "mo_to_pass": 3.0
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 63.3,
+      "pass_lo": 53.3,
+      "breach": 10.0,
+      "timeout": 26.7,
+      "win": 45.2,
+      "pf": 1.55,
+      "t_mo": 10.8,
+      "mo_to_pass": 3.4
+    }
+  },
+  "alt_short|turbo_200k": {
+    "gate": "ema200 + normal/expansion",
+    "params": {
+      "risk_pct": 0.5,
+      "atr_stop": 2.0,
+      "rr": 1.0,
+      "max_concurrent": 3,
+      "internal_daily_pct": 1.5
+    },
+    "is": {
+      "n_starts": 30,
+      "pass": 60.0,
+      "pass_lo": 50.0,
+      "breach": 10.0,
+      "timeout": 30.0,
+      "win": 70.8,
+      "pf": 2.27,
+      "t_mo": 8.1,
+      "mo_to_pass": 3.5
+    },
+    "oos": {
+      "n_starts": 30,
+      "pass": 46.7,
+      "pass_lo": 36.7,
+      "breach": 6.7,
+      "timeout": 46.7,
+      "win": 62.7,
+      "pf": 1.6,
+      "t_mo": 9.6,
+      "mo_to_pass": 4.9
+    }
+  }
+}

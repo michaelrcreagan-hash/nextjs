@@ -1,0 +1,165 @@
+{
+  "rules_source": "author-supplied 2026-08-27, cross-checked against Breakout published Classic/Turbo",
+  "profiles": {
+    "classic_eval_10k": {
+      "account": 10000.0,
+      "target_usd": 1000.0,
+      "max_dd_usd": 600.0,
+      "daily_loss_pct": 3.0
+    },
+    "turbo_funded_200k": {
+      "account": 200000.0,
+      "target_usd": 18000.0,
+      "max_dd_usd": 6000.0,
+      "daily_loss_pct": 3.0
+    }
+  },
+  "static_drawdown": true,
+  "leverage": {
+    "majors": 5.0,
+    "alts": 2.0
+  },
+  "costs": {
+    "taker_pct": 0.035,
+    "slippage_bps": 5.0
+  },
+  "method": "same rules replayed from 40 start dates per arm; pass = target reached first",
+  "results": {
+    "classic_eval_10k": [
+      {
+        "n_starts": 40,
+        "pass_pct": 45.0,
+        "breach_dd_pct": 17.5,
+        "breach_daily_pct": 0.0,
+        "unresolved_pct": 37.5,
+        "median_bars_to_pass": 319,
+        "median_trades": 95,
+        "trades_per_month": 8.5,
+        "arm": "risk 0.25%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 35.0,
+        "breach_dd_pct": 32.5,
+        "breach_daily_pct": 32.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 40,
+        "median_trades": 13,
+        "trades_per_month": 7.8,
+        "arm": "risk 0.50%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 25.0,
+        "breach_dd_pct": 12.5,
+        "breach_daily_pct": 62.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 18,
+        "median_trades": 6,
+        "trades_per_month": 6.2,
+        "arm": "risk 0.75%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 37.5,
+        "breach_dd_pct": 20.0,
+        "breach_daily_pct": 42.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 14,
+        "median_trades": 4,
+        "trades_per_month": 5.6,
+        "arm": "risk 1.00%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 50.0,
+        "breach_dd_pct": 25.0,
+        "breach_daily_pct": 25.0,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 96,
+        "median_trades": 15,
+        "trades_per_month": 4.9,
+        "arm": "risk 0.50% long-only"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 27.5,
+        "breach_dd_pct": 35.0,
+        "breach_daily_pct": 37.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 40,
+        "median_trades": 10,
+        "trades_per_month": 5.5,
+        "arm": "risk 0.50% rr3"
+      }
+    ],
+    "turbo_funded_200k": [
+      {
+        "n_starts": 40,
+        "pass_pct": 50.0,
+        "breach_dd_pct": 40.0,
+        "breach_daily_pct": 0.0,
+        "unresolved_pct": 10.0,
+        "median_bars_to_pass": 349,
+        "median_trades": 57,
+        "trades_per_month": 8.3,
+        "arm": "risk 0.25%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 22.5,
+        "breach_dd_pct": 60.0,
+        "breach_daily_pct": 17.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 28,
+        "median_trades": 7,
+        "trades_per_month": 7.0,
+        "arm": "risk 0.50%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 35.0,
+        "breach_dd_pct": 52.5,
+        "breach_daily_pct": 12.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 18,
+        "median_trades": 4,
+        "trades_per_month": 5.5,
+        "arm": "risk 0.75%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 30.0,
+        "breach_dd_pct": 55.0,
+        "breach_daily_pct": 15.0,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 11,
+        "median_trades": 3,
+        "trades_per_month": 5.0,
+        "arm": "risk 1.00%"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 42.5,
+        "breach_dd_pct": 52.5,
+        "breach_daily_pct": 5.0,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 108,
+        "median_trades": 5,
+        "trades_per_month": 3.4,
+        "arm": "risk 0.50% long-only"
+      },
+      {
+        "n_starts": 40,
+        "pass_pct": 22.5,
+        "breach_dd_pct": 55.0,
+        "breach_daily_pct": 22.5,
+        "unresolved_pct": 0.0,
+        "median_bars_to_pass": 30,
+        "median_trades": 6,
+        "trades_per_month": 4.7,
+        "arm": "risk 0.50% rr3"
+      }
+    ]
+  }
+}

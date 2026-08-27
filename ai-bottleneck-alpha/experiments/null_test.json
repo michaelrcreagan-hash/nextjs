@@ -1,0 +1,83 @@
+{
+  "FULL 2022-2026|fundamental only": {
+    "strategy": 11.68210343789133,
+    "percentile": 100.0,
+    "random_p5": 1.5214461816072746,
+    "random_median": 2.7699705643639563,
+    "random_p95": 4.549811604445722,
+    "random_p99": 5.517505229793894,
+    "ew_universe": 4.031281479861655
+  },
+  "FULL 2022-2026|technical only": {
+    "strategy": 20.189289230150788,
+    "percentile": 100.0,
+    "random_p5": 2.125618584271427,
+    "random_median": 3.8117989563167884,
+    "random_p95": 6.351053978696098,
+    "random_p99": 7.84045069300841,
+    "ew_universe": 4.031281479861655
+  },
+  "FULL 2022-2026|fundamental + technical": {
+    "strategy": 19.422692462421626,
+    "percentile": 100.0,
+    "random_p5": 1.6306651021877596,
+    "random_median": 3.171638160810416,
+    "random_p95": 5.4394533290764455,
+    "random_p99": 6.551834367523698,
+    "ew_universe": 4.031281479861655
+  },
+  "IS   2022-2024|fundamental only": {
+    "strategy": 1.7540168071292306,
+    "percentile": 99.75,
+    "random_p5": 0.2963893049984471,
+    "random_median": 0.7225101293523853,
+    "random_p95": 1.2810176578354007,
+    "random_p99": 1.5761370083410222,
+    "ew_universe": 1.1128553565601922
+  },
+  "IS   2022-2024|technical only": {
+    "strategy": 3.1691580463075724,
+    "percentile": 100.0,
+    "random_p5": 0.6107653513844775,
+    "random_median": 1.1349933703271804,
+    "random_p95": 1.8694556817315118,
+    "random_p99": 2.342366971948827,
+    "ew_universe": 1.1128553565601922
+  },
+  "IS   2022-2024|fundamental + technical": {
+    "strategy": 2.9989172341239083,
+    "percentile": 100.0,
+    "random_p5": 0.35751674821896,
+    "random_median": 0.8207438764637927,
+    "random_p95": 1.5007940524063015,
+    "random_p99": 1.922208409249899,
+    "ew_universe": 1.1128553565601922
+  },
+  "OOS  2025-2026|fundamental only": {
+    "strategy": 3.971216974659643,
+    "percentile": 100.0,
+    "random_p5": 0.7588702457400524,
+    "random_median": 1.2905256966266996,
+    "random_p95": 2.0694948875764774,
+    "random_p99": 2.4707864214858613,
+    "ew_universe": 1.4864756754362056
+  },
+  "OOS  2025-2026|technical only": {
+    "strategy": 4.007764102259877,
+    "percentile": 99.95,
+    "random_p5": 0.7675121330888396,
+    "random_median": 1.388363843770769,
+    "random_p95": 2.2686992051239296,
+    "random_p99": 2.629279896634484,
+    "ew_universe": 1.4864756754362056
+  },
+  "OOS  2025-2026|fundamental + technical": {
+    "strategy": 4.18659651962538,
+    "percentile": 100.0,
+    "random_p5": 0.7675121330888396,
+    "random_median": 1.388363843770769,
+    "random_p95": 2.2686992051239296,
+    "random_p99": 2.629279896634484,
+    "ew_universe": 1.4864756754362056
+  }
+}
