@@ -124,23 +124,45 @@ metrics_policy:
 
 # Capital reconciliation status (updated /cbt:config round 2)
 capital:
-  identified_total_usd: 80706
-  configured_usd: 80000              # rounded down
+  # UPDATED 2026-08-27 from Portfolio_Positions_Aug232026.xlsx (Fidelity export).
+  identified_total_usd: 99702
+  configured_usd: 80000              # STALE - predates the Fidelity number; see note
   accounts:
     merrill_ira: 9860
     coinbase_spot_1: 19846
     coinbase_spot_2: 25000
     hyperliquid_perps: 26000
-    fidelity: null                   # STILL UNQUANTIFIED - only per-position P&L given
+    fidelity: 18996                  # Z34628250 Joint WROS, net equity, VERIFIED
   goal_math_assumption_usd: 100000
-  remaining_gap_usd: 19294           # was 70294 before this round
+  remaining_gap_usd: 298             # was 19294; the goal's $100k assumption was sound
+  fidelity_detail:
+    source: Portfolio_Positions_Aug232026.xlsx
+    as_of: 2026-08-23
+    gross_long_usd: 30534
+    short_option_usd: -2947
+    pending_activity_usd: -8591
+    net_equity_usd: 18996
+    verification: "confirmed 2 ways - gross+pending, and back-solving the export's own percent-of-account column (implies 18997)"
+    n_positions: 132
+    avg_position_usd: 209
+    gross_to_net: 1.45               # RUNNING ON MARGIN - contradicts leverage.enabled:false
+    sleeves_pct_of_equity: {high_beta: 100.2, options: 21.5, yield_income: 17.1, macro_hedge: 6.4}
+  # THE PORTFOLIO-LEVEL FINDING (see FIDELITY_SLEEVES.md finding 2)
+  crypto_concentration:
+    total_usd: 77269                 # coinbase 44846 + hyperliquid 26000 + fidelity 6423
+    pct_of_portfolio: 77.5
+    implication: >-
+      The goal's "beat BTC 3:1" benchmark is close to self-contradictory against a
+      book that is already 77.5% crypto. Fidelity's 24 crypto-linked positions
+      DUPLICATE Coinbase/Hyperliquid beta -- net them in portfolio risk, never add.
+      The 6.4% Fidelity macro hedge is a 1.6% hedge ratio on the real exposure.
   # FLAGGED 2026-08-27: the author reports the account figures above were
   # miscalculated. Corrected total pending. Does NOT block the build -- it
   # changes absolute dollar outcomes and where min_position_value_usd binds,
   # but not step order, logic, or any relative comparison between arms.
   # Re-run BUILD_PLAN step 5 onward once the corrected number lands.
-  status: pending_correction
-  trust_configured_value: false
+  status: fidelity_verified_others_pending_correction
+  trust_configured_value: false      # initial_capital 80000 now understates by ~20k
 
 # Iteration history
 iterations: []
@@ -158,7 +180,7 @@ goal_expansion:
     - crypto_spot_4y_low_entry     # mean-reversion entry; OPPOSITE of current momentum core
     - leverage_microcap_satellite  # 20%; reverses leverage.enabled:false deliberately
   new_strategies_required:
-    - fidelity_sleeves             # high-beta / yield-income / options / macro hedge
+    - fidelity_sleeves             # ANALYSED 2026-08-27 -> FIDELITY_SLEEVES.md; sized from real positions
     - breakout_crypto_prop         # bull + bear; start from strategies/crypto_algo_trading
     - futures_prop                 # futures / indices / commodities; no futures data yet
   benchmark_change:
@@ -176,10 +198,11 @@ goal_expansion:
 
 # Open items requiring the author
 blocked_on_user:
-  - corrected_capital_total        # flagged miscalculated; all $ figures assume $80,000
-  - fidelity_balance               # still unquantified; ask 1 cannot be sized
+  - corrected_capital_total        # Merrill/Coinbase/Hyperliquid still flagged miscalculated
   - benchmark_window_decision      # see goal_expansion.benchmark_change
   - breakout_prop_firm_rules       # Monte Carlo assumed the harder trailing-DD variant
+  - fidelity_margin_decision       # book is 1.45x gross; contradicts leverage.enabled:false
+# RESOLVED 2026-08-27: fidelity_balance -> $18,996 (verified). See FIDELITY_SLEEVES.md.
 
 # Live deployment status
 live:

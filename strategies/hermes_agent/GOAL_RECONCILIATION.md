@@ -15,12 +15,39 @@ one, and states plainly where the arithmetic or the data does not support it.
 
 | # | Ask | Where it belongs | Blocked on |
 |---|---|---|---|
-| 1 | Fidelity: high-beta, yield/income, options, macro hedge | **new strategy** (4 sleeves) | Fidelity balance unknown; no options chain data; no panel for these names |
+| 1 | Fidelity: high-beta, yield/income, options, macro hedge | **new strategy** (4 sleeves) | ✅ **UNBLOCKED 2026-08-27** — book analysed, see `FIDELITY_SLEEVES.md`. Forward backtesting still needs option-chain data + a panel for these names |
 | 2 | Crypto spot: BTC + ETH + top-25 alts bought at the 4-year low | hermes_agent extension | top-25 alts absent from panel; panel is 2.09y, cannot see a 4-year low |
 | 3 | 20% of crypto to leverage / micro-cap satellites | hermes_agent extension | `leverage.enabled: false` by prior decision; no micro-cap data |
 | 4 | Iterate to ">3:1 vs BTC over 4 years" | benchmark change | **see the arithmetic below** |
 | 5 | Breakout prop firm: bull + bear crypto strategies | **new strategy** | firm's actual rules unconfirmed |
 | 6 | US futures prop firm: futures, indices, commodities | **new strategy** | no futures data in repo |
+
+---
+
+## Ask 1: Fidelity — DONE (analysis), see `FIDELITY_SLEEVES.md`
+
+The Aug-23-2026 position export resolved this. Net equity **$18,996** across
+132 positions, mapped onto the four sleeves the goal names:
+
+| sleeve | n | value | % net equity |
+|---|---:|---:|---:|
+| high beta | 101 | $19,026 | 100.2% |
+| options | 17 | $4,086 | 21.5% |
+| yield / income | 3 | $3,250 | 17.1% |
+| macro hedge | 11 | $1,224 | 6.4% |
+
+Sleeves exceed 100% because the book runs **1.45× gross on margin**.
+
+Three findings that reach past this account, in full in `FIDELITY_SLEEVES.md`:
+
+1. **The capital gap is closed.** Identified total is now **$99,702** against
+   the goal math's assumed $100,000 — a $298 gap. The assumption was sound.
+2. **The portfolio is 77.5% crypto** ($77,269 across Coinbase, Hyperliquid and
+   24 crypto-linked Fidelity positions). This is the finding that reframes
+   ask 4 — see below.
+3. **The capacity problem is confirmed in a second account.** 79 of 132
+   positions are under $200 (45.3% of equity). `min_position_value_usd: 1000`
+   would forbid 79 of the 132 positions actually held.
 
 ---
 
@@ -48,7 +75,14 @@ So "3:1 versus BTC over 4 years" means **a sustained 60–68% CAGR** — the sam
 order of magnitude as the ~101.5% target already agreed to lower, and roughly
 double the 40–65% band settled on as the honest ceiling for this project.
 
-**Two things follow, and I'd rather say them now than after building toward it:**
+**A third problem, surfaced by the Fidelity data:** the portfolio is already
+**77.5% crypto**. Beating BTC by 3× while being three-quarters BTC-correlated
+is close to a contradiction — a 3× outperformance needs meaningful exposure to
+something *other* than the benchmark, or leverage on it. The non-crypto 22.5%
+is mostly AI-semis, which has been positively correlated with crypto through
+this cycle, so it is not the independent return source the benchmark needs.
+
+**Two more things follow, and I'd rather say them now than after building toward it:**
 
 - The benchmark is not scale-free. "3:1 vs BTC" is an easy target in a flat
   BTC window and a near-impossible one in a bull window. Ratcheting a target to
@@ -154,17 +188,22 @@ gets built for ask 5 should start from that, not from scratch.
 
 ## What I need from you
 
-1. **The corrected capital figure.** state.yaml has carried
-   `status: pending_correction` since you flagged the account totals were
-   miscalculated. It does not block the build — it changes absolute dollar
-   outcomes and where `min_position_value_usd` binds, not step order or any
-   relative comparison — but every dollar figure in BASELINE_REPORT.md is
-   built on $80,000 and will need re-running.
-2. **The Fidelity balance.** Still unquantified; only per-position P&L was
-   provided. Ask 1 cannot be sized without it.
-3. **A decision on the benchmark window** (see ask 4). I would fix it to the
+1. **The corrected capital figures for the other four accounts.** Fidelity is
+   now verified at $18,996, but Merrill / Coinbase ×2 / Hyperliquid still carry
+   your "my calculation was incorrect" flag. `config.yaml` still says
+   `initial_capital: 80000`, which now understates the book by ~$20k. I
+   deliberately did **not** bump it — re-running the baseline against a total
+   that is 4/5 unverified would swap one wrong number for another. Confirm
+   those four and I will bump to the real total and re-run BUILD_PLAN step 5.
+2. **A decision on the benchmark window** (see ask 4). I would fix it to the
    backtest window and fetch a longer panel.
-4. **Confirmation of Breakout's actual rules** — max drawdown %, whether it
+3. **Confirmation of Breakout's actual rules** — max drawdown %, whether it
    trails from high-water mark or initial balance, daily loss %, profit split.
    The Monte Carlo above assumes the harder variant; the numbers move a lot if
    it is measured from initial balance instead.
+4. **The Fidelity margin decision.** The book runs 1.45× gross-to-net. That
+   contradicts `leverage.enabled: false` in the baseline config. It is a live
+   position rather than a backtest setting, but the two should be reconciled
+   deliberately rather than left inconsistent.
+
+~~2. The Fidelity balance.~~ **Resolved 2026-08-27** — $18,996, verified.

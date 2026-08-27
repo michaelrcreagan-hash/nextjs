@@ -13,12 +13,24 @@ account:
   #   Coinbase spot #1 (20 tokens) ................... $19,846
   #   Coinbase spot #2 ("coinbase2") ................. $25,000
   #   Crypto perps (Hyperliquid) ..................... $26,000
-  #   IDENTIFIED TOTAL ............................... $80,706  -> rounded down
+  #   Fidelity (Z34628250 Joint WROS) ................ $18,996  <- ADDED 2026-08-27
+  #   IDENTIFIED TOTAL ............................... $99,702
   #
-  # STILL EXCLUDES Fidelity brokerage/margin net equity, never quantified
-  # (only per-position P&L was provided). The gap to the $100,000 that this
-  # session's $1.5M-by-2029 goal math assumed has narrowed from ~$70k to
-  # ~$19k -- Fidelity may well close most of what remains.
+  # Fidelity is now quantified from Portfolio_Positions_Aug232026.xlsx and is
+  # the one VERIFIED figure here (confirmed two ways -- see FIDELITY_SLEEVES.md).
+  # It closes the gap to the $100,000 this session's $1.5M-by-2029 goal math
+  # assumed to just $298, so that assumption was sound.
+  #
+  # initial_capital BELOW IS NOW STALE at 80,000 -- it understates the book by
+  # ~$20k. Deliberately NOT bumped yet: the other four account figures still
+  # carry the author's "my calculation was incorrect" flag, and re-running the
+  # baseline against a number that is 4/5 unverified would replace one wrong
+  # figure with another. Bump to 99,702 (or the corrected total) and re-run
+  # BUILD_PLAN step 5 once those four are confirmed.
+  #
+  # NOTE ALSO: the live Fidelity book runs 1.45x gross-to-net on margin, which
+  # contradicts leverage.enabled:false below. That is a live position, not a
+  # backtest setting, but the two should be reconciled deliberately.
   initial_capital: 80000
   currency: USD
 
