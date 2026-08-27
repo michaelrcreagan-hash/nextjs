@@ -4,7 +4,7 @@
 
 strategy: hermes_agent
 created: 2026-08-26
-last_updated: 2026-08-26
+last_updated: 2026-08-27
 
 # Workflow mode: interactive (confirm each step) | yolo (auto-approve)
 mode: yolo
@@ -43,16 +43,27 @@ build:
     - confluence_layer       # 7  F/T/S/M extraction, must beat step 5
     - ablation_walkforward   # 8  pre-registered grids, Deflated Sharpe
     - btc_ml_ensemble        # 9  CONDITIONAL - currently a drop candidate
-  current_step: null
-  progress: "0/9"
+  current_step: baseline_run
+  progress: "5/9"
+  steps_built: [data_pipeline, regime_engine, exit_engine, backtest_runner, baseline_run]
+  steps_blocked: [feature_pipeline, confluence_layer, ablation_walkforward, btc_ml_ensemble]
+  gate_result: FAIL
+  gate_detail: >-
+    Arm A (regime-scaled) beat the static-80% arm on MAR (0.023 vs 0.013) but
+    lost to buy-and-hold BTC on CAGR (0.35% vs 9.03%). BUILD_PLAN.md requires
+    beating BOTH. Steps 6-9 deliberately NOT built -- see BASELINE_REPORT.md.
+  invariants: all_passing   # position floor, exposure cap, cost direction, determinism
   gate: "If step 5 fails to beat BOTH buy-and-hold AND a static allocation, stop and report -- do not build steps 6-9 on a core that does not work"
 
 # Experiment tracking
 experiments:
-  count: 0
-  current: null
-  best: null
-  baseline_sharpe: null
+  count: 5                    # arms A, B, C, D, A-control -- one baseline run
+  current: baseline
+  best: A_control_no_scaleout # the NO-scale-out arm beat the configured one
+  baseline_sharpe: 0.09
+  baseline_cagr_pct: 0.35
+  baseline_profit_factor: 1.05
+  baseline_max_dd_pct: -15.41
 
 # Pending observations to test
 # Pre-registered from /cbt:research (RESEARCH.md) BEFORE any sweep runs,
@@ -86,6 +97,18 @@ pending_observations:
     claim: "Optimal concentration lies between the repo's two conflicting findings (top-4 vs top-12)"
     source: "four_sleeve OPTIMIZATION_REPORT (top4>top6) vs hedgefund REPORT (top12>8>5)"
     note: "default 10 is a placeholder, NOT a determination -- grid [5,7,10,12] resolves it"
+  # --- verdicts recorded at the step-5 baseline run (2026-08-27) ---
+  # R1  NOT RESOLVED. Regime arm beats static on MAR directionally (0.023 vs
+  #     0.013) but on 54 entries over 1.29 tradeable years the gap is
+  #     statistically empty. Also: the regime engine runs on PROXY inputs, not
+  #     the VIX/SMH/liquidity/ISM/DXY series it specifies -- none are in the
+  #     panel. A failure under proxies is not evidence about the mechanism.
+  # R5  SUPPORTED. Costs $1,720 = 2.15% of initial capital over 2.09 years.
+  #     Zero-cost arm finishes 2.1pp higher. Real, minor, not the problem.
+  # R7  NEGATIVE. The 50% scale-out at 1R LOWERED profit factor (1.05 vs 1.19),
+  #     CAGR (0.35% vs 1.18%) and MAR (0.02 vs 0.06) against its own control
+  #     arm. The premise was that it buys PF at the cost of CAGR; it cost both.
+  #     Burden of proof has flipped -- do not keep it without new evidence.
   - id: R9
     claim: "min_move_pct floor of 3% prevents the 1R scale-out from churning equities"
     source: "measured on price panel: 1R = BTC 6.0% / ETH 9.3% / SOL 10.6% / SPY only 1.82%"
@@ -123,7 +146,40 @@ capital:
 iterations: []
 
 # Report file path (relative to strategy dir)
-report_file: null
+report_file: BASELINE_REPORT.md
+
+# Scope expansion from the /cbt:build /goal argument (2026-08-27).
+# Six asks, three of which are new strategies rather than hermes_agent work.
+# Full mapping and the supporting arithmetic in GOAL_RECONCILIATION.md.
+goal_expansion:
+  status: mapped_not_built
+  document: GOAL_RECONCILIATION.md
+  in_hermes_agent:                 # gated behind the failed step-5 gate
+    - crypto_spot_4y_low_entry     # mean-reversion entry; OPPOSITE of current momentum core
+    - leverage_microcap_satellite  # 20%; reverses leverage.enabled:false deliberately
+  new_strategies_required:
+    - fidelity_sleeves             # high-beta / yield-income / options / macro hedge
+    - breakout_crypto_prop         # bull + bear; start from strategies/crypto_algo_trading
+    - futures_prop                 # futures / indices / commodities; no futures data yet
+  benchmark_change:
+    requested: ">3:1 vs BTC over 4 years"
+    arithmetic: "60-68% CAGR if BTC compounds at 30-35%; 25.4% CAGR if measured on this panel's window"
+    blocker: "panel starts 2024-07-23 -- no 4-year window exists; 1.29 tradeable years after warm-up"
+    recommendation: "fix the comparison to the backtest window; fetch a longer panel"
+  prop_targets:
+    requested: "$70k/yr; 4%+/month on each $100k account"
+    internal_consistency: ok       # 4%/mo compounds to 60.1%/yr; $70k fits inside an 80/20 split
+    required_edge: "PF ~1.8-2.0 at 15-20+ trades/month, 0.5-1.0% risk per trade"
+    measured_edge_today: 1.05      # hermes_agent baseline PF -- roughly half what is needed
+    key_finding: "per-trade risk dominates: at PF 2.0, moving 1% -> 2% risk cuts 12-month survival 91.7% -> 25.0%"
+    unconfirmed: "Breakout's actual max-DD rule (trailing from HWM vs from initial), daily loss %, split"
+
+# Open items requiring the author
+blocked_on_user:
+  - corrected_capital_total        # flagged miscalculated; all $ figures assume $80,000
+  - fidelity_balance               # still unquantified; ask 1 cannot be sized
+  - benchmark_window_decision      # see goal_expansion.benchmark_change
+  - breakout_prop_firm_rules       # Monte Carlo assumed the harder trailing-DD variant
 
 # Live deployment status
 live:
