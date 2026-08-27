@@ -16,11 +16,7 @@ engine: fast
 project_type: hybrid
 
 # Current phase in workflow
-# -> plan, not build: RESEARCH.md recommendation #1 inverts DISCOVERY.md's
-#    build order (regime + trailing-stop core must come FIRST, as the baseline
-#    the confluence and agent layers have to beat). The existing 8-step plan
-#    in DISCOVERY.md is stale and needs /cbt:plan before any code is generated.
-phase: plan  # discovery | research | eda | config | plan | build | iterate
+phase: build  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
@@ -28,14 +24,28 @@ phases_completed:
   research: true
   eda: true
   config: true
-  plan: false
+  plan: true
   build: false
 
 # Build process tracking
+# Order INVERTED from DISCOVERY.md's original 8-step plan per RESEARCH.md
+# recommendation #1: the regime + exit core is built first as a fully-costed
+# baseline, so the baseline run lands at step 5 rather than step 9 and every
+# later layer must beat it. See BUILD_PLAN.md.
 build:
-  plan: []
+  plan:
+    - data_pipeline          # 1  Polars, calendar join, contiguous arrays
+    - regime_engine          # 2  dynamic percentile vol, gross exposure
+    - exit_engine            # 3  ATR stop -> 1R scale-out -> regime trail
+    - backtest_runner        # 4  Numba, venue costs, position floor as SKIP
+    - baseline_run           # 5  <-- THE BAR: mechanical core, no features
+    - feature_pipeline       # 6  load + mandatory dedup of collinear groups
+    - confluence_layer       # 7  F/T/S/M extraction, must beat step 5
+    - ablation_walkforward   # 8  pre-registered grids, Deflated Sharpe
+    - btc_ml_ensemble        # 9  CONDITIONAL - currently a drop candidate
   current_step: null
-  progress: "0/0"
+  progress: "0/9"
+  gate: "If step 5 fails to beat BOTH buy-and-hold AND a static allocation, stop and report -- do not build steps 6-9 on a core that does not work"
 
 # Experiment tracking
 experiments:
@@ -101,6 +111,13 @@ capital:
     fidelity: null                   # STILL UNQUANTIFIED - only per-position P&L given
   goal_math_assumption_usd: 100000
   remaining_gap_usd: 19294           # was 70294 before this round
+  # FLAGGED 2026-08-27: the author reports the account figures above were
+  # miscalculated. Corrected total pending. Does NOT block the build -- it
+  # changes absolute dollar outcomes and where min_position_value_usd binds,
+  # but not step order, logic, or any relative comparison between arms.
+  # Re-run BUILD_PLAN step 5 onward once the corrected number lands.
+  status: pending_correction
+  trust_configured_value: false
 
 # Iteration history
 iterations: []
