@@ -202,17 +202,28 @@ goal_expansion:
       status: ANALYSED_2026-08-27
       report: FIDELITY_SLEEVES.md
     breakout_crypto_prop:
-      status: BUILT_AND_TESTED_2026-08-27
+      status: RETESTED_REAL_RULES_2026-08-27
       report: PROP_FIRM_REPORT.md
       runner: run_crypto_prop.py
+      rules: confirmed_by_author_and_cross_checked   # was ASSUMED before
+      superseded_finding: >-
+        The earlier "0 of 8 arms survived" result modelled a TRAILING 10%
+        drawdown from the high-water mark. Breakout's is STATIC from the
+        starting balance. Wrong rule, wrong conclusion -- DISREGARD it.
       verdict: >-
-        FAILED. 0 of 8 arms survived 5 years; longest reached 2024-03. Required
-        PF 1.8-2.0 at 15-20+ trades/month; achieved PF 0.70-1.49 at 0.0-1.8
-        trades/month with a median monthly return of 0.00%. The frequency gap
-        (10-50x) is the binding constraint, not the edge gap.
-      root_cause: "daily bars cannot produce prop-account trade frequency at any parameter setting"
-      also_found: "6 of 8 died on TRAILING max drawdown, not daily loss -- every new high raises the floor"
-      unblock: "intraday data (1m-15m)"
+        Roughly a coin flip, not impossible. Best arms reach ~50% pass across
+        40 start dates: Classic $10k long-only at 0.50% risk = 50.0%; Turbo
+        $200k at 0.25% risk = 50.0%. Per-trade risk dominates -- at 0.25% risk
+        the daily-loss breach rate is 0.0% in both profiles.
+      classic_vs_turbo: "Turbo dd-breach 40-60% vs Classic 12-35%; Classic is the better entry"
+      turbo_trap: "daily limit $6,000 EQUALS total maxDD $6,000 -- one bad day is terminal"
+      income_target_verdict: >-
+        $70k/yr on the $200k account needs 39-44%/yr against a $6,000 static
+        floor = MAR 13-15. Best MAR measured anywhere in this project is 0.41;
+        elite managed futures run 0.5-1.5. NOT realistic. The single $18,000
+        target (~$14,400 at 80% split) IS reachable and is the right frame.
+      sample_caveat: "40 start dates ~35 bars apart on runs lasting far longer -- heavily overlapping, NOT 40 independent samples"
+      unblock: "intraday data (1m-15m); Breakout's post-payout drawdown reset rule"
     futures_prop:
       status: BLOCKED_NOT_BUILT
       reason: "no futures/index/commodity data reachable: Binance 451, Stooq returns HTML, CoinGecko 401; none in repo"
@@ -236,13 +247,13 @@ goal_expansion:
     required_edge: "PF ~1.8-2.0 at 15-20+ trades/month, 0.5-1.0% risk per trade"
     measured_edge_today: 1.05      # hermes_agent baseline PF -- roughly half what is needed
     key_finding: "per-trade risk dominates: at PF 2.0, moving 1% -> 2% risk cuts 12-month survival 91.7% -> 25.0%"
-    unconfirmed: "Breakout's actual max-DD rule (trailing from HWM vs from initial), daily loss %, split"
+    RESOLVED_2026-08-27: "Breakout rules confirmed: STATIC drawdown, 3% daily, 80/90% split. See config.prop_firm.breakout_profiles"
 
 # Open items requiring the author
 blocked_on_user:
   - corrected_capital_total        # Merrill/Coinbase/Hyperliquid still flagged miscalculated
   - benchmark_window_decision      # see goal_expansion.benchmark_change
-  - breakout_prop_firm_rules       # Monte Carlo assumed the harder trailing-DD variant
+  - breakout_post_payout_reset     # does the static floor reset after a withdrawal? decides repeat-target viability
   - fidelity_margin_decision       # book is 1.45x gross; contradicts leverage.enabled:false
   - three_to_one_reading           # total-return (3.11x, passes) vs terminal-wealth (1.79x, fails)
   - point_in_time_crypto_universe  # paid data; needed to remove survivorship bias from CRYPTO_LOW_REPORT

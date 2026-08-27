@@ -1,128 +1,195 @@
 # Prop-Firm Strategies — goal asks #5 and #6
 
-**Date:** 2026-08-27
-**Ask #5:** Breakout prop firm, bull + bear crypto — **BUILT AND TESTED. Every arm failed.**
+**Date:** 2026-08-27 (revised with real rules)
+**Ask #5:** Breakout crypto prop — **RE-TESTED against the real rules. Result reversed.**
 **Ask #6:** US futures prop firm — **BLOCKED on data. Not built.**
-**Target:** $70k/yr; 4%+/month on each $100k account
 **Reproduce:** `python3 run_crypto_prop.py`
 
 ---
 
-## Ask #5 — Breakout crypto prop: 0 of 8 arms survived
+## The rules (confirmed, no longer assumed)
 
-Bull/bear breakout on the 5.01-year, 25-name Coinbase panel. Regime from BTC's
-50/200-day MAs: **bull 33.6%, bear 29.3%, neutral 37.1%** of bars. Perp-style
-costs (0.035% taker + 5bps), from `config.yaml`'s Hyperliquid figures.
+Supplied by the author and cross-checked against Breakout's published Classic
+and Turbo 1-Step programs:
 
-| arm | CAGR | max DD | PF | trades | **t/mo** | win% | med month | halted |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| bull+bear risk 0.5% | 1.07% | −10.99% | 1.12 | 106 | 1.8 | 36.8% | 0.00% | max DD 2023-08-29 |
-| bull+bear risk 0.75% | 1.14% | −10.46% | 1.35 | 30 | 0.5 | 43.3% | 0.00% | max DD 2022-09-09 |
-| bull+bear risk 1.0% | −0.76% | −9.39% | 0.70 | 13 | 0.2 | 30.8% | 0.00% | daily loss 2022-05-04 |
-| bull+bear risk 2.0% | −1.44% | −11.51% | 0.00 | 3 | 0.0 | 0.0% | 0.00% | max DD 2022-03-19 |
-| BULL ONLY risk 0.75% | 1.02% | −7.29% | **1.49** | 16 | 0.3 | 43.8% | 0.00% | daily loss 2023-02-09 |
-| bull+bear 10d breakout | 1.22% | −10.04% | 1.39 | 29 | 0.5 | 44.8% | 0.00% | max DD 2022-08-07 |
-| bull+bear 40d breakout | 0.91% | −11.10% | 1.23 | 34 | 0.6 | 41.2% | 0.00% | max DD 2022-09-03 |
-| bull+bear R:R 3.0 | **4.87%** | −10.89% | 1.42 | 79 | 1.3 | 34.2% | 0.00% | max DD 2024-03-19 |
+| | Classic eval | Turbo funded |
+|---|---:|---:|
+| account | $10,000 | $200,000 |
+| profit target | $1,000 (10%) | $18,000 (9%) |
+| max drawdown | **$600 (6%), STATIC** | **$6,000 (3%), STATIC** |
+| max daily loss | 3% ($300) | 3% ($6,000) |
+| MAR required just to pass | 1.67 | 3.00 |
 
-**Every arm breached. The longest survivor lasted to March 2024 — two and a
-half years into a five-year window.**
+Also confirmed: no time limit, no minimum trading days, no consistency rule.
+Leverage 5:1 on BTC/ETH, 2:1 on alts. Split 80% default, 90% upgradeable.
+The threshold is set from the balance at 00:30 UTC and monitored against
+**current equity**, so floating P&L counts toward a breach.
 
-### Why it failed — frequency, not edge
+### The static drawdown reverses my earlier conclusion
 
-`GOAL_RECONCILIATION.md`'s Monte Carlo established what 4%/month needs:
-**PF 1.8–2.0 at 15–20+ trades/month, 0.5–1.0% risk per trade.** Measured:
+My previous run modelled a **trailing** 10% drawdown from the high-water mark
+and reported *0 of 8 arms surviving*. That was the wrong rule. Under a trailing
+floor, every new equity high permanently raises the bar, so a strategy that
+grinds up and gives back 10% dies even while profitable overall. Under
+Breakout's **static** floor the constraint binds only until a cushion is built,
+then stops binding.
 
-| | required | achieved | gap |
-|---|---:|---:|---|
-| profit factor | 1.8–2.0 | 0.70 – **1.49** | short |
-| **trades / month** | **15–20+** | **0.0 – 1.8** | **10–50× short** |
-| median monthly return | ≥ 4.0% | **0.00%** | — |
+That is a materially easier game, and the numbers move accordingly. **The
+earlier "every arm breached" finding does not apply to Breakout** and should be
+disregarded — it described a firm with different rules.
 
-The profit-factor gap is real but modest — 1.49 against a 1.8 bar. **The
-frequency gap is two orders of magnitude**, and it is the binding one. A median
-monthly return of exactly 0.00% across every arm means *most months contain no
-trades at all*. You cannot compound 4% a month in months where you do not trade.
+### One structural trap in the Turbo profile
 
-The root cause is structural, not a tuning problem: **a 20-day breakout on
-daily bars across 25 names, gated by a regime that is neutral 37% of the time,
-cannot mechanically produce 15–20 trades a month.** Widening the breakout
-(10d vs 40d) barely moved the count — 0.5 vs 0.6/month. Cutting risk to 0.5%
-raised trades to 1.8/month but dropped PF to 1.12 and still breached.
+Its daily loss limit (3% = **$6,000**) exactly **equals** its total max drawdown
+(**$6,000**). A single maximum-daily-loss day does not merely cost the day — it
+ends the account outright. There is no such overlap in Classic ($300 daily
+against a $600 total), which makes Classic strictly more forgiving per unit of
+risk taken. Worth knowing before choosing which to buy.
 
-### What would actually be needed
+---
 
-1. **Intraday data — hourly or 15-minute.** This is the single blocking
-   requirement. Daily bars cannot generate prop-account trade frequency at any
-   parameter setting. Everything else is secondary until this is fixed.
-2. Once intraday: re-test the same bull/bear structure. The PF of 1.49 on the
-   bull-only arm is not far off the 1.8 bar and might clear it with more
-   samples and a tighter regime filter.
-3. **The trailing drawdown is what kills these accounts, not the losses.**
-   Six of eight arms died on max drawdown rather than daily loss. Under a
-   trailing-from-high-water-mark rule, every new equity high raises the floor,
-   so a strategy that grinds up and then gives back 10% is dead even while
-   profitable overall. The R:R 3.0 arm made 4.87% CAGR and *still* breached.
+## Results — pass rate across 40 start dates
 
-### One caveat that cuts the other way
+Same bull/bear breakout rules, replayed from 40 different start dates on the
+5.01-year panel. A run ends at PASS (target reached) or BREACH.
 
-Prop rules here are **assumed, not confirmed** — I modelled the harder variant
-(10% trailing from high-water mark). If Breakout measures drawdown from the
-**initial balance** instead, the floor stops rising as the account grows and
-survival improves materially. That would not fix the frequency problem, but it
-would change which arms died and when. **This is the fourth time I've flagged
-needing Breakout's actual rule set** — it is now the cheapest unblock available.
+### Classic $10k eval
+
+| arm | PASS | dd breach | daily breach | unresolved | med trades | t/mo |
+|---|---:|---:|---:|---:|---:|---:|
+| risk 0.25% | 45.0% | 17.5% | **0.0%** | 37.5% | 95 | 8.5 |
+| risk 0.50% | 35.0% | 32.5% | 32.5% | 0.0% | 13 | 7.8 |
+| risk 0.75% | 25.0% | 12.5% | 62.5% | 0.0% | 6 | 6.2 |
+| risk 1.00% | 37.5% | 20.0% | 42.5% | 0.0% | 4 | 5.6 |
+| **risk 0.50% long-only** | **50.0%** | 25.0% | 25.0% | 0.0% | 15 | 4.9 |
+| risk 0.50% rr3 | 27.5% | 35.0% | 37.5% | 0.0% | 10 | 5.5 |
+
+### Turbo $200k funded
+
+| arm | PASS | dd breach | daily breach | unresolved | med trades | t/mo |
+|---|---:|---:|---:|---:|---:|---:|
+| **risk 0.25%** | **50.0%** | 40.0% | **0.0%** | 10.0% | 57 | 8.3 |
+| risk 0.50% | 22.5% | 60.0% | 17.5% | 0.0% | 7 | 7.0 |
+| risk 0.75% | 35.0% | 52.5% | 12.5% | 0.0% | 4 | 5.5 |
+| risk 1.00% | 30.0% | 55.0% | 15.0% | 0.0% | 3 | 5.0 |
+| risk 0.50% long-only | 42.5% | 52.5% | 5.0% | 0.0% | 5 | 3.4 |
+| risk 0.50% rr3 | 22.5% | 55.0% | 22.5% | 0.0% | 6 | 4.7 |
+
+**Roughly a coin flip on the best arms** — a very different proposition from
+"every arm breached", and a defensible bet against an eval fee.
+
+### What the table says about how to size
+
+1. **Per-trade risk is the whole game, and smaller is better.** At 0.25% risk
+   the daily-loss breach rate is **0.0%** in both profiles — you mechanically
+   cannot lose 3% in a day when each trade risks a quarter percent. Every step
+   up in risk trades pass-rate for breach-rate. This matches what the Monte
+   Carlo predicted before any of this was run.
+2. **Turbo is harder than Classic, as its 3% floor implies.** Drawdown breaches
+   run 40–60% on Turbo against 12–35% on Classic. If both are available for a
+   similar fee, Classic is the better risk-adjusted entry.
+3. **Long-only beat long/short on Classic** (50.0% vs 35.0% at the same risk).
+   The short side is where the daily-loss breaches concentrate — bear-regime
+   crypto rallies are violent.
+4. **0.25% risk on Classic leaves 37.5% unresolved** — too slow to reach the
+   target inside the remaining data. There is a real tension: low risk survives
+   but may not finish. On Turbo that drops to 10%, since a $200k account at
+   0.25% still moves enough size to get there.
+
+---
+
+## The $70k/year target is the part that does NOT work
+
+Passing the eval and earning $70k/year are different problems, and only the
+first one looks reachable.
+
+| split | gross needed | as % of $200k | per month | **MAR needed** |
+|---|---:|---:|---:|---:|
+| 80% | $87,500 | 43.8%/yr | 3.07% | **14.6** |
+| 90% | $77,778 | 38.9%/yr | 2.78% | **13.0** |
+
+Against a **$6,000 static drawdown that never resets**, $70k/year requires a
+MAR of roughly **13–15**. For calibration:
+
+| | MAR |
+|---|---:|
+| crypto DCA / buy-the-low — best thing built in this project | 0.41 |
+| BTC buy & hold, 5 years | 0.13 |
+| hermes_agent step-5 baseline | 0.02 |
+| elite managed-futures funds, industry-wide | 0.5 – 1.5 |
+| **required here** | **13 – 15** |
+
+That is an order of magnitude beyond what top professional managers sustain. I
+don't think $70k/year from a single $200k Breakout account is a realistic
+target, and I'd rather say so now than after you've paid for evals.
+
+**What is realistic**: the $18,000 target itself (9%) at a 3.00 required MAR is
+demanding but not absurd — the table above says ~50% of start dates get there.
+At an 80% split that first target is worth **$14,400**. Reaching it repeatedly,
+rather than compounding one account to $70k, is the plausible path — and it
+depends on Breakout's post-payout reset rules, which I have not confirmed.
+
+---
+
+## How much to trust these numbers
+
+**The pass rates are softer than they look.** 40 start dates spread across
+~1,370 bars puts them ~35 bars apart, while individual runs last far longer
+than that — so the windows overlap heavily and are **not 40 independent
+samples**. The effective sample size is much smaller, and ±10pp of noise on any
+single cell would not surprise me. Read the ordering (0.25% beats 1.0%,
+Classic beats Turbo, long-only beats long/short) as the signal; read the
+absolute percentages as indicative.
+
+Other caveats:
+- One strategy (20-day breakout, ATR stops) on one 5-year panel. Not a survey.
+- **Survivorship bias** in the universe, as in `CRYPTO_LOW_REPORT.md`: today's
+  top-25 names, excluding coins that went to zero.
+- Daily bars. Trade frequency lands at 3–8/month, which is fine for a
+  no-time-limit eval but is still an order of magnitude below what would be
+  needed to compound toward the annual figure.
+- Costs are perp-style (0.035% taker + 5bps). Breakout's actual fee schedule
+  is not modelled.
 
 ---
 
 ## Ask #6 — US futures prop firm: BLOCKED, not built
 
-Requested: futures, indices and commodities for a second $100k prop account at
-a US futures firm.
-
-**No futures data is reachable from this environment.** Attempts made:
+**No futures data is reachable from this environment:**
 
 | source | result |
 |---|---|
 | Binance public API | HTTP **451** — geo-blocked |
-| Stooq CSV (`es.f`, `gc.f`, `nq.f`, `cl.f`) | returns **HTML**, not CSV — blocked/rate-limited |
+| Stooq CSV (`es.f`, `gc.f`, `nq.f`, `cl.f`) | returns **HTML**, not CSV |
 | CoinGecko free tier historical | **401** beyond trial window |
 | Coinbase Exchange | works, but **crypto only** |
 
-The repo contains no futures, index or commodity price history either. Building
-this ask would mean fabricating a backtest, which I won't do.
+The repo has no futures, index or commodity history either. Building this would
+mean fabricating a backtest, which I won't do.
 
-**To unblock, one of:**
-- an AlphaVantage / FMP / Databento key with futures coverage (the MCP
-  connectors for these exist in this session but were cycling and unreliable);
-- a CSV export of continuous futures contracts (ES, NQ, CL, GC, ZN) from any
-  broker or data vendor;
-- accepting liquid ETF proxies (SPY, QQQ, GLD, USO, TLT) instead of true
-  futures — a real approximation, since it drops the contract roll, the margin
-  structure, and the near-24-hour session that a futures prop strategy depends
-  on. Worth saying plainly: an ETF-proxy backtest would not be a futures
-  strategy, and I'd label it as such.
-
-**The frequency finding from ask #5 applies here in advance.** Whatever data
-arrives, if it is daily bars the same 15–20 trades/month wall will be hit.
-Futures prop accounts are traded intraday for exactly this reason. **Request
-intraday data (1m–15m) for both prop asks, not daily.**
+**To unblock, one of:** an AlphaVantage/FMP/Databento key with futures coverage;
+a CSV export of continuous contracts (ES, NQ, CL, GC, ZN) from your broker; or
+explicit acceptance of ETF proxies (SPY, QQQ, GLD, USO, TLT) — which would not
+be a futures strategy, since it drops the roll, the margin structure and the
+near-24-hour session, and I'd label it as such.
 
 ---
 
-## Where the two prop asks stand against $70k/year
+## What I'd do
 
-The $70k target itself remains arithmetically sound — 4%/month compounds to
-60.1%/year, $120k gross across two accounts, comfortably inside an 80/20 split.
-Nothing is wrong with the goal's own math.
+1. **Start with Classic $10k, long-only, ~0.5% risk per trade.** Best measured
+   pass rate (50%), lowest breach exposure, and the cheapest way to find out
+   whether the rules suit you.
+2. **Never size above 1% per trade on either profile.** The breach columns are
+   monotone in risk; there is no version of this where bigger size helps.
+3. **On Turbo, treat the daily limit as the binding constraint, not the total.**
+   They are the same $6,000, so a single bad day is terminal.
+4. **Re-scope the income target.** Aim at hitting the $18,000 target (≈$14,400
+   at 80%) rather than at $70k/year from one account. Then confirm what happens
+   to the drawdown floor after a payout — that single rule determines whether
+   repeat targets are viable, and it's the last unknown that matters here.
+5. **Get intraday data before optimising further.** At 3–8 trades/month the
+   parameter estimates are thin, and every conclusion above would firm up
+   considerably at 1m–15m resolution.
 
-What the testing establishes is the distance to it:
-
-- **Crypto prop (ask #5): built, tested, does not work on daily bars.** The
-  edge gap is modest (PF 1.49 vs 1.8); the frequency gap is 10–50×. Needs
-  intraday data before it can be honestly re-tested.
-- **Futures prop (ask #6): cannot be started without data.**
-
-Neither is close today. Both are blocked on the same thing — **intraday price
-history** — which makes that the single highest-value unblock for this half of
-the goal, ahead of any further parameter work.
+Sources for the rule cross-check: [QuantVPS](https://www.quantvps.com/blog/breakout-crypto-prop-firm-rules) · [TheTrustedProp](https://thetrustedprop.com/prop-firms/breakout-prop) · [PropTradingVibes](https://proptradingvibes.com/blog/breakout-rules-overview) · [Breakout](https://www.breakoutprop.com/)

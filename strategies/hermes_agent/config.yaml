@@ -184,16 +184,40 @@ time:
 
 # Prop Firm Challenge Rules
 prop_firm:
-  # Confirmed personal account at /cbt:discover. The separate prop-firm
-  # challenge pool is out of scope for hermes_agent -- it is already covered
-  # by strategies/crypto_algo_trading (prop_firm.enabled: true there).
+  # hermes_agent itself is a PERSONAL account -- prop stays disabled here.
+  # The real Breakout rules below were supplied by the author 2026-08-27 and
+  # are used by run_crypto_prop.py (goal ask #5). See PROP_FIRM_REPORT.md.
   enabled: false
-  phase: 1
-  max_drawdown_percent: 10.0
-  daily_loss_percent: 5.0
-  phase1_target_percent: 10.0
-  phase2_target_percent: 5.0
   breach_action: halt
+  # CRITICAL: the drawdown is STATIC from the starting balance and never moves.
+  # An earlier model here assumed a TRAILING 10% from the high-water mark and
+  # concluded every arm breached. That was the wrong rule and the wrong
+  # conclusion -- under a static floor the constraint stops binding once a
+  # cushion is built. Do not reintroduce trailing without evidence.
+  drawdown_type: static_from_starting_balance
+  monitored_on: current_equity        # floating P&L counts toward a breach
+  threshold_set_at: "00:30 UTC"
+  breakout_profiles:
+    classic_eval:
+      account_usd: 10000
+      target_usd: 1000                # 10%
+      max_drawdown_usd: 600           # 6%
+      daily_loss_percent: 3.0         # $300
+      mar_required_to_pass: 1.67
+    turbo_funded:
+      account_usd: 200000
+      target_usd: 18000               # 9%
+      max_drawdown_usd: 6000          # 3%
+      daily_loss_percent: 3.0         # $6,000
+      mar_required_to_pass: 3.00
+      # ⚠ daily limit ($6,000) EQUALS total max drawdown ($6,000):
+      # one maximum-loss day ends the account outright.
+      daily_limit_equals_total_dd: true
+  leverage_caps: {majors: 5.0, alts: 2.0}   # BTC/ETH 5:1, altcoins 2:1
+  profit_split: {default: 0.80, upgraded: 0.90}
+  no_time_limit: true
+  no_min_trading_days: true
+  no_consistency_rule: true
 
 # Strategy-specific parameters
 # Seeded here from RESEARCH.md rather than left for /cbt:build, because these

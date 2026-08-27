@@ -7,21 +7,31 @@ Goal ask #5 -- bull/bear crypto strategy for a Breakout-style prop account.
 
 Runs on Data/crypto_panel_5y.csv (5.01y, 25 names, Coinbase daily).
 
-⚠ PROP RULES ARE ASSUMED, NOT CONFIRMED
-----------------------------------------
-Breakout's actual rule set was never supplied and I could not verify it from
-here. This models the HARDER of the two common variants, so results are
-conservative rather than flattering:
+PROP RULES: REAL, CONFIRMED (supplied by the author 2026-08-27)
+---------------------------------------------------------------
+Supersedes the assumed rule set this file previously modelled. Two profiles,
+matching Breakout's published Classic and Turbo 1-Step programs:
 
-    max drawdown   10%, TRAILING FROM HIGH-WATER MARK
-    daily loss      5%, measured from the previous day's closing equity
-    monthly target  4%
-    breach          account halts permanently
+    CLASSIC eval    $10,000   target $1,000 (10%)   maxDD $600 (6%)    daily 3%
+    TURBO funded   $200,000   target $18,000 (9%)   maxDD $6,000 (3%)  daily 3%
 
-If Breakout measures max drawdown from the INITIAL balance instead (the softer
-variant), survival improves materially -- the floor stops rising as the account
-grows. Confirm before relying on any number here. `config.yaml`'s `prop_firm`
-block already carries these fields.
+THE DRAWDOWN IS **STATIC**, not trailing: it is computed from the starting
+balance and never moves. That is the SOFTER variant, and it inverts the
+conclusion the previous (trailing) model reached -- under a trailing floor
+every new equity high raises the bar forever; under a static floor the
+constraint binds only until a cushion is built, after which it stops binding
+at all. Breakout sets the threshold from the balance at 00:30 UTC and then
+monitors CURRENT EQUITY against it, so floating/unrealized P&L counts toward
+a breach.
+
+Other confirmed rules: no time limit, no minimum trading days, no consistency
+rule. Leverage 5:1 on BTC/ETH, 2:1 on altcoins. Profit split 80% default,
+90% upgradeable. Reaching the target ENDS the run as a PASS.
+
+⚠ ONE STRUCTURAL TRAP IN THE TURBO PROFILE: its daily loss limit (3% =
+$6,000) EQUALS its total max drawdown ($6,000). A single maximum-daily-loss
+day therefore does not just cost the day -- it ends the account outright.
+There is no such overlap in Classic ($300 daily vs $600 total).
 
 WHAT THE MONTE CARLO SAID THIS NEEDS (GOAL_RECONCILIATION.md)
 --------------------------------------------------------------
@@ -44,12 +54,19 @@ STRATEGY_DIR = Path(__file__).resolve().parent
 PANEL = STRATEGY_DIR / "Data" / "crypto_panel_5y.csv"
 OUT = STRATEGY_DIR / "experiments" / "crypto_prop"
 
-# Prop account rules (assumed -- see module docstring).
-ACCOUNT = 100_000.0
-MAX_DD_PCT = 10.0
-DAILY_LOSS_PCT = 5.0
-MONTHLY_TARGET_PCT = 4.0
-TRAILING_DD = True
+# Real Breakout profiles (see module docstring).
+PROFILES = {
+    "classic_eval_10k": dict(account=10_000.0, target_usd=1_000.0,
+                             max_dd_usd=600.0, daily_loss_pct=3.0),
+    "turbo_funded_200k": dict(account=200_000.0, target_usd=18_000.0,
+                              max_dd_usd=6_000.0, daily_loss_pct=3.0),
+}
+TRAILING_DD = False          # CONFIRMED static, from the starting balance
+
+# Leverage caps, per Breakout's published limits.
+LEV_MAJOR = 5.0              # BTC, ETH
+LEV_ALT = 2.0                # everything else
+MAJORS = {"BTC", "ETH"}
 
 # Costs: Breakout is a crypto prop firm, so perp-style taker fees apply,
 # not Coinbase spot. Using the Hyperliquid figures from config.yaml's
@@ -121,32 +138,35 @@ def regime(btc, fast=50, slow=200):
     return r
 
 
-def run(dates, syms, px, breakout_n=20, risk_pct=0.75, atr_mult=2.5,
-        max_concurrent=5, rr=2.0, allow_short=True):
+def run(dates, syms, px, profile, breakout_n=20, risk_pct=0.75, atr_mult=2.5,
+        max_concurrent=5, rr=2.0, allow_short=True, start_bar=None):
+    """
+    One prop run. Ends at PASS (target reached) or BREACH (dd / daily loss).
+
+    `start_bar` lets the same rules be replayed from many different start
+    dates, which is the only honest way to estimate a pass rate: a single
+    5-year path is one sample, and prop accounts are bought on a date the
+    trader picks, not at the start of history.
+    """
     n, m = px.shape
+    acct = profile["account"]
+    target = acct + profile["target_usd"]
+    floor = acct - profile["max_dd_usd"]          # STATIC, never moves
+    daily_pct = profile["daily_loss_pct"] / 100.0
+
     hi = rolling_extreme(px, breakout_n, "max")
     lo = rolling_extreme(px, breakout_n, "min")
     atr = atr_proxy(px)
-    btc = px[:, syms.index("BTC")]
-    reg = regime(btc)
+    reg = regime(px[:, syms.index("BTC")])
+    lev = np.array([LEV_MAJOR if s in MAJORS else LEV_ALT for s in syms])
 
-    equity = ACCOUNT
-    peak = ACCOUNT
-    curve = np.zeros(n)
-    prev_day_eq = ACCOUNT
-    halted = False
-    halt_reason = None
-    halt_bar = None
+    t0 = start_bar if start_bar is not None else 0
+    equity = acct
+    day_start_eq = acct
+    open_pos, trades = {}, []
+    outcome, out_bar = "open", None
 
-    # open positions: sym -> dict
-    open_pos = {}
-    trades = []
-
-    for t in range(n):
-        if halted:
-            curve[t] = equity
-            continue
-
+    for t in range(t0, n):
         # ---- manage open positions ----
         for j in list(open_pos):
             p = px[t, j]
@@ -154,50 +174,41 @@ def run(dates, syms, px, breakout_n=20, risk_pct=0.75, atr_mult=2.5,
                 continue
             pos = open_pos[j]
             d = pos["dir"]
-            hit_stop = (d == 1 and p <= pos["stop"]) or (d == -1 and p >= pos["stop"])
-            hit_tp = (d == 1 and p >= pos["tp"]) or (d == -1 and p <= pos["tp"])
-            if hit_stop or hit_tp:
+            if (d == 1 and (p <= pos["stop"] or p >= pos["tp"])) or \
+               (d == -1 and (p >= pos["stop"] or p <= pos["tp"])):
                 gross = pos["units"] * p
                 cost = gross * (TAKER_PCT / 100.0 + SLIP_BPS / 10000.0)
                 pnl = d * pos["units"] * (p - pos["entry"]) - cost - pos["entry_cost"]
                 equity += pnl
-                trades.append({"sym": syms[j], "dir": d, "entry": pos["entry"],
-                               "exit": p, "pnl": pnl,
-                               "reason": "tp" if hit_tp else "sl",
-                               "bar_in": pos["bar"], "bar_out": t})
+                won = pnl > 0
+                trades.append({"sym": syms[j], "dir": d, "pnl": pnl,
+                               "reason": "tp" if won else "sl", "bar": t})
                 del open_pos[j]
 
-        # ---- breach checks (before new entries) ----
-        # BUG FIXED: this previously tested `equity` (realized cash only)
-        # against `prev_day_eq` (marked, including unrealized). Whenever a
-        # position was open and in profit, realized < marked and the daily-loss
-        # rule fired spuriously -- which is why every arm "breached" in
-        # early 2022 on 5-20 trades. Prop firms mark to market, so both sides
-        # of every comparison must be the marked value.
+        # ---- mark to market (floating P&L counts toward breaches) ----
         marked = equity
         for j, pos in open_pos.items():
             p = px[t, j]
             if not np.isnan(p):
                 marked += pos["dir"] * pos["units"] * (p - pos["entry"])
 
-        floor = (peak if TRAILING_DD else ACCOUNT) * (1 - MAX_DD_PCT / 100.0)
+        if marked >= target:
+            outcome, out_bar = "PASS", t
+            break
         if marked <= floor:
-            halted, halt_reason, halt_bar = True, "max_drawdown", t
-            curve[t] = marked
-            continue
-        if marked <= prev_day_eq * (1 - DAILY_LOSS_PCT / 100.0):
-            halted, halt_reason, halt_bar = True, "daily_loss", t
-            curve[t] = marked
-            continue
+            outcome, out_bar = "breach_max_dd", t
+            break
+        if marked <= day_start_eq * (1 - daily_pct):
+            outcome, out_bar = "breach_daily", t
+            break
 
         # ---- entries ----
         direction = reg[t]
         if direction != 0 and len(open_pos) < max_concurrent:
             cands = []
             for j in range(m):
-                if j in open_pos or np.isnan(px[t, j]) or np.isnan(atr[t, j]):
-                    continue
-                if atr[t, j] <= 0:
+                if j in open_pos or np.isnan(px[t, j]) or np.isnan(atr[t, j]) \
+                        or atr[t, j] <= 0:
                     continue
                 if direction == 1 and not np.isnan(hi[t, j]) and px[t, j] > hi[t, j]:
                     cands.append((px[t, j] / hi[t, j], j))
@@ -207,162 +218,112 @@ def run(dates, syms, px, breakout_n=20, risk_pct=0.75, atr_mult=2.5,
             cands.sort(reverse=True)
             for _, j in cands[:max_concurrent - len(open_pos)]:
                 p = px[t, j]
-                risk_usd = equity * (risk_pct / 100.0)
                 stop_dist = atr[t, j] * atr_mult
                 if stop_dist <= 0:
                     continue
-                units = risk_usd / stop_dist
+                units = (marked * (risk_pct / 100.0)) / stop_dist
+                # Per-asset leverage cap: 5:1 majors, 2:1 alts.
+                max_notional = marked * lev[j] / max_concurrent
+                if units * p > max_notional:
+                    units = max_notional / p
                 notional = units * p
-                # A prop account is not margin-unlimited; cap notional at 5x equity
-                if notional > equity * 5:
-                    units = equity * 5 / p
-                    notional = units * p
                 entry_cost = notional * (TAKER_PCT / 100.0 + SLIP_BPS / 10000.0)
-                open_pos[j] = {
-                    "dir": direction, "entry": p, "units": units,
-                    "stop": p - direction * stop_dist,
-                    "tp": p + direction * stop_dist * rr,
-                    "entry_cost": entry_cost, "bar": t,
-                }
+                open_pos[j] = {"dir": direction, "entry": p, "units": units,
+                               "stop": p - direction * stop_dist,
+                               "tp": p + direction * stop_dist * rr,
+                               "entry_cost": entry_cost, "bar": t}
                 equity -= entry_cost
 
-        mark = equity
-        for j, pos in open_pos.items():
-            p = px[t, j]
-            if not np.isnan(p):
-                mark += pos["dir"] * pos["units"] * (p - pos["entry"])
-        curve[t] = mark
-        peak = max(peak, mark)
-        prev_day_eq = mark
+        day_start_eq = marked
 
-    return {"curve": curve, "trades": trades, "halted": halted,
-            "halt_reason": halt_reason, "halt_bar": halt_bar,
-            "regime": reg, "final": curve[-1]}
+    return {"outcome": outcome, "bar": out_bar, "trades": trades,
+            "final": marked if out_bar else equity,
+            "bars": (out_bar - t0) if out_bar else (n - t0)}
 
 
-def summarize(res, dates, label):
-    tr = res["trades"]
-    curve = res["curve"]
-    valid = curve > 0
-    c = curve[valid]
-    if len(c) < 2 or not tr:
-        return {"label": label, "n_trades": len(tr), "error": "no trades"}
-    pnl = np.array([t["pnl"] for t in tr])
-    wins, losses = pnl[pnl > 0], pnl[pnl <= 0]
-    pf = wins.sum() / -losses.sum() if losses.sum() < 0 else float("inf")
-    years = (np.datetime64(dates[-1]) - np.datetime64(dates[0])).astype(int) / 365.25
-    cagr = (c[-1] / ACCOUNT) ** (1 / years) - 1
-    dd = (c / np.maximum.accumulate(c) - 1).min()
-
-    # monthly returns -- the metric the prop target is actually stated in
-    months = {}
-    for i, d in enumerate(dates):
-        if curve[i] > 0:
-            months.setdefault(str(d)[:7], []).append(curve[i])
-    mret = []
-    keys = sorted(months)
-    for a, b in zip(keys, keys[1:]):
-        mret.append(months[b][-1] / months[a][-1] - 1)
-    mret = np.array(mret) if mret else np.array([0.0])
-    hit = (mret >= MONTHLY_TARGET_PCT / 100.0).mean()
-
+def sweep(dates, syms, px, profile, n_starts=40, **kw):
+    """Replay the same rules from many start dates -> an honest pass rate."""
+    n = px.shape[0]
+    first, last = 260, n - 200          # leave warm-up and room to resolve
+    starts = np.linspace(first, last, n_starts).astype(int)
+    res = [run(dates, syms, px, profile, start_bar=int(b), **kw) for b in starts]
+    passes = [r for r in res if r["outcome"] == "PASS"]
+    dd = [r for r in res if r["outcome"] == "breach_max_dd"]
+    dl = [r for r in res if r["outcome"] == "breach_daily"]
+    op = [r for r in res if r["outcome"] == "open"]
+    ntr = [len(r["trades"]) for r in res]
     return {
-        "label": label,
-        "final_equity": round(float(c[-1]), 2),
-        "cagr_pct": round(100 * cagr, 2),
-        "max_dd_pct": round(100 * dd, 2),
-        "profit_factor": round(float(pf), 3),
-        "n_trades": len(tr),
-        "trades_per_month": round(len(tr) / (years * 12), 1),
-        "win_rate_pct": round(100 * len(wins) / len(tr), 1),
-        "expectancy_usd": round(float(pnl.mean()), 2),
-        "halted": res["halted"],
-        "halt_reason": res["halt_reason"],
-        "halt_date": str(dates[res["halt_bar"]]) if res["halt_bar"] else None,
-        "median_monthly_pct": round(100 * float(np.median(mret)), 2),
-        "months_hitting_4pct": round(100 * float(hit), 1),
-        "n_months": len(mret),
+        "n_starts": len(res),
+        "pass_pct": round(100 * len(passes) / len(res), 1),
+        "breach_dd_pct": round(100 * len(dd) / len(res), 1),
+        "breach_daily_pct": round(100 * len(dl) / len(res), 1),
+        "unresolved_pct": round(100 * len(op) / len(res), 1),
+        "median_bars_to_pass": int(np.median([r["bars"] for r in passes])) if passes else None,
+        "median_trades": int(np.median(ntr)),
+        "trades_per_month": round(float(np.mean(ntr)) / (float(np.mean([r["bars"] for r in res])) / 30.4), 1),
     }
 
 
 def main():
     dates, syms, px = load_panel()
     reg = regime(px[:, syms.index("BTC")])
-    print("=" * 100)
-    print("BREAKOUT-STYLE CRYPTO PROP -- bull/bear, $100k, 10% trailing DD, "
-          "5% daily loss, 4%/mo target")
-    print("=" * 100)
-    print(f"  panel   : {len(dates)} bars, {len(syms)} names, {dates[0]} -> {dates[-1]}")
-    print(f"  regime  : bull {100*(reg==1).mean():.1f}%  "
-          f"bear {100*(reg==-1).mean():.1f}%  neutral {100*(reg==0).mean():.1f}%")
-    print(f"  ⚠ prop rules ASSUMED (harder variant) -- confirm with Breakout")
+    print("=" * 96)
+    print("BREAKOUT PROP -- REAL RULES (Classic $10k eval, Turbo $200k funded)")
+    print("=" * 96)
+    print(f"  panel  : {len(dates)} bars, {len(syms)} names, {dates[0]} -> {dates[-1]}")
+    print(f"  regime : bull {100*(reg==1).mean():.1f}%  bear {100*(reg==-1).mean():.1f}%  "
+          f"neutral {100*(reg==0).mean():.1f}%")
+    print(f"  drawdown is STATIC from the starting balance -- it never moves.")
 
-    print("\n" + "-" * 100)
-    print(f"  {'arm':<34s} {'CAGR':>8s} {'maxDD':>8s} {'PF':>6s} {'trades':>7s} "
-          f"{'t/mo':>6s} {'win%':>6s} {'med mo':>7s} {'4%mo':>6s} {'halted':>16s}")
-    print("-" * 100)
-
-    results = []
     grid = [
-        ("bull+bear risk0.5%", dict(risk_pct=0.5, allow_short=True)),
-        ("bull+bear risk0.75%", dict(risk_pct=0.75, allow_short=True)),
-        ("bull+bear risk1.0%", dict(risk_pct=1.0, allow_short=True)),
-        ("bull+bear risk2.0%", dict(risk_pct=2.0, allow_short=True)),
-        ("BULL ONLY risk0.75%", dict(risk_pct=0.75, allow_short=False)),
-        ("bull+bear bo10 risk0.75%", dict(risk_pct=0.75, breakout_n=10)),
-        ("bull+bear bo40 risk0.75%", dict(risk_pct=0.75, breakout_n=40)),
-        ("bull+bear rr3 risk0.75%", dict(risk_pct=0.75, rr=3.0)),
+        ("risk 0.25%", dict(risk_pct=0.25)),
+        ("risk 0.50%", dict(risk_pct=0.50)),
+        ("risk 0.75%", dict(risk_pct=0.75)),
+        ("risk 1.00%", dict(risk_pct=1.00)),
+        ("risk 0.50% long-only", dict(risk_pct=0.50, allow_short=False)),
+        ("risk 0.50% rr3", dict(risk_pct=0.50, rr=3.0)),
     ]
-    for label, kw in grid:
-        r = run(dates, syms, px, **kw)
-        s = summarize(r, dates, label)
-        results.append(s)
-        if "error" in s:
-            print(f"  {label:<34s} {'no trades':>60s}")
-            continue
-        halt = f"{s['halt_reason']} {s['halt_date']}" if s["halted"] else "-"
-        print(f"  {label:<34s} {s['cagr_pct']:>7.2f}% {s['max_dd_pct']:>7.2f}% "
-              f"{s['profit_factor']:>6.2f} {s['n_trades']:>7d} "
-              f"{s['trades_per_month']:>6.1f} {s['win_rate_pct']:>5.1f}% "
-              f"{s['median_monthly_pct']:>6.2f}% {s['months_hitting_4pct']:>5.1f}% "
-              f"{halt:>16s}")
-    print("-" * 100)
 
-    ok = [r for r in results if "error" not in r and not r["halted"]]
-    print(f"\n  arms surviving 5 years without a breach: {len(ok)} of {len(results)}")
-    if ok:
-        best = max(ok, key=lambda r: r["profit_factor"])
-        print(f"  best surviving PF: {best['label']}  PF {best['profit_factor']}  "
-              f"CAGR {best['cagr_pct']}%  {best['trades_per_month']} trades/mo")
-        print(f"\n  REQUIRED (per GOAL_RECONCILIATION Monte Carlo): PF 1.8-2.0 at "
-              f"15-20+ trades/month")
-        print(f"  ACHIEVED                                       : PF "
-              f"{best['profit_factor']} at {best['trades_per_month']} trades/month")
-        verdict = (best["profit_factor"] >= 1.8
-                   and best["trades_per_month"] >= 15
-                   and best["median_monthly_pct"] >= 4.0)
-        print(f"\n  VERDICT: {'MEETS the 4%/month target' if verdict else 'DOES NOT meet the 4%/month target'}")
-    else:
-        print("  every arm breached. The 4%/month target is not reachable with this rule set.")
+    out = {}
+    for pname, profile in PROFILES.items():
+        print("\n" + "-" * 96)
+        print(f"  {pname}   account ${profile['account']:,.0f}   "
+              f"target ${profile['target_usd']:,.0f} "
+              f"({100*profile['target_usd']/profile['account']:.0f}%)   "
+              f"maxDD ${profile['max_dd_usd']:,.0f} "
+              f"({100*profile['max_dd_usd']/profile['account']:.0f}%)   "
+              f"daily {profile['daily_loss_pct']:.0f}%")
+        if profile["max_dd_usd"] <= profile["account"] * profile["daily_loss_pct"] / 100.0:
+            print(f"  ⚠ daily limit (${profile['account']*profile['daily_loss_pct']/100:,.0f}) "
+                  f">= total maxDD (${profile['max_dd_usd']:,.0f}): ONE bad day ends the account")
+        print("-" * 96)
+        print(f"  {'arm':<24s} {'PASS':>7s} {'dd breach':>10s} {'daily breach':>13s} "
+              f"{'unresolved':>11s} {'med trades':>11s} {'t/mo':>6s}")
+        print("-" * 96)
+        rows = []
+        for label, kw in grid:
+            r = sweep(dates, syms, px, profile, **kw)
+            r["arm"] = label
+            rows.append(r)
+            print(f"  {label:<24s} {r['pass_pct']:>6.1f}% {r['breach_dd_pct']:>9.1f}% "
+                  f"{r['breach_daily_pct']:>12.1f}% {r['unresolved_pct']:>10.1f}% "
+                  f"{r['median_trades']:>11d} {r['trades_per_month']:>6.1f}")
+        out[pname] = rows
+        best = max(rows, key=lambda r: r["pass_pct"])
+        print(f"\n  best: {best['arm']} -> {best['pass_pct']}% pass across "
+              f"{best['n_starts']} start dates")
 
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "results.json").write_text(json.dumps({
-        "prop_rules": {"account_usd": ACCOUNT, "max_dd_pct": MAX_DD_PCT,
-                       "trailing_from_hwm": TRAILING_DD,
-                       "daily_loss_pct": DAILY_LOSS_PCT,
-                       "monthly_target_pct": MONTHLY_TARGET_PCT,
-                       "status": "ASSUMED -- harder variant; confirm with Breakout"},
-        "costs": {"taker_pct": TAKER_PCT, "slippage_bps": SLIP_BPS,
-                  "note": "Hyperliquid perp figures from config venue_costs"},
-        "panel": {"bars": len(dates), "symbols": syms,
-                  "range": [str(dates[0]), str(dates[-1])]},
-        "regime_occupancy_pct": {"bull": round(100*float((reg==1).mean()),1),
-                                 "bear": round(100*float((reg==-1).mean()),1),
-                                 "neutral": round(100*float((reg==0).mean()),1)},
-        "arms": results,
-        "trials": len(results),
+    (OUT / "results_real_rules.json").write_text(json.dumps({
+        "rules_source": "author-supplied 2026-08-27, cross-checked against Breakout published Classic/Turbo",
+        "profiles": PROFILES,
+        "static_drawdown": True,
+        "leverage": {"majors": LEV_MAJOR, "alts": LEV_ALT},
+        "costs": {"taker_pct": TAKER_PCT, "slippage_bps": SLIP_BPS},
+        "method": "same rules replayed from 40 start dates per arm; pass = target reached first",
+        "results": out,
     }, indent=2))
-    print(f"\nsaved: experiments/crypto_prop/results.json")
+    print(f"\nsaved: experiments/crypto_prop/results_real_rules.json")
 
 
 if __name__ == "__main__":
