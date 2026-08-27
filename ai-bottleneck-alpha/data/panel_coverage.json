@@ -1,0 +1,307 @@
+{
+  "ACLS": {
+    "observations": 34,
+    "first_filed": "2018-05-04",
+    "last_filed": "2026-08-06"
+  },
+  "AEIS": {
+    "observations": 38,
+    "first_filed": "2019-02-21",
+    "last_filed": "2026-08-03"
+  },
+  "ALAB": {
+    "observations": 14,
+    "first_filed": "2024-05-08",
+    "last_filed": "2026-08-05"
+  },
+  "AMAT": {
+    "observations": 31,
+    "first_filed": "2020-12-11",
+    "last_filed": "2026-08-20"
+  },
+  "AMD": {
+    "observations": 38,
+    "first_filed": "2019-02-08",
+    "last_filed": "2026-08-05"
+  },
+  "AME": {
+    "observations": 24,
+    "first_filed": "2021-05-04",
+    "last_filed": "2026-08-04"
+  },
+  "AMKR": {
+    "observations": 36,
+    "first_filed": "2018-05-03",
+    "last_filed": "2026-04-28"
+  },
+  "ANET": {
+    "observations": 38,
+    "first_filed": "2019-02-15",
+    "last_filed": "2026-08-05"
+  },
+  "APD": {
+    "observations": 39,
+    "first_filed": "2018-11-20",
+    "last_filed": "2026-07-30"
+  },
+  "ARM": {
+    "observations": 15,
+    "first_filed": "2023-11-09",
+    "last_filed": "2026-07-29"
+  },
+  "ASML": {
+    "observations": 0,
+    "first_filed": null,
+    "last_filed": null
+  },
+  "ATKR": {
+    "observations": 35,
+    "first_filed": "2019-02-06",
+    "last_filed": "2026-08-04"
+  },
+  "AVGO": {
+    "observations": 34,
+    "first_filed": "2019-03-15",
+    "last_filed": "2026-06-09"
+  },
+  "CAMT": {
+    "observations": 7,
+    "first_filed": "2016-10-31",
+    "last_filed": "2021-09-14"
+  },
+  "CCJ": {
+    "observations": 0,
+    "first_filed": null,
+    "last_filed": null
+  },
+  "CDNS": {
+    "observations": 34,
+    "first_filed": "2018-10-22",
+    "last_filed": "2026-05-01"
+  },
+  "CEG": {
+    "observations": 14,
+    "first_filed": "2024-05-09",
+    "last_filed": "2026-08-06"
+  },
+  "CIEN": {
+    "observations": 36,
+    "first_filed": "2018-09-05",
+    "last_filed": "2026-06-04"
+  },
+  "COHR": {
+    "observations": 40,
+    "first_filed": "2018-12-27",
+    "last_filed": "2026-08-14"
+  },
+  "CRDO": {
+    "observations": 21,
+    "first_filed": "2022-03-10",
+    "last_filed": "2026-06-15"
+  },
+  "DELL": {
+    "observations": 37,
+    "first_filed": "2019-03-29",
+    "last_filed": "2026-06-09"
+  },
+  "DLR": {
+    "observations": 64,
+    "first_filed": "2010-08-12",
+    "last_filed": "2026-05-01"
+  },
+  "ENTG": {
+    "observations": 38,
+    "first_filed": "2019-02-11",
+    "last_filed": "2026-08-04"
+  },
+  "EQIX": {
+    "observations": 30,
+    "first_filed": "2020-05-07",
+    "last_filed": "2026-07-29"
+  },
+  "ETN": {
+    "observations": 35,
+    "first_filed": "2018-10-30",
+    "last_filed": "2026-07-31"
+  },
+  "FN": {
+    "observations": 32,
+    "first_filed": "2018-11-06",
+    "last_filed": "2026-08-18"
+  },
+  "GEV": {
+    "observations": 14,
+    "first_filed": "2024-04-30",
+    "last_filed": "2026-07-22"
+  },
+  "GFS": {
+    "observations": 20,
+    "first_filed": "2022-06-13",
+    "last_filed": "2026-02-27"
+  },
+  "HPE": {
+    "observations": 46,
+    "first_filed": "2016-03-10",
+    "last_filed": "2026-06-02"
+  },
+  "HUBB": {
+    "observations": 37,
+    "first_filed": "2019-02-15",
+    "last_filed": "2026-05-01"
+  },
+  "INTC": {
+    "observations": 35,
+    "first_filed": "2018-10-26",
+    "last_filed": "2026-07-24"
+  },
+  "IPGP": {
+    "observations": 38,
+    "first_filed": "2019-02-27",
+    "last_filed": "2026-08-04"
+  },
+  "KLAC": {
+    "observations": 36,
+    "first_filed": "2018-10-31",
+    "last_filed": "2026-08-06"
+  },
+  "LEU": {
+    "observations": 34,
+    "first_filed": "2019-05-09",
+    "last_filed": "2026-08-06"
+  },
+  "LIN": {
+    "observations": 38,
+    "first_filed": "2019-03-18",
+    "last_filed": "2026-07-31"
+  },
+  "LITE": {
+    "observations": 14,
+    "first_filed": "2023-02-09",
+    "last_filed": "2026-08-17"
+  },
+  "LRCX": {
+    "observations": 36,
+    "first_filed": "2018-10-23",
+    "last_filed": "2026-08-07"
+  },
+  "MKSI": {
+    "observations": 38,
+    "first_filed": "2018-05-08",
+    "last_filed": "2026-08-06"
+  },
+  "MOD": {
+    "observations": 37,
+    "first_filed": "2018-08-02",
+    "last_filed": "2026-07-30"
+  },
+  "MRVL": {
+    "observations": 25,
+    "first_filed": "2021-06-09",
+    "last_filed": "2026-05-28"
+  },
+  "MU": {
+    "observations": 35,
+    "first_filed": "2018-12-19",
+    "last_filed": "2026-06-25"
+  },
+  "NRG": {
+    "observations": 34,
+    "first_filed": "2018-05-03",
+    "last_filed": "2026-08-04"
+  },
+  "NVDA": {
+    "observations": 12,
+    "first_filed": "2019-02-21",
+    "last_filed": "2020-02-20"
+  },
+  "NVT": {
+    "observations": 38,
+    "first_filed": "2019-02-19",
+    "last_filed": "2026-07-31"
+  },
+  "OKLO": {
+    "observations": 2,
+    "first_filed": "2026-08-07",
+    "last_filed": "2026-08-07"
+  },
+  "ONTO": {
+    "observations": 40,
+    "first_filed": "2018-08-02",
+    "last_filed": "2026-08-06"
+  },
+  "POWL": {
+    "observations": 35,
+    "first_filed": "2019-02-06",
+    "last_filed": "2026-08-04"
+  },
+  "PWR": {
+    "observations": 38,
+    "first_filed": "2019-02-28",
+    "last_filed": "2026-07-30"
+  },
+  "QCOM": {
+    "observations": 72,
+    "first_filed": "2009-07-22",
+    "last_filed": "2026-07-29"
+  },
+  "SMCI": {
+    "observations": 35,
+    "first_filed": "2019-12-19",
+    "last_filed": "2026-05-11"
+  },
+  "SMR": {
+    "observations": 20,
+    "first_filed": "2022-08-12",
+    "last_filed": "2026-08-05"
+  },
+  "SNPS": {
+    "observations": 35,
+    "first_filed": "2019-02-25",
+    "last_filed": "2026-08-26"
+  },
+  "STX": {
+    "observations": 36,
+    "first_filed": "2018-11-02",
+    "last_filed": "2026-08-04"
+  },
+  "TER": {
+    "observations": 18,
+    "first_filed": "2019-03-01",
+    "last_filed": "2021-02-22"
+  },
+  "TLN": {
+    "observations": 11,
+    "first_filed": "2024-11-14",
+    "last_filed": "2026-08-05"
+  },
+  "TSM": {
+    "observations": 0,
+    "first_filed": null,
+    "last_filed": null
+  },
+  "UCTT": {
+    "observations": 26,
+    "first_filed": "2018-08-08",
+    "last_filed": "2024-03-06"
+  },
+  "UMC": {
+    "observations": 0,
+    "first_filed": null,
+    "last_filed": null
+  },
+  "VRT": {
+    "observations": 30,
+    "first_filed": "2020-05-07",
+    "last_filed": "2026-07-29"
+  },
+  "VST": {
+    "observations": 34,
+    "first_filed": "2019-05-03",
+    "last_filed": "2026-08-10"
+  },
+  "WDC": {
+    "observations": 36,
+    "first_filed": "2018-11-06",
+    "last_filed": "2026-08-14"
+  }
+}
