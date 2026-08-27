@@ -1,0 +1,1258 @@
+{
+  "all": {
+    "btc_long": {
+      "ema200 + expansion": {
+        "n": 26,
+        "win": 80.8,
+        "pf": 4.511,
+        "avg_r": 0.734,
+        "exp_r_mo": 0.65,
+        "t_mo": 0.9,
+        "sig_pct": 1.08,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 35,
+        "win": 65.7,
+        "pf": 2.104,
+        "avg_r": 0.401,
+        "exp_r_mo": 0.48,
+        "t_mo": 1.2,
+        "sig_pct": 2.48,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 48,
+        "win": 68.8,
+        "pf": 2.306,
+        "avg_r": 0.455,
+        "exp_r_mo": 0.75,
+        "t_mo": 1.6,
+        "sig_pct": 2.16,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 57,
+        "win": 61.4,
+        "pf": 1.701,
+        "avg_r": 0.295,
+        "exp_r_mo": 0.57,
+        "t_mo": 1.9,
+        "sig_pct": 3.64,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 30,
+        "win": 80.0,
+        "pf": 4.309,
+        "avg_r": 0.719,
+        "exp_r_mo": 0.74,
+        "t_mo": 1.0,
+        "sig_pct": 1.23,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 67,
+        "win": 67.2,
+        "pf": 2.147,
+        "avg_r": 0.42,
+        "exp_r_mo": 0.96,
+        "t_mo": 2.3,
+        "sig_pct": 2.89,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 86,
+        "win": 62.8,
+        "pf": 1.787,
+        "avg_r": 0.323,
+        "exp_r_mo": 0.95,
+        "t_mo": 2.9,
+        "sig_pct": 4.83,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 30,
+        "win": 70.0,
+        "pf": 2.468,
+        "avg_r": 0.489,
+        "exp_r_mo": 0.5,
+        "t_mo": 1.0,
+        "sig_pct": 1.22,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "btc_short": {
+      "ema200 + expansion": {
+        "n": 23,
+        "win": 69.6,
+        "pf": 2.585,
+        "avg_r": 0.506,
+        "exp_r_mo": 0.4,
+        "t_mo": 0.8,
+        "sig_pct": 0.58,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 41,
+        "win": 58.5,
+        "pf": 1.606,
+        "avg_r": 0.266,
+        "exp_r_mo": 0.37,
+        "t_mo": 1.4,
+        "sig_pct": 1.22,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 38,
+        "win": 60.5,
+        "pf": 1.69,
+        "avg_r": 0.294,
+        "exp_r_mo": 0.38,
+        "t_mo": 1.3,
+        "sig_pct": 1.11,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 62,
+        "win": 58.1,
+        "pf": 1.53,
+        "avg_r": 0.242,
+        "exp_r_mo": 0.51,
+        "t_mo": 2.1,
+        "sig_pct": 1.86,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 28,
+        "win": 57.1,
+        "pf": 1.497,
+        "avg_r": 0.225,
+        "exp_r_mo": 0.22,
+        "t_mo": 1.0,
+        "sig_pct": 0.69,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 53,
+        "win": 52.8,
+        "pf": 1.221,
+        "avg_r": 0.115,
+        "exp_r_mo": 0.21,
+        "t_mo": 1.8,
+        "sig_pct": 1.63,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 84,
+        "win": 52.4,
+        "pf": 1.211,
+        "avg_r": 0.111,
+        "exp_r_mo": 0.32,
+        "t_mo": 2.9,
+        "sig_pct": 2.76,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 24,
+        "win": 66.7,
+        "pf": 2.249,
+        "avg_r": 0.439,
+        "exp_r_mo": 0.36,
+        "t_mo": 0.8,
+        "sig_pct": 0.62,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "alt_long": {
+      "ema200 + expansion": {
+        "n": 97,
+        "win": 61.9,
+        "pf": 1.844,
+        "avg_r": 0.349,
+        "exp_r_mo": 1.16,
+        "t_mo": 3.3,
+        "sig_pct": 0.6,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 176,
+        "win": 59.7,
+        "pf": 1.702,
+        "avg_r": 0.306,
+        "exp_r_mo": 1.84,
+        "t_mo": 6.0,
+        "sig_pct": 1.71,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 224,
+        "win": 54.9,
+        "pf": 1.358,
+        "avg_r": 0.181,
+        "exp_r_mo": 1.39,
+        "t_mo": 7.7,
+        "sig_pct": 1.49,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 300,
+        "win": 55.3,
+        "pf": 1.394,
+        "avg_r": 0.197,
+        "exp_r_mo": 2.02,
+        "t_mo": 10.3,
+        "sig_pct": 2.63,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 119,
+        "win": 60.5,
+        "pf": 1.76,
+        "avg_r": 0.318,
+        "exp_r_mo": 1.29,
+        "t_mo": 4.1,
+        "sig_pct": 0.73,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 390,
+        "win": 55.4,
+        "pf": 1.383,
+        "avg_r": 0.191,
+        "exp_r_mo": 2.55,
+        "t_mo": 13.3,
+        "sig_pct": 2.7,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 497,
+        "win": 54.9,
+        "pf": 1.355,
+        "avg_r": 0.184,
+        "exp_r_mo": 3.13,
+        "t_mo": 17.0,
+        "sig_pct": 4.21,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 104,
+        "win": 61.5,
+        "pf": 1.817,
+        "avg_r": 0.342,
+        "exp_r_mo": 1.22,
+        "t_mo": 3.6,
+        "sig_pct": 0.65,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "n": 94,
+        "win": 62.8,
+        "pf": 1.917,
+        "avg_r": 0.37,
+        "exp_r_mo": 1.19,
+        "t_mo": 3.2,
+        "sig_pct": 0.59,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + exp + BTC agrees + RS>0": {
+        "n": 92,
+        "win": 62.0,
+        "pf": 1.853,
+        "avg_r": 0.352,
+        "exp_r_mo": 1.11,
+        "t_mo": 3.1,
+        "sig_pct": 0.54,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true,
+          "rs_min": 0.0
+        }
+      },
+      "ema200 + expansion + RS>0": {
+        "n": 95,
+        "win": 61.1,
+        "pf": 1.783,
+        "avg_r": 0.331,
+        "exp_r_mo": 1.08,
+        "t_mo": 3.2,
+        "sig_pct": 0.56,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "rs_min": 0.0
+        }
+      }
+    },
+    "alt_short": {
+      "ema200 + expansion": {
+        "n": 99,
+        "win": 54.5,
+        "pf": 1.363,
+        "avg_r": 0.181,
+        "exp_r_mo": 0.61,
+        "t_mo": 3.4,
+        "sig_pct": 0.49,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 136,
+        "win": 50.7,
+        "pf": 1.171,
+        "avg_r": 0.096,
+        "exp_r_mo": 0.45,
+        "t_mo": 4.6,
+        "sig_pct": 0.8,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 275,
+        "win": 56.0,
+        "pf": 1.432,
+        "avg_r": 0.212,
+        "exp_r_mo": 1.99,
+        "t_mo": 9.4,
+        "sig_pct": 1.72,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 327,
+        "win": 53.8,
+        "pf": 1.316,
+        "avg_r": 0.163,
+        "exp_r_mo": 1.82,
+        "t_mo": 11.2,
+        "sig_pct": 2.18,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 115,
+        "win": 51.3,
+        "pf": 1.199,
+        "avg_r": 0.109,
+        "exp_r_mo": 0.43,
+        "t_mo": 3.9,
+        "sig_pct": 0.62,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 327,
+        "win": 56.0,
+        "pf": 1.419,
+        "avg_r": 0.211,
+        "exp_r_mo": 2.36,
+        "t_mo": 11.2,
+        "sig_pct": 2.24,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 404,
+        "win": 54.2,
+        "pf": 1.331,
+        "avg_r": 0.174,
+        "exp_r_mo": 2.4,
+        "t_mo": 13.8,
+        "sig_pct": 3.03,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 108,
+        "win": 51.9,
+        "pf": 1.227,
+        "avg_r": 0.121,
+        "exp_r_mo": 0.45,
+        "t_mo": 3.7,
+        "sig_pct": 0.52,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "n": 99,
+        "win": 54.5,
+        "pf": 1.363,
+        "avg_r": 0.181,
+        "exp_r_mo": 0.61,
+        "t_mo": 3.4,
+        "sig_pct": 0.49,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + exp + BTC agrees + RS>0": {
+        "n": 94,
+        "win": 54.3,
+        "pf": 1.347,
+        "avg_r": 0.174,
+        "exp_r_mo": 0.56,
+        "t_mo": 3.2,
+        "sig_pct": 0.46,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true,
+          "rs_min": 0.0
+        }
+      },
+      "ema200 + expansion + RS>0": {
+        "n": 94,
+        "win": 54.3,
+        "pf": 1.347,
+        "avg_r": 0.174,
+        "exp_r_mo": 0.56,
+        "t_mo": 3.2,
+        "sig_pct": 0.46,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "rs_min": 0.0
+        }
+      }
+    }
+  },
+  "survivors": {
+    "btc_long": {
+      "ema200 + expansion": {
+        "n": 26,
+        "win": 80.8,
+        "pf": 4.511,
+        "avg_r": 0.734,
+        "exp_r_mo": 0.65,
+        "t_mo": 0.9,
+        "sig_pct": 1.08,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 35,
+        "win": 65.7,
+        "pf": 2.104,
+        "avg_r": 0.401,
+        "exp_r_mo": 0.48,
+        "t_mo": 1.2,
+        "sig_pct": 2.48,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 48,
+        "win": 68.8,
+        "pf": 2.306,
+        "avg_r": 0.455,
+        "exp_r_mo": 0.75,
+        "t_mo": 1.6,
+        "sig_pct": 2.16,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 57,
+        "win": 61.4,
+        "pf": 1.701,
+        "avg_r": 0.295,
+        "exp_r_mo": 0.57,
+        "t_mo": 1.9,
+        "sig_pct": 3.64,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 30,
+        "win": 80.0,
+        "pf": 4.309,
+        "avg_r": 0.719,
+        "exp_r_mo": 0.74,
+        "t_mo": 1.0,
+        "sig_pct": 1.23,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 67,
+        "win": 67.2,
+        "pf": 2.147,
+        "avg_r": 0.42,
+        "exp_r_mo": 0.96,
+        "t_mo": 2.3,
+        "sig_pct": 2.89,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 86,
+        "win": 62.8,
+        "pf": 1.787,
+        "avg_r": 0.323,
+        "exp_r_mo": 0.95,
+        "t_mo": 2.9,
+        "sig_pct": 4.83,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 30,
+        "win": 70.0,
+        "pf": 2.468,
+        "avg_r": 0.489,
+        "exp_r_mo": 0.5,
+        "t_mo": 1.0,
+        "sig_pct": 1.22,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "btc_short": {
+      "ema200 + expansion": {
+        "n": 23,
+        "win": 69.6,
+        "pf": 2.585,
+        "avg_r": 0.506,
+        "exp_r_mo": 0.4,
+        "t_mo": 0.8,
+        "sig_pct": 0.58,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 41,
+        "win": 58.5,
+        "pf": 1.606,
+        "avg_r": 0.266,
+        "exp_r_mo": 0.37,
+        "t_mo": 1.4,
+        "sig_pct": 1.22,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 38,
+        "win": 60.5,
+        "pf": 1.69,
+        "avg_r": 0.294,
+        "exp_r_mo": 0.38,
+        "t_mo": 1.3,
+        "sig_pct": 1.11,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 62,
+        "win": 58.1,
+        "pf": 1.53,
+        "avg_r": 0.242,
+        "exp_r_mo": 0.51,
+        "t_mo": 2.1,
+        "sig_pct": 1.86,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 28,
+        "win": 57.1,
+        "pf": 1.497,
+        "avg_r": 0.225,
+        "exp_r_mo": 0.22,
+        "t_mo": 1.0,
+        "sig_pct": 0.69,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 53,
+        "win": 52.8,
+        "pf": 1.221,
+        "avg_r": 0.115,
+        "exp_r_mo": 0.21,
+        "t_mo": 1.8,
+        "sig_pct": 1.63,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 84,
+        "win": 52.4,
+        "pf": 1.211,
+        "avg_r": 0.111,
+        "exp_r_mo": 0.32,
+        "t_mo": 2.9,
+        "sig_pct": 2.76,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 24,
+        "win": 66.7,
+        "pf": 2.249,
+        "avg_r": 0.439,
+        "exp_r_mo": 0.36,
+        "t_mo": 0.8,
+        "sig_pct": 0.62,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "alt_long": {
+      "ema200 + expansion": {
+        "n": 97,
+        "win": 61.9,
+        "pf": 1.844,
+        "avg_r": 0.349,
+        "exp_r_mo": 1.16,
+        "t_mo": 3.3,
+        "sig_pct": 0.6,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 176,
+        "win": 59.7,
+        "pf": 1.702,
+        "avg_r": 0.306,
+        "exp_r_mo": 1.84,
+        "t_mo": 6.0,
+        "sig_pct": 1.71,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 224,
+        "win": 54.9,
+        "pf": 1.358,
+        "avg_r": 0.181,
+        "exp_r_mo": 1.39,
+        "t_mo": 7.7,
+        "sig_pct": 1.49,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 300,
+        "win": 55.3,
+        "pf": 1.394,
+        "avg_r": 0.197,
+        "exp_r_mo": 2.02,
+        "t_mo": 10.3,
+        "sig_pct": 2.63,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 119,
+        "win": 60.5,
+        "pf": 1.76,
+        "avg_r": 0.318,
+        "exp_r_mo": 1.29,
+        "t_mo": 4.1,
+        "sig_pct": 0.73,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 390,
+        "win": 55.4,
+        "pf": 1.383,
+        "avg_r": 0.191,
+        "exp_r_mo": 2.55,
+        "t_mo": 13.3,
+        "sig_pct": 2.7,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 497,
+        "win": 54.9,
+        "pf": 1.355,
+        "avg_r": 0.184,
+        "exp_r_mo": 3.13,
+        "t_mo": 17.0,
+        "sig_pct": 4.21,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 104,
+        "win": 61.5,
+        "pf": 1.817,
+        "avg_r": 0.342,
+        "exp_r_mo": 1.22,
+        "t_mo": 3.6,
+        "sig_pct": 0.65,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "n": 94,
+        "win": 62.8,
+        "pf": 1.917,
+        "avg_r": 0.37,
+        "exp_r_mo": 1.19,
+        "t_mo": 3.2,
+        "sig_pct": 0.59,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + exp + BTC agrees + RS>0": {
+        "n": 92,
+        "win": 62.0,
+        "pf": 1.853,
+        "avg_r": 0.352,
+        "exp_r_mo": 1.11,
+        "t_mo": 3.1,
+        "sig_pct": 0.54,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true,
+          "rs_min": 0.0
+        }
+      },
+      "ema200 + expansion + RS>0": {
+        "n": 95,
+        "win": 61.1,
+        "pf": 1.783,
+        "avg_r": 0.331,
+        "exp_r_mo": 1.08,
+        "t_mo": 3.2,
+        "sig_pct": 0.56,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "rs_min": 0.0
+        }
+      }
+    },
+    "alt_short": {
+      "ema200 + expansion": {
+        "n": 99,
+        "win": 54.5,
+        "pf": 1.363,
+        "avg_r": 0.181,
+        "exp_r_mo": 0.61,
+        "t_mo": 3.4,
+        "sig_pct": 0.49,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "n": 136,
+        "win": 50.7,
+        "pf": 1.171,
+        "avg_r": 0.096,
+        "exp_r_mo": 0.45,
+        "t_mo": 4.6,
+        "sig_pct": 0.8,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "n": 275,
+        "win": 56.0,
+        "pf": 1.432,
+        "avg_r": 0.212,
+        "exp_r_mo": 1.99,
+        "t_mo": 9.4,
+        "sig_pct": 1.72,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "n": 327,
+        "win": 53.8,
+        "pf": 1.316,
+        "avg_r": 0.163,
+        "exp_r_mo": 1.82,
+        "t_mo": 11.2,
+        "sig_pct": 2.18,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "n": 115,
+        "win": 51.3,
+        "pf": 1.199,
+        "avg_r": 0.109,
+        "exp_r_mo": 0.43,
+        "t_mo": 3.9,
+        "sig_pct": 0.62,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "n": 327,
+        "win": 56.0,
+        "pf": 1.419,
+        "avg_r": 0.211,
+        "exp_r_mo": 2.36,
+        "t_mo": 11.2,
+        "sig_pct": 2.24,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "n": 404,
+        "win": 54.2,
+        "pf": 1.331,
+        "avg_r": 0.174,
+        "exp_r_mo": 2.4,
+        "t_mo": 13.8,
+        "sig_pct": 3.03,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "n": 108,
+        "win": 51.9,
+        "pf": 1.227,
+        "avg_r": 0.121,
+        "exp_r_mo": 0.45,
+        "t_mo": 3.7,
+        "sig_pct": 0.52,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "n": 99,
+        "win": 54.5,
+        "pf": 1.363,
+        "avg_r": 0.181,
+        "exp_r_mo": 0.61,
+        "t_mo": 3.4,
+        "sig_pct": 0.49,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + exp + BTC agrees + RS>0": {
+        "n": 94,
+        "win": 54.3,
+        "pf": 1.347,
+        "avg_r": 0.174,
+        "exp_r_mo": 0.56,
+        "t_mo": 3.2,
+        "sig_pct": 0.46,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true,
+          "rs_min": 0.0
+        }
+      },
+      "ema200 + expansion + RS>0": {
+        "n": 94,
+        "win": 54.3,
+        "pf": 1.347,
+        "avg_r": 0.174,
+        "exp_r_mo": 0.56,
+        "t_mo": 3.2,
+        "sig_pct": 0.46,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "rs_min": 0.0
+        }
+      }
+    }
+  }
+}

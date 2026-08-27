@@ -1,0 +1,3812 @@
+{
+  "top": {
+    "BTC|combined|classic_10k": [
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 96.7,
+            "pass_lo": 93.3,
+            "breach": 3.3,
+            "timeout": 0.0,
+            "win": 72.1,
+            "pf": 2.88,
+            "t_mo": 4.0,
+            "mo_to_pass": 2.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 83.3,
+            "pass_lo": 73.3,
+            "breach": 10.0,
+            "timeout": 6.7,
+            "win": 64.2,
+            "pf": 2.23,
+            "t_mo": 4.9,
+            "mo_to_pass": 2.4
+          }
+        },
+        "worst_pass_lo": 73.3,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 96.7,
+            "pass_lo": 93.3,
+            "breach": 3.3,
+            "timeout": 0.0,
+            "win": 67.4,
+            "pf": 2.9,
+            "t_mo": 3.2,
+            "mo_to_pass": 2.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 83.3,
+            "pass_lo": 73.3,
+            "breach": 10.0,
+            "timeout": 6.7,
+            "win": 59.2,
+            "pf": 2.07,
+            "t_mo": 4.2,
+            "mo_to_pass": 2.5
+          }
+        },
+        "worst_pass_lo": 73.3,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 93.3,
+            "pass_lo": 86.7,
+            "breach": 6.7,
+            "timeout": 0.0,
+            "win": 62.9,
+            "pf": 2.84,
+            "t_mo": 3.7,
+            "mo_to_pass": 2.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 83.3,
+            "pass_lo": 73.3,
+            "breach": 13.3,
+            "timeout": 3.3,
+            "win": 54.3,
+            "pf": 2.13,
+            "t_mo": 4.3,
+            "mo_to_pass": 2.4
+          }
+        },
+        "worst_pass_lo": 73.3,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 90.0,
+            "pass_lo": 83.3,
+            "breach": 0.0,
+            "timeout": 10.0,
+            "win": 72.4,
+            "pf": 2.37,
+            "t_mo": 4.6,
+            "mo_to_pass": 2.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 80.0,
+            "pass_lo": 70.0,
+            "breach": 10.0,
+            "timeout": 10.0,
+            "win": 67.7,
+            "pf": 1.97,
+            "t_mo": 5.8,
+            "mo_to_pass": 2.5
+          }
+        },
+        "worst_pass_lo": 70.0,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 1.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 86.7,
+            "pass_lo": 80.0,
+            "breach": 13.3,
+            "timeout": 0.0,
+            "win": 64.1,
+            "pf": 2.36,
+            "t_mo": 4.1,
+            "mo_to_pass": 3.5
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 10.0,
+            "timeout": 13.3,
+            "win": 61.7,
+            "pf": 2.1,
+            "t_mo": 5.0,
+            "mo_to_pass": 3.1
+          }
+        },
+        "worst_pass_lo": 66.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 1.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 96.7,
+            "pass_lo": 93.3,
+            "breach": 0.0,
+            "timeout": 3.3,
+            "win": 59.3,
+            "pf": 2.63,
+            "t_mo": 3.6,
+            "mo_to_pass": 3.5
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 13.3,
+            "timeout": 10.0,
+            "win": 48.7,
+            "pf": 1.95,
+            "t_mo": 4.1,
+            "mo_to_pass": 3.4
+          }
+        },
+        "worst_pass_lo": 66.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 2.0,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 93.3,
+            "pass_lo": 86.7,
+            "breach": 0.0,
+            "timeout": 6.7,
+            "win": 58.0,
+            "pf": 2.95,
+            "t_mo": 2.3,
+            "mo_to_pass": 3.0
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 13.3,
+            "timeout": 10.0,
+            "win": 45.4,
+            "pf": 1.61,
+            "t_mo": 3.2,
+            "mo_to_pass": 3.3
+          }
+        },
+        "worst_pass_lo": 66.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 1.5,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 93.3,
+            "pass_lo": 86.7,
+            "breach": 0.0,
+            "timeout": 6.7,
+            "win": 69.9,
+            "pf": 3.17,
+            "t_mo": 3.1,
+            "mo_to_pass": 2.9
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 73.3,
+            "pass_lo": 63.3,
+            "breach": 10.0,
+            "timeout": 16.7,
+            "win": 56.8,
+            "pf": 1.76,
+            "t_mo": 4.4,
+            "mo_to_pass": 3.5
+          }
+        },
+        "worst_pass_lo": 63.3,
+        "worst_breach": 10.0
+      }
+    ],
+    "BTC|combined|turbo_200k": [
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 46.7,
+            "pass_lo": 36.7,
+            "breach": 0.0,
+            "timeout": 53.3,
+            "win": 63.7,
+            "pf": 2.32,
+            "t_mo": 3.6,
+            "mo_to_pass": 4.9
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 26.7,
+            "pass_lo": 16.7,
+            "breach": 13.3,
+            "timeout": 60.0,
+            "win": 52.4,
+            "pf": 1.45,
+            "t_mo": 4.6,
+            "mo_to_pass": 4.7
+          }
+        },
+        "worst_pass_lo": 16.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 36.7,
+            "pass_lo": 26.7,
+            "breach": 13.3,
+            "timeout": 50.0,
+            "win": 66.3,
+            "pf": 2.1,
+            "t_mo": 4.4,
+            "mo_to_pass": 5.0
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 20.0,
+            "pass_lo": 10.0,
+            "breach": 13.3,
+            "timeout": 66.7,
+            "win": 56.3,
+            "pf": 1.36,
+            "t_mo": 5.6,
+            "mo_to_pass": 5.0
+          }
+        },
+        "worst_pass_lo": 10.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.6,
+            "pf": 1.6,
+            "t_mo": 4.8,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 60.7,
+            "pf": 1.29,
+            "t_mo": 6.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.6,
+            "pf": 1.6,
+            "t_mo": 4.8,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 60.7,
+            "pf": 1.29,
+            "t_mo": 6.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 64.3,
+            "pf": 1.93,
+            "t_mo": 4.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 55.6,
+            "pf": 1.33,
+            "t_mo": 5.6,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 64.3,
+            "pf": 1.93,
+            "t_mo": 4.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 55.6,
+            "pf": 1.33,
+            "t_mo": 5.6,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 63.7,
+            "pf": 2.28,
+            "t_mo": 4.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 52.3,
+            "pf": 1.41,
+            "t_mo": 4.9,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 63.7,
+            "pf": 2.28,
+            "t_mo": 4.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 52.3,
+            "pf": 1.41,
+            "t_mo": 4.9,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      }
+    ],
+    "BTC|long|classic_10k": [
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.5,
+            "pf": 1.64,
+            "t_mo": 2.7,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 62.6,
+            "pf": 1.31,
+            "t_mo": 2.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.5,
+            "pf": 1.64,
+            "t_mo": 2.7,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 62.6,
+            "pf": 1.31,
+            "t_mo": 2.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.2,
+            "pf": 2.06,
+            "t_mo": 2.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 54.7,
+            "pf": 1.22,
+            "t_mo": 2.1,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.2,
+            "pf": 2.06,
+            "t_mo": 2.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 54.7,
+            "pf": 1.22,
+            "t_mo": 2.1,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.6,
+            "pf": 2.44,
+            "t_mo": 2.2,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 53.1,
+            "pf": 1.4,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.6,
+            "pf": 2.44,
+            "t_mo": 2.2,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 53.1,
+            "pf": 1.4,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 57.4,
+            "pf": 2.33,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 44.9,
+            "pf": 1.37,
+            "t_mo": 1.7,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 57.4,
+            "pf": 2.33,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 44.9,
+            "pf": 1.37,
+            "t_mo": 1.7,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      }
+    ],
+    "BTC|long|turbo_200k": [
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.5,
+            "pf": 1.64,
+            "t_mo": 2.7,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 62.6,
+            "pf": 1.31,
+            "t_mo": 2.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.5,
+            "pf": 1.64,
+            "t_mo": 2.7,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 62.6,
+            "pf": 1.31,
+            "t_mo": 2.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.2,
+            "pf": 2.06,
+            "t_mo": 2.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 54.7,
+            "pf": 1.22,
+            "t_mo": 2.1,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 66.2,
+            "pf": 2.06,
+            "t_mo": 2.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 54.7,
+            "pf": 1.22,
+            "t_mo": 2.1,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.6,
+            "pf": 2.44,
+            "t_mo": 2.2,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 53.1,
+            "pf": 1.4,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.6,
+            "pf": 2.44,
+            "t_mo": 2.2,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 53.1,
+            "pf": 1.4,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 57.4,
+            "pf": 2.33,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 44.9,
+            "pf": 1.37,
+            "t_mo": 1.7,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 57.4,
+            "pf": 2.33,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 44.9,
+            "pf": 1.37,
+            "t_mo": 1.7,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      }
+    ],
+    "BTC|short|classic_10k": [
+      {
+        "params": {
+          "risk_pct": 1.5,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 0.0,
+            "timeout": 30.0,
+            "win": 74.0,
+            "pf": 3.72,
+            "t_mo": 1.8,
+            "mo_to_pass": 3.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 66.7,
+            "pass_lo": 56.7,
+            "breach": 10.0,
+            "timeout": 23.3,
+            "win": 58.7,
+            "pf": 2.03,
+            "t_mo": 2.9,
+            "mo_to_pass": 3.0
+          }
+        },
+        "worst_pass_lo": 56.7,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 2.0,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 73.3,
+            "pass_lo": 63.3,
+            "breach": 0.0,
+            "timeout": 26.7,
+            "win": 69.3,
+            "pf": 5.25,
+            "t_mo": 0.8,
+            "mo_to_pass": 3.5
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 66.7,
+            "pass_lo": 56.7,
+            "breach": 13.3,
+            "timeout": 20.0,
+            "win": 43.8,
+            "pf": 1.64,
+            "t_mo": 1.8,
+            "mo_to_pass": 3.2
+          }
+        },
+        "worst_pass_lo": 56.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 0.0,
+            "timeout": 30.0,
+            "win": 85.4,
+            "pf": 6.87,
+            "t_mo": 1.3,
+            "mo_to_pass": 2.7
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 60.0,
+            "pass_lo": 50.0,
+            "breach": 13.3,
+            "timeout": 26.7,
+            "win": 56.4,
+            "pf": 1.74,
+            "t_mo": 3.0,
+            "mo_to_pass": 2.7
+          }
+        },
+        "worst_pass_lo": 50.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 0.0,
+            "timeout": 23.3,
+            "win": 84.9,
+            "pf": 10.56,
+            "t_mo": 1.0,
+            "mo_to_pass": 2.7
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 60.0,
+            "pass_lo": 50.0,
+            "breach": 13.3,
+            "timeout": 26.7,
+            "win": 52.3,
+            "pf": 1.74,
+            "t_mo": 2.6,
+            "mo_to_pass": 2.7
+          }
+        },
+        "worst_pass_lo": 50.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 0.0,
+            "timeout": 23.3,
+            "win": 77.8,
+            "pf": 8.73,
+            "t_mo": 0.7,
+            "mo_to_pass": 2.7
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 56.7,
+            "pass_lo": 46.7,
+            "breach": 13.3,
+            "timeout": 30.0,
+            "win": 40.1,
+            "pf": 1.55,
+            "t_mo": 2.2,
+            "mo_to_pass": 2.5
+          }
+        },
+        "worst_pass_lo": 46.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 2.0,
+          "atr_stop": 1.5,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 60.0,
+            "pass_lo": 46.7,
+            "breach": 0.0,
+            "timeout": 40.0,
+            "win": 78.3,
+            "pf": 3.33,
+            "t_mo": 1.8,
+            "mo_to_pass": 3.5
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 46.7,
+            "pass_lo": 36.7,
+            "breach": 13.3,
+            "timeout": 40.0,
+            "win": 59.4,
+            "pf": 1.46,
+            "t_mo": 3.7,
+            "mo_to_pass": 2.1
+          }
+        },
+        "worst_pass_lo": 36.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 1.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 50.0,
+            "pass_lo": 40.0,
+            "breach": 0.0,
+            "timeout": 50.0,
+            "win": 68.7,
+            "pf": 2.91,
+            "t_mo": 1.9,
+            "mo_to_pass": 3.8
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 46.7,
+            "pass_lo": 33.3,
+            "breach": 10.0,
+            "timeout": 43.3,
+            "win": 55.9,
+            "pf": 1.76,
+            "t_mo": 2.9,
+            "mo_to_pass": 2.8
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 1.5,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 0.0,
+            "timeout": 30.0,
+            "win": 82.2,
+            "pf": 8.64,
+            "t_mo": 1.2,
+            "mo_to_pass": 3.0
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 40.0,
+            "pass_lo": 30.0,
+            "breach": 3.3,
+            "timeout": 56.7,
+            "win": 47.6,
+            "pf": 1.58,
+            "t_mo": 2.7,
+            "mo_to_pass": 3.0
+          }
+        },
+        "worst_pass_lo": 30.0,
+        "worst_breach": 3.3
+      }
+    ],
+    "BTC|short|turbo_200k": [
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 64.4,
+            "pf": 1.56,
+            "t_mo": 2.1,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 59.5,
+            "pf": 1.28,
+            "t_mo": 4.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 64.4,
+            "pf": 1.56,
+            "t_mo": 2.1,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 59.5,
+            "pf": 1.28,
+            "t_mo": 4.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 61.8,
+            "pf": 1.77,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 56.1,
+            "pf": 1.41,
+            "t_mo": 3.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 61.8,
+            "pf": 1.77,
+            "t_mo": 2.0,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 56.1,
+            "pf": 1.41,
+            "t_mo": 3.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 61.4,
+            "pf": 2.11,
+            "t_mo": 1.8,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 51.6,
+            "pf": 1.42,
+            "t_mo": 2.9,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 61.4,
+            "pf": 2.11,
+            "t_mo": 1.8,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 51.6,
+            "pf": 1.42,
+            "t_mo": 2.9,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 52.3,
+            "pf": 1.96,
+            "t_mo": 1.5,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 43.6,
+            "pf": 1.39,
+            "t_mo": 2.5,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 1,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 52.3,
+            "pf": 1.96,
+            "t_mo": 1.5,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 43.6,
+            "pf": 1.39,
+            "t_mo": 2.5,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      }
+    ],
+    "ALT|combined|classic_10k": [
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 100.0,
+            "pass_lo": 100.0,
+            "breach": 0.0,
+            "timeout": 0.0,
+            "win": 61.1,
+            "pf": 1.84,
+            "t_mo": 16.8,
+            "mo_to_pass": 3.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 66.7,
+            "pass_lo": 56.7,
+            "breach": 10.0,
+            "timeout": 23.3,
+            "win": 54.6,
+            "pf": 1.43,
+            "t_mo": 19.6,
+            "mo_to_pass": 3.1
+          }
+        },
+        "worst_pass_lo": 56.7,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 73.3,
+            "pass_lo": 63.3,
+            "breach": 13.3,
+            "timeout": 13.3,
+            "win": 54.5,
+            "pf": 1.72,
+            "t_mo": 15.2,
+            "mo_to_pass": 2.9
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 63.3,
+            "pass_lo": 53.3,
+            "breach": 6.7,
+            "timeout": 30.0,
+            "win": 49.9,
+            "pf": 1.4,
+            "t_mo": 16.6,
+            "mo_to_pass": 3.4
+          }
+        },
+        "worst_pass_lo": 53.3,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 100.0,
+            "pass_lo": 100.0,
+            "breach": 0.0,
+            "timeout": 0.0,
+            "win": 60.6,
+            "pf": 1.91,
+            "t_mo": 16.9,
+            "mo_to_pass": 3.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 60.0,
+            "pass_lo": 50.0,
+            "breach": 10.0,
+            "timeout": 30.0,
+            "win": 52.2,
+            "pf": 1.38,
+            "t_mo": 19.4,
+            "mo_to_pass": 3.0
+          }
+        },
+        "worst_pass_lo": 50.0,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 93.3,
+            "pass_lo": 86.7,
+            "breach": 3.3,
+            "timeout": 3.3,
+            "win": 49.3,
+            "pf": 1.93,
+            "t_mo": 12.7,
+            "mo_to_pass": 3.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 60.0,
+            "pass_lo": 50.0,
+            "breach": 13.3,
+            "timeout": 26.7,
+            "win": 43.1,
+            "pf": 1.4,
+            "t_mo": 13.9,
+            "mo_to_pass": 3.1
+          }
+        },
+        "worst_pass_lo": 50.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 90.0,
+            "pass_lo": 83.3,
+            "breach": 10.0,
+            "timeout": 0.0,
+            "win": 57.1,
+            "pf": 2.0,
+            "t_mo": 14.2,
+            "mo_to_pass": 3.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 53.3,
+            "pass_lo": 43.3,
+            "breach": 6.7,
+            "timeout": 40.0,
+            "win": 47.0,
+            "pf": 1.35,
+            "t_mo": 16.5,
+            "mo_to_pass": 3.3
+          }
+        },
+        "worst_pass_lo": 43.3,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 100.0,
+            "pass_lo": 100.0,
+            "breach": 0.0,
+            "timeout": 0.0,
+            "win": 67.1,
+            "pf": 1.9,
+            "t_mo": 20.6,
+            "mo_to_pass": 3.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 53.3,
+            "pass_lo": 40.0,
+            "breach": 6.7,
+            "timeout": 40.0,
+            "win": 58.4,
+            "pf": 1.32,
+            "t_mo": 22.6,
+            "mo_to_pass": 3.5
+          }
+        },
+        "worst_pass_lo": 40.0,
+        "worst_breach": 6.7
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 100.0,
+            "pass_lo": 100.0,
+            "breach": 0.0,
+            "timeout": 0.0,
+            "win": 66.6,
+            "pf": 2.0,
+            "t_mo": 19.9,
+            "mo_to_pass": 3.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 46.7,
+            "pass_lo": 33.3,
+            "breach": 13.3,
+            "timeout": 40.0,
+            "win": 56.5,
+            "pf": 1.29,
+            "t_mo": 22.1,
+            "mo_to_pass": 2.7
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 0.0,
+            "timeout": 56.7,
+            "win": 47.0,
+            "pf": 1.63,
+            "t_mo": 18.6,
+            "mo_to_pass": 4.1
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 33.3,
+            "pass_lo": 23.3,
+            "breach": 10.0,
+            "timeout": 56.7,
+            "win": 40.5,
+            "pf": 1.24,
+            "t_mo": 21.5,
+            "mo_to_pass": 4.7
+          }
+        },
+        "worst_pass_lo": 23.3,
+        "worst_breach": 10.0
+      }
+    ],
+    "ALT|combined|turbo_200k": [
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 30.0,
+            "pass_lo": 20.0,
+            "breach": 0.0,
+            "timeout": 70.0,
+            "win": 58.8,
+            "pf": 1.67,
+            "t_mo": 17.5,
+            "mo_to_pass": 5.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 16.7,
+            "pass_lo": 6.7,
+            "breach": 10.0,
+            "timeout": 73.3,
+            "win": 53.1,
+            "pf": 1.33,
+            "t_mo": 19.1,
+            "mo_to_pass": 5.0
+          }
+        },
+        "worst_pass_lo": 6.7,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 30.0,
+            "pass_lo": 20.0,
+            "breach": 0.0,
+            "timeout": 70.0,
+            "win": 58.9,
+            "pf": 1.68,
+            "t_mo": 17.4,
+            "mo_to_pass": 5.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 16.7,
+            "pass_lo": 6.7,
+            "breach": 13.3,
+            "timeout": 70.0,
+            "win": 53.1,
+            "pf": 1.33,
+            "t_mo": 19.0,
+            "mo_to_pass": 5.0
+          }
+        },
+        "worst_pass_lo": 6.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 53.3,
+            "pass_lo": 43.3,
+            "breach": 0.0,
+            "timeout": 46.7,
+            "win": 65.4,
+            "pf": 1.76,
+            "t_mo": 21.7,
+            "mo_to_pass": 5.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 6.7,
+            "timeout": 93.3,
+            "win": 57.2,
+            "pf": 1.23,
+            "t_mo": 22.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 6.7
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 53.3,
+            "pass_lo": 43.3,
+            "breach": 0.0,
+            "timeout": 46.7,
+            "win": 65.5,
+            "pf": 1.76,
+            "t_mo": 21.6,
+            "mo_to_pass": 5.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 10.0,
+            "timeout": 90.0,
+            "win": 57.0,
+            "pf": 1.22,
+            "t_mo": 22.0,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 26.7,
+            "pass_lo": 16.7,
+            "breach": 13.3,
+            "timeout": 60.0,
+            "win": 51.2,
+            "pf": 1.47,
+            "t_mo": 15.8,
+            "mo_to_pass": 5.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 6.7,
+            "pass_lo": 0.0,
+            "breach": 6.7,
+            "timeout": 86.7,
+            "win": 48.7,
+            "pf": 1.33,
+            "t_mo": 16.2,
+            "mo_to_pass": 4.6
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 26.7,
+            "pass_lo": 16.7,
+            "breach": 13.3,
+            "timeout": 60.0,
+            "win": 51.0,
+            "pf": 1.47,
+            "t_mo": 15.8,
+            "mo_to_pass": 5.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 6.7,
+            "pass_lo": 0.0,
+            "breach": 6.7,
+            "timeout": 86.7,
+            "win": 48.9,
+            "pf": 1.34,
+            "t_mo": 16.2,
+            "mo_to_pass": 4.6
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 23.3,
+            "pass_lo": 13.3,
+            "breach": 3.3,
+            "timeout": 73.3,
+            "win": 45.2,
+            "pf": 1.6,
+            "t_mo": 12.9,
+            "mo_to_pass": 5.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 13.3,
+            "timeout": 86.7,
+            "win": 39.1,
+            "pf": 1.22,
+            "t_mo": 13.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 23.3,
+            "pass_lo": 13.3,
+            "breach": 3.3,
+            "timeout": 73.3,
+            "win": 45.7,
+            "pf": 1.57,
+            "t_mo": 13.0,
+            "mo_to_pass": 5.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 13.3,
+            "timeout": 86.7,
+            "win": 39.2,
+            "pf": 1.21,
+            "t_mo": 13.4,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 13.3
+      }
+    ],
+    "ALT|long|classic_10k": [
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 54.6,
+            "pf": 1.63,
+            "t_mo": 14.1,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 10.0,
+            "pass_lo": 3.3,
+            "breach": 0.0,
+            "timeout": 90.0,
+            "win": 45.1,
+            "pf": 1.11,
+            "t_mo": 12.4,
+            "mo_to_pass": 2.7
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 59.0,
+            "pf": 1.64,
+            "t_mo": 13.1,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 47.9,
+            "pf": 1.04,
+            "t_mo": 11.6,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 58.9,
+            "pf": 1.63,
+            "t_mo": 13.1,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 47.9,
+            "pf": 1.04,
+            "t_mo": 11.7,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 55.3,
+            "pf": 1.72,
+            "t_mo": 11.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 40.7,
+            "pf": 0.94,
+            "t_mo": 9.8,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 55.4,
+            "pf": 1.71,
+            "t_mo": 11.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 40.8,
+            "pf": 0.94,
+            "t_mo": 9.9,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 47.1,
+            "pf": 1.67,
+            "t_mo": 8.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 35.8,
+            "pf": 1.01,
+            "t_mo": 8.2,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 47.0,
+            "pf": 1.64,
+            "t_mo": 8.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 35.8,
+            "pf": 1.02,
+            "t_mo": 8.2,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 65.2,
+            "pf": 1.73,
+            "t_mo": 12.4,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 53.1,
+            "pf": 1.04,
+            "t_mo": 10.5,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      }
+    ],
+    "ALT|long|turbo_200k": [
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 80.0,
+            "pass_lo": 70.0,
+            "breach": 20.0,
+            "timeout": 0.0,
+            "win": 63.3,
+            "pf": 1.73,
+            "t_mo": 13.1,
+            "mo_to_pass": 2.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 53.3,
+            "timeout": 3.3,
+            "win": 59.4,
+            "pf": 1.43,
+            "t_mo": 10.3,
+            "mo_to_pass": 1.6
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 53.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 63.3,
+            "pass_lo": 53.3,
+            "breach": 36.7,
+            "timeout": 0.0,
+            "win": 48.9,
+            "pf": 1.88,
+            "t_mo": 9.7,
+            "mo_to_pass": 1.9
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 56.7,
+            "timeout": 0.0,
+            "win": 42.2,
+            "pf": 1.47,
+            "t_mo": 8.8,
+            "mo_to_pass": 1.0
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 56.7
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 60.0,
+            "pass_lo": 50.0,
+            "breach": 40.0,
+            "timeout": 0.0,
+            "win": 48.9,
+            "pf": 1.88,
+            "t_mo": 9.1,
+            "mo_to_pass": 1.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 56.7,
+            "timeout": 0.0,
+            "win": 43.6,
+            "pf": 1.55,
+            "t_mo": 9.1,
+            "mo_to_pass": 0.9
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 56.7
+      },
+      {
+        "params": {
+          "risk_pct": 1.0,
+          "atr_stop": 1.25,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 66.7,
+            "pass_lo": 56.7,
+            "breach": 33.3,
+            "timeout": 0.0,
+            "win": 57.5,
+            "pf": 2.04,
+            "t_mo": 11.6,
+            "mo_to_pass": 1.1
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 56.7,
+            "timeout": 0.0,
+            "win": 51.8,
+            "pf": 1.61,
+            "t_mo": 10.9,
+            "mo_to_pass": 0.6
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 56.7
+      },
+      {
+        "params": {
+          "risk_pct": 1.0,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 30.0,
+            "timeout": 0.0,
+            "win": 49.3,
+            "pf": 1.84,
+            "t_mo": 9.2,
+            "mo_to_pass": 1.1
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 56.7,
+            "timeout": 0.0,
+            "win": 43.7,
+            "pf": 1.65,
+            "t_mo": 7.5,
+            "mo_to_pass": 0.6
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 56.7
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 23.3,
+            "timeout": 0.0,
+            "win": 62.2,
+            "pf": 1.95,
+            "t_mo": 12.7,
+            "mo_to_pass": 2.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 40.0,
+            "pass_lo": 30.0,
+            "breach": 50.0,
+            "timeout": 10.0,
+            "win": 54.0,
+            "pf": 1.33,
+            "t_mo": 10.5,
+            "mo_to_pass": 1.5
+          }
+        },
+        "worst_pass_lo": 30.0,
+        "worst_breach": 50.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 1.25,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 30.0,
+            "timeout": 0.0,
+            "win": 60.4,
+            "pf": 1.96,
+            "t_mo": 14.2,
+            "mo_to_pass": 1.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 40.0,
+            "pass_lo": 30.0,
+            "breach": 53.3,
+            "timeout": 6.7,
+            "win": 50.9,
+            "pf": 1.36,
+            "t_mo": 11.2,
+            "mo_to_pass": 1.1
+          }
+        },
+        "worst_pass_lo": 30.0,
+        "worst_breach": 53.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 2.0,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 73.3,
+            "pass_lo": 63.3,
+            "breach": 23.3,
+            "timeout": 3.3,
+            "win": 55.4,
+            "pf": 1.8,
+            "t_mo": 10.5,
+            "mo_to_pass": 2.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 40.0,
+            "pass_lo": 30.0,
+            "breach": 53.3,
+            "timeout": 6.7,
+            "win": 50.1,
+            "pf": 1.45,
+            "t_mo": 9.1,
+            "mo_to_pass": 1.2
+          }
+        },
+        "worst_pass_lo": 30.0,
+        "worst_breach": 53.3
+      }
+    ],
+    "ALT|short|classic_10k": [
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 10.0,
+            "timeout": 13.3,
+            "win": 51.9,
+            "pf": 2.04,
+            "t_mo": 9.0,
+            "mo_to_pass": 3.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 3.3,
+            "timeout": 26.7,
+            "win": 45.4,
+            "pf": 1.54,
+            "t_mo": 12.4,
+            "mo_to_pass": 3.4
+          }
+        },
+        "worst_pass_lo": 60.0,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 80.0,
+            "pass_lo": 70.0,
+            "breach": 6.7,
+            "timeout": 13.3,
+            "win": 55.1,
+            "pf": 2.14,
+            "t_mo": 7.0,
+            "mo_to_pass": 3.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 10.0,
+            "timeout": 20.0,
+            "win": 50.6,
+            "pf": 1.71,
+            "t_mo": 9.0,
+            "mo_to_pass": 3.4
+          }
+        },
+        "worst_pass_lo": 60.0,
+        "worst_breach": 10.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 63.3,
+            "pass_lo": 53.3,
+            "breach": 0.0,
+            "timeout": 36.7,
+            "win": 61.4,
+            "pf": 2.25,
+            "t_mo": 7.6,
+            "mo_to_pass": 3.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 56.7,
+            "pass_lo": 46.7,
+            "breach": 0.0,
+            "timeout": 43.3,
+            "win": 54.8,
+            "pf": 1.69,
+            "t_mo": 9.0,
+            "mo_to_pass": 4.4
+          }
+        },
+        "worst_pass_lo": 46.7,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 1.5,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 80.0,
+            "pass_lo": 70.0,
+            "breach": 0.0,
+            "timeout": 20.0,
+            "win": 56.9,
+            "pf": 2.46,
+            "t_mo": 7.4,
+            "mo_to_pass": 3.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 53.3,
+            "pass_lo": 43.3,
+            "breach": 0.0,
+            "timeout": 46.7,
+            "win": 44.7,
+            "pf": 1.49,
+            "t_mo": 9.7,
+            "mo_to_pass": 2.7
+          }
+        },
+        "worst_pass_lo": 43.3,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 90.0,
+            "pass_lo": 83.3,
+            "breach": 0.0,
+            "timeout": 10.0,
+            "win": 71.8,
+            "pf": 2.62,
+            "t_mo": 9.3,
+            "mo_to_pass": 3.2
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 56.7,
+            "pass_lo": 43.3,
+            "breach": 13.3,
+            "timeout": 30.0,
+            "win": 59.6,
+            "pf": 1.44,
+            "t_mo": 11.9,
+            "mo_to_pass": 4.3
+          }
+        },
+        "worst_pass_lo": 43.3,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.75,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 80.0,
+            "pass_lo": 70.0,
+            "breach": 6.7,
+            "timeout": 13.3,
+            "win": 65.0,
+            "pf": 2.22,
+            "t_mo": 9.0,
+            "mo_to_pass": 3.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 46.7,
+            "pass_lo": 36.7,
+            "breach": 3.3,
+            "timeout": 50.0,
+            "win": 55.2,
+            "pf": 1.39,
+            "t_mo": 11.7,
+            "mo_to_pass": 4.7
+          }
+        },
+        "worst_pass_lo": 36.7,
+        "worst_breach": 6.7
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 0.0,
+            "timeout": 56.7,
+            "win": 60.5,
+            "pf": 1.8,
+            "t_mo": 7.7,
+            "mo_to_pass": 3.0
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 50.0,
+            "pass_lo": 40.0,
+            "breach": 0.0,
+            "timeout": 50.0,
+            "win": 56.7,
+            "pf": 1.57,
+            "t_mo": 10.4,
+            "mo_to_pass": 4.6
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 70.0,
+            "pass_lo": 60.0,
+            "breach": 0.0,
+            "timeout": 30.0,
+            "win": 61.6,
+            "pf": 2.39,
+            "t_mo": 7.4,
+            "mo_to_pass": 3.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 43.3,
+            "pass_lo": 33.3,
+            "breach": 0.0,
+            "timeout": 56.7,
+            "win": 52.4,
+            "pf": 1.62,
+            "t_mo": 8.8,
+            "mo_to_pass": 4.4
+          }
+        },
+        "worst_pass_lo": 33.3,
+        "worst_breach": 0.0
+      }
+    ],
+    "ALT|short|turbo_200k": [
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 76.7,
+            "pass_lo": 66.7,
+            "breach": 10.0,
+            "timeout": 13.3,
+            "win": 61.6,
+            "pf": 2.37,
+            "t_mo": 7.6,
+            "mo_to_pass": 3.3
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 56.7,
+            "pass_lo": 46.7,
+            "breach": 13.3,
+            "timeout": 30.0,
+            "win": 53.1,
+            "pf": 1.68,
+            "t_mo": 9.2,
+            "mo_to_pass": 4.1
+          }
+        },
+        "worst_pass_lo": 46.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.5,
+          "atr_stop": 2.0,
+          "rr": 1.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 73.3,
+            "pass_lo": 63.3,
+            "breach": 6.7,
+            "timeout": 20.0,
+            "win": 71.0,
+            "pf": 2.48,
+            "t_mo": 9.5,
+            "mo_to_pass": 3.4
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 40.0,
+            "pass_lo": 30.0,
+            "breach": 13.3,
+            "timeout": 46.7,
+            "win": 59.1,
+            "pf": 1.43,
+            "t_mo": 11.6,
+            "mo_to_pass": 4.8
+          }
+        },
+        "worst_pass_lo": 30.0,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 23.3,
+            "pass_lo": 13.3,
+            "breach": 13.3,
+            "timeout": 63.3,
+            "win": 43.7,
+            "pf": 1.45,
+            "t_mo": 9.0,
+            "mo_to_pass": 3.7
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 16.7,
+            "pass_lo": 6.7,
+            "breach": 0.0,
+            "timeout": 83.3,
+            "win": 44.1,
+            "pf": 1.45,
+            "t_mo": 11.1,
+            "mo_to_pass": 5.3
+          }
+        },
+        "worst_pass_lo": 6.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.25,
+          "rr": 2.0,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 23.3,
+            "pass_lo": 13.3,
+            "breach": 13.3,
+            "timeout": 63.3,
+            "win": 43.5,
+            "pf": 1.43,
+            "t_mo": 9.1,
+            "mo_to_pass": 3.7
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 13.3,
+            "pass_lo": 6.7,
+            "breach": 0.0,
+            "timeout": 86.7,
+            "win": 44.1,
+            "pf": 1.44,
+            "t_mo": 11.2,
+            "mo_to_pass": 5.2
+          }
+        },
+        "worst_pass_lo": 6.7,
+        "worst_breach": 13.3
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 23.3,
+            "pass_lo": 13.3,
+            "breach": 0.0,
+            "timeout": 76.7,
+            "win": 63.7,
+            "pf": 2.02,
+            "t_mo": 10.2,
+            "mo_to_pass": 4.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 52.9,
+            "pf": 1.29,
+            "t_mo": 12.2,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.25,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 23.3,
+            "pass_lo": 13.3,
+            "breach": 0.0,
+            "timeout": 76.7,
+            "win": 63.6,
+            "pf": 2.0,
+            "t_mo": 10.2,
+            "mo_to_pass": 4.6
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 53.1,
+            "pf": 1.29,
+            "t_mo": 12.2,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.0
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 56.2,
+            "pf": 1.77,
+            "t_mo": 8.6,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 48.4,
+            "pf": 1.3,
+            "t_mo": 11.3,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      },
+      {
+        "params": {
+          "risk_pct": 0.25,
+          "atr_stop": 1.5,
+          "rr": 1.5,
+          "max_concurrent": 3,
+          "internal_daily_pct": 1.5
+        },
+        "win": {
+          "bull": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 55.8,
+            "pf": 1.74,
+            "t_mo": 8.7,
+            "mo_to_pass": null
+          },
+          "bear": {
+            "n_starts": 30,
+            "pass": 0.0,
+            "pass_lo": 0.0,
+            "breach": 0.0,
+            "timeout": 100.0,
+            "win": 48.5,
+            "pf": 1.3,
+            "t_mo": 11.3,
+            "mo_to_pass": null
+          }
+        },
+        "worst_pass_lo": 0.0,
+        "worst_breach": 0.0
+      }
+    ]
+  },
+  "best": {
+    "BTC|combined|classic_10k": {
+      "params": {
+        "risk_pct": 2.0,
+        "atr_stop": 1.5,
+        "rr": 1.25,
+        "max_concurrent": 1,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 96.7,
+          "pass_lo": 93.3,
+          "breach": 3.3,
+          "timeout": 0.0,
+          "win": 72.1,
+          "pf": 2.88,
+          "t_mo": 4.0,
+          "mo_to_pass": 2.4
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 83.3,
+          "pass_lo": 73.3,
+          "breach": 10.0,
+          "timeout": 6.7,
+          "win": 64.2,
+          "pf": 2.23,
+          "t_mo": 4.9,
+          "mo_to_pass": 2.4
+        }
+      },
+      "worst_pass_lo": 73.3,
+      "worst_breach": 10.0
+    },
+    "BTC|combined|turbo_200k": {
+      "params": {
+        "risk_pct": 0.75,
+        "atr_stop": 1.5,
+        "rr": 1.5,
+        "max_concurrent": 1,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 46.7,
+          "pass_lo": 36.7,
+          "breach": 0.0,
+          "timeout": 53.3,
+          "win": 63.7,
+          "pf": 2.32,
+          "t_mo": 3.6,
+          "mo_to_pass": 4.9
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 26.7,
+          "pass_lo": 16.7,
+          "breach": 13.3,
+          "timeout": 60.0,
+          "win": 52.4,
+          "pf": 1.45,
+          "t_mo": 4.6,
+          "mo_to_pass": 4.7
+        }
+      },
+      "worst_pass_lo": 16.7,
+      "worst_breach": 13.3
+    },
+    "BTC|long|classic_10k": {
+      "params": {
+        "risk_pct": 0.25,
+        "atr_stop": 1.25,
+        "rr": 1.0,
+        "max_concurrent": 1,
+        "internal_daily_pct": 1.0
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 66.5,
+          "pf": 1.64,
+          "t_mo": 2.7,
+          "mo_to_pass": null
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 62.6,
+          "pf": 1.31,
+          "t_mo": 2.4,
+          "mo_to_pass": null
+        }
+      },
+      "worst_pass_lo": 0.0,
+      "worst_breach": 0.0
+    },
+    "BTC|long|turbo_200k": {
+      "params": {
+        "risk_pct": 0.25,
+        "atr_stop": 1.25,
+        "rr": 1.0,
+        "max_concurrent": 1,
+        "internal_daily_pct": 1.0
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 66.5,
+          "pf": 1.64,
+          "t_mo": 2.7,
+          "mo_to_pass": null
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 62.6,
+          "pf": 1.31,
+          "t_mo": 2.4,
+          "mo_to_pass": null
+        }
+      },
+      "worst_pass_lo": 0.0,
+      "worst_breach": 0.0
+    },
+    "BTC|short|classic_10k": {
+      "params": {
+        "risk_pct": 1.5,
+        "atr_stop": 1.25,
+        "rr": 1.5,
+        "max_concurrent": 1,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 70.0,
+          "pass_lo": 60.0,
+          "breach": 0.0,
+          "timeout": 30.0,
+          "win": 74.0,
+          "pf": 3.72,
+          "t_mo": 1.8,
+          "mo_to_pass": 3.6
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 66.7,
+          "pass_lo": 56.7,
+          "breach": 10.0,
+          "timeout": 23.3,
+          "win": 58.7,
+          "pf": 2.03,
+          "t_mo": 2.9,
+          "mo_to_pass": 3.0
+        }
+      },
+      "worst_pass_lo": 56.7,
+      "worst_breach": 10.0
+    },
+    "BTC|short|turbo_200k": {
+      "params": {
+        "risk_pct": 0.25,
+        "atr_stop": 1.25,
+        "rr": 1.0,
+        "max_concurrent": 1,
+        "internal_daily_pct": 1.0
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 64.4,
+          "pf": 1.56,
+          "t_mo": 2.1,
+          "mo_to_pass": null
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 59.5,
+          "pf": 1.28,
+          "t_mo": 4.0,
+          "mo_to_pass": null
+        }
+      },
+      "worst_pass_lo": 0.0,
+      "worst_breach": 0.0
+    },
+    "ALT|combined|classic_10k": {
+      "params": {
+        "risk_pct": 0.5,
+        "atr_stop": 2.0,
+        "rr": 1.25,
+        "max_concurrent": 3,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 100.0,
+          "pass_lo": 100.0,
+          "breach": 0.0,
+          "timeout": 0.0,
+          "win": 61.1,
+          "pf": 1.84,
+          "t_mo": 16.8,
+          "mo_to_pass": 3.6
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 66.7,
+          "pass_lo": 56.7,
+          "breach": 10.0,
+          "timeout": 23.3,
+          "win": 54.6,
+          "pf": 1.43,
+          "t_mo": 19.6,
+          "mo_to_pass": 3.1
+        }
+      },
+      "worst_pass_lo": 56.7,
+      "worst_breach": 10.0
+    },
+    "ALT|combined|turbo_200k": {
+      "params": {
+        "risk_pct": 0.25,
+        "atr_stop": 2.0,
+        "rr": 1.25,
+        "max_concurrent": 3,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 30.0,
+          "pass_lo": 20.0,
+          "breach": 0.0,
+          "timeout": 70.0,
+          "win": 58.8,
+          "pf": 1.67,
+          "t_mo": 17.5,
+          "mo_to_pass": 5.2
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 16.7,
+          "pass_lo": 6.7,
+          "breach": 10.0,
+          "timeout": 73.3,
+          "win": 53.1,
+          "pf": 1.33,
+          "t_mo": 19.1,
+          "mo_to_pass": 5.0
+        }
+      },
+      "worst_pass_lo": 6.7,
+      "worst_breach": 10.0
+    },
+    "ALT|long|classic_10k": {
+      "params": {
+        "risk_pct": 0.25,
+        "atr_stop": 1.25,
+        "rr": 1.5,
+        "max_concurrent": 3,
+        "internal_daily_pct": 1.0
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 0.0,
+          "pass_lo": 0.0,
+          "breach": 0.0,
+          "timeout": 100.0,
+          "win": 54.6,
+          "pf": 1.63,
+          "t_mo": 14.1,
+          "mo_to_pass": null
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 10.0,
+          "pass_lo": 3.3,
+          "breach": 0.0,
+          "timeout": 90.0,
+          "win": 45.1,
+          "pf": 1.11,
+          "t_mo": 12.4,
+          "mo_to_pass": 2.7
+        }
+      },
+      "worst_pass_lo": 0.0,
+      "worst_breach": 0.0
+    },
+    "ALT|long|turbo_200k": {
+      "params": {
+        "risk_pct": 0.75,
+        "atr_stop": 2.0,
+        "rr": 1.0,
+        "max_concurrent": 3,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 80.0,
+          "pass_lo": 70.0,
+          "breach": 20.0,
+          "timeout": 0.0,
+          "win": 63.3,
+          "pf": 1.73,
+          "t_mo": 13.1,
+          "mo_to_pass": 2.4
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 43.3,
+          "pass_lo": 33.3,
+          "breach": 53.3,
+          "timeout": 3.3,
+          "win": 59.4,
+          "pf": 1.43,
+          "t_mo": 10.3,
+          "mo_to_pass": 1.6
+        }
+      },
+      "worst_pass_lo": 33.3,
+      "worst_breach": 53.3
+    },
+    "ALT|short|classic_10k": {
+      "params": {
+        "risk_pct": 0.5,
+        "atr_stop": 1.25,
+        "rr": 2.0,
+        "max_concurrent": 3,
+        "internal_daily_pct": 1.5
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 76.7,
+          "pass_lo": 66.7,
+          "breach": 10.0,
+          "timeout": 13.3,
+          "win": 51.9,
+          "pf": 2.04,
+          "t_mo": 9.0,
+          "mo_to_pass": 3.3
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 70.0,
+          "pass_lo": 60.0,
+          "breach": 3.3,
+          "timeout": 26.7,
+          "win": 45.4,
+          "pf": 1.54,
+          "t_mo": 12.4,
+          "mo_to_pass": 3.4
+        }
+      },
+      "worst_pass_lo": 60.0,
+      "worst_breach": 10.0
+    },
+    "ALT|short|turbo_200k": {
+      "params": {
+        "risk_pct": 0.5,
+        "atr_stop": 2.0,
+        "rr": 1.5,
+        "max_concurrent": 3,
+        "internal_daily_pct": 1.0
+      },
+      "win": {
+        "bull": {
+          "n_starts": 30,
+          "pass": 76.7,
+          "pass_lo": 66.7,
+          "breach": 10.0,
+          "timeout": 13.3,
+          "win": 61.6,
+          "pf": 2.37,
+          "t_mo": 7.6,
+          "mo_to_pass": 3.3
+        },
+        "bear": {
+          "n_starts": 30,
+          "pass": 56.7,
+          "pass_lo": 46.7,
+          "breach": 13.3,
+          "timeout": 30.0,
+          "win": 53.1,
+          "pf": 1.68,
+          "t_mo": 9.2,
+          "mo_to_pass": 4.1
+        }
+      },
+      "worst_pass_lo": 46.7,
+      "worst_breach": 13.3
+    }
+  },
+  "breach_ceiling": 15.0,
+  "horizon_bars": 1080
+}
