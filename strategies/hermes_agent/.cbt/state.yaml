@@ -16,14 +16,18 @@ engine: fast
 project_type: hybrid
 
 # Current phase in workflow
-phase: config  # discovery | research | eda | config | plan | build | iterate
+# -> plan, not build: RESEARCH.md recommendation #1 inverts DISCOVERY.md's
+#    build order (regime + trailing-stop core must come FIRST, as the baseline
+#    the confluence and agent layers have to beat). The existing 8-step plan
+#    in DISCOVERY.md is stale and needs /cbt:plan before any code is generated.
+phase: plan  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
   discovery: true
   research: true
   eda: true
-  config: false
+  config: true
   plan: false
   build: false
 
