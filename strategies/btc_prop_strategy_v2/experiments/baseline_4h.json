@@ -1,0 +1,16 @@
+{
+  "sharpe": -1.299,
+  "total_return_pct": -6.27,
+  "max_dd_pct": -6.27,
+  "win_rate_pct": 35.1,
+  "trades": 74,
+  "profit_factor": 0.7,
+  "halted": true,
+  "breaches": [
+    [
+      "2018-11-09 16:00:00",
+      "total_dd_halt",
+      6.27
+    ]
+  ]
+}
