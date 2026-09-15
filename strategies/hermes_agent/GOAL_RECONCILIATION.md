@@ -1,0 +1,288 @@
+# Goal Reconciliation — the `/cbt:build /goal` scope
+
+**Date:** 2026-08-27
+**Status:** scope mapped, not yet built. hermes_agent stopped at its step-5 gate
+(see BASELINE_REPORT.md); this document says what the new goal changes.
+
+The `/goal` argument passed to `/cbt:build` expands the work well past what
+BUILD_PLAN.md and config.yaml cover. It contains **six distinct asks**, three
+of which are new strategies rather than changes to hermes_agent. This maps each
+one, and states plainly where the arithmetic or the data does not support it.
+
+---
+
+## The six asks
+
+| # | Ask | Where it belongs | Blocked on |
+|---|---|---|---|
+| 1 | Fidelity: high-beta, yield/income, options, macro hedge | **new strategy** (4 sleeves) | ✅ **UNBLOCKED 2026-08-27** — book analysed, see `FIDELITY_SLEEVES.md`. Forward backtesting still needs option-chain data + a panel for these names |
+| 2 | Crypto spot: BTC + ETH + top-25 alts bought at the 4-year low | hermes_agent extension | ✅ **TESTED 2026-08-27** — 5.01y panel built, see `CRYPTO_LOW_REPORT.md`. **The low signal adds +0.92pp over a DCA control = noise** |
+| 3 | 20% of crypto to leverage / micro-cap satellites | hermes_agent extension | ⚠ implemented as a 20% **capital split**, not leverage. True micro-caps are not listed on Coinbase, so the sleeve is "smaller top-25 names" |
+| 4 | Iterate to ">3:1 vs BTC over 4 years" | benchmark change | ⚠ **AMBIGUOUS — needs your call.** 3.11× on total return (PASS) vs 1.79× on terminal wealth (FAIL) |
+| 5 | Breakout prop firm: bull + bear crypto strategies | **new strategy** | ❌ **BUILT AND TESTED 2026-08-27 — 0 of 8 arms survived.** See `PROP_FIRM_REPORT.md`. Frequency gap is 10–50×; needs intraday data |
+| 6 | US futures prop firm: futures, indices, commodities | **new strategy** | ❌ **BLOCKED** — no futures data reachable (Binance 451, Stooq returns HTML, CoinGecko 401). Not built |
+
+---
+
+## Ask 1: Fidelity — DONE (analysis), see `FIDELITY_SLEEVES.md`
+
+The Aug-23-2026 position export resolved this. Net equity **$18,996** across
+132 positions, mapped onto the four sleeves the goal names:
+
+| sleeve | n | value | % net equity |
+|---|---:|---:|---:|
+| high beta | 101 | $19,026 | 100.2% |
+| options | 17 | $4,086 | 21.5% |
+| yield / income | 3 | $3,250 | 17.1% |
+| macro hedge | 11 | $1,224 | 6.4% |
+
+Sleeves exceed 100% because the book runs **1.45× gross on margin**.
+
+Three findings that reach past this account, in full in `FIDELITY_SLEEVES.md`:
+
+1. **The capital gap is closed.** Identified total is now **$99,702** against
+   the goal math's assumed $100,000 — a $298 gap. The assumption was sound.
+2. **The portfolio is 77.5% crypto** ($77,269 across Coinbase, Hyperliquid and
+   24 crypto-linked Fidelity positions). This is the finding that reframes
+   ask 4 — see below.
+3. **The capacity problem is confirmed in a second account.** 79 of 132
+   positions are under $200 (45.3% of equity). `min_position_value_usd: 1000`
+   would forbid 79 of the 132 positions actually held.
+
+---
+
+## Asks 2, 3, 4 — TESTED, see `CRYPTO_LOW_REPORT.md`
+
+The data blocker is gone: `Data/crypto_panel_5y.csv` is **1,831 daily bars ×
+25 names over 5.01 years** from Coinbase (the author's actual spot venue, so
+the 0.60% taker cost model is exact rather than approximate).
+
+| arm | CAGR | max DD | MAR |
+|---|---:|---:|---:|
+| BTC buy & hold | 9.86% | −76.67% | 0.13 |
+| equal-weight 25, lump sum | −5.34% | −77.08% | −0.07 |
+| DCA control (no signal) | 22.48% | −56.16% | 0.40 |
+| best low-buying arm | 23.40% | −56.95% | 0.41 |
+
+**The headline finding is negative and it is the useful one: buying the
+multi-year low beats blind dollar-cost averaging into the same basket by
++0.92pp of CAGR** — the best of 16 trials, on one 5-year sample, with a
+slightly *worse* drawdown. That is noise. What produced the 23% was the
+universe and the staged deployment schedule, not the signal. Corroboration:
+at 20% proximity all four lookback windows give byte-identical results, i.e.
+the signal has stopped binding and the arm has become DCA with extra steps.
+
+The strategy does clearly beat BTC (23.4% vs 9.86% CAGR, −57% vs −77% DD) —
+and that holds on the control arm too, so it survives the finding.
+
+⚠ **Survivorship bias outranks every number here.** The universe is today's
+top names, excluding LUNA/FTT-style collapses that a buy-the-low rule would
+have bought all the way down. Results are an optimistic bound. A point-in-time
+market-cap universe is the highest-value data purchase available to this project.
+
+Also worth noting: "top 25 by market cap" taken literally includes **eight
+stablecoins**, which have no trend to be at a low against. They are filtered out.
+
+---
+
+## Ask 4: the ">3:1 vs BTC" benchmark — the arithmetic
+
+This needs the same treatment the $1.5M target got at the start of this
+project, because the answer depends entirely on which window it is measured
+over, and the two answers are very far apart.
+
+**Measured over this panel's actual window (2024-07-23 → 2026-08-24, 2.09y):**
+BTC returned **+19.8% total** (9.03% CAGR). Three times that total return is
++59.4% over 2.09 years = **25.4% CAGR**. That is demanding but not absurd.
+
+**Measured over a true 4-year window at BTC's historical rate:** BTC at a
+30–35% CAGR compounds to 1.86×–2.32× over four years. Three times *that* total
+return is 5.57×–6.96×, which requires:
+
+| BTC 4y CAGR | BTC 4y total | 3× that | required CAGR |
+|---:|---:|---:|---:|
+| 30% | 1.86× | 5.57× | **60.1%** |
+| 32% | 2.04× | 6.11× | **63.3%** |
+| 35% | 2.32× | 6.96× | **68.0%** |
+
+So "3:1 versus BTC over 4 years" means **a sustained 60–68% CAGR** — the same
+order of magnitude as the ~101.5% target already agreed to lower, and roughly
+double the 40–65% band settled on as the honest ceiling for this project.
+
+**A third problem, surfaced by the Fidelity data:** the portfolio is already
+**77.5% crypto**. Beating BTC by 3× while being three-quarters BTC-correlated
+is close to a contradiction — a 3× outperformance needs meaningful exposure to
+something *other* than the benchmark, or leverage on it. The non-crypto 22.5%
+is mostly AI-semis, which has been positively correlated with crypto through
+this cycle, so it is not the independent return source the benchmark needs.
+
+**Two more things follow, and I'd rather say them now than after building toward it:**
+
+- The benchmark is not scale-free. "3:1 vs BTC" is an easy target in a flat
+  BTC window and a near-impossible one in a bull window. Ratcheting a target to
+  an asset's realised return means the target is hardest exactly when the asset
+  did well — which is when a 3:1 multiple is least likely.
+- **The data cannot test it at all.** `Data/btc_historical_data.csv` starts
+  2024-07-23. There is no 4-year window in this repo, and after the regime
+  engine's 200-day warm-up the tradeable sample is **1.29 years**. Any "4-year
+  return" reported from this panel today would be fabricated.
+
+**MEASURED RESULT (2026-08-27), now that the panel exists:** over the actual
+5.01-year window BTC returned only **9.86% CAGR / +60.1% total**, far below the
+30–35% the projection above assumed — so the bar landed much lower than
+predicted. The benchmark is not scale-free, exactly as flagged. Against it:
+
+| reading | calculation | result | vs 3.0× |
+|---|---|---:|---|
+| terminal wealth | $286,796 / $160,148 | **1.79×** | ❌ FAIL |
+| total return | 186.8% / 60.1% | **3.11×** | ✅ PASS |
+
+Both are defensible readings of "outperform btc by a more than 3 to 1
+multiple" and they disagree. **Which did you mean?** I'd use total return
+("3× the profit BTC made"), which the strategy clears — but it decides whether
+ask #4 is already satisfied or still open, so it should be your call.
+
+**Recommendation:** keep the 3:1 ratio as the *stated ambition*, but fix the
+comparison window and state it — "3× BTC's total return measured over the same
+backtest window" is a testable claim; "3× BTC over 4 years" is not, until
+there are four years of data. Fetching a longer panel is the cheapest
+high-value item on the whole list and it unblocks asks 2 and 4 together.
+
+---
+
+## Asks 5 & 6: the prop-firm targets — the arithmetic
+
+Target: **$70k/year**, from **4%+/month on a $100k crypto prop account** and
+**4%+/month on a $100k futures prop account**.
+
+**The $70k and the 4%/month are consistent with each other.** 4%/month
+compounded is **60.1%/year**, so $60k gross per account, $120k across two. At a
+typical 80/20 prop split that nets ~$96k; $70k/yr is comfortably inside it.
+Nothing wrong with the target's internal arithmetic.
+
+**What it actually requires.** Monthly return ≈ trades × expectancy(R) ×
+risk-per-trade. Solving for the edge needed to make 4%/month:
+
+| trades/mo | risk/trade | required expectancy | ≈ PF at 2:1 R:R | implied win rate |
+|---:|---:|---:|---:|---:|
+| 5 | 1.0% | 0.80 R | 3.00 | 60.0% |
+| 10 | 1.0% | 0.40 R | 1.75 | 46.7% |
+| 20 | 1.0% | 0.20 R | 1.33 | 40.0% |
+| 40 | 1.0% | 0.10 R | 1.16 | 36.7% |
+| 5 | 0.5% | 1.60 R | 13.00 | 86.7% ← impossible in practice |
+
+So 4%/month is reachable at a **PF of roughly 1.3–1.8, provided the frequency
+is 20–40 trades/month**. At low frequency it requires an edge nobody has.
+
+**But the drawdown limit, not the edge, is what ends prop accounts.** Monte
+Carlo over 12 months, 20,000 paths, 10% trailing drawdown from high-water mark
+(the harder and common variant — confirm Breakout's exact rule before relying
+on this):
+
+| risk/trade | win% | R:R | trades/mo | PF | survive 12mo | survive **and** clear +60% |
+|---:|---:|---:|---:|---:|---:|---:|
+| 0.5% | 50% | 2.0 | 20 | 2.00 | **99.8%** | 86.4% |
+| 1.0% | 50% | 2.0 | 10 | 2.00 | 91.7% | 70.8% |
+| 1.0% | 45% | 2.5 | 12 | 2.05 | 80.5% | 78.0% |
+| 1.0% | 55% | 1.5 | 15 | 1.83 | 89.2% | 80.5% |
+| **2.0%** | 50% | 2.0 | 10 | 2.00 | **25.0%** | 25.0% |
+| 1.0% | 40% | 2.0 | 10 | 1.33 | 51.3% | 5.3% |
+
+Two readings that matter:
+
+- **Per-trade risk is the dominant variable, not the edge.** Holding PF at 2.0
+  and moving risk from 1% to 2% collapses 12-month survival from 91.7% to
+  **25%**. The viable configuration is *small risk, high frequency* — 0.5–1%
+  per trade, 15–20+ trades/month.
+- **The binding constraint is a sustained PF near 1.8–2.0.** At PF 1.33 only
+  5.3% of paths both survive and hit the target. **hermes_agent's measured
+  baseline PF is 1.05.** The gap between what exists and what these targets
+  need is roughly a doubling of edge — and that gap, not risk sizing, is the
+  real work.
+
+---
+
+### MEASURED RESULT (2026-08-27) — see `PROP_FIRM_REPORT.md`
+
+Ask #5 was built and run on the 5.01-year crypto panel. **Every one of 8 arms
+breached; the longest survivor reached March 2024.** Against the requirements
+derived above:
+
+| | required | achieved |
+|---|---:|---:|
+| profit factor | 1.8–2.0 | 0.70 – **1.49** |
+| **trades / month** | **15–20+** | **0.0 – 1.8** |
+| median monthly return | ≥ 4.0% | **0.00%** |
+
+The PF gap is modest. **The frequency gap is 10–50× and it is the binding
+constraint** — a median monthly return of exactly 0.00% means most months
+contain no trades at all. A 20-day breakout on *daily* bars across 25 names,
+gated by a regime neutral 37% of the time, cannot mechanically produce
+prop-account frequency at any parameter setting.
+
+Also confirmed: **the trailing drawdown kills these accounts, not the losses.**
+Six of eight arms died on max drawdown, not daily loss. The R:R 3.0 arm made
+4.87% CAGR and still breached, because every new equity high raises the floor.
+
+Ask #6 could not be started — no futures, index or commodity data is reachable
+from this environment and none exists in the repo.
+
+**Both prop asks are blocked on the same thing: intraday price history (1m–15m).**
+That is the single highest-value unblock for this half of the goal.
+
+**Recommendation:** the prop targets are arithmetically sound and not
+fantastical, unlike the 4-year 3:1 benchmark. They are gated on demonstrating a
+PF ~1.8 strategy first. Building the prop *harness* is cheap — the CBT backtest
+template already implements breach tracking (max drawdown from initial, daily
+loss from previous-day equity, phase targets, breach → halt), and
+`config.yaml` already carries a `prop_firm` block. Building the *edge* is the
+project.
+
+---
+
+## Scope decisions
+
+**These belong in hermes_agent** (asks 2, 3 — after the step-5 gate is cleared):
+buying BTC/ETH/top-25 at multi-year lows is a mean-reversion entry, which is the
+opposite of the momentum entry the current baseline uses. It is a genuinely
+different signal and worth testing — but it is a *step 6+ layer*, and step 5
+says do not add layers yet. The 20% leverage/micro-cap sleeve also reverses
+`leverage.enabled: false`, which was set deliberately because the evidenced
+benefit of this strategy's core mechanism is drawdown reduction; that reversal
+should be an explicit decision, not a side effect.
+
+**These are new `/cbt:new` projects** (asks 1, 5, 6). Each needs its own
+discovery, data and config:
+- `fidelity_sleeves` — four sub-strategies with different mechanics
+  (high-beta ≠ yield/income ≠ options ≠ macro hedge). Options in particular
+  need chain data the repo does not have.
+- `breakout_crypto_prop` — bull and bear regimes, `prop_firm.enabled: true`.
+- `futures_prop` — futures/indices/commodities; no futures data in the repo yet.
+
+Note `strategies/crypto_algo_trading` already has `prop_firm.enabled: true` and
+DISCOVERY.md explicitly scoped the prop pool *out* of hermes_agent. Whatever
+gets built for ask 5 should start from that, not from scratch.
+
+---
+
+## What I need from you
+
+1. **The corrected capital figures for the other four accounts.** Fidelity is
+   now verified at $18,996, but Merrill / Coinbase ×2 / Hyperliquid still carry
+   your "my calculation was incorrect" flag. `config.yaml` still says
+   `initial_capital: 80000`, which now understates the book by ~$20k. I
+   deliberately did **not** bump it — re-running the baseline against a total
+   that is 4/5 unverified would swap one wrong number for another. Confirm
+   those four and I will bump to the real total and re-run BUILD_PLAN step 5.
+2. **A decision on the benchmark window** (see ask 4). I would fix it to the
+   backtest window and fetch a longer panel.
+3. **Confirmation of Breakout's actual rules** — max drawdown %, whether it
+   trails from high-water mark or initial balance, daily loss %, profit split.
+   The Monte Carlo above assumes the harder variant; the numbers move a lot if
+   it is measured from initial balance instead.
+4. **The Fidelity margin decision.** The book runs 1.45× gross-to-net. That
+   contradicts `leverage.enabled: false` in the baseline config. It is a live
+   position rather than a backtest setting, but the two should be reconciled
+   deliberately rather than left inconsistent.
+
+~~2. The Fidelity balance.~~ **Resolved 2026-08-27** — $18,996, verified.

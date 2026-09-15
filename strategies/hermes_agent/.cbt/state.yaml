@@ -4,7 +4,7 @@
 
 strategy: hermes_agent
 created: 2026-08-26
-last_updated: 2026-08-26
+last_updated: 2026-08-27
 
 # Workflow mode: interactive (confirm each step) | yolo (auto-approve)
 mode: yolo
@@ -16,29 +16,54 @@ engine: fast
 project_type: hybrid
 
 # Current phase in workflow
-phase: config  # discovery | research | eda | config | plan | build | iterate
+phase: build  # discovery | research | eda | config | plan | build | iterate
 
 # Phase completion tracking
 phases_completed:
   discovery: true
   research: true
   eda: true
-  config: false
-  plan: false
+  config: true
+  plan: true
   build: false
 
 # Build process tracking
+# Order INVERTED from DISCOVERY.md's original 8-step plan per RESEARCH.md
+# recommendation #1: the regime + exit core is built first as a fully-costed
+# baseline, so the baseline run lands at step 5 rather than step 9 and every
+# later layer must beat it. See BUILD_PLAN.md.
 build:
-  plan: []
-  current_step: null
-  progress: "0/0"
+  plan:
+    - data_pipeline          # 1  Polars, calendar join, contiguous arrays
+    - regime_engine          # 2  dynamic percentile vol, gross exposure
+    - exit_engine            # 3  ATR stop -> 1R scale-out -> regime trail
+    - backtest_runner        # 4  Numba, venue costs, position floor as SKIP
+    - baseline_run           # 5  <-- THE BAR: mechanical core, no features
+    - feature_pipeline       # 6  load + mandatory dedup of collinear groups
+    - confluence_layer       # 7  F/T/S/M extraction, must beat step 5
+    - ablation_walkforward   # 8  pre-registered grids, Deflated Sharpe
+    - btc_ml_ensemble        # 9  CONDITIONAL - currently a drop candidate
+  current_step: baseline_run
+  progress: "5/9"
+  steps_built: [data_pipeline, regime_engine, exit_engine, backtest_runner, baseline_run]
+  steps_blocked: [feature_pipeline, confluence_layer, ablation_walkforward, btc_ml_ensemble]
+  gate_result: FAIL
+  gate_detail: >-
+    Arm A (regime-scaled) beat the static-80% arm on MAR (0.023 vs 0.013) but
+    lost to buy-and-hold BTC on CAGR (0.35% vs 9.03%). BUILD_PLAN.md requires
+    beating BOTH. Steps 6-9 deliberately NOT built -- see BASELINE_REPORT.md.
+  invariants: all_passing   # position floor, exposure cap, cost direction, determinism
+  gate: "If step 5 fails to beat BOTH buy-and-hold AND a static allocation, stop and report -- do not build steps 6-9 on a core that does not work"
 
 # Experiment tracking
 experiments:
-  count: 0
-  current: null
-  best: null
-  baseline_sharpe: null
+  count: 5                    # arms A, B, C, D, A-control -- one baseline run
+  current: baseline
+  best: A_control_no_scaleout # the NO-scale-out arm beat the configured one
+  baseline_sharpe: 0.09
+  baseline_cagr_pct: 0.35
+  baseline_profit_factor: 1.05
+  baseline_max_dd_pct: -15.41
 
 # Pending observations to test
 # Pre-registered from /cbt:research (RESEARCH.md) BEFORE any sweep runs,
@@ -62,6 +87,32 @@ pending_observations:
   - id: R6
     claim: "Crypto carry / futures basis adds crash-regime predictive value beyond vol clustering"
     source: "BIS WP 1087 - carry predicts future crypto crashes"
+  # Added at /cbt:config round 2, from the user's stated exit design.
+  - id: R7
+    claim: "50% scale-out at 1R raises profit factor WITHOUT costing more CAGR than the PF gain is worth"
+    source: "user design; hedgefund REPORT.md scale-in precedent (PF 1.74->3.65, CAGR 30.5->19.3%)"
+    control_arm: "first_tranche_pct: 0 (no scale-out) must be run for comparison"
+    note: "PF and CAGR provably conflict here -- this claim is about the exchange rate, not a free lunch"
+  - id: R8
+    claim: "Optimal concentration lies between the repo's two conflicting findings (top-4 vs top-12)"
+    source: "four_sleeve OPTIMIZATION_REPORT (top4>top6) vs hedgefund REPORT (top12>8>5)"
+    note: "default 10 is a placeholder, NOT a determination -- grid [5,7,10,12] resolves it"
+  # --- verdicts recorded at the step-5 baseline run (2026-08-27) ---
+  # R1  NOT RESOLVED. Regime arm beats static on MAR directionally (0.023 vs
+  #     0.013) but on 54 entries over 1.29 tradeable years the gap is
+  #     statistically empty. Also: the regime engine runs on PROXY inputs, not
+  #     the VIX/SMH/liquidity/ISM/DXY series it specifies -- none are in the
+  #     panel. A failure under proxies is not evidence about the mechanism.
+  # R5  SUPPORTED. Costs $1,720 = 2.15% of initial capital over 2.09 years.
+  #     Zero-cost arm finishes 2.1pp higher. Real, minor, not the problem.
+  # R7  NEGATIVE. The 50% scale-out at 1R LOWERED profit factor (1.05 vs 1.19),
+  #     CAGR (0.35% vs 1.18%) and MAR (0.02 vs 0.06) against its own control
+  #     arm. The premise was that it buys PF at the cost of CAGR; it cost both.
+  #     Burden of proof has flipped -- do not keep it without new evidence.
+  - id: R9
+    claim: "min_move_pct floor of 3% prevents the 1R scale-out from churning equities"
+    source: "measured on price panel: 1R = BTC 6.0% / ETH 9.3% / SOL 10.6% / SPY only 1.82%"
+    note: "without it, SPY-like names book a 'win' on <2% moves, inflating PF via turnover"
 
 # Metrics discipline adopted from research (applies to all later phases)
 metrics_policy:
@@ -69,12 +120,192 @@ metrics_policy:
   ablation_baseline: static_allocation_and_mechanical_core  # not just buy-and-hold
   llm_layer: forward_paper_only      # quarantined from backtested claims (training-cutoff leakage)
   cost_model: per_trade_dollar_cost  # not percentage-of-portfolio abstraction
+  optimizer_objective: profit_factor # user instruction; gated by DSR significance + MAR floor
+
+# Capital reconciliation status (updated /cbt:config round 2)
+capital:
+  # UPDATED 2026-08-27 from Portfolio_Positions_Aug232026.xlsx (Fidelity export).
+  identified_total_usd: 99702
+  configured_usd: 80000              # STALE - predates the Fidelity number; see note
+  accounts:
+    merrill_ira: 9860
+    coinbase_spot_1: 19846
+    coinbase_spot_2: 25000
+    hyperliquid_perps: 26000
+    fidelity: 18996                  # Z34628250 Joint WROS, net equity, VERIFIED
+  goal_math_assumption_usd: 100000
+  remaining_gap_usd: 298             # was 19294; the goal's $100k assumption was sound
+  fidelity_detail:
+    source: Portfolio_Positions_Aug232026.xlsx
+    as_of: 2026-08-23
+    gross_long_usd: 30534
+    short_option_usd: -2947
+    pending_activity_usd: -8591
+    net_equity_usd: 18996
+    verification: "confirmed 2 ways - gross+pending, and back-solving the export's own percent-of-account column (implies 18997)"
+    n_positions: 132
+    avg_position_usd: 209
+    gross_to_net: 1.45               # RUNNING ON MARGIN - contradicts leverage.enabled:false
+    sleeves_pct_of_equity: {high_beta: 100.2, options: 21.5, yield_income: 17.1, macro_hedge: 6.4}
+  # THE PORTFOLIO-LEVEL FINDING (see FIDELITY_SLEEVES.md finding 2)
+  crypto_concentration:
+    total_usd: 77269                 # coinbase 44846 + hyperliquid 26000 + fidelity 6423
+    pct_of_portfolio: 77.5
+    implication: >-
+      The goal's "beat BTC 3:1" benchmark is close to self-contradictory against a
+      book that is already 77.5% crypto. Fidelity's 24 crypto-linked positions
+      DUPLICATE Coinbase/Hyperliquid beta -- net them in portfolio risk, never add.
+      The 6.4% Fidelity macro hedge is a 1.6% hedge ratio on the real exposure.
+  # FLAGGED 2026-08-27: the author reports the account figures above were
+  # miscalculated. Corrected total pending. Does NOT block the build -- it
+  # changes absolute dollar outcomes and where min_position_value_usd binds,
+  # but not step order, logic, or any relative comparison between arms.
+  # Re-run BUILD_PLAN step 5 onward once the corrected number lands.
+  status: fidelity_verified_others_pending_correction
+  trust_configured_value: false      # initial_capital 80000 now understates by ~20k
 
 # Iteration history
 iterations: []
 
 # Report file path (relative to strategy dir)
-report_file: null
+report_file: BASELINE_REPORT.md
+
+# Scope expansion from the /cbt:build /goal argument (2026-08-27).
+# Six asks, three of which are new strategies rather than hermes_agent work.
+# Full mapping and the supporting arithmetic in GOAL_RECONCILIATION.md.
+goal_expansion:
+  status: mapped_not_built
+  document: GOAL_RECONCILIATION.md
+  in_hermes_agent:
+    crypto_spot_4y_low_entry:
+      status: TESTED_2026-08-27
+      report: CRYPTO_LOW_REPORT.md
+      panel: Data/crypto_panel_5y.csv   # 1831 bars x 25 names, 5.01y, Coinbase
+      verdict: >-
+        NEGATIVE. The low signal adds +0.92pp CAGR over a DCA control on the same
+        universe (23.40% vs 22.48%) with a slightly WORSE drawdown -- best of 16
+        trials on one 5y sample, i.e. noise. At 20% proximity all four lookback
+        windows give identical results, so the signal has stopped binding. The
+        return came from the universe and the staged deployment schedule.
+      caveat: >-
+        SURVIVORSHIP BIAS. Universe is today's top names; excludes LUNA/FTT-style
+        collapses that a buy-the-low rule would have bought to zero. Optimistic bound.
+      beats_btc: true                    # 23.40% vs 9.86% CAGR; -57% vs -77% DD; MAR 0.41 vs 0.13
+    leverage_microcap_satellite:
+      status: IMPLEMENTED_AS_CAPITAL_SPLIT
+      note: >-
+        20% split, NOT leverage (config leverage.enabled:false stands). True
+        micro-caps are not listed on Coinbase, so the sleeve is currently
+        "smaller top-25 names" rather than micro-caps.
+  new_strategies_required:
+    fidelity_sleeves:
+      status: ANALYSED_2026-08-27
+      report: FIDELITY_SLEEVES.md
+    breakout_crypto_prop:
+      status: OPTIMIZED_4H_2026-08-27
+      report: BREAKOUT_OPTIMAL_STRATEGY.md
+      data: Data/h4/  # 6567 4H OHLCV bars x 8 symbols, 3.00y, Coinbase 1h resampled
+      engine: 4H Keltner expansion breakout L/S + MACD + ER/ADX + vol-regime gate
+      recommended:
+        classic_10k: {risk_pct: 0.75, atr_stop: 1.5, rr: 1.5, max_concurrent: 3, internal_daily_pct: 1.0}
+        turbo_200k:  {risk_pct: 0.50, atr_stop: 1.5, rr: 1.25, max_concurrent: 3, internal_daily_pct: 1.0}
+      measured_oos:
+        classic: {pass_pct: 100.0, breaches_pct: 0.0, trade_win_pct: 58.3, pf: 2.26}
+        turbo:   {pass_pct: 92.5,  breaches_pct: 2.5, trade_win_pct: 65.6, pf: 2.37, e_payouts: 12.3}
+      key_finding: >-
+        Under a floor that never resets, SMALLER targets beat bigger winners. Turbo
+        2.0R -> 1.25R raised OOS pass 67.5% -> 92.5% and cut dd breaches 32.5% -> 2.5%.
+        Open trades carry floating losses against both the daily limit and the floor,
+        so converting risk to closed profit fast is worth more than winning bigger.
+        Highest trade win rate and highest pass rate land on the SAME config here.
+      chatgpt_report_validated: [4H Keltner+MACD+ER/ADX+vol gate, leverage as ceiling not edge, internal daily stop inside firm limit]
+      chatgpt_report_falsified:
+        - "EMA pullback engine (their rank #2) has NEGATIVE expectancy: 0% pass, PF 0.48, avg -0.43R -- drop it"
+        - "ER>=0.30 and ADX>=25 thresholds do NO work: 0.20/0.30/0.40 and 20/25/30 all give identical 81.7% pass. The vol-expansion gate (only 7% of bars) is the entire filter."
+        - "Donchian 'robust benchmark' is far riskier than framed: 53% pass, 41.7% dd breaches"
+      fragility_caught: >-
+        First champion (risk0.75/stop1.5/RR2.0) showed 100% pass on the full panel but
+        IS 0% vs OOS 20% drawdown breaches. Full-panel 100% masked it. Discarded; Stage 4
+        re-ranks on OOS breach rate first. Cost stress 1x/2x/3x -> 100/95.0/91.7%.
+        Start-date density 30/60/120/240 stable.
+      superseded_status: RETESTED_REAL_RULES_2026-08-27
+      report: PROP_FIRM_REPORT.md
+      runner: run_crypto_prop.py
+      rules: confirmed_by_author_and_cross_checked   # was ASSUMED before
+      superseded_finding: >-
+        The earlier "0 of 8 arms survived" result modelled a TRAILING 10%
+        drawdown from the high-water mark. Breakout's is STATIC from the
+        starting balance. Wrong rule, wrong conclusion -- DISREGARD it.
+      verdict: >-
+        Roughly a coin flip, not impossible. Best arms reach ~50% pass across
+        40 start dates: Classic $10k long-only at 0.50% risk = 50.0%; Turbo
+        $200k at 0.25% risk = 50.0%. Per-trade risk dominates -- at 0.25% risk
+        the daily-loss breach rate is 0.0% in both profiles.
+      classic_vs_turbo: "Turbo dd-breach 40-60% vs Classic 12-35%; Classic is the better entry"
+      turbo_trap: "daily limit $6,000 EQUALS total maxDD $6,000 -- one bad day is terminal"
+      income_target_verdict: >-
+        $70k/yr on the $200k account needs 39-44%/yr against a $6,000 static
+        floor = MAR 13-15. Best MAR measured anywhere in this project is 0.41;
+        elite managed futures run 0.5-1.5. NOT realistic. The single $18,000
+        target (~$14,400 at 80% split) IS reachable and is the right frame.
+      sample_caveat: "40 start dates ~35 bars apart on runs lasting far longer -- heavily overlapping, NOT 40 independent samples"
+      unblock: "intraday data (1m-15m); Breakout's post-payout drawdown reset rule"
+    futures_prop:
+      status: BUILT_AND_NEGATIVE_2026-08-27
+      report: PROP_FIRM_REPORT.md
+      runners: [fetch_keyless.py, run_futures_prop.py, run_futures_daily.py]
+      data_unblock: >-
+        Yahoo Finance chart endpoint is KEYLESS and serves futures. Fetched 10y daily
+        (ES NQ YM RTY CL NG GC SI HG ZN, 2298 aligned bars) + 2.4y hourly -> 4H
+        (3454 bars) + 10y macro (VIX DXY TNX IRX SMH HYG LQD SPY GLD).
+        FRED fredgraph.csv and data/*.txt both TIME OUT here; Stooq returns HTML not CSV.
+      verdict: >-
+        NEGATIVE AND DECISIVE. Every profit factor below 1.0: 4H breakout 0.82-0.91,
+        daily breakout 0.56-0.73, daily INVERTED (fade) 0.63-0.81. Pass rates 0-22.5%,
+        drawdown breaches 67-100%. The crypto champion does NOT transfer to futures.
+      key_findings:
+        - "When a rule AND its mirror image both lose, the answer is costs/noise, not direction -- rules out the obvious mean-reversion fix"
+        - "Trailing vs static drawdown produced near-identical results, because below PF 1.0 the drawdown rule is irrelevant. Risk rules cannot rescue a losing edge."
+        - "Expansion regime fires on only 0.56% of daily cells (128 signals / 10y / 10 instruments) -- the gate that makes the crypto version selective makes the futures version starved"
+      scope_note: "This tests THIS ENGINE on futures, not futures prop in general. A futures-native mechanism (session ranges, roll effects, intraday MR around the cash open) was NOT built and should not be guessed at."
+      recommendation: "Do NOT fund a futures prop account on anything in this repo."
+  benchmark_change:
+    requested: ">3:1 vs BTC over 4 years"
+    status: MEASURED_2026-08-27_AMBIGUOUS
+    measured_over: "5.01 years, 2021-08-23 -> 2026-08-27"
+    btc_actual: {cagr_pct: 9.86, total_return_pct: 60.1}
+    strategy_best: {cagr_pct: 23.40, total_return_pct: 186.8}
+    terminal_wealth_multiple: 1.79      # FAILS the 3.0x bar
+    total_return_multiple: 3.11         # PASSES the 3.0x bar
+    blocker: "AMBIGUOUS READING - the two defensible interpretations disagree. Needs the author's call."
+    note: >-
+      The earlier 60-68% CAGR projection assumed BTC compounding at 30-35%. Over the
+      actual window BTC did 9.86%, so the bar landed far lower. Confirms the benchmark
+      is not scale-free: it is easy when BTC is weak and near-impossible when BTC is strong.
+  prop_targets:
+    requested: "$70k/yr; 4%+/month on each $100k account"
+    internal_consistency: ok       # 4%/mo compounds to 60.1%/yr; $70k fits inside an 80/20 split
+    required_edge: "PF ~1.8-2.0 at 15-20+ trades/month, 0.5-1.0% risk per trade"
+    measured_edge_today: 1.05      # hermes_agent baseline PF -- roughly half what is needed
+    key_finding: "per-trade risk dominates: at PF 2.0, moving 1% -> 2% risk cuts 12-month survival 91.7% -> 25.0%"
+    RESOLVED_2026-08-27: "Breakout rules confirmed: STATIC drawdown, 3% daily, 80/90% split. See config.prop_firm.breakout_profiles"
+
+# Open items requiring the author
+blocked_on_user:
+  - corrected_capital_total        # Merrill/Coinbase/Hyperliquid still flagged miscalculated
+  - benchmark_window_decision      # see goal_expansion.benchmark_change
+  - breakout_post_payout_reset     # does the static floor reset after a withdrawal? decides repeat-target viability
+  - fidelity_margin_decision       # book is 1.45x gross; contradicts leverage.enabled:false
+  - three_to_one_reading           # total-return (3.11x, passes) vs terminal-wealth (1.79x, fails)
+  - point_in_time_crypto_universe  # paid data; needed to remove survivorship bias from CRYPTO_LOW_REPORT
+  # RESOLVED 2026-08-27 for crypto: 4H panel built from Coinbase 1h (Data/h4/).
+  # Still needed for the FUTURES prop ask (#6).
+  # RESOLVED 2026-08-27 via keyless Yahoo (Data/futures/, Data/macro/).
+  # Remaining futures gap is a STRATEGY gap, not a data gap.
+  - futures_native_strategy_research
+  - futures_prop_firm_choice        # no firm named; rules modelled are representative Topstep-style
+  - futures_data_source            # ask #6 cannot start without it
+# RESOLVED 2026-08-27: fidelity_balance -> $18,996 (verified). See FIDELITY_SLEEVES.md.
 
 # Live deployment status
 live:

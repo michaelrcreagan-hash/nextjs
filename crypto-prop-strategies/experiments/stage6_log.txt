@@ -1,0 +1,120 @@
+==========================================================================================================================
+TEST 1 -- BOUNDARY: does performance keep climbing past the grid edge?
+==========================================================================================================================
+
+  BTC combined classic_10k   (stage 5 chose risk 2.0)
+    risk 1.0                           bull  76.7%/ 0.0b  bear  26.7%/10.0b  WORST pass  26.7% lo  16.7% breach  10.0%
+    risk 1.25                          bull  90.0%/ 0.0b  bear  50.0%/16.7b  WORST pass  50.0% lo  40.0% breach  16.7%
+    risk 1.5                           bull 100.0%/ 0.0b  bear  70.0%/13.3b  WORST pass  70.0% lo  60.0% breach  13.3%
+    risk 1.75                          bull 100.0%/ 0.0b  bear  80.0%/10.0b  WORST pass  80.0% lo  70.0% breach  10.0%
+    risk 2.0                           bull  96.7%/ 3.3b  bear  83.3%/10.0b  WORST pass  83.3% lo  73.3% breach  10.0%  <-- stage 5
+    risk 2.5                           bull  70.0%/30.0b  bear  83.3%/13.3b  WORST pass  70.0% lo  60.0% breach  30.0%
+    risk 3.0                           bull  70.0%/30.0b  bear  53.3%/46.7b  WORST pass  53.3% lo  43.3% breach  46.7%
+    risk 4.0                           bull  56.7%/43.3b  bear  43.3%/56.7b  WORST pass  43.3% lo  30.0% breach  56.7%
+    -> peak worst-case lower bound at risk 2.0; PLATEAU, grid edge was not binding
+
+  BTC short classic_10k   (stage 5 chose risk 1.5)
+    risk 1.0                           bull  20.0%/ 0.0b  bear  20.0%/ 0.0b  WORST pass  20.0% lo  10.0% breach   0.0%
+    risk 1.25                          bull  50.0%/ 0.0b  bear  46.7%/10.0b  WORST pass  46.7% lo  33.3% breach  10.0%
+    risk 1.5                           bull  70.0%/ 0.0b  bear  66.7%/10.0b  WORST pass  66.7% lo  56.7% breach  10.0%  <-- stage 5
+    risk 1.75                          bull  76.7%/ 0.0b  bear  66.7%/13.3b  WORST pass  66.7% lo  56.7% breach  13.3%
+    risk 2.0                           bull  76.7%/ 0.0b  bear  46.7%/43.3b  WORST pass  46.7% lo  36.7% breach  43.3%
+    risk 2.5                           bull  86.7%/ 0.0b  bear  43.3%/56.7b  WORST pass  43.3% lo  33.3% breach  56.7%
+    risk 3.0                           bull  76.7%/13.3b  bear  20.0%/80.0b  WORST pass  20.0% lo  10.0% breach  80.0%
+    risk 4.0                           bull  80.0%/13.3b  bear  13.3%/86.7b  WORST pass  13.3% lo   6.7% breach  86.7%
+    -> peak worst-case lower bound at risk 1.5; PLATEAU, grid edge was not binding
+
+==========================================================================================================================
+TEST 2 -- NEIGHBOURHOOD: one grid step in each direction
+==========================================================================================================================
+
+  BTC combined classic_10k
+    BASE                               bull  96.7%/ 3.3b  bear  83.3%/10.0b  WORST pass  83.3% lo  73.3% breach  10.0%
+    atr_stop -> 1.25                   bull  66.7%/33.3b  bear  80.0%/16.7b  WORST pass  66.7% lo  56.7% breach  33.3%
+    atr_stop -> 2.0                    bull  93.3%/ 3.3b  bear  40.0%/56.7b  WORST pass  40.0% lo  26.7% breach  56.7%
+    rr -> 1.0                          bull  90.0%/ 0.0b  bear  80.0%/10.0b  WORST pass  80.0% lo  70.0% breach  10.0%
+    rr -> 1.5                          bull  96.7%/ 3.3b  bear  83.3%/10.0b  WORST pass  83.3% lo  73.3% breach  10.0%
+    internal_daily_pct -> 1.0          bull  83.3%/16.7b  bear  76.7%/13.3b  WORST pass  76.7% lo  66.7% breach  16.7%
+    -> neighbourhood worst-case lower bound spans 26.7% to 73.3%, median 66.7% (base 73.3%)  FRAGILE -- a neighbour breaches heavily
+
+  BTC short classic_10k
+    BASE                               bull  70.0%/ 0.0b  bear  66.7%/10.0b  WORST pass  66.7% lo  56.7% breach  10.0%
+    atr_stop -> 1.5                    bull  70.0%/ 0.0b  bear  40.0%/ 6.7b  WORST pass  40.0% lo  30.0% breach   6.7%
+    rr -> 1.25                         bull  53.3%/ 0.0b  bear  30.0%/10.0b  WORST pass  30.0% lo  20.0% breach  10.0%
+    rr -> 2.0                          bull  36.7%/16.7b  bear  50.0%/10.0b  WORST pass  36.7% lo  23.3% breach  16.7%
+    internal_daily_pct -> 1.0          bull  56.7%/ 0.0b  bear  40.0%/13.3b  WORST pass  40.0% lo  30.0% breach  13.3%
+    -> neighbourhood worst-case lower bound spans 20.0% to 30.0%, median 26.6% (base 56.7%)  FRAGILE -- base is a spike, median neighbour is 47% of it
+
+  ALT short classic_10k
+    BASE                               bull  76.7%/10.0b  bear  70.0%/ 3.3b  WORST pass  70.0% lo  60.0% breach  10.0%
+    atr_stop -> 1.5                    bull  80.0%/ 0.0b  bear  53.3%/ 0.0b  WORST pass  53.3% lo  43.3% breach   0.0%
+    rr -> 1.5                          bull  73.3%/ 6.7b  bear  23.3%/ 3.3b  WORST pass  23.3% lo  13.3% breach   6.7%
+    internal_daily_pct -> 1.0          bull  80.0%/ 6.7b  bear  33.3%/20.0b  WORST pass  33.3% lo  23.3% breach  20.0%
+    -> neighbourhood worst-case lower bound spans 13.3% to 43.3%, median 23.3% (base 60.0%)  FRAGILE -- base is a spike, median neighbour is 39% of it
+
+  ALT combined classic_10k
+    BASE                               bull 100.0%/ 0.0b  bear  66.7%/10.0b  WORST pass  66.7% lo  56.7% breach  10.0%
+    atr_stop -> 1.5                    bull  96.7%/ 3.3b  bear  40.0%/16.7b  WORST pass  40.0% lo  26.7% breach  16.7%
+    rr -> 1.0                          bull 100.0%/ 0.0b  bear  53.3%/ 6.7b  WORST pass  53.3% lo  40.0% breach   6.7%
+    rr -> 1.5                          bull  73.3%/13.3b  bear  63.3%/ 6.7b  WORST pass  63.3% lo  53.3% breach  13.3%
+    internal_daily_pct -> 1.0          bull 100.0%/ 0.0b  bear  60.0%/10.0b  WORST pass  60.0% lo  50.0% breach  10.0%
+    -> neighbourhood worst-case lower bound spans 26.7% to 53.3%, median 45.0% (base 56.7%)  robust -- neighbourhood holds
+
+  ALT short turbo_200k
+    BASE                               bull  76.7%/10.0b  bear  56.7%/13.3b  WORST pass  56.7% lo  46.7% breach  13.3%
+    atr_stop -> 1.5                    bull  76.7%/ 6.7b  bear  23.3%/36.7b  WORST pass  23.3% lo  13.3% breach  36.7%
+    rr -> 1.25                         bull  70.0%/13.3b  bear  46.7%/26.7b  WORST pass  46.7% lo  36.7% breach  26.7%
+    rr -> 2.0                          bull  60.0%/23.3b  bear  23.3%/63.3b  WORST pass  23.3% lo  13.3% breach  63.3%
+    internal_daily_pct -> 1.5          bull  63.3%/10.0b  bear  66.7%/20.0b  WORST pass  63.3% lo  53.3% breach  20.0%
+    -> neighbourhood worst-case lower bound spans 13.3% to 53.3%, median 25.0% (base 46.7%)  FRAGILE -- base is a spike, median neighbour is 54% of it
+
+  BTC combined turbo_200k
+    BASE                               bull  46.7%/ 0.0b  bear  26.7%/13.3b  WORST pass  26.7% lo  16.7% breach  13.3%
+    atr_stop -> 1.25                   bull  63.3%/16.7b  bear  30.0%/13.3b  WORST pass  30.0% lo  20.0% breach  16.7%
+    atr_stop -> 2.0                    bull   0.0%/ 0.0b  bear   0.0%/26.7b  WORST pass   0.0% lo   0.0% breach  26.7%
+    rr -> 1.25                         bull  63.3%/ 0.0b  bear   6.7%/16.7b  WORST pass   6.7% lo   0.0% breach  16.7%
+    rr -> 2.0                          bull  33.3%/ 0.0b  bear   6.7%/16.7b  WORST pass   6.7% lo   0.0% breach  16.7%
+    internal_daily_pct -> 1.0          bull  46.7%/ 0.0b  bear  26.7%/16.7b  WORST pass  26.7% lo  16.7% breach  16.7%
+    -> neighbourhood worst-case lower bound spans 0.0% to 20.0%, median 0.0% (base 16.7%)  FRAGILE -- base is a spike, median neighbour is 0% of it
+
+==========================================================================================================================
+TEST 3 -- COSTS: double fees and double slippage
+==========================================================================================================================
+
+  BTC combined classic_10k
+    costs x1  (0.035% + 5bps)          bull  96.7%/ 3.3b  bear  83.3%/10.0b  WORST pass  83.3% lo  73.3% breach  10.0%
+    costs x2  (0.070% + 10bps)         bull  66.7%/33.3b  bear  70.0%/13.3b  WORST pass  66.7% lo  56.7% breach  33.3%
+    costs x3  (0.105% + 15bps)         bull  60.0%/36.7b  bear  36.7%/50.0b  WORST pass  36.7% lo  26.7% breach  50.0%
+    -> doubling costs moves the worst-case lower bound by -16.6pp  SURVIVES
+
+  BTC short classic_10k
+    costs x1  (0.035% + 5bps)          bull  70.0%/ 0.0b  bear  66.7%/10.0b  WORST pass  66.7% lo  56.7% breach  10.0%
+    costs x2  (0.070% + 10bps)         bull  56.7%/ 0.0b  bear  30.0%/13.3b  WORST pass  30.0% lo  20.0% breach  13.3%
+    costs x3  (0.105% + 15bps)         bull  16.7%/16.7b  bear  16.7%/63.3b  WORST pass  16.7% lo   6.7% breach  63.3%
+    -> doubling costs moves the worst-case lower bound by -36.7pp  SURVIVES
+
+  ALT short classic_10k
+    costs x1  (0.035% + 5bps)          bull  76.7%/10.0b  bear  70.0%/ 3.3b  WORST pass  70.0% lo  60.0% breach  10.0%
+    costs x2  (0.070% + 10bps)         bull  66.7%/20.0b  bear  43.3%/13.3b  WORST pass  43.3% lo  33.3% breach  20.0%
+    costs x3  (0.105% + 15bps)         bull  56.7%/23.3b  bear  13.3%/26.7b  WORST pass  13.3% lo   6.7% breach  26.7%
+    -> doubling costs moves the worst-case lower bound by -26.7pp  SURVIVES
+
+  ALT combined classic_10k
+    costs x1  (0.035% + 5bps)          bull 100.0%/ 0.0b  bear  66.7%/10.0b  WORST pass  66.7% lo  56.7% breach  10.0%
+    costs x2  (0.070% + 10bps)         bull  66.7%/ 0.0b  bear  50.0%/16.7b  WORST pass  50.0% lo  36.7% breach  16.7%
+    costs x3  (0.105% + 15bps)         bull  46.7%/ 0.0b  bear  23.3%/33.3b  WORST pass  23.3% lo  13.3% breach  33.3%
+    -> doubling costs moves the worst-case lower bound by -20.0pp  SURVIVES
+
+  ALT short turbo_200k
+    costs x1  (0.035% + 5bps)          bull  76.7%/10.0b  bear  56.7%/13.3b  WORST pass  56.7% lo  46.7% breach  13.3%
+    costs x2  (0.070% + 10bps)         bull  70.0%/16.7b  bear  43.3%/20.0b  WORST pass  43.3% lo  33.3% breach  20.0%
+    costs x3  (0.105% + 15bps)         bull  56.7%/23.3b  bear  40.0%/33.3b  WORST pass  40.0% lo  30.0% breach  33.3%
+    -> doubling costs moves the worst-case lower bound by -13.4pp  SURVIVES
+
+  BTC combined turbo_200k
+    costs x1  (0.035% + 5bps)          bull  46.7%/ 0.0b  bear  26.7%/13.3b  WORST pass  26.7% lo  16.7% breach  13.3%
+    costs x2  (0.070% + 10bps)         bull  40.0%/ 0.0b  bear   0.0%/20.0b  WORST pass   0.0% lo   0.0% breach  20.0%
+    costs x3  (0.105% + 15bps)         bull   3.3%/ 0.0b  bear   0.0%/66.7b  WORST pass   0.0% lo   0.0% breach  66.7%
+    -> doubling costs moves the worst-case lower bound by -16.7pp  DIES
+
+saved: experiments/stage6_stress.json

@@ -1,0 +1,289 @@
+{
+  "source": "Yahoo Finance chart endpoint (keyless)",
+  "fetched": "2026-08-27T20:11:25.008645+00:00",
+  "start": "2021-06-01",
+  "end": "2026-08-27",
+  "series": {
+    "ACLS": {
+      "bars": 1316,
+      "cached": true
+    },
+    "AEIS": {
+      "bars": 1316,
+      "cached": true
+    },
+    "ALAB": {
+      "bars": 611,
+      "first": "2024-03-20",
+      "last": "2026-08-26",
+      "listing_enforced": "2024-03-20"
+    },
+    "AMAT": {
+      "bars": 1316,
+      "cached": true
+    },
+    "AMD": {
+      "bars": 1316,
+      "cached": true
+    },
+    "AME": {
+      "bars": 1316,
+      "cached": true
+    },
+    "AMKR": {
+      "bars": 1316,
+      "cached": true
+    },
+    "ANET": {
+      "bars": 1316,
+      "cached": true
+    },
+    "APD": {
+      "bars": 1316,
+      "cached": true
+    },
+    "ARM": {
+      "bars": 740,
+      "first": "2023-09-14",
+      "last": "2026-08-26",
+      "listing_enforced": "2023-09-14"
+    },
+    "ASML": {
+      "bars": 1316,
+      "cached": true
+    },
+    "ATKR": {
+      "bars": 1316,
+      "cached": true
+    },
+    "AVGO": {
+      "bars": 1316,
+      "cached": true
+    },
+    "CAMT": {
+      "bars": 1316,
+      "cached": true
+    },
+    "CCJ": {
+      "bars": 1316,
+      "cached": true
+    },
+    "CDNS": {
+      "bars": 1316,
+      "cached": true
+    },
+    "CEG": {
+      "bars": 1155,
+      "first": "2022-01-19",
+      "last": "2026-08-26",
+      "listing_enforced": "2022-01-19"
+    },
+    "CIEN": {
+      "bars": 1316,
+      "cached": true
+    },
+    "COHR": {
+      "bars": 1316,
+      "cached": true
+    },
+    "CRDO": {
+      "bars": 1149,
+      "first": "2022-01-27",
+      "last": "2026-08-26",
+      "listing_enforced": "2022-01-27"
+    },
+    "DELL": {
+      "bars": 1316,
+      "cached": true
+    },
+    "DLR": {
+      "bars": 1316,
+      "cached": true
+    },
+    "ENTG": {
+      "bars": 1316,
+      "cached": true
+    },
+    "EQIX": {
+      "bars": 1316,
+      "cached": true
+    },
+    "ETN": {
+      "bars": 1316,
+      "cached": true
+    },
+    "FN": {
+      "bars": 1316,
+      "cached": true
+    },
+    "GEV": {
+      "bars": 606,
+      "first": "2024-03-27",
+      "last": "2026-08-26",
+      "listing_enforced": "2024-03-27"
+    },
+    "GFS": {
+      "bars": 1211,
+      "first": "2021-10-28",
+      "last": "2026-08-26",
+      "listing_enforced": "2021-10-28"
+    },
+    "HPE": {
+      "bars": 1316,
+      "cached": true
+    },
+    "HUBB": {
+      "bars": 1316,
+      "cached": true
+    },
+    "INTC": {
+      "bars": 1316,
+      "cached": true
+    },
+    "IPGP": {
+      "bars": 1316,
+      "cached": true
+    },
+    "KLAC": {
+      "bars": 1316,
+      "cached": true
+    },
+    "LEU": {
+      "bars": 1316,
+      "cached": true
+    },
+    "LIN": {
+      "bars": 1316,
+      "cached": true
+    },
+    "LITE": {
+      "bars": 1316,
+      "cached": true
+    },
+    "LRCX": {
+      "bars": 1316,
+      "cached": true
+    },
+    "MKSI": {
+      "bars": 1316,
+      "cached": true
+    },
+    "MOD": {
+      "bars": 1316,
+      "cached": true
+    },
+    "MRVL": {
+      "bars": 1316,
+      "cached": true
+    },
+    "MU": {
+      "bars": 1316,
+      "cached": true
+    },
+    "NRG": {
+      "bars": 1316,
+      "cached": true
+    },
+    "NVDA": {
+      "bars": 1316,
+      "cached": true
+    },
+    "NVT": {
+      "bars": 1316,
+      "cached": true
+    },
+    "OKLO": {
+      "bars": 575,
+      "first": "2024-05-10",
+      "last": "2026-08-26",
+      "listing_enforced": "2024-05-10"
+    },
+    "ONTO": {
+      "bars": 1316,
+      "cached": true
+    },
+    "POWL": {
+      "bars": 1316,
+      "cached": true
+    },
+    "PWR": {
+      "bars": 1316,
+      "cached": true
+    },
+    "QCOM": {
+      "bars": 1316,
+      "cached": true
+    },
+    "SMCI": {
+      "bars": 1316,
+      "cached": true
+    },
+    "SMR": {
+      "bars": 1084,
+      "first": "2022-05-02",
+      "last": "2026-08-26",
+      "listing_enforced": "2022-05-02"
+    },
+    "SNPS": {
+      "bars": 1316,
+      "cached": true
+    },
+    "STX": {
+      "bars": 1316,
+      "cached": true
+    },
+    "TER": {
+      "bars": 1316,
+      "cached": true
+    },
+    "TLN": {
+      "bars": 677,
+      "first": "2023-12-13",
+      "last": "2026-08-26",
+      "listing_enforced": "2023-12-13"
+    },
+    "TSM": {
+      "bars": 1316,
+      "cached": true
+    },
+    "UCTT": {
+      "bars": 1316,
+      "cached": true
+    },
+    "UMC": {
+      "bars": 1316,
+      "cached": true
+    },
+    "VRT": {
+      "bars": 1316,
+      "cached": true
+    },
+    "VST": {
+      "bars": 1316,
+      "cached": true
+    },
+    "WDC": {
+      "bars": 1316,
+      "cached": true
+    },
+    "SPY": {
+      "bars": 1316,
+      "cached": true
+    },
+    "QQQ": {
+      "bars": 1316,
+      "cached": true
+    },
+    "SMH": {
+      "bars": 1316,
+      "cached": true
+    },
+    "XLU": {
+      "bars": 1316,
+      "cached": true
+    }
+  },
+  "missing": [
+    "PSTG"
+  ]
+}

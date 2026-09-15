@@ -1,0 +1,1496 @@
+{
+  "split": 0.6,
+  "all": {
+    "btc_long": {
+      "ema200 + expansion": {
+        "is": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 3.95,
+          "avg_r": 0.688,
+          "r_lo": 0.365,
+          "r_hi": 1.009,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 12,
+          "win": 83.3,
+          "pf": 5.311,
+          "avg_r": 0.787,
+          "r_lo": 0.414,
+          "r_hi": 1.158,
+          "t_mo": 0.8
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "is": {
+          "n": 22,
+          "win": 54.5,
+          "pf": 1.312,
+          "avg_r": 0.155,
+          "r_lo": -0.151,
+          "r_hi": 0.46,
+          "t_mo": 1.5
+        },
+        "oos": {
+          "n": 13,
+          "win": 84.6,
+          "pf": 5.87,
+          "avg_r": 0.819,
+          "r_lo": 0.473,
+          "r_hi": 1.16,
+          "t_mo": 0.9
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "is": {
+          "n": 26,
+          "win": 73.1,
+          "pf": 2.892,
+          "avg_r": 0.556,
+          "r_lo": 0.296,
+          "r_hi": 0.816,
+          "t_mo": 1.8
+        },
+        "oos": {
+          "n": 22,
+          "win": 63.6,
+          "pf": 1.828,
+          "avg_r": 0.336,
+          "r_lo": 0.028,
+          "r_hi": 0.642,
+          "t_mo": 1.5
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "is": {
+          "n": 34,
+          "win": 58.8,
+          "pf": 1.54,
+          "avg_r": 0.242,
+          "r_lo": -0.019,
+          "r_hi": 0.503,
+          "t_mo": 2.3
+        },
+        "oos": {
+          "n": 23,
+          "win": 65.2,
+          "pf": 1.964,
+          "avg_r": 0.374,
+          "r_lo": 0.079,
+          "r_hi": 0.669,
+          "t_mo": 1.6
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "is": {
+          "n": 16,
+          "win": 81.2,
+          "pf": 4.667,
+          "avg_r": 0.749,
+          "r_lo": 0.467,
+          "r_hi": 1.031,
+          "t_mo": 1.1
+        },
+        "oos": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 3.965,
+          "avg_r": 0.685,
+          "r_lo": 0.363,
+          "r_hi": 1.005,
+          "t_mo": 1.0
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "is": {
+          "n": 35,
+          "win": 71.4,
+          "pf": 2.692,
+          "avg_r": 0.523,
+          "r_lo": 0.326,
+          "r_hi": 0.72,
+          "t_mo": 2.4
+        },
+        "oos": {
+          "n": 32,
+          "win": 62.5,
+          "pf": 1.733,
+          "avg_r": 0.307,
+          "r_lo": 0.034,
+          "r_hi": 0.584,
+          "t_mo": 2.2
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "is": {
+          "n": 48,
+          "win": 62.5,
+          "pf": 1.798,
+          "avg_r": 0.325,
+          "r_lo": 0.136,
+          "r_hi": 0.515,
+          "t_mo": 3.3
+        },
+        "oos": {
+          "n": 38,
+          "win": 63.2,
+          "pf": 1.774,
+          "avg_r": 0.32,
+          "r_lo": 0.084,
+          "r_hi": 0.549,
+          "t_mo": 2.6
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "is": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 3.95,
+          "avg_r": 0.688,
+          "r_lo": 0.365,
+          "r_hi": 1.01,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 16,
+          "win": 62.5,
+          "pf": 1.758,
+          "avg_r": 0.314,
+          "r_lo": -0.106,
+          "r_hi": 0.604,
+          "t_mo": 1.1
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + norm/exp, adx flat ok": {
+        "is": {
+          "n": 33,
+          "win": 72.7,
+          "pf": 2.85,
+          "avg_r": 0.548,
+          "r_lo": 0.342,
+          "r_hi": 0.755,
+          "t_mo": 2.2
+        },
+        "oos": {
+          "n": 30,
+          "win": 60.0,
+          "pf": 1.556,
+          "avg_r": 0.249,
+          "r_lo": -0.045,
+          "r_hi": 0.478,
+          "t_mo": 2.1
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "btc_short": {
+      "ema200 + expansion": {
+        "is": {
+          "n": 10,
+          "win": 50.0,
+          "pf": 1.11,
+          "avg_r": 0.062,
+          "r_lo": -0.386,
+          "r_hi": 0.51,
+          "t_mo": 0.7
+        },
+        "oos": {
+          "n": 13,
+          "win": 84.6,
+          "pf": 6.168,
+          "avg_r": 0.848,
+          "r_lo": 0.503,
+          "r_hi": 1.192,
+          "t_mo": 0.9
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "is": {
+          "n": 20,
+          "win": 55.0,
+          "pf": 1.383,
+          "avg_r": 0.185,
+          "r_lo": -0.151,
+          "r_hi": 0.521,
+          "t_mo": 1.4
+        },
+        "oos": {
+          "n": 21,
+          "win": 61.9,
+          "pf": 1.854,
+          "avg_r": 0.342,
+          "r_lo": 0.022,
+          "r_hi": 0.663,
+          "t_mo": 1.4
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "is": {
+          "n": 14,
+          "win": 57.1,
+          "pf": 1.464,
+          "avg_r": 0.217,
+          "r_lo": -0.109,
+          "r_hi": 0.542,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 24,
+          "win": 62.5,
+          "pf": 1.836,
+          "avg_r": 0.34,
+          "r_lo": 0.057,
+          "r_hi": 0.623,
+          "t_mo": 1.6
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "is": {
+          "n": 29,
+          "win": 65.5,
+          "pf": 2.094,
+          "avg_r": 0.406,
+          "r_lo": 0.172,
+          "r_hi": 0.64,
+          "t_mo": 2.0
+        },
+        "oos": {
+          "n": 33,
+          "win": 51.5,
+          "pf": 1.185,
+          "avg_r": 0.098,
+          "r_lo": -0.171,
+          "r_hi": 0.367,
+          "t_mo": 2.3
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "is": {
+          "n": 14,
+          "win": 35.7,
+          "pf": 0.615,
+          "avg_r": -0.26,
+          "r_lo": -0.582,
+          "r_hi": 0.064,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 4.114,
+          "avg_r": 0.71,
+          "r_lo": 0.386,
+          "r_hi": 1.034,
+          "t_mo": 1.0
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "is": {
+          "n": 21,
+          "win": 47.6,
+          "pf": 1.001,
+          "avg_r": 0.003,
+          "r_lo": -0.316,
+          "r_hi": 0.323,
+          "t_mo": 1.4
+        },
+        "oos": {
+          "n": 32,
+          "win": 56.2,
+          "pf": 1.391,
+          "avg_r": 0.188,
+          "r_lo": -0.09,
+          "r_hi": 0.466,
+          "t_mo": 2.2
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "is": {
+          "n": 42,
+          "win": 54.8,
+          "pf": 1.34,
+          "avg_r": 0.167,
+          "r_lo": -0.047,
+          "r_hi": 0.381,
+          "t_mo": 2.9
+        },
+        "oos": {
+          "n": 42,
+          "win": 50.0,
+          "pf": 1.096,
+          "avg_r": 0.055,
+          "r_lo": -0.161,
+          "r_hi": 0.272,
+          "t_mo": 2.9
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "is": {
+          "n": 10,
+          "win": 50.0,
+          "pf": 1.11,
+          "avg_r": 0.062,
+          "r_lo": -0.387,
+          "r_hi": 0.51,
+          "t_mo": 0.7
+        },
+        "oos": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 4.098,
+          "avg_r": 0.709,
+          "r_lo": 0.383,
+          "r_hi": 1.033,
+          "t_mo": 1.0
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + norm/exp, adx flat ok": {
+        "is": {
+          "n": 14,
+          "win": 57.1,
+          "pf": 1.464,
+          "avg_r": 0.217,
+          "r_lo": -0.108,
+          "r_hi": 0.541,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 29,
+          "win": 62.1,
+          "pf": 1.784,
+          "avg_r": 0.324,
+          "r_lo": 0.018,
+          "r_hi": 0.563,
+          "t_mo": 2.0
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "alt_long": {
+      "ema200 + expansion": {
+        "is": {
+          "n": 41,
+          "win": 68.3,
+          "pf": 2.516,
+          "avg_r": 0.494,
+          "r_lo": 0.275,
+          "r_hi": 0.712,
+          "t_mo": 2.8
+        },
+        "oos": {
+          "n": 56,
+          "win": 57.1,
+          "pf": 1.524,
+          "avg_r": 0.244,
+          "r_lo": 0.044,
+          "r_hi": 0.444,
+          "t_mo": 3.8
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "is": {
+          "n": 105,
+          "win": 61.9,
+          "pf": 1.907,
+          "avg_r": 0.36,
+          "r_lo": 0.23,
+          "r_hi": 0.49,
+          "t_mo": 7.2
+        },
+        "oos": {
+          "n": 71,
+          "win": 56.3,
+          "pf": 1.477,
+          "avg_r": 0.227,
+          "r_lo": 0.068,
+          "r_hi": 0.386,
+          "t_mo": 4.9
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "is": {
+          "n": 89,
+          "win": 57.3,
+          "pf": 1.539,
+          "avg_r": 0.239,
+          "r_lo": 0.088,
+          "r_hi": 0.392,
+          "t_mo": 6.1
+        },
+        "oos": {
+          "n": 135,
+          "win": 53.3,
+          "pf": 1.267,
+          "avg_r": 0.143,
+          "r_lo": 0.012,
+          "r_hi": 0.262,
+          "t_mo": 9.3
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "is": {
+          "n": 153,
+          "win": 57.5,
+          "pf": 1.582,
+          "avg_r": 0.254,
+          "r_lo": 0.136,
+          "r_hi": 0.371,
+          "t_mo": 10.4
+        },
+        "oos": {
+          "n": 147,
+          "win": 53.1,
+          "pf": 1.255,
+          "avg_r": 0.138,
+          "r_lo": 0.017,
+          "r_hi": 0.26,
+          "t_mo": 10.1
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "is": {
+          "n": 58,
+          "win": 62.1,
+          "pf": 1.911,
+          "avg_r": 0.353,
+          "r_lo": 0.16,
+          "r_hi": 0.546,
+          "t_mo": 4.0
+        },
+        "oos": {
+          "n": 61,
+          "win": 59.0,
+          "pf": 1.645,
+          "avg_r": 0.285,
+          "r_lo": 0.102,
+          "r_hi": 0.469,
+          "t_mo": 4.2
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "is": {
+          "n": 176,
+          "win": 56.8,
+          "pf": 1.503,
+          "avg_r": 0.227,
+          "r_lo": 0.125,
+          "r_hi": 0.33,
+          "t_mo": 12.0
+        },
+        "oos": {
+          "n": 214,
+          "win": 54.2,
+          "pf": 1.309,
+          "avg_r": 0.161,
+          "r_lo": 0.066,
+          "r_hi": 0.256,
+          "t_mo": 14.7
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "is": {
+          "n": 256,
+          "win": 57.4,
+          "pf": 1.557,
+          "avg_r": 0.246,
+          "r_lo": 0.157,
+          "r_hi": 0.335,
+          "t_mo": 17.5
+        },
+        "oos": {
+          "n": 241,
+          "win": 52.3,
+          "pf": 1.213,
+          "avg_r": 0.118,
+          "r_lo": 0.025,
+          "r_hi": 0.211,
+          "t_mo": 16.5
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "is": {
+          "n": 43,
+          "win": 67.4,
+          "pf": 2.407,
+          "avg_r": 0.474,
+          "r_lo": 0.266,
+          "r_hi": 0.683,
+          "t_mo": 2.9
+        },
+        "oos": {
+          "n": 61,
+          "win": 57.4,
+          "pf": 1.538,
+          "avg_r": 0.249,
+          "r_lo": 0.065,
+          "r_hi": 0.433,
+          "t_mo": 4.2
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + norm/exp, adx flat ok": {
+        "is": {
+          "n": 97,
+          "win": 56.7,
+          "pf": 1.499,
+          "avg_r": 0.226,
+          "r_lo": 0.086,
+          "r_hi": 0.365,
+          "t_mo": 6.6
+        },
+        "oos": {
+          "n": 157,
+          "win": 52.9,
+          "pf": 1.246,
+          "avg_r": 0.133,
+          "r_lo": 0.019,
+          "r_hi": 0.248,
+          "t_mo": 10.8
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "is": {
+          "n": 41,
+          "win": 68.3,
+          "pf": 2.516,
+          "avg_r": 0.494,
+          "r_lo": 0.274,
+          "r_hi": 0.713,
+          "t_mo": 2.8
+        },
+        "oos": {
+          "n": 53,
+          "win": 58.5,
+          "pf": 1.608,
+          "avg_r": 0.274,
+          "r_lo": 0.063,
+          "r_hi": 0.485,
+          "t_mo": 3.6
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + norm/exp + BTC agrees": {
+        "is": {
+          "n": 88,
+          "win": 56.8,
+          "pf": 1.512,
+          "avg_r": 0.228,
+          "r_lo": 0.074,
+          "r_hi": 0.382,
+          "t_mo": 6.0
+        },
+        "oos": {
+          "n": 117,
+          "win": 50.4,
+          "pf": 1.132,
+          "avg_r": 0.077,
+          "r_lo": -0.058,
+          "r_hi": 0.211,
+          "t_mo": 8.0
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + norm/exp + RS>0": {
+        "is": {
+          "n": 83,
+          "win": 57.8,
+          "pf": 1.573,
+          "avg_r": 0.253,
+          "r_lo": 0.09,
+          "r_hi": 0.415,
+          "t_mo": 5.7
+        },
+        "oos": {
+          "n": 124,
+          "win": 52.4,
+          "pf": 1.228,
+          "avg_r": 0.125,
+          "r_lo": -0.002,
+          "r_hi": 0.253,
+          "t_mo": 8.5
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "rs_min": 0.0
+        }
+      }
+    },
+    "alt_short": {
+      "ema200 + expansion": {
+        "is": {
+          "n": 56,
+          "win": 57.1,
+          "pf": 1.487,
+          "avg_r": 0.229,
+          "r_lo": 0.047,
+          "r_hi": 0.427,
+          "t_mo": 3.8
+        },
+        "oos": {
+          "n": 42,
+          "win": 52.4,
+          "pf": 1.281,
+          "avg_r": 0.145,
+          "r_lo": -0.07,
+          "r_hi": 0.36,
+          "t_mo": 2.9
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion/extreme": {
+        "is": {
+          "n": 88,
+          "win": 52.3,
+          "pf": 1.245,
+          "avg_r": 0.131,
+          "r_lo": -0.01,
+          "r_hi": 0.296,
+          "t_mo": 6.0
+        },
+        "oos": {
+          "n": 47,
+          "win": 48.9,
+          "pf": 1.089,
+          "avg_r": 0.054,
+          "r_lo": -0.153,
+          "r_hi": 0.26,
+          "t_mo": 3.2
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "is": {
+          "n": 136,
+          "win": 58.1,
+          "pf": 1.567,
+          "avg_r": 0.258,
+          "r_lo": 0.136,
+          "r_hi": 0.382,
+          "t_mo": 9.3
+        },
+        "oos": {
+          "n": 136,
+          "win": 54.4,
+          "pf": 1.349,
+          "avg_r": 0.177,
+          "r_lo": 0.06,
+          "r_hi": 0.308,
+          "t_mo": 9.3
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "ema200 + any regime": {
+        "is": {
+          "n": 177,
+          "win": 54.8,
+          "pf": 1.385,
+          "avg_r": 0.188,
+          "r_lo": 0.08,
+          "r_hi": 0.296,
+          "t_mo": 12.1
+        },
+        "oos": {
+          "n": 147,
+          "win": 53.1,
+          "pf": 1.267,
+          "avg_r": 0.142,
+          "r_lo": 0.02,
+          "r_hi": 0.262,
+          "t_mo": 10.1
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "no ema200 + expansion": {
+        "is": {
+          "n": 66,
+          "win": 53.0,
+          "pf": 1.264,
+          "avg_r": 0.139,
+          "r_lo": -0.045,
+          "r_hi": 0.31,
+          "t_mo": 4.5
+        },
+        "oos": {
+          "n": 48,
+          "win": 50.0,
+          "pf": 1.163,
+          "avg_r": 0.091,
+          "r_lo": -0.098,
+          "r_hi": 0.322,
+          "t_mo": 3.3
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "no ema200 + normal/expansion": {
+        "is": {
+          "n": 156,
+          "win": 60.9,
+          "pf": 1.772,
+          "avg_r": 0.322,
+          "r_lo": 0.207,
+          "r_hi": 0.434,
+          "t_mo": 10.6
+        },
+        "oos": {
+          "n": 168,
+          "win": 51.8,
+          "pf": 1.213,
+          "avg_r": 0.116,
+          "r_lo": 0.008,
+          "r_hi": 0.225,
+          "t_mo": 11.5
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "is": {
+          "n": 217,
+          "win": 57.6,
+          "pf": 1.561,
+          "avg_r": 0.252,
+          "r_lo": 0.159,
+          "r_hi": 0.351,
+          "t_mo": 14.8
+        },
+        "oos": {
+          "n": 184,
+          "win": 50.5,
+          "pf": 1.153,
+          "avg_r": 0.088,
+          "r_lo": -0.021,
+          "r_hi": 0.199,
+          "t_mo": 12.6
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "is": {
+          "n": 64,
+          "win": 51.6,
+          "pf": 1.194,
+          "avg_r": 0.106,
+          "r_lo": -0.071,
+          "r_hi": 0.282,
+          "t_mo": 4.4
+        },
+        "oos": {
+          "n": 43,
+          "win": 53.5,
+          "pf": 1.34,
+          "avg_r": 0.17,
+          "r_lo": -0.04,
+          "r_hi": 0.38,
+          "t_mo": 2.9
+        },
+        "carry": false,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + norm/exp, adx flat ok": {
+        "is": {
+          "n": 145,
+          "win": 55.2,
+          "pf": 1.392,
+          "avg_r": 0.193,
+          "r_lo": 0.075,
+          "r_hi": 0.31,
+          "t_mo": 9.9
+        },
+        "oos": {
+          "n": 151,
+          "win": 53.6,
+          "pf": 1.306,
+          "avg_r": 0.16,
+          "r_lo": 0.04,
+          "r_hi": 0.278,
+          "t_mo": 10.3
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "require_adx_rising": false
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "is": {
+          "n": 56,
+          "win": 57.1,
+          "pf": 1.487,
+          "avg_r": 0.229,
+          "r_lo": 0.031,
+          "r_hi": 0.427,
+          "t_mo": 3.8
+        },
+        "oos": {
+          "n": 42,
+          "win": 52.4,
+          "pf": 1.281,
+          "avg_r": 0.145,
+          "r_lo": -0.07,
+          "r_hi": 0.36,
+          "t_mo": 2.9
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + norm/exp + BTC agrees": {
+        "is": {
+          "n": 136,
+          "win": 58.1,
+          "pf": 1.567,
+          "avg_r": 0.258,
+          "r_lo": 0.134,
+          "r_hi": 0.375,
+          "t_mo": 9.3
+        },
+        "oos": {
+          "n": 134,
+          "win": 54.5,
+          "pf": 1.354,
+          "avg_r": 0.179,
+          "r_lo": 0.059,
+          "r_hi": 0.311,
+          "t_mo": 9.2
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + norm/exp + RS>0": {
+        "is": {
+          "n": 127,
+          "win": 58.3,
+          "pf": 1.581,
+          "avg_r": 0.263,
+          "r_lo": 0.136,
+          "r_hi": 0.395,
+          "t_mo": 8.7
+        },
+        "oos": {
+          "n": 123,
+          "win": 49.6,
+          "pf": 1.116,
+          "avg_r": 0.07,
+          "r_lo": -0.06,
+          "r_hi": 0.199,
+          "t_mo": 8.4
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ],
+          "rs_min": 0.0
+        }
+      }
+    }
+  },
+  "carry": {
+    "btc_long": {
+      "no ema200 + expansion": {
+        "is": {
+          "n": 16,
+          "win": 81.2,
+          "pf": 4.667,
+          "avg_r": 0.749,
+          "r_lo": 0.467,
+          "r_hi": 1.031,
+          "t_mo": 1.1
+        },
+        "oos": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 3.965,
+          "avg_r": 0.685,
+          "r_lo": 0.363,
+          "r_hi": 1.005,
+          "t_mo": 1.0
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion": {
+        "is": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 3.95,
+          "avg_r": 0.688,
+          "r_lo": 0.365,
+          "r_hi": 1.009,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 12,
+          "win": 83.3,
+          "pf": 5.311,
+          "avg_r": 0.787,
+          "r_lo": 0.414,
+          "r_hi": 1.158,
+          "t_mo": 0.8
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "is": {
+          "n": 14,
+          "win": 78.6,
+          "pf": 3.95,
+          "avg_r": 0.688,
+          "r_lo": 0.365,
+          "r_hi": 1.01,
+          "t_mo": 1.0
+        },
+        "oos": {
+          "n": 16,
+          "win": 62.5,
+          "pf": 1.758,
+          "avg_r": 0.314,
+          "r_lo": -0.106,
+          "r_hi": 0.604,
+          "t_mo": 1.1
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "btc_short": {
+      "ema200 + any regime": {
+        "is": {
+          "n": 29,
+          "win": 65.5,
+          "pf": 2.094,
+          "avg_r": 0.406,
+          "r_lo": 0.172,
+          "r_hi": 0.64,
+          "t_mo": 2.0
+        },
+        "oos": {
+          "n": 33,
+          "win": 51.5,
+          "pf": 1.185,
+          "avg_r": 0.098,
+          "r_lo": -0.171,
+          "r_hi": 0.367,
+          "t_mo": 2.3
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    },
+    "alt_long": {
+      "ema200 + expansion": {
+        "is": {
+          "n": 41,
+          "win": 68.3,
+          "pf": 2.516,
+          "avg_r": 0.494,
+          "r_lo": 0.275,
+          "r_hi": 0.712,
+          "t_mo": 2.8
+        },
+        "oos": {
+          "n": 56,
+          "win": 57.1,
+          "pf": 1.524,
+          "avg_r": 0.244,
+          "r_lo": 0.044,
+          "r_hi": 0.444,
+          "t_mo": 3.8
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ]
+        }
+      },
+      "ema200 + expansion + BTC agrees": {
+        "is": {
+          "n": 41,
+          "win": 68.3,
+          "pf": 2.516,
+          "avg_r": 0.494,
+          "r_lo": 0.274,
+          "r_hi": 0.713,
+          "t_mo": 2.8
+        },
+        "oos": {
+          "n": 53,
+          "win": 58.5,
+          "pf": 1.608,
+          "avg_r": 0.274,
+          "r_lo": 0.063,
+          "r_hi": 0.485,
+          "t_mo": 3.6
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "btc_filter": true
+        }
+      },
+      "ema200 + expansion, adx flat ok": {
+        "is": {
+          "n": 43,
+          "win": 67.4,
+          "pf": 2.407,
+          "avg_r": 0.474,
+          "r_lo": 0.266,
+          "r_hi": 0.683,
+          "t_mo": 2.9
+        },
+        "oos": {
+          "n": 61,
+          "win": 57.4,
+          "pf": 1.538,
+          "avg_r": 0.249,
+          "r_lo": 0.065,
+          "r_hi": 0.433,
+          "t_mo": 4.2
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            2
+          ],
+          "require_adx_rising": false
+        }
+      }
+    },
+    "alt_short": {
+      "no ema200 + normal/expansion": {
+        "is": {
+          "n": 156,
+          "win": 60.9,
+          "pf": 1.772,
+          "avg_r": 0.322,
+          "r_lo": 0.207,
+          "r_hi": 0.434,
+          "t_mo": 10.6
+        },
+        "oos": {
+          "n": 168,
+          "win": 51.8,
+          "pf": 1.213,
+          "avg_r": 0.116,
+          "r_lo": 0.008,
+          "r_hi": 0.225,
+          "t_mo": 11.5
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      },
+      "no ema200 + any regime": {
+        "is": {
+          "n": 217,
+          "win": 57.6,
+          "pf": 1.561,
+          "avg_r": 0.252,
+          "r_lo": 0.159,
+          "r_hi": 0.351,
+          "t_mo": 14.8
+        },
+        "oos": {
+          "n": 184,
+          "win": 50.5,
+          "pf": 1.153,
+          "avg_r": 0.088,
+          "r_lo": -0.021,
+          "r_hi": 0.199,
+          "t_mo": 12.6
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": false,
+          "regimes": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      "ema200 + normal/expansion": {
+        "is": {
+          "n": 136,
+          "win": 58.1,
+          "pf": 1.567,
+          "avg_r": 0.258,
+          "r_lo": 0.136,
+          "r_hi": 0.382,
+          "t_mo": 9.3
+        },
+        "oos": {
+          "n": 136,
+          "win": 54.4,
+          "pf": 1.349,
+          "avg_r": 0.177,
+          "r_lo": 0.06,
+          "r_hi": 0.308,
+          "t_mo": 9.3
+        },
+        "carry": true,
+        "gates": {
+          "require_ema200": true,
+          "regimes": [
+            1,
+            2
+          ]
+        }
+      }
+    }
+  }
+}

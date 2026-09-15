@@ -1,0 +1,192 @@
+{
+  "source": "Coinbase Exchange public candles API",
+  "granularity": "1d",
+  "fetched": "2026-08-27T12:54:07.431721+00:00",
+  "date_range": [
+    "2021-08-23",
+    "2026-08-27"
+  ],
+  "span_years": 5.01,
+  "n_bars": 1831,
+  "symbols": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "DOGE",
+    "LINK",
+    "ADA",
+    "XLM",
+    "BCH",
+    "LTC",
+    "ZEC",
+    "DOT",
+    "UNI",
+    "AAVE",
+    "ETC",
+    "FIL",
+    "ATOM",
+    "ALGO",
+    "ICP",
+    "AVAX",
+    "NEAR",
+    "INJ",
+    "HBAR",
+    "APT",
+    "SUI",
+    "XRP"
+  ],
+  "per_symbol": {
+    "BTC": {
+      "product": "BTC-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "ETH": {
+      "product": "ETH-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "XRP": {
+      "product": "XRP-USD",
+      "n": 1142,
+      "first": "2023-07-13",
+      "last": "2026-08-27"
+    },
+    "SOL": {
+      "product": "SOL-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "DOGE": {
+      "product": "DOGE-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "LINK": {
+      "product": "LINK-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "ADA": {
+      "product": "ADA-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "XLM": {
+      "product": "XLM-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "BCH": {
+      "product": "BCH-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "LTC": {
+      "product": "LTC-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "HBAR": {
+      "product": "HBAR-USD",
+      "n": 1415,
+      "first": "2022-10-13",
+      "last": "2026-08-27"
+    },
+    "AVAX": {
+      "product": "AVAX-USD",
+      "n": 1793,
+      "first": "2021-09-30",
+      "last": "2026-08-27"
+    },
+    "ZEC": {
+      "product": "ZEC-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "DOT": {
+      "product": "DOT-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "UNI": {
+      "product": "UNI-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "AAVE": {
+      "product": "AAVE-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "ETC": {
+      "product": "ETC-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "FIL": {
+      "product": "FIL-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "ATOM": {
+      "product": "ATOM-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "ALGO": {
+      "product": "ALGO-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "SUI": {
+      "product": "SUI-USD",
+      "n": 1198,
+      "first": "2023-05-18",
+      "last": "2026-08-27"
+    },
+    "APT": {
+      "product": "APT-USD",
+      "n": 1409,
+      "first": "2022-10-19",
+      "last": "2026-08-27"
+    },
+    "NEAR": {
+      "product": "NEAR-USD",
+      "n": 1457,
+      "first": "2022-09-01",
+      "last": "2026-08-27"
+    },
+    "ICP": {
+      "product": "ICP-USD",
+      "n": 1831,
+      "first": "2021-08-23",
+      "last": "2026-08-27"
+    },
+    "INJ": {
+      "product": "INJ-USD",
+      "n": 1438,
+      "first": "2022-09-20",
+      "last": "2026-08-27"
+    }
+  },
+  "fill_policy": "forward-fill only; never backfill (backfill leaks future prices)",
+  "universe_note": "top tradeable names by market cap; stablecoins (USDT/USDC/USDS/DAI/USD1/USDE/USDG) and exchange tokens (WBT/LEO) excluded -- they have no trend to be at a 4-year low against"
+}

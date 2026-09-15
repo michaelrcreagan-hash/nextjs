@@ -1,0 +1,100 @@
+{
+  "panel_bars": 6567,
+  "symbols": [
+    "AVAX",
+    "BTC",
+    "DOGE",
+    "ETH",
+    "LINK",
+    "LTC",
+    "SOL",
+    "XRP"
+  ],
+  "results": {
+    "keltner L/S": {
+      "pass_pct": 81.7,
+      "pass_lo": 75.0,
+      "pass_hi": 88.3,
+      "breach_dd_pct": 0.0,
+      "breach_daily_pct": 0.0,
+      "unresolved_pct": 18.3,
+      "trade_win_pct": 49.8,
+      "profit_factor": 1.91,
+      "avg_r": 0.448,
+      "trades_per_month": 4.7,
+      "median_months_to_pass": 9.1,
+      "n_trades": 2300
+    },
+    "keltner long-only": {
+      "pass_pct": 55.0,
+      "pass_lo": 46.7,
+      "pass_hi": 63.3,
+      "breach_dd_pct": 0.0,
+      "breach_daily_pct": 0.0,
+      "unresolved_pct": 45.0,
+      "trade_win_pct": 60.0,
+      "profit_factor": 2.73,
+      "avg_r": 0.71,
+      "trades_per_month": 2.1,
+      "median_months_to_pass": 8.9,
+      "n_trades": 1145
+    },
+    "pullback L/S": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 6.7,
+      "breach_daily_pct": 0.0,
+      "unresolved_pct": 93.3,
+      "trade_win_pct": 20.6,
+      "profit_factor": 0.48,
+      "avg_r": -0.432,
+      "trades_per_month": 1.1,
+      "median_months_to_pass": null,
+      "n_trades": 998
+    },
+    "pullback long-only": {
+      "pass_pct": 0.0,
+      "pass_lo": 0.0,
+      "pass_hi": 0.0,
+      "breach_dd_pct": 0.0,
+      "breach_daily_pct": 0.0,
+      "unresolved_pct": 100.0,
+      "trade_win_pct": 17.1,
+      "profit_factor": 0.38,
+      "avg_r": -0.544,
+      "trades_per_month": 0.2,
+      "median_months_to_pass": null,
+      "n_trades": 199
+    },
+    "donchian L/S": {
+      "pass_pct": 53.3,
+      "pass_lo": 45.0,
+      "pass_hi": 61.7,
+      "breach_dd_pct": 41.7,
+      "breach_daily_pct": 0.0,
+      "unresolved_pct": 5.0,
+      "trade_win_pct": 39.8,
+      "profit_factor": 1.22,
+      "avg_r": 0.135,
+      "trades_per_month": 12.9,
+      "median_months_to_pass": 3.2,
+      "n_trades": 2766
+    },
+    "donchian long-only": {
+      "pass_pct": 55.0,
+      "pass_lo": 46.7,
+      "pass_hi": 63.3,
+      "breach_dd_pct": 38.3,
+      "breach_daily_pct": 0.0,
+      "unresolved_pct": 6.7,
+      "trade_win_pct": 42.6,
+      "profit_factor": 1.38,
+      "avg_r": 0.212,
+      "trades_per_month": 6.2,
+      "median_months_to_pass": 4.3,
+      "n_trades": 1640
+    }
+  },
+  "winner": "keltner L/S"
+}

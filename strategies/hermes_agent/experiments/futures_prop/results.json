@@ -1,0 +1,170 @@
+{
+  "profiles": {
+    "topstep50k_trailing": {
+      "account": 50000.0,
+      "target_usd": 3000.0,
+      "max_dd_usd": 2000.0,
+      "daily_loss_pct": 2.0,
+      "trailing": true
+    },
+    "topstep50k_static": {
+      "account": 50000.0,
+      "target_usd": 3000.0,
+      "max_dd_usd": 2000.0,
+      "daily_loss_pct": 2.0,
+      "trailing": false
+    }
+  },
+  "symbols": [
+    "CL",
+    "ES",
+    "GC",
+    "HG",
+    "NG",
+    "NQ",
+    "RTY",
+    "SI",
+    "YM",
+    "ZN"
+  ],
+  "bars": 3454,
+  "rules_status": "REPRESENTATIVE Topstep-style, NOT confirmed -- no firm named",
+  "results": {
+    "topstep50k_trailing": {
+      "risk0.25 rr1.25": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 85.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 36.6,
+        "profit_factor": 0.55,
+        "trades_per_month": 7.5,
+        "median_months_to_pass": null
+      },
+      "risk0.50 rr1.25": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 100.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 41.6,
+        "profit_factor": 0.69,
+        "trades_per_month": 7.5,
+        "median_months_to_pass": null
+      },
+      "risk0.50 rr1.5": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 100.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 38.2,
+        "profit_factor": 0.73,
+        "trades_per_month": 6.7,
+        "median_months_to_pass": null
+      },
+      "risk0.75 rr1.5": {
+        "pass_pct": 22.5,
+        "pass_lo": 15.0,
+        "pass_hi": 30.0,
+        "breach_dd_pct": 72.5,
+        "breach_daily_pct": 5.0,
+        "trade_win_pct": 41.6,
+        "profit_factor": 0.91,
+        "trades_per_month": 6.9,
+        "median_months_to_pass": 1.6
+      },
+      "risk0.50 rr2.0": {
+        "pass_pct": 5.0,
+        "pass_lo": 0.0,
+        "pass_hi": 10.0,
+        "breach_dd_pct": 95.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 29.9,
+        "profit_factor": 0.72,
+        "trades_per_month": 7.2,
+        "median_months_to_pass": 3.1
+      },
+      "risk0.35 rr1.25": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 85.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 38.6,
+        "profit_factor": 0.6,
+        "trades_per_month": 7.6,
+        "median_months_to_pass": null
+      }
+    },
+    "topstep50k_static": {
+      "risk0.25 rr1.25": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 80.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 35.2,
+        "profit_factor": 0.52,
+        "trades_per_month": 7.5,
+        "median_months_to_pass": null
+      },
+      "risk0.50 rr1.25": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 97.5,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 38.9,
+        "profit_factor": 0.62,
+        "trades_per_month": 7.4,
+        "median_months_to_pass": null
+      },
+      "risk0.50 rr1.5": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 82.5,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 35.7,
+        "profit_factor": 0.66,
+        "trades_per_month": 6.7,
+        "median_months_to_pass": null
+      },
+      "risk0.75 rr1.5": {
+        "pass_pct": 22.5,
+        "pass_lo": 15.0,
+        "pass_hi": 30.0,
+        "breach_dd_pct": 67.5,
+        "breach_daily_pct": 5.0,
+        "trade_win_pct": 39.2,
+        "profit_factor": 0.82,
+        "trades_per_month": 6.7,
+        "median_months_to_pass": 1.6
+      },
+      "risk0.50 rr2.0": {
+        "pass_pct": 5.0,
+        "pass_lo": 0.0,
+        "pass_hi": 10.0,
+        "breach_dd_pct": 75.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 27.8,
+        "profit_factor": 0.65,
+        "trades_per_month": 6.6,
+        "median_months_to_pass": 3.1
+      },
+      "risk0.35 rr1.25": {
+        "pass_pct": 0.0,
+        "pass_lo": 0.0,
+        "pass_hi": 0.0,
+        "breach_dd_pct": 85.0,
+        "breach_daily_pct": 0.0,
+        "trade_win_pct": 36.8,
+        "profit_factor": 0.56,
+        "trades_per_month": 7.5,
+        "median_months_to_pass": null
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "source": "Portfolio_Positions_Aug232026.xlsx",
+  "account": "Z34628250 Joint WROS (taxable brokerage, margin)",
+  "as_of": "2026-08-23",
+  "net_equity_usd": 18996.05,
+  "gross_position_value_usd": 27586.98,
+  "pending_activity_usd": -8590.93,
+  "n_positions": 132,
+  "avg_position_usd": 208.99,
+  "sleeves": {
+    "high_beta": {
+      "n": 101,
+      "value": 19026.41,
+      "pct_of_equity": 100.2,
+      "cost_basis": 21113.05,
+      "unrealized": -2086.64
+    },
+    "yield_income": {
+      "n": 3,
+      "value": 3250.2,
+      "pct_of_equity": 17.1,
+      "cost_basis": 2527.39,
+      "unrealized": 172.16
+    },
+    "options": {
+      "n": 17,
+      "value": 4086.0,
+      "pct_of_equity": 21.5,
+      "cost_basis": 12603.94,
+      "unrealized": -771.42
+    },
+    "macro_hedge": {
+      "n": 11,
+      "value": 1224.37,
+      "pct_of_equity": 6.4,
+      "cost_basis": 1608.54,
+      "unrealized": -192.11
+    }
+  },
+  "crypto_linked": {
+    "n": 24,
+    "value_usd": 6423.15,
+    "pct_of_equity": 33.8,
+    "warning": "overlaps Coinbase + Hyperliquid sleeves; net, do not add"
+  },
+  "capacity": {
+    "positions_under_200usd": 79,
+    "value_usd": 8603.88,
+    "pct_of_equity": 45.3
+  }
+}

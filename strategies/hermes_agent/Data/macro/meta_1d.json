@@ -1,0 +1,70 @@
+{
+  "source": "Yahoo Finance chart endpoint (keyless, undocumented)",
+  "fetched": "2026-08-27T17:56:03.882707+00:00",
+  "interval": "1d",
+  "series": {
+    "VIX": {
+      "symbol": "^VIX",
+      "bars": 2514,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "DXY": {
+      "symbol": "DX-Y.NYB",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "TNX": {
+      "symbol": "^TNX",
+      "bars": 2512,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "IRX": {
+      "symbol": "^IRX",
+      "bars": 2512,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "SMH": {
+      "symbol": "SMH",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "HYG": {
+      "symbol": "HYG",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "LQD": {
+      "symbol": "LQD",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "SPY": {
+      "symbol": "SPY",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    },
+    "GLD": {
+      "symbol": "GLD",
+      "bars": 2513,
+      "years": 9.99,
+      "first": "2016-08-29",
+      "last": "2026-08-27"
+    }
+  }
+}
