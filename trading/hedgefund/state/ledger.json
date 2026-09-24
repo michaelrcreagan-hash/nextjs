@@ -7,7 +7,7 @@
       "shares": 61.800247386390296,
       "entry_px": 193.98,
       "entry_date": "2026-07-02",
-      "peak_px": 225.52999877929688,
+      "peak_px": 262.489990234375,
       "stop_px": 182.256
     },
     "DDOG": {
@@ -152,8 +152,15 @@
       "cash": 76000.0,
       "n_positions": 2,
       "regime": "MIXED"
+    },
+    {
+      "date": "2026-09-23",
+      "equity": 103801.55,
+      "cash": 76000.0,
+      "n_positions": 2,
+      "regime": "RISK_ON"
     }
   ],
-  "last_run": "2026-08-19T14:05:52",
+  "last_run": "2026-09-24T17:54:46",
   "last_rebalance": "2026-07-02"
 }
