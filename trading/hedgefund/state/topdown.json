@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-09-24T17:55:16",
-  "as_of": "2026-09-23",
+  "generated_utc": "2026-09-25T18:02:03",
+  "as_of": "2026-09-24",
   "regime": "RISK_ON",
   "cycle_multiplier": 0.49,
   "sleeve_weights": {
@@ -12,22 +12,22 @@
   },
   "position_targets": {
     "PFF": 0.075,
-    "MARA": 0.0719,
+    "MARA": 0.0726,
     "GLD": 0.0469,
-    "NBIS": 0.046,
-    "XLU": 0.0339,
-    "NEE": 0.0317,
-    "STX": 0.0293,
-    "XLV": 0.0244,
-    "LITE": 0.0243,
-    "UNH": 0.0209,
-    "URNM": 0.0191,
-    "JNJ": 0.0167,
-    "COPX": 0.0157,
-    "FCX": 0.0145,
-    "LLY": 0.0135,
+    "NBIS": 0.0457,
+    "XLU": 0.0308,
+    "STX": 0.0296,
+    "NEE": 0.0291,
+    "XLV": 0.0275,
+    "LITE": 0.0236,
+    "UNH": 0.0217,
+    "LLY": 0.0204,
+    "JNJ": 0.0178,
+    "URNM": 0.0169,
+    "COPX": 0.0139,
+    "FCX": 0.0128,
     "TLT": 0.0094,
-    "CCJ": 0.0058
+    "CCJ": 0.005
   },
   "themes": [
     {
@@ -37,223 +37,223 @@
     },
     {
       "theme": "enterprise_ai_software",
-      "score": 91.8,
-      "action": "INCREASE"
-    },
-    {
-      "theme": "ai_compute",
-      "score": 88.1,
+      "score": 89.0,
       "action": "MAINTAIN"
     },
     {
-      "theme": "ai_networking_optical",
-      "score": 78.9,
-      "action": "WATCH"
+      "theme": "ai_compute",
+      "score": 86.9,
+      "action": "MAINTAIN"
     },
     {
       "theme": "data_centers",
-      "score": 70.7,
+      "score": 70.2,
       "action": "WATCH"
     },
     {
+      "theme": "ai_networking_optical",
+      "score": 65.5,
+      "action": "REDUCE"
+    },
+    {
       "theme": "semi_equipment",
-      "score": 63.8,
+      "score": 63.9,
       "action": "REDUCE"
     },
     {
       "theme": "healthcare_ai",
-      "score": 59.2,
+      "score": 59.0,
       "action": "REDUCE"
     },
     {
       "theme": "power_infrastructure",
-      "score": 50.1,
+      "score": 51.6,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 39.4,
+      "score": 38.3,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 19.8,
+      "score": 19.9,
       "action": "REDUCE"
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 19.5,
+      "score": 19.4,
       "action": "REDUCE"
     }
   ],
   "qualified": [
+    "AMD",
     "CRWD",
-    "NVDA",
     "PLTR",
-    "ANET",
-    "MU",
-    "MSFT",
-    "MRVL",
-    "STX",
     "DDOG",
-    "NOW"
+    "MU",
+    "NVDA",
+    "STX"
   ],
   "setups": [
     {
-      "symbol": "CRWD",
-      "last": 262.49,
-      "atr20": 9.23,
+      "symbol": "AMD",
+      "last": 629.26,
+      "atr20": 15.13,
       "mode": "breakout/now",
       "entry_zone": [
-        262.49,
-        263.8
+        629.26,
+        632.41
       ],
-      "stop": 240.08,
-      "target_2R": 309.28,
+      "stop": 593.0,
+      "target_2R": 706.5,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 2960.0,
-      "full_notional": 11842.0
+      "starter_notional": 3116.0,
+      "full_notional": 12465.0
     },
     {
-      "symbol": "NVDA",
-      "last": 225.51,
-      "atr20": 4.43,
+      "symbol": "CRWD",
+      "last": 259.67,
+      "atr20": 7.43,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        218.62,
-        223.05
+        228.12,
+        235.55
       ],
-      "stop": 209.76,
-      "target_2R": 242.99,
+      "stop": 213.26,
+      "target_2R": 268.98,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3114.0,
-      "full_notional": 12456.0
+      "starter_notional": 3116.0,
+      "full_notional": 12465.0
     },
     {
       "symbol": "PLTR",
-      "last": 191.79,
-      "atr20": 4.15,
+      "last": 192.59,
+      "atr20": 3.77,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        173.98,
-        178.13
+        175.67,
+        179.44
       ],
-      "stop": 165.68,
-      "target_2R": 196.79,
+      "stop": 168.14,
+      "target_2R": 196.39,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3114.0,
-      "full_notional": 12456.0
+      "starter_notional": 3116.0,
+      "full_notional": 12465.0
     },
     {
-      "symbol": "ANET",
-      "last": 203.47,
-      "atr20": 3.69,
-      "mode": "breakout/now",
+      "symbol": "DDOG",
+      "last": 256.92,
+      "atr20": 5.54,
+      "mode": "pullback to EMA21",
       "entry_zone": [
-        203.47,
-        204.49
+        233.23,
+        238.77
       ],
-      "stop": 194.75,
-      "target_2R": 222.43,
+      "stop": 222.15,
+      "target_2R": 263.71,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3114.0,
-      "full_notional": 12456.0
+      "starter_notional": 3116.0,
+      "full_notional": 12465.0
     },
     {
       "symbol": "MU",
-      "last": 1071.88,
-      "atr20": 24.3,
+      "last": 1080.53,
+      "atr20": 24.58,
       "mode": "breakout/now",
       "entry_zone": [
-        1071.88,
-        1077.24
+        1080.53,
+        1085.93
       ],
-      "stop": 1013.82,
-      "target_2R": 1196.04,
+      "stop": 1021.78,
+      "target_2R": 1206.13,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3114.0,
-      "full_notional": 12456.0
+      "starter_notional": 3116.0,
+      "full_notional": 12465.0
     }
   ],
   "options": [
     {
-      "rank": 98.4,
-      "structure": "credit spread / iron condor (sell premium)",
-      "short_atr": 1.5,
-      "long_atr": 2.0,
-      "rationale": "IV rank 98 > 60 \u2014 premium is rich, sell it",
-      "spot": 262.489990234375,
-      "atr": 9.226501464843745,
-      "short_strike_call": 276.33,
-      "short_strike_put": 248.65,
-      "long_strike_call": 280.94,
-      "long_strike_put": 244.04,
-      "date": "2026-09-23",
-      "symbol": "CRWD"
-    },
-    {
-      "rank": 83.3,
-      "structure": "credit spread / iron condor (sell premium)",
-      "short_atr": 1.5,
-      "long_atr": 2.0,
-      "rationale": "IV rank 83 > 60 \u2014 premium is rich, sell it",
-      "spot": 225.50999450683597,
-      "atr": 4.429927825927725,
-      "short_strike_call": 232.15,
-      "short_strike_put": 218.87,
-      "long_strike_call": 234.37,
-      "long_strike_put": 216.65,
-      "date": "2026-09-23",
-      "symbol": "NVDA"
-    },
-    {
-      "rank": 44.8,
+      "rank": 33.7,
       "structure": "debit spread (buy directional)",
       "long_atr": 1.0,
       "short_atr": 2.0,
-      "rationale": "IV rank 45 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
-      "spot": 191.7899932861328,
-      "atr": 4.148499298095703,
-      "long_strike_call": 195.94,
-      "long_strike_put": 187.64,
-      "short_strike_call": 200.09,
-      "short_strike_put": 183.49,
-      "date": "2026-09-23",
+      "rationale": "IV rank 34 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
+      "spot": 629.260009765625,
+      "atr": 15.13250274658203,
+      "long_strike_call": 644.39,
+      "long_strike_put": 614.13,
+      "short_strike_call": 659.53,
+      "short_strike_put": 599.0,
+      "date": "2026-09-24",
+      "symbol": "AMD"
+    },
+    {
+      "rank": 90.1,
+      "structure": "credit spread / iron condor (sell premium)",
+      "short_atr": 1.5,
+      "long_atr": 2.0,
+      "rationale": "IV rank 90 > 60 \u2014 premium is rich, sell it",
+      "spot": 259.6700134277344,
+      "atr": 7.4284996032714785,
+      "short_strike_call": 270.81,
+      "short_strike_put": 248.53,
+      "long_strike_call": 274.53,
+      "long_strike_put": 244.81,
+      "date": "2026-09-24",
+      "symbol": "CRWD"
+    },
+    {
+      "rank": 35.7,
+      "structure": "debit spread (buy directional)",
+      "long_atr": 1.0,
+      "short_atr": 2.0,
+      "rationale": "IV rank 36 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
+      "spot": 192.58999633789065,
+      "atr": 3.7669998168945327,
+      "long_strike_call": 196.36,
+      "long_strike_put": 188.82,
+      "short_strike_call": 200.12,
+      "short_strike_put": 185.06,
+      "date": "2026-09-24",
       "symbol": "PLTR"
     },
     {
-      "rank": 7.5,
-      "structure": "avoid selling; long strangle only with a confirmed catalyst",
-      "strike_atr": 2.5,
-      "rationale": "IV rank 8 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 203.47000122070312,
-      "atr": 3.690998840332037,
-      "strike_strike_call": 212.7,
-      "strike_strike_put": 194.24,
-      "date": "2026-09-23",
-      "symbol": "ANET"
+      "rank": 43.3,
+      "structure": "debit spread (buy directional)",
+      "long_atr": 1.0,
+      "short_atr": 2.0,
+      "rationale": "IV rank 43 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
+      "spot": 256.9200134277344,
+      "atr": 5.54250030517579,
+      "long_strike_call": 262.46,
+      "long_strike_put": 251.38,
+      "short_strike_call": 268.01,
+      "short_strike_put": 245.84,
+      "date": "2026-09-24",
+      "symbol": "DDOG"
     },
     {
-      "rank": 4.0,
+      "rank": 3.6,
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
       "rationale": "IV rank 4 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 1071.8800048828125,
-      "atr": 24.29700317382814,
-      "strike_strike_call": 1132.62,
-      "strike_strike_put": 1011.14,
-      "date": "2026-09-23",
+      "spot": 1080.530029296875,
+      "atr": 24.57900390625003,
+      "strike_strike_call": 1141.98,
+      "strike_strike_put": 1019.08,
+      "date": "2026-09-24",
       "symbol": "MU"
     }
   ],
   "hedge_signals": {
     "tlt_below_200dma": true,
-    "spy_tlt_corr_126d": 0.3
+    "spy_tlt_corr_126d": 0.28
   },
   "pmcc_core_on": true,
   "invalidated": false
