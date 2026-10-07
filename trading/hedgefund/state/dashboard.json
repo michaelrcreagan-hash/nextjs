@@ -1,60 +1,100 @@
 {
-  "as_of": "2026-10-05",
-  "generated_utc": "2026-10-06T18:59:29",
+  "as_of": "2026-10-06",
+  "generated_utc": "2026-10-07T19:27:17",
   "stale": false,
   "regime": {
     "state": "RISK_ON",
     "score": 7,
     "multiplier": 1.0,
-    "breadth": 0.763
+    "breadth": 0.895
   },
-  "equity": 105578.32,
+  "equity": 106044.89407472344,
   "start_equity": 100000.0,
   "actions": [],
   "positions": {
     "CRWD": {
       "shares": 61.8002,
       "entry_px": 193.98,
-      "last_px": 272.6700134277344,
-      "unrealized": 40.6
+      "last_px": 278.8599853515625,
+      "unrealized": 43.8
     },
     "DDOG": {
       "shares": 46.044,
       "entry_px": 260.36,
-      "last_px": 276.4150085449219,
-      "unrealized": 6.2
+      "last_px": 278.239990234375,
+      "unrealized": 6.9
     }
   },
   "watchlist": [
     {
-      "symbol": "MSFT",
-      "score": 91.6,
+      "symbol": "CRWD",
+      "score": 87.9,
       "tier": "Platinum",
       "category": "ai_software",
       "trend_gate": true,
       "asymmetric": false,
-      "rsi": 66.4,
-      "off_52w_high": 2.3
-    },
-    {
-      "symbol": "LITE",
-      "score": 78.9,
-      "tier": "Gold",
-      "category": "networking_optical",
-      "trend_gate": true,
-      "asymmetric": false,
-      "rsi": 67.4,
+      "rsi": 72.4,
       "off_52w_high": 0.0
     },
     {
-      "symbol": "CRWD",
-      "score": 76.8,
+      "symbol": "ANET",
+      "score": 87.4,
+      "tier": "Platinum",
+      "category": "networking_optical",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 67.1,
+      "off_52w_high": 0.0
+    },
+    {
+      "symbol": "AMD",
+      "score": 84.2,
+      "tier": "Gold",
+      "category": "compute",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 72.5,
+      "off_52w_high": 0.0
+    },
+    {
+      "symbol": "MRVL",
+      "score": 83.0,
+      "tier": "Gold",
+      "category": "compute",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 70.3,
+      "off_52w_high": 9.3
+    },
+    {
+      "symbol": "MSFT",
+      "score": 81.1,
       "tier": "Gold",
       "category": "ai_software",
       "trend_gate": true,
       "asymmetric": false,
-      "rsi": 70.1,
+      "rsi": 68.2,
+      "off_52w_high": 1.6
+    },
+    {
+      "symbol": "LITE",
+      "score": 79.5,
+      "tier": "Gold",
+      "category": "networking_optical",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 70.4,
       "off_52w_high": 0.0
+    },
+    {
+      "symbol": "DELL",
+      "score": 77.4,
+      "tier": "Gold",
+      "category": "server_oem",
+      "trend_gate": true,
+      "asymmetric": true,
+      "rsi": 59.7,
+      "off_52w_high": 2.4
     },
     {
       "symbol": "NVDA",
@@ -63,164 +103,122 @@
       "category": "compute",
       "trend_gate": true,
       "asymmetric": false,
-      "rsi": 67.2,
+      "rsi": 67.4,
       "off_52w_high": 0.0
     },
     {
-      "symbol": "AMD",
-      "score": 74.7,
-      "tier": "Gold",
-      "category": "compute",
-      "trend_gate": true,
-      "asymmetric": false,
-      "rsi": 69.6,
-      "off_52w_high": 0.3
-    },
-    {
-      "symbol": "SNOW",
-      "score": 74.2,
+      "symbol": "PLTR",
+      "score": 75.7,
       "tier": "Gold",
       "category": "ai_software",
-      "trend_gate": true,
-      "asymmetric": true,
-      "rsi": 55.5,
-      "off_52w_high": 4.9
-    },
-    {
-      "symbol": "SMCI",
-      "score": 70.3,
-      "tier": "Gold",
-      "category": "server_oem",
-      "trend_gate": true,
-      "asymmetric": false,
-      "rsi": 61.0,
-      "off_52w_high": 26.4
-    },
-    {
-      "symbol": "DELL",
-      "score": 69.3,
-      "tier": "Silver",
-      "category": "server_oem",
-      "trend_gate": true,
-      "asymmetric": true,
-      "rsi": 55.4,
-      "off_52w_high": 6.1
-    },
-    {
-      "symbol": "DDOG",
-      "score": 68.9,
-      "tier": "Silver",
-      "category": "ai_software",
-      "trend_gate": true,
-      "asymmetric": false,
-      "rsi": 70.6,
-      "off_52w_high": 4.1
-    },
-    {
-      "symbol": "TER",
-      "score": 68.8,
-      "tier": "Silver",
-      "category": "semicap",
-      "trend_gate": true,
-      "asymmetric": false,
-      "rsi": 68.1,
-      "off_52w_high": 8.1
-    },
-    {
-      "symbol": "ANET",
-      "score": 68.4,
-      "tier": "Silver",
-      "category": "networking_optical",
-      "trend_gate": true,
-      "asymmetric": true,
-      "rsi": 59.7,
-      "off_52w_high": 1.7
-    },
-    {
-      "symbol": "MRVL",
-      "score": 64.1,
-      "tier": "Silver",
-      "category": "compute",
       "trend_gate": true,
       "asymmetric": false,
       "rsi": 64.6,
-      "off_52w_high": 14.3
-    },
-    {
-      "symbol": "PLTR",
-      "score": 63.6,
-      "tier": "Silver",
-      "category": "ai_software",
-      "trend_gate": true,
-      "asymmetric": false,
-      "rsi": 62.0,
-      "off_52w_high": 8.6
+      "off_52w_high": 7.3
     },
     {
       "symbol": "PWR",
-      "score": 58.3,
+      "score": 74.1,
+      "tier": "Gold",
+      "category": "power",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 71.1,
+      "off_52w_high": 8.3
+    },
+    {
+      "symbol": "SMCI",
+      "score": 70.8,
+      "tier": "Gold",
+      "category": "server_oem",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 61.7,
+      "off_52w_high": 25.9
+    },
+    {
+      "symbol": "ETN",
+      "score": 68.9,
       "tier": "Silver",
       "category": "power",
       "trend_gate": true,
       "asymmetric": false,
-      "rsi": 63.7,
-      "off_52w_high": 12.9
+      "rsi": 60.1,
+      "off_52w_high": 3.2
     },
     {
-      "symbol": "ASML",
-      "score": 54.1,
+      "symbol": "DDOG",
+      "score": 68.4,
+      "tier": "Silver",
+      "category": "ai_software",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 71.4,
+      "off_52w_high": 3.4
+    },
+    {
+      "symbol": "NOW",
+      "score": 56.6,
+      "tier": "Silver",
+      "category": "ai_software",
+      "trend_gate": true,
+      "asymmetric": false,
+      "rsi": 54.2,
+      "off_52w_high": 27.1
+    },
+    {
+      "symbol": "TER",
+      "score": 54.6,
       "tier": "Bronze",
       "category": "semicap",
       "trend_gate": true,
       "asymmetric": false,
-      "rsi": 63.9,
-      "off_52w_high": 6.4
+      "rsi": 62.3,
+      "off_52w_high": 11.0
     }
   ],
   "asymmetric_setups": [
-    "SNOW",
-    "DELL",
-    "ANET"
+    "DELL"
   ],
   "themes": [
     {
-      "theme": "hbm_memory",
-      "score": 93.5,
+      "theme": "ai_networking_optical",
+      "score": 93.9,
+      "action": "INCREASE"
+    },
+    {
+      "theme": "ai_compute",
+      "score": 92.5,
       "action": "INCREASE"
     },
     {
       "theme": "enterprise_ai_software",
-      "score": 90.2,
+      "score": 90.8,
       "action": "INCREASE"
     },
     {
-      "theme": "ai_networking_optical",
-      "score": 89.4,
-      "action": "MAINTAIN"
-    },
-    {
       "theme": "semi_equipment",
-      "score": 87.9,
-      "action": "MAINTAIN"
-    },
-    {
-      "theme": "ai_compute",
-      "score": 86.3,
+      "score": 85.9,
       "action": "MAINTAIN"
     },
     {
       "theme": "data_centers",
-      "score": 70.0,
-      "action": "REDUCE"
+      "score": 85.1,
+      "action": "MAINTAIN"
+    },
+    {
+      "theme": "hbm_memory",
+      "score": 74.9,
+      "action": "WATCH"
     },
     {
       "theme": "power_infrastructure",
-      "score": 55.5,
-      "action": "REDUCE"
+      "score": 74.7,
+      "action": "WATCH"
     },
     {
       "theme": "nuclear",
-      "score": 7.9,
+      "score": 8.6,
       "action": "REDUCE"
     }
   ],
