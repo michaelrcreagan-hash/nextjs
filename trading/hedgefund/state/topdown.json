@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-10-08T19:22:20",
-  "as_of": "2026-10-07",
+  "generated_utc": "2026-10-09T18:55:41",
+  "as_of": "2026-10-08",
   "regime": "RISK_ON",
   "cycle_multiplier": 0.77,
   "sleeve_weights": {
@@ -25,43 +25,43 @@
   },
   "themes": [
     {
-      "theme": "ai_networking_optical",
-      "score": 93.3,
-      "action": "INCREASE"
-    },
-    {
-      "theme": "ai_compute",
-      "score": 91.2,
-      "action": "INCREASE"
-    },
-    {
       "theme": "enterprise_ai_software",
-      "score": 90.4,
+      "score": 90.6,
       "action": "INCREASE"
     },
     {
-      "theme": "semi_equipment",
-      "score": 85.0,
+      "theme": "ai_networking_optical",
+      "score": 87.1,
       "action": "MAINTAIN"
     },
     {
-      "theme": "power_infrastructure",
-      "score": 74.8,
-      "action": "WATCH"
+      "theme": "semi_equipment",
+      "score": 85.2,
+      "action": "MAINTAIN"
+    },
+    {
+      "theme": "ai_compute",
+      "score": 84.2,
+      "action": "MAINTAIN"
     },
     {
       "theme": "hbm_memory",
-      "score": 72.2,
+      "score": 71.0,
       "action": "WATCH"
     },
     {
+      "theme": "power_infrastructure",
+      "score": 69.7,
+      "action": "REDUCE"
+    },
+    {
       "theme": "data_centers",
-      "score": 69.9,
+      "score": 67.8,
       "action": "REDUCE"
     },
     {
       "theme": "healthcare_ai",
-      "score": 57.6,
+      "score": 57.3,
       "action": "REDUCE"
     },
     {
@@ -71,169 +71,168 @@
     },
     {
       "theme": "nuclear",
-      "score": 37.6,
+      "score": 38.0,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 17.8,
+      "score": 17.9,
       "action": "REDUCE"
     }
   ],
   "qualified": [
+    "PLTR",
+    "SNOW",
     "MRVL",
     "MSFT",
-    "ANET",
-    "PLTR",
-    "AMD",
-    "LITE",
-    "NVDA",
-    "CRWD",
     "DDOG",
-    "NOW"
+    "ANET",
+    "AMD",
+    "NOW",
+    "CRWD"
   ],
   "setups": [
     {
-      "symbol": "MRVL",
-      "last": 284.68,
-      "atr20": 6.7,
+      "symbol": "PLTR",
+      "last": 198.78,
+      "atr20": 2.41,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        253.96,
-        260.66
+        184.76,
+        187.17
       ],
-      "stop": 240.56,
-      "target_2R": 290.8,
+      "stop": 179.94,
+      "target_2R": 198.03,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3147.0,
-      "full_notional": 12588.0
+      "starter_notional": 3146.0,
+      "full_notional": 12583.0
+    },
+    {
+      "symbol": "SNOW",
+      "last": 343.4,
+      "atr20": 4.53,
+      "mode": "breakout/now",
+      "entry_zone": [
+        343.4,
+        345.12
+      ],
+      "stop": 332.95,
+      "target_2R": 366.88,
+      "trail": "25% from peak after 1R",
+      "risk_pct_equity": 1.0,
+      "starter_notional": 3146.0,
+      "full_notional": 12583.0
+    },
+    {
+      "symbol": "MRVL",
+      "last": 274.66,
+      "atr20": 6.8,
+      "mode": "pullback to EMA21",
+      "entry_zone": [
+        255.49,
+        262.29
+      ],
+      "stop": 241.9,
+      "target_2R": 292.87,
+      "trail": "25% from peak after 1R",
+      "risk_pct_equity": 1.0,
+      "starter_notional": 3146.0,
+      "full_notional": 12583.0
     },
     {
       "symbol": "MSFT",
-      "last": 529.76,
-      "atr20": 5.17,
+      "last": 522.61,
+      "atr20": 5.49,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        506.63,
-        511.8
+        507.69,
+        513.17
       ],
-      "stop": 496.28,
-      "target_2R": 535.07,
+      "stop": 496.71,
+      "target_2R": 537.88,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3147.0,
-      "full_notional": 12588.0
+      "starter_notional": 3146.0,
+      "full_notional": 12583.0
     },
     {
-      "symbol": "ANET",
-      "last": 215.83,
-      "atr20": 3.34,
-      "mode": "breakout/now",
-      "entry_zone": [
-        215.83,
-        216.91
-      ],
-      "stop": 208.02,
-      "target_2R": 233.07,
-      "trail": "25% from peak after 1R",
-      "risk_pct_equity": 1.0,
-      "starter_notional": 3147.0,
-      "full_notional": 12588.0
-    },
-    {
-      "symbol": "PLTR",
-      "last": 194.12,
-      "atr20": 2.36,
+      "symbol": "DDOG",
+      "last": 273.8,
+      "atr20": 4.05,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        183.51,
-        185.87
+        257.2,
+        261.25
       ],
-      "stop": 178.78,
-      "target_2R": 196.5,
+      "stop": 249.1,
+      "target_2R": 279.46,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3147.0,
-      "full_notional": 12588.0
-    },
-    {
-      "symbol": "AMD",
-      "last": 645.86,
-      "atr20": 14.05,
-      "mode": "breakout/now",
-      "entry_zone": [
-        645.86,
-        649.09
-      ],
-      "stop": 612.34,
-      "target_2R": 717.74,
-      "trail": "25% from peak after 1R",
-      "risk_pct_equity": 1.0,
-      "starter_notional": 3147.0,
-      "full_notional": 12588.0
+      "starter_notional": 3146.0,
+      "full_notional": 12583.0
     }
   ],
   "options": [
-    {
-      "rank": 28.2,
-      "structure": "avoid selling; long strangle only with a confirmed catalyst",
-      "strike_atr": 2.5,
-      "rationale": "IV rank 28 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 284.67999267578125,
-      "atr": 6.698499298095699,
-      "strike_strike_call": 301.43,
-      "strike_strike_put": 267.93,
-      "date": "2026-10-07",
-      "symbol": "MRVL"
-    },
-    {
-      "rank": 21.0,
-      "structure": "avoid selling; long strangle only with a confirmed catalyst",
-      "strike_atr": 2.5,
-      "rationale": "IV rank 21 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 529.760009765625,
-      "atr": 5.17150421142577,
-      "strike_strike_call": 542.69,
-      "strike_strike_put": 516.83,
-      "date": "2026-10-07",
-      "symbol": "MSFT"
-    },
-    {
-      "rank": 5.6,
-      "structure": "avoid selling; long strangle only with a confirmed catalyst",
-      "strike_atr": 2.5,
-      "rationale": "IV rank 6 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 215.8300018310547,
-      "atr": 3.340000152587885,
-      "strike_strike_call": 224.18,
-      "strike_strike_put": 207.48,
-      "date": "2026-10-07",
-      "symbol": "ANET"
-    },
     {
       "rank": 0.4,
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
       "rationale": "IV rank 0 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 194.1199951171875,
-      "atr": 2.3624984741210966,
-      "strike_strike_call": 200.03,
-      "strike_strike_put": 188.21,
-      "date": "2026-10-07",
+      "spot": 198.77999877929688,
+      "atr": 2.4119987487792995,
+      "strike_strike_call": 204.81,
+      "strike_strike_put": 192.75,
+      "date": "2026-10-08",
       "symbol": "PLTR"
     },
     {
-      "rank": 21.4,
+      "rank": 2.8,
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
-      "rationale": "IV rank 21 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 645.8599853515625,
-      "atr": 14.053997802734376,
-      "strike_strike_call": 680.99,
-      "strike_strike_put": 610.72,
-      "date": "2026-10-07",
-      "symbol": "AMD"
+      "rationale": "IV rank 3 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 343.3999938964844,
+      "atr": 4.525003051757812,
+      "strike_strike_call": 354.71,
+      "strike_strike_put": 332.09,
+      "date": "2026-10-08",
+      "symbol": "SNOW"
+    },
+    {
+      "rank": 28.2,
+      "structure": "avoid selling; long strangle only with a confirmed catalyst",
+      "strike_atr": 2.5,
+      "rationale": "IV rank 28 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 274.6600036621094,
+      "atr": 6.7969993591308535,
+      "strike_strike_call": 291.65,
+      "strike_strike_put": 257.67,
+      "date": "2026-10-08",
+      "symbol": "MRVL"
+    },
+    {
+      "rank": 27.0,
+      "structure": "avoid selling; long strangle only with a confirmed catalyst",
+      "strike_atr": 2.5,
+      "rationale": "IV rank 27 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 522.6099853515625,
+      "atr": 5.4895050048827985,
+      "strike_strike_call": 536.33,
+      "strike_strike_put": 508.89,
+      "date": "2026-10-08",
+      "symbol": "MSFT"
+    },
+    {
+      "rank": 5.2,
+      "structure": "avoid selling; long strangle only with a confirmed catalyst",
+      "strike_atr": 2.5,
+      "rationale": "IV rank 5 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 273.79998779296875,
+      "atr": 4.047499084472662,
+      "strike_strike_call": 283.92,
+      "strike_strike_put": 263.68,
+      "date": "2026-10-08",
+      "symbol": "DDOG"
     }
   ],
   "hedge_signals": {
