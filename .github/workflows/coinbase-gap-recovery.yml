@@ -1,0 +1,35 @@
+name: Coinbase source gap recovery
+
+on:
+  pull_request:
+    paths:
+      - 'research/recover_coinbase_4h_gaps.py'
+      - 'research/tests/test_recover_coinbase_4h_gaps.py'
+      - '.github/workflows/coinbase-gap-recovery.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Offline recovery unit tests
+        run: python -m unittest discover -s research/tests -v
+      - name: Coinbase public H1 backfill attempt
+        run: |
+          python research/recover_coinbase_4h_gaps.py \
+            --network --root . --output /tmp/coinbase-gap-recovery.json
+      - name: Preserve source evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coinbase-gap-recovery-receipt
+          path: /tmp/coinbase-gap-recovery.json
+          if-no-files-found: warn
+          retention-days: 7
