@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/recover_coinbase_4h_gaps.py'
+      - 'crypto-prop-strategies/data/h4/*_4h.csv'
       - 'research/tests/test_recover_coinbase_4h_gaps.py'
       - '.github/workflows/coinbase-gap-recovery.yml'
 
