@@ -168,10 +168,34 @@ def recover(root: Path, use_network: bool):
             "results": recorded, "all_valid": all(r["recovery_state"] == "SOURCE_VALIDATED" for r in recorded)}
 
 
+def confirmed_source_gap(report):
+    """Classification is acceptable only when all native source queries succeeded."""
+    if len(report.get("results", [])) != len(SYMBOLS):
+        return False
+    for entry in report["results"]:
+        if len(entry.get("missing_4h_timestamps", [])) != len(TARGETS):
+            return False
+        if entry["recovery_state"] != "BLOCKED_OR_PARTIAL":
+            return False
+        if entry.get("recovered_bars") or entry.get("unresolved_gap_count") != len(TARGETS):
+            return False
+        expected = {"NO_COMPLETE_NATIVE_4H_BAR_" + str(epoch(stamp)) for stamp in TARGETS}
+        if set(entry.get("errors", [])) != expected:
+            return False
+        source = entry.get("source_requests", [])
+        if len(source) != 4 or any(q.get("error") or not q.get("sha256_raw_response") for q in source):
+            return False
+        anchors = entry.get("anchors", [])
+        if len(anchors) < 3 or not all(a.get("matches_stored") for a in anchors):
+            return False
+    return True
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument("--network", action="store_true")
+    p.add_argument("--allow-confirmed-source-gap", action="store_true", help="Exit 0 ONLY for independently evidenced absent source bars; does not fill bars")
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
     report = recover(args.root, args.network)
@@ -181,7 +205,12 @@ def main():
         f.write("\n")
     print("summary:", [(r["symbol"], r["recovery_state"], len(r["recovered_bars"]),
                        r["unresolved_gap_count"], r["errors"]) for r in report["results"]])
-    return 0 if report["all_valid"] else 2
+    if report["all_valid"]:
+        return 0
+    if args.allow_confirmed_source_gap and confirmed_source_gap(report):
+        print("EVIDENCE_STATUS=BLOCKED_UPSTREAM: 24 native Coinbase bars not recoverable; no synthetic values committed")
+        return 0
+    return 2
 
 
 if __name__ == "__main__":
