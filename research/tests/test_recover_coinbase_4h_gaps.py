@@ -1,7 +1,7 @@
 """Offline source integrity and non-interpolation tests."""
 import unittest
 
-from research.recover_coinbase_4h_gaps import resample, equal_bar
+from research.recover_coinbase_4h_gaps import resample, resample_5min, equal_bar, confirmed_source_gap, SYMBOLS, TARGETS, epoch
 
 class CoinbaseGapTests(unittest.TestCase):
     def test_four_hours_required(self):
@@ -25,6 +25,29 @@ class CoinbaseGapTests(unittest.TestCase):
         original = {"open": 100, "high": 102, "low": 99, "close": 101, "volume": 5}
         changed = dict(original, volume=7)
         self.assertFalse(equal_bar(original, changed))
+
+    def test_five_minute_requires_all_48_bins(self):
+        base = 1693245600 // 14400 * 14400
+        rows = [[base+i*300, 9, 12, 10, 11, 1] for i in range(48)]
+        self.assertEqual(len(resample_5min(rows)), 1)
+        self.assertEqual(len(resample_5min(rows[:-1])), 0)
+
+    def test_confirmed_source_gaps_must_have_receipts(self):
+        rows = []
+        for symbol in SYMBOLS:
+            timestamps = [epoch(t) for t in TARGETS]
+            rows.append({
+                "symbol": symbol, "missing_4h_timestamps": timestamps,
+                "recovery_state": "BLOCKED_OR_PARTIAL", "recovered_bars": [],
+                "unresolved_gap_count": 3,
+                "errors": ["NO_COMPLETE_NATIVE_4H_BAR_" + str(t) for t in timestamps],
+                "anchors": [{"matches_stored": True}] * 3,
+                "source_requests": [{"error": None, "sha256_raw_response": "abc"}] * 4
+            })
+        report = {"results": rows}
+        self.assertTrue(confirmed_source_gap(report))
+        report["results"][0]["source_requests"][0] = {"error": "blocked", "sha256_raw_response": None}
+        self.assertFalse(confirmed_source_gap(report))
 
     def test_duplicate_hourly_ts_fails_closed(self):
         base = 1693245600 // 14400 * 14400
