@@ -54,8 +54,26 @@ def resample(hourly):
     return result
 
 
-def fetch_hourly(symbol: str, start: str, end: str):
-    params = urllib.parse.urlencode({"granularity": 3600, "start": start, "end": end})
+def resample_5min(five_minute):
+    """Only reconstruct a 4H candle if ALL 48 exchange 5m bins are present."""
+    by_time = {int(x[0]): x for x in five_minute}
+    result = {}
+    for bar in sorted({ts // BAR_SEC * BAR_SEC for ts in by_time}):
+        stamps = [bar + i * 300 for i in range(48)]
+        if any(t not in by_time for t in stamps):
+            continue
+        h = [by_time[t] for t in stamps]
+        result[bar] = {"ts": bar, "open": float(h[0][3]),
+                       "high": max(float(x[2]) for x in h),
+                       "low": min(float(x[1]) for x in h),
+                       "close": float(h[-1][4]),
+                       "volume": sum(float(x[5]) for x in h),
+                       "source_resolution_seconds": 300, "hours": stamps}
+    return result
+
+
+def fetch_hourly(symbol: str, start: str, end: str, granularity=3600):
+    params = urllib.parse.urlencode({"granularity": granularity, "start": start, "end": end})
     url = f"https://api.exchange.coinbase.com/products/{symbol}-USD/candles?{params}"
     errors = []
     for attempt in range(3):
@@ -102,6 +120,17 @@ def recover(root: Path, use_network: bool):
             if error:
                 conflicts.append("FETCH_FAILED_" + start)
                 continue
+            fine, fine_sha, fine_error = fetch_hourly(symbol, start, end, 300)
+            source_receipts.append({"start": start, "end": end, "sha256_raw_response": fine_sha,
+                                    "native_five_minute_records": len(fine), "error": fine_error,
+                                    "endpoint": f"coinbase_exchange_public_{symbol}_USD_300"})
+            if fine_error:
+                conflicts.append("5MIN_FETCH_FAILED_" + start)
+            for k, row in resample_5min(fine).items():
+                if k in known_bars and not equal_bar(known_bars[k], row):
+                    conflicts.append("FIVE_MINUTE_HOURLY_MISMATCH_" + str(k))
+                else:
+                    known_bars[k] = row
             for k, row in resample(series).items():
                 if k in known_bars and not equal_bar(known_bars[k], row):
                     conflicts.append("SOURCE_DUPLICATE_CONFLICT_" + str(k))
