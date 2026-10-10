@@ -8,13 +8,25 @@ class CoinbaseGapTests(unittest.TestCase):
         hour = 3600
         base = 1693245600  # 2023-08-28T18:00Z, intentionally unaligned
         base = (base // 14400) * 14400
-        rows = [[base+i*hour, 9, 12, 10+i, 11+i, 1+i] for i in range(4)]
+        rows = [[base+i*hour, 9, 20, 10+i, 11+i, 1+i] for i in range(4)]
         agg = resample(rows)
         self.assertEqual(agg[base]["open"], 10)
         self.assertEqual(agg[base]["close"], 14)
-        self.assertEqual(agg[base]["high"], 12)
+        self.assertEqual(agg[base]["high"], 20)
         self.assertEqual(agg[base]["low"], 9)
         self.assertEqual(agg[base]["volume"], 10)
+
+    def test_duplicate_hour_is_rejected(self):
+        base = 1693245600 // 14400 * 14400
+        rows = [[base+i*3600, 9, 20, 10, 11, 1] for i in range(4)]
+        with self.assertRaises(ValueError):
+            resample(rows + [rows[0]])
+
+    def test_malformed_native_ohlc_is_rejected(self):
+        base = 1693245600 // 14400 * 14400
+        rows = [[base+i*3600, 9, 8, 10, 11, 1] for i in range(4)]
+        with self.assertRaises(ValueError):
+            resample(rows)
 
     def test_missing_hour_no_candle(self):
         base = 1693245600 // 14400 * 14400
