@@ -33,9 +33,29 @@ def source_csv(path: Path):
         return {int(row["ts"]): row for row in csv.DictReader(f)}
 
 
+def verify_native_rows(series):
+    """Reject duplicate native bars, incorrect timestamp grains, and bad OHLCV."""
+    native = {}
+    for row in series:
+        if len(row) < 6:
+            raise ValueError("NATIVE_MISSING_FIELDS")
+        timestamp = int(row[0])
+        if timestamp in native:
+            raise ValueError("DUPLICATE_NATIVE_TIMESTAMP")
+        low, high, opn, close, volume = [float(v) for v in row[1:6]]
+        if not all(math.isfinite(v) for v in (low, high, opn, close, volume)):
+            raise ValueError("NONFINITE_NATIVE_CANDLE")
+        if low <= 0 or opn <= 0 or close <= 0 or high < max(low, opn, close) or low > min(opn, close):
+            raise ValueError("INVALID_NATIVE_OHLC")
+        if volume < 0:
+            raise ValueError("INVALID_NATIVE_VOLUME")
+        native[timestamp] = row
+    return native
+
+
 def resample(hourly):
     """Aggregate exactly 4 consecutive source H1 bars; reject incomplete bars."""
-    hourly_by_ts = {int(row[0]): row for row in hourly}
+    hourly_by_ts = verify_native_rows(hourly)
     result = {}
     for bar in sorted({ts // BAR_SEC * BAR_SEC for ts in hourly_by_ts}):
         stamps = [bar + i * 3600 for i in range(4)]
@@ -48,7 +68,7 @@ def resample(hourly):
                   "volume": sum(float(x[5]) for x in h), "hours": stamps}
         if not all(math.isfinite(values[k]) and values[k] > 0 for k in ("open","high","low","close")):
             continue
-        if not math.isfinite(values["volume"]) or values["volume"] <= 0:
+        if not math.isfinite(values["volume"]) or values["volume"] <= 0 or values["high"] < max(values["open"], values["close"]) or values["low"] > min(values["open"], values["close"]):
             continue
         result[bar] = values
     return result
@@ -56,7 +76,7 @@ def resample(hourly):
 
 def resample_5min(five_minute):
     """Only reconstruct a 4H candle if ALL 48 exchange 5m bins are present."""
-    by_time = {int(x[0]): x for x in five_minute}
+    by_time = verify_native_rows(five_minute)
     result = {}
     for bar in sorted({ts // BAR_SEC * BAR_SEC for ts in by_time}):
         stamps = [bar + i * 300 for i in range(48)]
@@ -69,6 +89,10 @@ def resample_5min(five_minute):
                        "close": float(h[-1][4]),
                        "volume": sum(float(x[5]) for x in h),
                        "source_resolution_seconds": 300, "hours": stamps}
+    result = {t: v for t, v in result.items()
+              if math.isfinite(v["volume"]) and v["volume"] > 0 and
+              v["high"] >= max(v["open"], v["close"]) and
+              v["low"] <= min(v["open"], v["close"])}
     return result
 
 
@@ -88,6 +112,9 @@ def fetch_hourly(symbol: str, start: str, end: str, granularity=3600):
                     raise ValueError("Non-list Coinbase response")
                 if any(not isinstance(x, list) or len(x) < 6 for x in payload):
                     raise ValueError("Malformed Coinbase hourly candle")
+                if len({int(x[0]) for x in payload}) != len(payload):
+                    raise ValueError("DUPLICATE_NATIVE_TIMESTAMP")
+                verify_native_rows(payload)
                 return payload, hashlib.sha256(raw).hexdigest(), None
         except (urllib.error.URLError, OSError, ValueError, json.JSONDecodeError) as e:
             errors.append(type(e).__name__ + ": " + str(e)[:160])
@@ -115,14 +142,14 @@ def recover(root: Path, use_network: bool):
                 raise ValueError("Retrieval requires --network; never synthesize missing source bars")
             series, raw_sha, error = fetch_hourly(symbol, start, end)
             source_receipts.append({"start": start, "end": end, "sha256_raw_response": raw_sha,
-                                    "hourly_records": len(series), "error": error,
+                                    "hourly_records": len(series), "native_rows": series, "error": error,
                                     "endpoint": f"coinbase_exchange_public_{symbol}_USD_3600"})
             if error:
                 conflicts.append("FETCH_FAILED_" + start)
                 continue
             fine, fine_sha, fine_error = fetch_hourly(symbol, start, end, 300)
             source_receipts.append({"start": start, "end": end, "sha256_raw_response": fine_sha,
-                                    "native_five_minute_records": len(fine), "error": fine_error,
+                                    "native_five_minute_records": len(fine), "native_rows": fine, "error": fine_error,
                                     "endpoint": f"coinbase_exchange_public_{symbol}_USD_300"})
             if fine_error:
                 conflicts.append("5MIN_FETCH_FAILED_" + start)
@@ -146,6 +173,15 @@ def recover(root: Path, use_network: bool):
             for adjacent in (t - BAR_SEC, t + BAR_SEC):
                 if adjacent in historical and adjacent in known_bars:
                     anchors.append({"ts": adjacent, "matches_stored": equal_bar(historical[adjacent], known_bars[adjacent])})
+        # Validate both historical boundary bars for EACH disconnected window;
+        # source can be incomplete even when all target bars are returned.
+        required_boundary = {epoch("2025-10-25T12:00:00+00:00"),
+                             epoch("2025-10-25T20:00:00+00:00"),
+                             epoch("2026-05-07T20:00:00+00:00"),
+                             epoch("2026-05-08T08:00:00+00:00")}
+        present_verified = {a["ts"] for a in anchors if a["matches_stored"]}
+        if required_boundary - present_verified:
+            conflicts.append("MISSING_OR_INVALID_REQUIRED_BOUNDARY_ANCHOR")
         if not anchors or not all(a["matches_stored"] for a in anchors):
             conflicts.append("ADJACENT_SOURCE_RECONCILIATION_FAILED")
         current = set(historical)
