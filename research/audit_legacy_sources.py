@@ -12,6 +12,7 @@ from datetime import date, datetime, timezone
 import hashlib
 import json
 import math
+import subprocess
 from pathlib import Path
 import re
 
@@ -68,6 +69,8 @@ def audit_csv(path: Path, family: dict) -> dict:
                      "first": None, "last": None, "errors": [], "warnings": []}
     errors: set[str] = set()
     gaps = 0
+    missing_slots = 0
+    gap_windows = []
     previous = None
     expected = set(family["expected"])
     try:
@@ -86,6 +89,14 @@ def audit_csv(path: Path, family: dict) -> dict:
                             delta = time - previous
                             if delta > FOUR_HOURS_SECONDS:
                                 gaps += 1
+                                if delta % FOUR_HOURS_SECONDS == 0:
+                                    slots = delta // FOUR_HOURS_SECONDS - 1
+                                    missing_slots += slots
+                                    gap_windows.append({
+                                        'after': datetime.fromtimestamp(previous, tz=timezone.utc).isoformat(),
+                                        'before': datetime.fromtimestamp(time, tz=timezone.utc).isoformat(),
+                                        'missing_4h_slots': slots,
+                                    })
                             if delta % FOUR_HOURS_SECONDS:
                                 errors.add("NON_4H_GRID")
                     if family["timestamp"] == "ts" and time % FOUR_HOURS_SECONDS:
@@ -117,6 +128,8 @@ def audit_csv(path: Path, family: dict) -> dict:
     if gaps:
         outcome["warnings"].append("MISSING_4H_INTERVALS")
     outcome["missing_4h_intervals"] = gaps
+    outcome["missing_4h_slots"] = missing_slots
+    outcome["gap_windows"] = gap_windows
     outcome["errors"] = sorted(errors)
     outcome["evidence_class"] = family["status"]
     outcome["limitations"] = family["limitation"]
@@ -143,10 +156,19 @@ def audit_repository(root: Path) -> dict:
             "rejected_shape_files": sum(bool(f["errors"]) for f in files),
         })
     futures = root / "strategies/hermes_agent/Data/futures"
+    commit = None
+    try:
+        result = subprocess.run(['git', '-C', str(root), 'rev-parse', 'HEAD'],
+                                capture_output=True, text=True, timeout=5, check=True)
+        candidate = result.stdout.strip()
+        if re.fullmatch(r'[0-9a-f]{40}', candidate):
+            commit = candidate
+    except (OSError, subprocess.SubprocessError):
+        pass
     return {
         "schema_version": "nextjs-research-inventory/v1",
         "source_repo": "michaelrcreagan-hash/nextjs",
-        "source_commit": "SUPPLY_COMMIT_SHA_IN_HANDOFF",
+        "source_commit": commit,
         "raw_data_attestation": "LOCAL_FILE_SHA256_AND_SHAPE_ONLY",
         "historical_membership_point_in_time": False,
         "research_strategy_certification": False,
