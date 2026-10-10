@@ -55,6 +55,20 @@ class LegacySourcesTest(unittest.TestCase):
         self.assertNotIn("secret", json.dumps(result))
         self.assertEqual(result["futures"]["actual_local_csv_count"], 0)
 
+    def test_crypto_reports_exact_gap_slots(self):
+        p = self.root / FAMILIES[1]["rel"] / "BTC_4h.csv"
+        p.parent.mkdir(parents=True)
+        p.write_text(
+            "ts,datetime,open,high,low,close,volume\n"
+            "1693238400,2023-08-28T16:00:00+00:00,10,12,9,11,100\n"
+            "1693267200,2023-08-29T00:00:00+00:00,10,12,9,11,100\n"
+        )
+        result = audit_csv(p, FAMILIES[1])
+        self.assertEqual(result["missing_4h_intervals"], 1)
+        self.assertEqual(result["missing_4h_slots"], 1)
+        self.assertEqual(result["gap_windows"][0]["missing_4h_slots"], 1)
+        self.assertFalse(result["errors"])
+
     def test_crypto_resampled_timestamp_mismatch(self):
         p = self.root / FAMILIES[1]["rel"] / "BTC_4h.csv"
         p.parent.mkdir(parents=True)
