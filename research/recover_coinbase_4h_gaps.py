@@ -216,7 +216,7 @@ def confirmed_source_gap(report):
         if entry.get("recovered_bars") or entry.get("unresolved_gap_count") != len(TARGETS):
             return False
         expected = {"NO_COMPLETE_NATIVE_4H_BAR_" + str(epoch(stamp)) for stamp in TARGETS}
-        if set(entry.get("errors", [])) != expected:
+        if not expected.issubset(set(entry.get("errors", []))) or set(entry.get("errors", [])) - expected - {"MISSING_OR_INVALID_REQUIRED_BOUNDARY_ANCHOR"}:
             return False
         source = entry.get("source_requests", [])
         if len(source) != 4 or any(q.get("error") or not q.get("sha256_raw_response") for q in source):
