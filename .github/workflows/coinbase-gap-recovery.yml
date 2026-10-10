@@ -24,7 +24,7 @@ jobs:
       - name: Coinbase public H1 backfill attempt
         run: |
           python research/recover_coinbase_4h_gaps.py \
-            --network --root . --output /tmp/coinbase-gap-recovery.json
+            --network --allow-confirmed-source-gap --root . --output /tmp/coinbase-gap-recovery.json
       - name: Preserve source evidence even on failure
         if: always()
         uses: actions/upload-artifact@v4
