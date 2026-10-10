@@ -47,3 +47,10 @@ __pycache__/
 strategies/*/Data/h4/*.csv
 strategies/*/Data/futures/*.csv
 strategies/*/Data/macro/*.csv
+
+# Prevent newly generated personal-account snapshots and local broker exports.
+# NOTE: already tracked historical files remain in Git until separately purged.
+strategies/hermes_agent/Data/real_accounts/**
+**/private_account_exports/**
+**/*broker_statement*.csv
+**/*tax_lots*.csv
