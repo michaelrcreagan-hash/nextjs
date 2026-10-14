@@ -1,6 +1,6 @@
 {
-  "generated_utc": "2026-10-13T19:56:15",
-  "as_of": "2026-10-12",
+  "generated_utc": "2026-10-14T18:07:37",
+  "as_of": "2026-10-13",
   "regime": "RISK_ON",
   "cycle_multiplier": 0.77,
   "sleeve_weights": {
@@ -26,37 +26,37 @@
   "themes": [
     {
       "theme": "enterprise_ai_software",
-      "score": 92.8,
+      "score": 93.3,
       "action": "INCREASE"
     },
     {
       "theme": "ai_networking_optical",
-      "score": 82.6,
-      "action": "MAINTAIN"
-    },
-    {
-      "theme": "semi_equipment",
-      "score": 81.3,
+      "score": 82.3,
       "action": "MAINTAIN"
     },
     {
       "theme": "power_infrastructure",
-      "score": 75.3,
+      "score": 75.9,
       "action": "WATCH"
     },
     {
-      "theme": "hbm_memory",
+      "theme": "ai_compute",
       "score": 69.8,
       "action": "REDUCE"
     },
     {
-      "theme": "ai_compute",
-      "score": 69.1,
+      "theme": "data_centers",
+      "score": 68.0,
       "action": "REDUCE"
     },
     {
-      "theme": "data_centers",
-      "score": 67.8,
+      "theme": "hbm_memory",
+      "score": 67.7,
+      "action": "REDUCE"
+    },
+    {
+      "theme": "semi_equipment",
+      "score": 60.5,
       "action": "REDUCE"
     },
     {
@@ -66,160 +66,156 @@
     },
     {
       "theme": "digital_assets_tokenization",
-      "score": 49.6,
+      "score": 49.2,
       "action": "REDUCE"
     },
     {
       "theme": "nuclear",
-      "score": 37.7,
+      "score": 37.9,
       "action": "REDUCE"
     },
     {
       "theme": "resources_electrification",
-      "score": 17.6,
+      "score": 17.4,
       "action": "REDUCE"
     }
   ],
   "qualified": [
-    "SNOW",
     "PLTR",
+    "SNOW",
     "MSFT",
     "DDOG",
-    "NOW",
-    "LITE"
+    "NOW"
   ],
   "setups": [
     {
-      "symbol": "SNOW",
-      "last": 360.37,
-      "atr20": 6.02,
+      "symbol": "PLTR",
+      "last": 208.67,
+      "atr20": 2.53,
       "mode": "breakout/now",
       "entry_zone": [
-        360.37,
-        362.17
+        208.67,
+        209.71
       ],
-      "stop": 346.22,
-      "target_2R": 391.38,
+      "stop": 202.86,
+      "target_2R": 221.86,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3164.0,
-      "full_notional": 12658.0
+      "starter_notional": 3156.0,
+      "full_notional": 12623.0
     },
     {
-      "symbol": "PLTR",
-      "last": 209.0,
-      "atr20": 2.56,
+      "symbol": "SNOW",
+      "last": 357.76,
+      "atr20": 5.68,
       "mode": "breakout/now",
       "entry_zone": [
-        209.0,
-        210.04
+        357.76,
+        359.55
       ],
-      "stop": 203.13,
-      "target_2R": 222.3,
+      "stop": 344.45,
+      "target_2R": 387.07,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3164.0,
-      "full_notional": 12658.0
+      "starter_notional": 3156.0,
+      "full_notional": 12623.0
     },
     {
       "symbol": "MSFT",
-      "last": 541.15,
-      "atr20": 5.77,
+      "last": 543.45,
+      "atr20": 5.47,
       "mode": "breakout/now",
       "entry_zone": [
-        541.15,
-        543.86
+        543.45,
+        546.17
       ],
-      "stop": 528.08,
-      "target_2R": 571.34,
+      "stop": 531.14,
+      "target_2R": 572.15,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3164.0,
-      "full_notional": 12658.0
+      "starter_notional": 3156.0,
+      "full_notional": 12623.0
     },
     {
       "symbol": "DDOG",
-      "last": 287.29,
-      "atr20": 4.85,
+      "last": 283.34,
+      "atr20": 5.04,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        262.16,
-        267.01
+        263.77,
+        268.81
       ],
-      "stop": 252.46,
-      "target_2R": 288.84,
+      "stop": 253.7,
+      "target_2R": 291.48,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3164.0,
-      "full_notional": 12658.0
+      "starter_notional": 3156.0,
+      "full_notional": 12623.0
     },
     {
       "symbol": "NOW",
-      "last": 140.32,
-      "atr20": 2.14,
+      "last": 138.61,
+      "atr20": 2.2,
       "mode": "pullback to EMA21",
       "entry_zone": [
-        135.8,
-        137.94
+        135.93,
+        138.13
       ],
       "stop": 131.52,
-      "target_2R": 147.57,
+      "target_2R": 148.05,
       "trail": "25% from peak after 1R",
       "risk_pct_equity": 1.0,
-      "starter_notional": 3164.0,
-      "full_notional": 12658.0
+      "starter_notional": 3156.0,
+      "full_notional": 12623.0
     }
   ],
   "options": [
-    {
-      "rank": 26.6,
-      "structure": "avoid selling; long strangle only with a confirmed catalyst",
-      "strike_atr": 2.5,
-      "rationale": "IV rank 27 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 360.3699951171875,
-      "atr": 6.021003723144531,
-      "strike_strike_call": 375.42,
-      "strike_strike_put": 345.32,
-      "date": "2026-10-12",
-      "symbol": "SNOW"
-    },
     {
       "rank": 1.6,
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
       "rationale": "IV rank 2 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 209.0,
-      "atr": 2.555499267578128,
-      "strike_strike_call": 215.39,
-      "strike_strike_put": 202.61,
-      "date": "2026-10-12",
+      "spot": 208.6699981689453,
+      "atr": 2.534499359130862,
+      "strike_strike_call": 215.01,
+      "strike_strike_put": 202.33,
+      "date": "2026-10-13",
       "symbol": "PLTR"
     },
     {
-      "rank": 34.1,
-      "structure": "debit spread (buy directional)",
-      "long_atr": 1.0,
-      "short_atr": 2.0,
-      "rationale": "IV rank 34 in [30,60] \u2014 defined-risk directional bet, no strong edge either way on premium",
-      "spot": 541.1500244140625,
-      "atr": 5.768006896972645,
-      "long_strike_call": 546.92,
-      "long_strike_put": 535.38,
-      "short_strike_call": 552.69,
-      "short_strike_put": 529.61,
-      "date": "2026-10-12",
+      "rank": 16.7,
+      "structure": "avoid selling; long strangle only with a confirmed catalyst",
+      "strike_atr": 2.5,
+      "rationale": "IV rank 17 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 357.760009765625,
+      "atr": 5.683003234863281,
+      "strike_strike_call": 371.97,
+      "strike_strike_put": 343.55,
+      "date": "2026-10-13",
+      "symbol": "SNOW"
+    },
+    {
+      "rank": 21.4,
+      "structure": "avoid selling; long strangle only with a confirmed catalyst",
+      "strike_atr": 2.5,
+      "rationale": "IV rank 21 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 543.4500122070312,
+      "atr": 5.4685058593749885,
+      "strike_strike_call": 557.12,
+      "strike_strike_put": 529.78,
+      "date": "2026-10-13",
       "symbol": "MSFT"
     },
     {
-      "rank": 14.3,
+      "rank": 17.5,
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
-      "rationale": "IV rank 14 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 287.2900085449219,
-      "atr": 4.851500701904302,
-      "strike_strike_call": 299.42,
-      "strike_strike_put": 275.16,
-      "date": "2026-10-12",
+      "rationale": "IV rank 17 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
+      "spot": 283.3399963378906,
+      "atr": 5.03800125122071,
+      "strike_strike_call": 295.93,
+      "strike_strike_put": 270.74,
+      "date": "2026-10-13",
       "symbol": "DDOG"
     },
     {
@@ -227,11 +223,11 @@
       "structure": "avoid selling; long strangle only with a confirmed catalyst",
       "strike_atr": 2.5,
       "rationale": "IV rank 19 < 30 \u2014 premium is cheap, selling it is a poor risk/reward",
-      "spot": 140.32000732421875,
-      "atr": 2.1404983520507814,
-      "strike_strike_call": 145.67,
-      "strike_strike_put": 134.97,
-      "date": "2026-10-12",
+      "spot": 138.61000061035156,
+      "atr": 2.2034980773925783,
+      "strike_strike_call": 144.12,
+      "strike_strike_put": 133.1,
+      "date": "2026-10-13",
       "symbol": "NOW"
     }
   ],
