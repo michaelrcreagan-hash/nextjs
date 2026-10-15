@@ -1,0 +1,10 @@
+{
+  "sharpe": 0.006,
+  "total_return_pct": -0.24,
+  "max_dd_pct": -6.46,
+  "win_rate_pct": 29.9,
+  "trades": 127,
+  "profit_factor": 1.01,
+  "halted": false,
+  "breaches": []
+}
